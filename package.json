@@ -1,0 +1,21 @@
+{
+    "name": "WebScraper",
+    "version": "0.0.1",
+    "description": "My first scraper",
+    "main": "server.js",
+    "author": "Mike A",
+    "dependencies": {
+      "@googlemaps/google-maps-services-js": "^3.1.6",
+      "axios": "^0.19.2",
+      "cheerio": "latest",
+      "dotenv": "^8.2.0",
+      "express": "latest",
+      "mysql": "^2.18.1",
+      "node-fetch": "^2.6.0",
+      "puppeteer": "^5.0.0",
+      "request": "latest"
+    },
+    "scripts": {
+      "start": "nodemon server.js"
+    }
+  }
