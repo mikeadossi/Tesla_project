@@ -88,10 +88,24 @@ let scrape = async () => {
             })
 
             
-            return [ blackInt, whiteInt ]
+            return blackInt, whiteInt;
         }
 
-        return [await m3BatteryResults(), await m3ExteriorResults(), await m3InteriorResults()];
+        const m3FSD = async () => {
+            await page.click('.packages-options--nav-item[arial-label="autopilot"]');
+            const fsdPrice = await page.evaluate(() => {
+                return document.querySelector('.group--options_card--checkbox--container span:nth-child(2) span span').innerText;
+            });
+
+            return fsdPrice;
+        }
+
+        return [
+            await m3BatteryResults(), 
+            await m3ExteriorResults(), 
+            await m3InteriorResults(), 
+            await m3FSD()
+        ]; 
 
 
     } catch (err) {
