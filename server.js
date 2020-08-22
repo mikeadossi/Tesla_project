@@ -27,7 +27,7 @@ let scrape = async () => {
 
         await page.goto('https://www.tesla.com/model3/design#battery', { timeout: 60 * 1000 }); 
 
-        const m3BatteryResults = async () => { 
+        const m3BatteryResults = async () => {
             await page.waitForSelector('div[aria-label="Performance"]'); 
             const result = await page.evaluate(() => {
 
@@ -48,6 +48,7 @@ let scrape = async () => {
 
             // get "puppeteer reference" of the elements (different from the actual DOM reference when using e.g. page.querySelector)
             const colorButtonsRefs = await page.$$('.child-group--container__PAINT .group--options_asset--container[role="button"]');
+
             let result = [];
             for (let colorBtn of colorButtonsRefs) {
                 
@@ -65,7 +66,32 @@ let scrape = async () => {
             return result;
         }
 
-        return [await m3BatteryResults(), await m3ExteriorResults()];
+        const m3InteriorResults = async () => {
+            await page.waitForSelector('.packages-options--nav-item');
+            await page.click('.packages-options--nav-item[arial-label="interior"]');
+
+            // Notice the first 2 (of 4) paint elements on the screen are actually hidden, hence not clickable! (use of data-id was required)
+            await page.click('.child-group--container__INTERIOR .child-group--option_details .group--options_asset--container[data-id="$IN3B2"]')
+            const blackInt = await page.evaluate(() => {
+                const interiorName = document.querySelector('.child-group--container__INTERIOR .child-group--selected_option_details span:first-child').innerText;
+                const interiorPrice = document.querySelector('.child-group--container__INTERIOR .child-group--selected_option_details span:nth-child(2)').innerText;
+
+                return { interiorName, interiorPrice };
+            })
+
+            await page.click('.child-group--container__INTERIOR .child-group--option_details .group--options_asset--container[data-id="$IN3BW"]')
+            const whiteInt = await page.evaluate(() => {
+                const interiorName = document.querySelector('.child-group--container__INTERIOR .child-group--selected_option_details span:first-child').innerText;
+                const interiorPrice = document.querySelector('.child-group--container__INTERIOR .child-group--selected_option_details span:nth-child(2)').innerText;
+
+                return { interiorName, interiorPrice };
+            })
+
+            
+            return [ blackInt, whiteInt ]
+        }
+
+        return [await m3BatteryResults(), await m3ExteriorResults(), await m3InteriorResults()];
 
 
     } catch (err) {
