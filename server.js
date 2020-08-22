@@ -72,13 +72,10 @@ let scrape = async () => {
                 
                 // the if statement below removes all hidden button elements (this proved to be a nuisance)
                 if(classNames.indexOf('.group--option--hidden') === -1){
-                    console.log(' ---------> ',wheelsBtn._remoteObject.description)
                     await wheelsBtn.click();
                     const wheelsResult = await page.evaluate(() => {
-                        console.log('hola')
                         const wheelName = document.querySelector('.child-group--container.child-group--container__WHEELS .child-group--selected_option_details span:nth-child(1) span').innerText;
                         const wheelPrice = document.querySelector('.child-group--container.child-group--container__WHEELS .child-group--selected_option_details span:nth-child(2) span').innerText;
-                        console.log('this ------> ',{ wheelName, wheelPrice })
                         return { wheelName, wheelPrice };
                     })
                     result.push(wheelsResult);
@@ -91,25 +88,26 @@ let scrape = async () => {
             await page.waitForSelector('.packages-options--nav-item');
             await page.click('.packages-options--nav-item[arial-label="interior"]');
 
-            // Notice the first 2 (of 4) paint elements on the screen are actually hidden, hence not clickable! (use of data-id was required)
-            await page.click('.child-group--container__INTERIOR .child-group--option_details .group--options_asset--container[data-id="$IN3B2"]')
-            const blackInt = await page.evaluate(() => {
-                const interiorName = document.querySelector('.child-group--container__INTERIOR .child-group--selected_option_details span:first-child').innerText;
-                const interiorPrice = document.querySelector('.child-group--container__INTERIOR .child-group--selected_option_details span:nth-child(2)').innerText;
+            let result = [];
 
-                return { interiorName, interiorPrice };
-            })
+            const interiorRefs = await page.$$('.child-group--container__INTERIOR .child-group--option_details .group--options_asset--container');
+            for (let intBtn of interiorRefs) {
+                let classNames = intBtn._remoteObject.description;
 
-            await page.click('.child-group--container__INTERIOR .child-group--option_details .group--options_asset--container[data-id="$IN3BW"]')
-            const whiteInt = await page.evaluate(() => {
-                const interiorName = document.querySelector('.child-group--container__INTERIOR .child-group--selected_option_details span:first-child').innerText;
-                const interiorPrice = document.querySelector('.child-group--container__INTERIOR .child-group--selected_option_details span:nth-child(2)').innerText;
-
-                return { interiorName, interiorPrice };
-            })
-
-            
-            return blackInt, whiteInt;
+                // the if statement below removes all hidden button elements
+                if(classNames.indexOf('.group--option--hidden') === -1){
+                    console.log('---> ',intBtn._remoteObject.description)
+                    await intBtn.click();
+                    const interiorResult = await page.evaluate(() => {
+                        const interiorName = document.querySelector('.child-group--container__INTERIOR .child-group--selected_option_details span:first-child').innerText;
+                        const interiorPrice = document.querySelector('.child-group--container__INTERIOR .child-group--selected_option_details span:nth-child(2)').innerText;
+        
+                        return { interiorName, interiorPrice };
+                    })
+                    result.push(interiorResult);
+                }
+            }
+            return result;
         }
 
         const m3FSD = async () => {
