@@ -16,29 +16,38 @@ let scrape = async () => {
         const page = await browser.newPage();
         page.setViewport({ width: 1920, height: 1080 });
 
-        // pageElements isn't being used yet, but will need to be utilized in future
-        const pageElements = [
-            'div[aria-label="Standard Range Plus"]',
-            'div[aria-label="Long Range"]',
-            'div[aria-label="Performance"]',
-            '.battery-and-drive-specs--list',
-            '.delivery-timing--date'
-        ]; 
-
         await page.goto('https://www.tesla.com/model3/design#battery', { timeout: 60 * 1000 }); 
 
-        const m3BatteryResults = async () => {
-            await page.waitForSelector('div[aria-label="Performance"]'); 
-            const result = await page.evaluate(() => {
+        const allBatteryResults = async () => {
+            let webpagesArr = ['https://www.tesla.com/model3/design#battery', 'https://www.tesla.com/models/design#battery', 'https://www.tesla.com/modelx/design#battery', 'https://www.tesla.com/modely/design#battery'];
+            let store = {model3:[], modelS:[], modelX:[], modelY:[]};
+            let model = ['model3', 'modelS', 'modelX', 'modelY'];
 
-                let m3Prices = document.querySelector('div[aria-label="Performance"]').innerText;
-                let m3Specs = document.querySelector('.battery-and-drive-specs--list').innerText;
-                let m3DeliveryDate = document.querySelector('.delivery-timing--date').innerText;
+            for( i in webpagesArr ){
+                await page.goto(webpagesArr[i], { timeout: 60 * 1000 });
+    
+                const batteryButtonRefs = await page.$$('.group--options_block--container');
 
-                return { m3Prices, m3Specs, m3DeliveryDate }
+                for(let batteryBtn of batteryButtonRefs){
+                    let classNames = batteryBtn._remoteObject.description;
 
-            }); 
-            return result; 
+                    if(classNames.indexOf('.group--option--disabled') === -1){
+
+                        await batteryBtn.click();
+                        const result = await page.evaluate(() => {
+                            let arr = [ document.querySelector('div[aria-label="Performance"]').innerText ];
+                            let m3Prices = arr[0];
+                            let m3Specs = document.querySelector('.battery-and-drive-specs--list').innerText;
+                            let m3DeliveryDate = document.querySelector('.delivery-timing--date').innerText;
+            
+                            return { m3Prices, m3Specs, m3DeliveryDate }
+            
+                        })
+                        store[model[i]].push(result);
+                    }
+                }
+            }
+            return store; 
         };
 
         const allExteriorResults = async () => {
@@ -143,7 +152,7 @@ let scrape = async () => {
         };
 
 
-        return [ await m3BatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults() ];
+        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults() ];
 
 
     } catch (err) {
