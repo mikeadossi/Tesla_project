@@ -16,7 +16,6 @@ let scrape = async () => {
         const page = await browser.newPage();
         page.setViewport({ width: 1920, height: 1080 });
 
-        await page.goto('https://www.tesla.com/model3/design#battery', { timeout: 60 * 1000 }); 
 
         const allBatteryResults = async () => {
             let webpagesArr = ['https://www.tesla.com/model3/design#battery', 'https://www.tesla.com/models/design#battery', 'https://www.tesla.com/modelx/design#battery', 'https://www.tesla.com/modely/design#battery'];
@@ -49,6 +48,7 @@ let scrape = async () => {
             }
             return store; 
         };
+
 
         const allExteriorResults = async () => {
             let webpagesArr = ['https://www.tesla.com/model3/design#battery', 'https://www.tesla.com/models/design#battery', 'https://www.tesla.com/modelx/design#battery', 'https://www.tesla.com/modely/design#battery'];
@@ -97,6 +97,7 @@ let scrape = async () => {
             return store;
         }
 
+
         const allInteriorResults = async () => {
             let webpagesArr = ['https://www.tesla.com/model3/design#battery', 'https://www.tesla.com/models/design#battery', 'https://www.tesla.com/modelx/design#battery', 'https://www.tesla.com/modely/design#battery'];
             let store = {model3:[], modelS:[], modelX:[], modelY:[]};
@@ -127,7 +128,9 @@ let scrape = async () => {
             return store;
         }
 
+
         const m3FSD = async () => {
+            await page.goto('https://www.tesla.com/model3/design#battery', { timeout: 60 * 1000 }); 
             await page.click('.packages-options--nav-item[arial-label="autopilot"]');
             const fsdPrice = await page.evaluate(() => {
                 return document.querySelector('.group--options_card--checkbox--container span:nth-child(2) span span').innerText;
@@ -136,6 +139,7 @@ let scrape = async () => {
             return fsdPrice;
         }
 
+        
         const mSBatteryResults = async () => {
             await page.goto('https://www.tesla.com/models/design#battery', { timeout: 60 * 1000 }); 
             await page.waitForSelector('div[aria-label="Long Range Plus"]'); 
