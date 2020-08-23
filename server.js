@@ -88,30 +88,34 @@ let scrape = async () => {
             return store;
         }
 
-        const m3InteriorResults = async () => {
-            await page.waitForSelector('.packages-options--nav-item');
-            await page.click('.packages-options--nav-item[arial-label="interior"]');
+        const allInteriorResults = async () => {
+            let webpagesArr = ['https://www.tesla.com/model3/design#battery', 'https://www.tesla.com/models/design#battery', 'https://www.tesla.com/modelx/design#battery', 'https://www.tesla.com/modely/design#battery'];
+            let store = {model3:[], modelS:[], modelX:[], modelY:[]};
+            let model = ['model3', 'modelS', 'modelX', 'modelY'];
 
-            let result = [];
+            for( i in webpagesArr ){
+                await page.goto('https://www.tesla.com/model3/design#battery', { timeout: 60 * 1000 });
+                await page.waitForSelector('.packages-options--nav-item');
+                await page.click('.packages-options--nav-item[arial-label="interior"]');
 
-            const interiorRefs = await page.$$('.child-group--container__INTERIOR .child-group--option_details .group--options_asset--container');
-            for (let intBtn of interiorRefs) {
-                let classNames = intBtn._remoteObject.description;
+                const interiorRefs = await page.$$('.group--options_asset--container');
+                for (let intBtn of interiorRefs) {
+                    let classNames = intBtn._remoteObject.description;
 
-                // the if statement below removes all hidden button elements
-                if(classNames.indexOf('.group--option--hidden') === -1){
-                    console.log('---> ',intBtn._remoteObject.description)
-                    await intBtn.click();
-                    const interiorResult = await page.evaluate(() => {
-                        const interiorName = document.querySelector('.child-group--container__INTERIOR .child-group--selected_option_details span:first-child').innerText;
-                        const interiorPrice = document.querySelector('.child-group--container__INTERIOR .child-group--selected_option_details span:nth-child(2)').innerText;
-        
-                        return { interiorName, interiorPrice };
-                    })
-                    result.push(interiorResult);
+                    // the if statement below removes all hidden button elements
+                    if(classNames.indexOf('.group--option--hidden') === -1){ 
+                        await intBtn.click();
+                        const interiorResult = await page.evaluate(() => {
+                            const interiorName = document.querySelector('.child-group--selected_option_details  span:nth-child(1) span').innerText;
+                            const interiorPrice = document.querySelector('.child-group--selected_option_details  span:nth-child(2) span').innerText;
+            
+                            return { interiorName, interiorPrice };
+                        })
+                        store[model[i]].push(interiorResult);
+                    }
                 }
             }
-            return result;
+            return store;
         }
 
         const m3FSD = async () => {
@@ -139,7 +143,7 @@ let scrape = async () => {
         };
 
 
-        return [ await m3BatteryResults(), await allExteriorResults(), await m3InteriorResults(), await m3FSD(), await mSBatteryResults() ];
+        return [ await m3BatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults() ];
 
 
     } catch (err) {
