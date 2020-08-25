@@ -155,8 +155,22 @@ let scrape = async () => {
             return result; 
         };
 
+        const getIncentiveTable = async () => {
+            const tableSelector = '.table-ev-energy.hide-on-mobile';
+            await page.goto('https://www.tesla.com/support/incentives', { timeout: 60 * 1000 }); 
+            await page.waitForSelector(tableSelector); 
+            const tableHandle = await page.$(tableSelector);
+            
+            const result = await page.evaluate((table) => {
+                let rows = table.tBodies[0].rows; 
+                return table.tBodies[0].rows[1].cells[2].innerText;
+            }, tableHandle);
+            
+            console.log('----> ',result);
+        }
 
-        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults() ];
+
+        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getIncentiveTable() ];
 
 
     } catch (err) {
