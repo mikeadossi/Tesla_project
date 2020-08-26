@@ -167,10 +167,28 @@ let scrape = async () => {
             }, tableHandle);
             
             console.log('----> ',result);
-        }
+        };
+
+        const getSolarData = async () => {
+            await page.goto('https://www.tesla.com/energy/design');
+            const addressInputSelector = "input[id='unified-initial-questions-autocomplete']";
+            await page.type(addressInputSelector, '90210', {delay: 500});
+            await page.waitFor(3000);
+            await page.keyboard.press('ArrowDown');
+            await page.waitFor(1500);
+            await page.keyboard.press('Enter');
+            await page.waitFor(1500);
+
+            await page.type('input[id="utilityBill"]', '100', {delay:300});
+            await page.waitFor(3000);
+
+            const recommendationBtn = await page.$('button[data-test="see-recommendations"]');
+            await recommendationBtn.click();
+
+        };
 
 
-        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getIncentiveTable() ];
+        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getIncentiveTable(), await getSolarData() ];
 
 
     } catch (err) {
