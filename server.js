@@ -8,7 +8,7 @@ let scrape = async () => {
     try {
 
         browser = await puppeteer.launch({
-            headless: true, args: [
+            headless: false, args: [
                 '--window-size=1920,1080',
             ]
         });
@@ -184,6 +184,13 @@ let scrape = async () => {
 
             const recommendationBtn = await page.$('button[data-test="see-recommendations"]');
             await recommendationBtn.click();
+
+            await page.waitForSelector('.solarFinanceOptionContainer');
+            await page.waitFor(3000);
+
+            const solarEditBtn = await page.$('div.solarFinanceOptionContainer > div:nth-child(2) > div > div > div > div > div:nth-child(2) > button > span');
+            await solarEditBtn.click();
+            await page.waitFor(10000);
 
         };
 
