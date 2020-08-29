@@ -221,10 +221,8 @@ let scrape = async () => {
             }, tableHandle);
         };
 
-        const getSolarData = async (addPowerwallBool, solution) => {
-            // this function gets all the data we need from the solar panel design studio, call it with no arguments initially.
-            // the function scrapes for solar panel data, then recursively calls itself to scrape for solar panel + powerwall data!
-
+        const getSolarPanelData = async () => {
+            // this function pulls solar panel data from the energy design studio
 
             await page.goto('https://www.tesla.com/energy/design');
             const addressInputSelector = "input[id='unified-initial-questions-autocomplete']";
@@ -232,7 +230,7 @@ let scrape = async () => {
             await page.waitFor(3000);
             await page.keyboard.press('ArrowDown');
             await page.waitFor(1500);
-            await page.keyboard.press('Enter');
+            await page.keyboard.press('Enter'); // click on first item in dropdown
             await page.waitFor(1500);
 
             await page.type('input[id="utilityBill"]', '100', {delay:300});
@@ -244,7 +242,7 @@ let scrape = async () => {
             await page.waitForSelector('.solarFinanceOptionContainer');
             await page.waitFor(3000);
             
-            // create solarPanelData and store 'due today'and price after incentives
+            // create solarPanelData - this'll be used to store all out scraped data.
             const solarPanelData = []; 
 
             const solarPanelEditDiv = 'div.solarFinanceOptionContainer > div:nth-child(2) > div > div > div > div ';
@@ -285,7 +283,6 @@ let scrape = async () => {
                 })
                 
 
-                // solarPanelData[i] = sPGuideData
                 solarPanelData[i] = Object.assign({}, sPGuideData, costsIncentivesData) // merge both results into one object and store in solarPanelData array!
                 let element = elem;
                 solarPanelData[i].type = element.substr(4);
@@ -301,11 +298,24 @@ let scrape = async () => {
             const costsBtn = await page.$('label[for="financeOptions"]');
             await costsBtn.click();
 
+            
             return solarPanelData;
         };
 
 
-        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getIncentiveTable(), await getSolarData() ];
+        const getProjectSunroof = async (customer_address) => {
+            await page.goto('https://www.google.com/get/sunroof');
+            const addressInputSelector = "input[id='input-0']";
+            await page.type(addressInputSelector, customer_address);
+            await page.keyboard.press('ArrowDown');
+            await page.waitFor(1500);
+            await page.keyboard.press('Enter'); // click on first item in dropdown
+            await page.waitFor(1500);
+            return await page.url(); 
+        };
+        
+
+        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getIncentiveTable(), await getSolarPanelData() ];
 
     } catch (err) {
         console.log(err)
