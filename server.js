@@ -4,71 +4,127 @@ const mysql = require('mysql');
 
 let scrape = async () => { 
 
-    const allStates = {
-        AL: {vehicleSalesTax: 0.02, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Montgomery', randomZipcode: '36104', stateName: 'Alaska', allowsSolarPanels: null , allowsSolarRoof: null }, 
-        AK: {vehicleSalesTax: 'N/A', solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Juneau', randomZipcode: '99801', stateName: 'Alabama', allowsSolarPanels: null , allowsSolarRoof: null },
-        AZ: {vehicleSalesTax: 0.056, solarSubscription: true, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Pheonix', randomZipcode: '85001', stateName: 'Arizona', allowsSolarPanels: null , allowsSolarRoof: null },
-        AR: {vehicleSalesTax: 0.065, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Little Rock', randomZipcode: '72201', stateName: 'Arkansas', allowsSolarPanels: null , allowsSolarRoof: null },
-        CA: {vehicleSalesTax: 0.075, solarSubscription: true, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Sacramento', randomZipcode: '95814', stateName: 'California', allowsSolarPanels: null , allowsSolarRoof: null },
-        CO: {vehicleSalesTax: 0.029, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Denver', randomZipcode: '80202', stateName: 'Colorado', allowsSolarPanels: null , allowsSolarRoof: null },
-        CT: {vehicleSalesTax: 0.0775, solarSubscription: true, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Hartford', randomZipcode: '06103', stateName: 'Connecticut', allowsSolarPanels: null , allowsSolarRoof: null },
-        DE: {vehicleSalesTax: 'N/A', solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Dover', randomZipcode: '19901', stateName: 'Delaware', allowsSolarPanels: null , allowsSolarRoof: null },
-        FL: {vehicleSalesTax: 0.06, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Tallahassee', randomZipcode: '32301', stateName: 'Florida', allowsSolarPanels: null , allowsSolarRoof: null },
-        GA: {vehicleSalesTax: 0.066, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Atlanta', randomZipcode: '30303', stateName: 'Georgia', allowsSolarPanels: null , allowsSolarRoof: null },
-        HI: {vehicleSalesTax: 0.047, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Honolulu', randomZipcode: '96813', stateName: 'Hawaii', allowsSolarPanels: null , allowsSolarRoof: null },
-        ID: {vehicleSalesTax: 0.06, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Boise', randomZipcode: '83702', stateName: 'Idaho', allowsSolarPanels: null , allowsSolarRoof: null },
-        IL: {vehicleSalesTax: 0.0625, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Springfield', randomZipcode: '62701', stateName: 'Illinois', allowsSolarPanels: null , allowsSolarRoof: null },
-        IN: {vehicleSalesTax: 0.07, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Indianapolis', randomZipcode: '46225', stateName: 'Indiana', allowsSolarPanels: null , allowsSolarRoof: null },
-        IA: {vehicleSalesTax: 'N/A', solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Des Moines', randomZipcode: '50309', stateName: 'Iowa', allowsSolarPanels: null , allowsSolarRoof: null },
-        KS: {vehicleSalesTax: 0.075, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Topeka', randomZipcode: '66603', stateName: 'Kansas', allowsSolarPanels: null , allowsSolarRoof: null },
-        KY: {vehicleSalesTax: 0.06, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Frankfort', randomZipcode: '40601', stateName: 'Kentucky', allowsSolarPanels: null , allowsSolarRoof: null },
-        LA: {vehicleSalesTax: 0.04, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Baton Rouge', randomZipcode: '70802', stateName: 'Louisiana', allowsSolarPanels: null , allowsSolarRoof: null },
-        ME: {vehicleSalesTax: 0.055, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Augusta', randomZipcode: '04330', stateName: 'Maine', allowsSolarPanels: null , allowsSolarRoof: null },
-        MD: {vehicleSalesTax: 0.06, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Annapolis', randomZipcode: '21401', stateName: 'Maryland', allowsSolarPanels: null , allowsSolarRoof: null },
-        MA: {vehicleSalesTax: 0.0625, solarSubscription: true, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Boston', randomZipcode: '02201', stateName: 'Massachusetts', allowsSolarPanels: null , allowsSolarRoof: null },
-        MI: {vehicleSalesTax: 0.06, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Lansing', randomZipcode: '48933', stateName: 'Michigan', allowsSolarPanels: null , allowsSolarRoof: null },
-        MN: {vehicleSalesTax: 'N/A', solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'St. Paul', randomZipcode: '55102', stateName: 'Minnesota', allowsSolarPanels: null , allowsSolarRoof: null },
-        MS: {vehicleSalesTax: 0.05, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Jackson', randomZipcode: '39205', stateName: 'Mississippi', allowsSolarPanels: null , allowsSolarRoof: null },
-        MO: {vehicleSalesTax: 0.04225, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Jefferson City', randomZipcode: '65101', stateName: 'Missouri', allowsSolarPanels: null , allowsSolarRoof: null },
-        MT: {vehicleSalesTax: 'N/A', solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Helena', randomZipcode: '59623', stateName: 'Montana', allowsSolarPanels: null , allowsSolarRoof: null },
-        NE: {vehicleSalesTax: 0.055, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Lincoln', randomZipcode: '68502', stateName: 'Nebraska', allowsSolarPanels: null , allowsSolarRoof: null },
-        NV: {vehicleSalesTax: 0.081, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Carson City', randomZipcode: '89701', stateName: 'Nevada', allowsSolarPanels: null , allowsSolarRoof: null },
-        NH: {vehicleSalesTax: 'N/A', solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Concord', randomZipcode: '03301', stateName: 'New_Hampshire', allowsSolarPanels: null , allowsSolarRoof: null },
-        NJ: {vehicleSalesTax: 0.06625, solarSubscription: true, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Trenton', randomZipcode: '08608', stateName: 'New_Jersey', allowsSolarPanels: null , allowsSolarRoof: null },
-        NM: {vehicleSalesTax: 0.04, solarSubscription: true, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Santa Fe', randomZipcode: '87501', stateName: 'New_Mexico', allowsSolarPanels: null , allowsSolarRoof: null },
-        NY: {vehicleSalesTax: 0.04, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Albany', randomZipcode: '12207', stateName: 'New_York', allowsSolarPanels: null , allowsSolarRoof: null },
-        NC: {vehicleSalesTax: 0.03, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Raleigh', randomZipcode: '27601', stateName: 'North_Carolina', allowsSolarPanels: null , allowsSolarRoof: null },
-        ND: {vehicleSalesTax: 'N/A', solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Bismarck', randomZipcode: '58501', stateName: 'North_Dakaota', allowsSolarPanels: null , allowsSolarRoof: null },
-        OH: {vehicleSalesTax: 0.0575, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Columbus', randomZipcode: '43215', stateName: 'Ohio', allowsSolarPanels: null , allowsSolarRoof: null },
-        OK: {vehicleSalesTax: 0.0125, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Oklahoma City', randomZipcode: '73102', stateName: 'Oklahoma', allowsSolarPanels: null , allowsSolarRoof: null },
-        OR: {vehicleSalesTax: 0.005, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Salem', randomZipcode: '97301', stateName: 'Oregon', allowsSolarPanels: null , allowsSolarRoof: null },
-        PA: {vehicleSalesTax: 0.08, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Harrisburg', randomZipcode: '17101', stateName: 'Pensylvania', allowsSolarPanels: null , allowsSolarRoof: null },
-        RI: {vehicleSalesTax: 0.07, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Providence', randomZipcode: '02903', stateName: 'Rhode_Island', allowsSolarPanels: null , allowsSolarRoof: null },
-        SC: {vehicleSalesTax: 0.05, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Columbia', randomZipcode: '29217', stateName: 'South_Carolina', allowsSolarPanels: null , allowsSolarRoof: null },
-        SD: {vehicleSalesTax: 0.04, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Pierre', randomZipcode: '57501', stateName: 'South_Dakota', allowsSolarPanels: null , allowsSolarRoof: null },
-        TN: {vehicleSalesTax: 0.07, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Nashville', randomZipcode: '78701', stateName: 'Tennessee', allowsSolarPanels: null , allowsSolarRoof: null },
-        TX: {vehicleSalesTax: 0.0625, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Austin', randomZipcode: '84111', stateName: 'Texas', allowsSolarPanels: null , allowsSolarRoof: null },
-        UT: {vehicleSalesTax: 0.0685, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Salt Lake City', randomZipcode: '05602', stateName: 'Utah', allowsSolarPanels: null , allowsSolarRoof: null },
-        VT: {vehicleSalesTax: 0.06, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Montpelier', randomZipcode: '23219', stateName: 'Vermont', allowsSolarPanels: null , allowsSolarRoof: null },
-        VA: {vehicleSalesTax: 0.0415, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Richmond', randomZipcode: '98507', stateName: 'Virginia', allowsSolarPanels: null , allowsSolarRoof: null },
-        WA: {vehicleSalesTax: 0.035, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Olympia', randomZipcode: '98507', stateName: 'Washington', allowsSolarPanels: null , allowsSolarRoof: null },
-        WV: {vehicleSalesTax: 0.06, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Charleston', randomZipcode: '25301', stateName: 'West_Virginia', allowsSolarPanels: null , allowsSolarRoof: null },
-        WI: {vehicleSalesTax: 0.05, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Madison', randomZipcode: '53703', stateName: 'Wisconsin', allowsSolarPanels: null , allowsSolarRoof: null },
-        WY: {vehicleSalesTax: 0.04, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Cheyenne', randomZipcode: '82001', stateName: 'Wyoming', allowsSolarPanels: null , allowsSolarRoof: null },
-        DC: {vehicleSalesTax: 0.08, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Washington', randomZipcode: '20001', stateName: 'District_of_Columbia', allowsSolarPanels: null , allowsSolarRoof: null }
-    }
 
     let browser;
     try {
 
         browser = await puppeteer.launch({
-            headless: false, args: [
+            headless: true, args: [
                 '--window-size=1920,1080',
             ]
         });
 
         const page = await browser.newPage();
         page.setViewport({ width: 1920, height: 1080 });
+
+        const allStates = {
+            AL: {vehicleSalesTax: 0.02, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Montgomery', randomZipcode: '36104', stateName: 'Alaska', allowsSolarPanels: null , allowsSolarRoof: null }, 
+            AK: {vehicleSalesTax: 'N/A', solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Juneau', randomZipcode: '99801', stateName: 'Alabama', allowsSolarPanels: null , allowsSolarRoof: null },
+            AZ: {vehicleSalesTax: 0.056, solarSubscription: true, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Pheonix', randomZipcode: '85001', stateName: 'Arizona', allowsSolarPanels: null , allowsSolarRoof: null },
+            AR: {vehicleSalesTax: 0.065, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Little Rock', randomZipcode: '72201', stateName: 'Arkansas', allowsSolarPanels: null , allowsSolarRoof: null },
+            CA: {vehicleSalesTax: 0.075, solarSubscription: true, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Sacramento', randomZipcode: '95814', stateName: 'California', allowsSolarPanels: null , allowsSolarRoof: null },
+            CO: {vehicleSalesTax: 0.029, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Denver', randomZipcode: '80202', stateName: 'Colorado', allowsSolarPanels: null , allowsSolarRoof: null },
+            CT: {vehicleSalesTax: 0.0775, solarSubscription: true, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Hartford', randomZipcode: '06103', stateName: 'Connecticut', allowsSolarPanels: null , allowsSolarRoof: null },
+            DE: {vehicleSalesTax: 'N/A', solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Dover', randomZipcode: '19901', stateName: 'Delaware', allowsSolarPanels: null , allowsSolarRoof: null },
+            FL: {vehicleSalesTax: 0.06, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Tallahassee', randomZipcode: '32301', stateName: 'Florida', allowsSolarPanels: null , allowsSolarRoof: null },
+            GA: {vehicleSalesTax: 0.066, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Atlanta', randomZipcode: '30303', stateName: 'Georgia', allowsSolarPanels: null , allowsSolarRoof: null },
+            HI: {vehicleSalesTax: 0.047, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Honolulu', randomZipcode: '96813', stateName: 'Hawaii', allowsSolarPanels: null , allowsSolarRoof: null },
+            ID: {vehicleSalesTax: 0.06, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Boise', randomZipcode: '83702', stateName: 'Idaho', allowsSolarPanels: null , allowsSolarRoof: null },
+            IL: {vehicleSalesTax: 0.0625, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Springfield', randomZipcode: '62701', stateName: 'Illinois', allowsSolarPanels: null , allowsSolarRoof: null },
+            IN: {vehicleSalesTax: 0.07, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Indianapolis', randomZipcode: '46225', stateName: 'Indiana', allowsSolarPanels: null , allowsSolarRoof: null },
+            IA: {vehicleSalesTax: 'N/A', solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Des Moines', randomZipcode: '50309', stateName: 'Iowa', allowsSolarPanels: null , allowsSolarRoof: null },
+            KS: {vehicleSalesTax: 0.075, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Topeka', randomZipcode: '66603', stateName: 'Kansas', allowsSolarPanels: null , allowsSolarRoof: null },
+            KY: {vehicleSalesTax: 0.06, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Frankfort', randomZipcode: '40601', stateName: 'Kentucky', allowsSolarPanels: null , allowsSolarRoof: null },
+            LA: {vehicleSalesTax: 0.04, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Baton Rouge', randomZipcode: '70802', stateName: 'Louisiana', allowsSolarPanels: null , allowsSolarRoof: null },
+            ME: {vehicleSalesTax: 0.055, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Augusta', randomZipcode: '04330', stateName: 'Maine', allowsSolarPanels: null , allowsSolarRoof: null },
+            MD: {vehicleSalesTax: 0.06, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Annapolis', randomZipcode: '21401', stateName: 'Maryland', allowsSolarPanels: null , allowsSolarRoof: null },
+            MA: {vehicleSalesTax: 0.0625, solarSubscription: true, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Boston', randomZipcode: '02201', stateName: 'Massachusetts', allowsSolarPanels: null , allowsSolarRoof: null },
+            MI: {vehicleSalesTax: 0.06, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Lansing', randomZipcode: '48933', stateName: 'Michigan', allowsSolarPanels: null , allowsSolarRoof: null },
+            MN: {vehicleSalesTax: 'N/A', solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'St. Paul', randomZipcode: '55102', stateName: 'Minnesota', allowsSolarPanels: null , allowsSolarRoof: null },
+            MS: {vehicleSalesTax: 0.05, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Jackson', randomZipcode: '39205', stateName: 'Mississippi', allowsSolarPanels: null , allowsSolarRoof: null },
+            MO: {vehicleSalesTax: 0.04225, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Jefferson City', randomZipcode: '65101', stateName: 'Missouri', allowsSolarPanels: null , allowsSolarRoof: null },
+            MT: {vehicleSalesTax: 'N/A', solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Helena', randomZipcode: '59623', stateName: 'Montana', allowsSolarPanels: null , allowsSolarRoof: null },
+            NE: {vehicleSalesTax: 0.055, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Lincoln', randomZipcode: '68502', stateName: 'Nebraska', allowsSolarPanels: null , allowsSolarRoof: null },
+            NV: {vehicleSalesTax: 0.081, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Carson City', randomZipcode: '89701', stateName: 'Nevada', allowsSolarPanels: null , allowsSolarRoof: null },
+            NH: {vehicleSalesTax: 'N/A', solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Concord', randomZipcode: '03301', stateName: 'New_Hampshire', allowsSolarPanels: null , allowsSolarRoof: null },
+            NJ: {vehicleSalesTax: 0.06625, solarSubscription: true, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Trenton', randomZipcode: '08608', stateName: 'New_Jersey', allowsSolarPanels: null , allowsSolarRoof: null },
+            NM: {vehicleSalesTax: 0.04, solarSubscription: true, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Santa Fe', randomZipcode: '87501', stateName: 'New_Mexico', allowsSolarPanels: null , allowsSolarRoof: null },
+            NY: {vehicleSalesTax: 0.04, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Albany', randomZipcode: '12207', stateName: 'New_York', allowsSolarPanels: null , allowsSolarRoof: null },
+            NC: {vehicleSalesTax: 0.03, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Raleigh', randomZipcode: '27601', stateName: 'North_Carolina', allowsSolarPanels: null , allowsSolarRoof: null },
+            ND: {vehicleSalesTax: 'N/A', solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Bismarck', randomZipcode: '58501', stateName: 'North_Dakaota', allowsSolarPanels: null , allowsSolarRoof: null },
+            OH: {vehicleSalesTax: 0.0575, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Columbus', randomZipcode: '43215', stateName: 'Ohio', allowsSolarPanels: null , allowsSolarRoof: null },
+            OK: {vehicleSalesTax: 0.0125, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Oklahoma City', randomZipcode: '73102', stateName: 'Oklahoma', allowsSolarPanels: null , allowsSolarRoof: null },
+            OR: {vehicleSalesTax: 0.005, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Salem', randomZipcode: '97301', stateName: 'Oregon', allowsSolarPanels: null , allowsSolarRoof: null },
+            PA: {vehicleSalesTax: 0.08, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Harrisburg', randomZipcode: '17101', stateName: 'Pensylvania', allowsSolarPanels: null , allowsSolarRoof: null },
+            RI: {vehicleSalesTax: 0.07, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Providence', randomZipcode: '02903', stateName: 'Rhode_Island', allowsSolarPanels: null , allowsSolarRoof: null },
+            SC: {vehicleSalesTax: 0.05, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Columbia', randomZipcode: '29217', stateName: 'South_Carolina', allowsSolarPanels: null , allowsSolarRoof: null },
+            SD: {vehicleSalesTax: 0.04, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Pierre', randomZipcode: '57501', stateName: 'South_Dakota', allowsSolarPanels: null , allowsSolarRoof: null },
+            TN: {vehicleSalesTax: 0.07, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Nashville', randomZipcode: '78701', stateName: 'Tennessee', allowsSolarPanels: null , allowsSolarRoof: null },
+            TX: {vehicleSalesTax: 0.0625, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Austin', randomZipcode: '84111', stateName: 'Texas', allowsSolarPanels: null , allowsSolarRoof: null },
+            UT: {vehicleSalesTax: 0.0685, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Salt Lake City', randomZipcode: '05602', stateName: 'Utah', allowsSolarPanels: null , allowsSolarRoof: null },
+            VT: {vehicleSalesTax: 0.06, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Montpelier', randomZipcode: '23219', stateName: 'Vermont', allowsSolarPanels: null , allowsSolarRoof: null },
+            VA: {vehicleSalesTax: 0.0415, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Richmond', randomZipcode: '98507', stateName: 'Virginia', allowsSolarPanels: null , allowsSolarRoof: null },
+            WA: {vehicleSalesTax: 0.035, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: true, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Olympia', randomZipcode: '98507', stateName: 'Washington', allowsSolarPanels: null , allowsSolarRoof: null },
+            WV: {vehicleSalesTax: 0.06, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Charleston', randomZipcode: '25301', stateName: 'West_Virginia', allowsSolarPanels: null , allowsSolarRoof: null },
+            WI: {vehicleSalesTax: 0.05, solarSubscription: false, solarSubUtility: [], leasingAvailable: false, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Madison', randomZipcode: '53703', stateName: 'Wisconsin', allowsSolarPanels: null , allowsSolarRoof: null },
+            WY: {vehicleSalesTax: 0.04, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Cheyenne', randomZipcode: '82001', stateName: 'Wyoming', allowsSolarPanels: null , allowsSolarRoof: null },
+            DC: {vehicleSalesTax: 0.08, solarSubscription: false, solarSubUtility: [], leasingAvailable: true, financingAvailable: false, solarIncentivesTxt: null, solarSavings: {}, vehicleIncentives: null, capitalCity: 'Washington', randomZipcode: '20001', stateName: 'District_of_Columbia', allowsSolarPanels: null , allowsSolarRoof: null }
+        }
+    
+        const stateNames = {
+            Alabama:'AL',
+            Alaska:'AK', 
+            Arizona:'AZ',
+            Arkansas:'AR',
+            California:'CA',
+            Colorado:'CO',
+            Connecticut:'CT',
+            Delaware:'DE',
+            District_of_Columbia:'DC',
+            Florida:'FL',
+            Georgia:'GA',
+            Hawaii:'HI',
+            Idaho:'ID',
+            Illinois:'IL',
+            Indiana:'IN',
+            Iowa:'IA',
+            Kansas:'KS',
+            Kentucky:'KY',
+            Louisiana:'LA',
+            Maine:'ME',
+            Maryland:'MD',
+            Massachusetts:'MA',
+            Michigan:'MI',
+            Minnesota:'MN',
+            Mississippi:'MS',
+            Missouri:'MO',
+            Montana:'MT',
+            Nebraska:'NE',
+            Nevada:'NV',
+            New_Hampshire:'NH',
+            New_Jersey:'NJ',
+            New_Mexico:'NM',
+            New_York:'NY',
+            North_Carolina:'NC',
+            North_Dakota:'ND', 
+            Ohio:'OH',
+            Oklahoma:'OK',
+            Oregon:'OR',
+            Pennsylvania:'PA',
+            Rhode_Island:'RI',
+            South_Carolina:'SC',
+            South_Dakota:'SD',
+            Tennessee:'TN',
+            Texas:'TX',
+            Utah:'UT',
+            Vermont:'VT',
+            Virgin_Island:'VI',
+            Virginia:'VA',
+            Washington:'WA',
+            West_Virginia:'WV',
+            Wisconsin:'WI',
+            Wyoming:'WY'
+        };
 
 
         const allBatteryResults = async () => {
@@ -209,17 +265,47 @@ let scrape = async () => {
             return result; 
         };
 
-        const getIncentiveTable = async () => {
+
+        const getIncentiveTable = async (stateNames, allStates) => {
+            // this function scrapes the incentives table and stores data in our states object
+
             const tableSelector = '.table-ev-energy.hide-on-mobile';
-            await page.goto('https://www.tesla.com/support/incentives', { timeout: 60 * 1000 }); 
-            await page.waitForSelector(tableSelector); 
+            await page.goto('https://www.tesla.com/support/incentives', { timeout: 60 * 1000 });
+            await page.waitForSelector(tableSelector);
             const tableHandle = await page.$(tableSelector);
-            
-            const result = await page.evaluate((table) => {
-                let rows = table.tBodies[0].rows; 
-                return table.tBodies[0].rows[1].cells[2].innerText;
-            }, tableHandle);
+            console.log('---> ',stateNames.Alaska)
+            let y = 1;
+            let data = [];
+            while(5 > y){
+                data.push( await page.evaluate((table,i=1) => { 
+
+                    let rows = table.tBodies[0].rows[i].cells[2].innerText; 
+                    return rows;
+    
+                    // let i = 1;
+                    // let data = {};
+                    // let stateAbb;
+    
+                    // while(5 > i){
+                    //     stateAbb = table.tBodies[0].rows[i].cells[1].innerText;
+                    //     stateAbb = stateAbb.replace(/\s/g,'_');
+                    //     stateAbb = stateNames[stateAbb];
+                        
+                    //     data.stateAbb = {vehicleIncentives:null, solarIncentivesTxt:null};
+                    //     data.stateAbb.vehicleIncentives = rows[i].cells[2].innerText;
+                    //     data.stateAbb.solarIncentivesTxt = rows[i].cells[3].innerText; 
+                    //     i++;
+                    // }
+                    // return data;
+                    
+                }, tableHandle) ); 
+                y++;
+            }
+
+
+            return data;
         };
+
 
         const getSolarPanelData = async () => {
             // this function pulls solar panel data from the energy design studio
@@ -313,9 +399,10 @@ let scrape = async () => {
             await page.waitFor(1500);
             return await page.url(); 
         };
-        
 
-        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getIncentiveTable(), await getSolarPanelData() ];
+
+        // return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getIncentiveTable(), await getSolarPanelData() ];
+        return [await getIncentiveTable(stateNames, allStates)]; 
 
     } catch (err) {
         console.log(err)
@@ -328,3 +415,116 @@ let scrape = async () => {
 scrape().then((value) => {
     console.log(value);
 });
+
+
+
+[ ` 
+\tElectric Vehicles
+\tSolar & Energy Storage
+\nAll states
+\t
+\t26% federal income tax credit (subject to phase out schedule above)
+\nArizona
+\tReduced Vehicle License Tax and Carpool lane access
+\tSolar: Up to $1,000 state tax credit
+\nCalifornia
+\t$2,000 or $4,500 rebate (based on income eligibility) for Model 3 and Model Y*
+\n$5,000 grant (based on income eligibility)*
+\n
+\n
+\n*Review eligibility prior to applying
+\n
+\n
+\tSolar: Select utilities may offer incentives
+\nPowerwall: see California Self-Generation Incentive Program (SGIP)
+\nColorado
+\t$4,000 tax credit for purchase of a new vehicle
+\n$2,000 tax credit for lease of a new vehicle
+\tSelect utilities may offer a Solar incentive
+\nConnecticut
+\t$1,500 rebate for new vehicles with a base price under $42,000
+\nExemption from state emissions testing
+\nReduced vehicle registration fee
+\tSolar: Up to $300 per kW PTC
+\nDelaware
+\t$2,500 rebate for new vehicles with a base price under $60,000
+\n$500 rebate available for home charging installation
+\tSelect utilities may offer a Solar incentive
+\nFlorida
+\tFunding may be available for home charging installation assistance
+\t 
+\nHawaii
+\tCarpool lane access and reduced rates for electric vehicle charging
+\tSolar: State tax credit equal to the lesser of 35% of actual system cost or $5,000 per 5 kW
+\nIdaho
+\tState exemption from vehicle inspection & maintenance program
+\t 
+\nIllinois
+\tEV exemption from state emissions testing; reduced registration fees
+\tEarn $1,000 per kW off the cash or loan price of solar panels, and $860 per kW off the cash or loan price of Solar Roof by trading your Solar Renewable Energy Credits (SREC)
+\nLouisiana
+\t$2,500 income tax credit
+\t 
+\nMaine
+\t$2,000 rebate for new vehicles with a base price under $50,000
+\t 
+\nMaryland
+\t$3,000 Excise Tax Credit for new vehicles with a total price under $60,000
+\n$700 rebate on wall connectors and installation
+\nQualified vehicles are exempt from emissions testing
+\tSolar: $1,000 per system
+\nSolar: Earn $170 per kW off the cash or loan price of solar panels and $140 per kW off the cash or loan price of Solar Roof by trading your Solar Renewable Energy Credits (SREC)
+\nPowerwall: State tax credit equal to 30% of installed cost up to $5,000 per property
+\nMassachusetts
+\t$2,500 rebate for new vehicles with a purchase price under $50,000
+\tSolar: Up to $1,000 State Tax Credit
+\nSolar: Select utilities may offer a solar incentive
+\nPowerwall: Select utilities may offer a storage incentive
+\nNevada
+\tReduced rates for electric vehicle charging
+\nAFV Parking Fee & state emissions testing exemptions
+\tPowerwall: Up to $3,000
+\nNew Hampshire
+\t 
+\tSolar: Earn $100 per kW off the cash or loan price of solar panels and $80 per kW off the cash or loan price of Solar Roof by trading your Solar Renewable Energy Credits (SREC)
+\nNew Jersey
+\t$5,000 rebate for purchase or lease of a new vehicle with a purchase price under $55,000
+\nSales tax exemption
+\n10% discount on off-peak toll prices on NJT & GSP through EZ-Pass
+\tSolar: Earn $720 per kW off the cash or loan price of solar panels and $600 per kW off the cash or loan price of Solar Roof by trading your Solar Renewable Energy Credits (SREC)
+\nNew York
+\t$500 rebate for new vehicles with a base price over $60,000
+\n$2,000 rebate for new vehicles with a base price under $60,000
+\nState emissions testing exception
+\tSolar: Up to $350 per kW and up to $5,000 state tax credit
+\nNorth Carolina
+\tState emissions testing exemption & HOV lane access
+\t 
+\nPennsylvania
+\t 
+\tSolar: Earn $90 per kW off the cash or loan price of solar panels and $80 per kW off the cash or loan price of Solar Roof by trading your Solar Renewable Energy Credits (SREC)
+\nOregon
+\tStandard Rebate of $2,500 for purchase or lease of a new Tesla
+\nCharge Ahead rebate of $2,500 for purchase or lease of new or used Tesla for eligible customers
+\tSolar: $300 per kW up to $2,400
+\nRhode Island
+\tState emissions testing exemption
+\tSolar: Earn $100 per kW off the cash or loan price of solar panels and $80 per kW off the cash or loan price of Solar Roof by trading your Solar Renewable Energy Credits (SREC)
+\nTexas
+\t 
+\tSolar: Select utilities may offer a Solar incentive
+\nUtah
+\t 
+\tSolar: Up to $1,600 state tax credit
+\nVermont
+\tDepending on income level, up to $5,000 rebate for purchase or lease of a new vehicle with a base price under $40,000
+\tSolar: $0.02 per kWh production incentive for 10 years
+\nWashington
+\tA retail sales tax reduction is available on the purchase or lease of a new vehicle.
+\t 
+\nWashington DC
+\tExcise tax exempt
+\nReduced vehicle registration fees
+\nTax credit for 50% of costs of home charging installation, up to $1,000
+\tSolar: Earn $930 per kW off the cash or loan price of solar panels and $780 per kW off the cash or loan price of Solar Roof by trading your Solar Renewable Energy Credits (SREC)
+` ]
