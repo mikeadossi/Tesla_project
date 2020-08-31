@@ -266,47 +266,6 @@ let scrape = async () => {
         };
 
 
-        const getIncentiveTable = async (stateNames, allStates) => {
-            // this function scrapes the incentives table and stores data in our states object
-
-            const tableSelector = '.table-ev-energy.hide-on-mobile';
-            await page.goto('https://www.tesla.com/support/incentives', { timeout: 60 * 1000 });
-            await page.waitForSelector(tableSelector);
-            const tableHandle = await page.$(tableSelector);
-            console.log('---> ',stateNames.Alaska)
-            let y = 1;
-            let data = [];
-            while(5 > y){
-                data.push( await page.evaluate((table,i=1) => { 
-
-                    let rows = table.tBodies[0].rows[i].cells[2].innerText; 
-                    return rows;
-    
-                    // let i = 1;
-                    // let data = {};
-                    // let stateAbb;
-    
-                    // while(5 > i){
-                    //     stateAbb = table.tBodies[0].rows[i].cells[1].innerText;
-                    //     stateAbb = stateAbb.replace(/\s/g,'_');
-                    //     stateAbb = stateNames[stateAbb];
-                        
-                    //     data.stateAbb = {vehicleIncentives:null, solarIncentivesTxt:null};
-                    //     data.stateAbb.vehicleIncentives = rows[i].cells[2].innerText;
-                    //     data.stateAbb.solarIncentivesTxt = rows[i].cells[3].innerText; 
-                    //     i++;
-                    // }
-                    // return data;
-                    
-                }, tableHandle) ); 
-                y++;
-            }
-
-
-            return data;
-        };
-
-
         const getSolarPanelData = async () => {
             // this function pulls solar panel data from the energy design studio
 
@@ -401,8 +360,7 @@ let scrape = async () => {
         };
 
 
-        // return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getIncentiveTable(), await getSolarPanelData() ];
-        return [await getIncentiveTable(stateNames, allStates)]; 
+        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getIncentiveTable(), await getSolarPanelData() ];
 
     } catch (err) {
         console.log(err)
@@ -415,116 +373,3 @@ let scrape = async () => {
 scrape().then((value) => {
     console.log(value);
 });
-
-
-
-[ ` 
-\tElectric Vehicles
-\tSolar & Energy Storage
-\nAll states
-\t
-\t26% federal income tax credit (subject to phase out schedule above)
-\nArizona
-\tReduced Vehicle License Tax and Carpool lane access
-\tSolar: Up to $1,000 state tax credit
-\nCalifornia
-\t$2,000 or $4,500 rebate (based on income eligibility) for Model 3 and Model Y*
-\n$5,000 grant (based on income eligibility)*
-\n
-\n
-\n*Review eligibility prior to applying
-\n
-\n
-\tSolar: Select utilities may offer incentives
-\nPowerwall: see California Self-Generation Incentive Program (SGIP)
-\nColorado
-\t$4,000 tax credit for purchase of a new vehicle
-\n$2,000 tax credit for lease of a new vehicle
-\tSelect utilities may offer a Solar incentive
-\nConnecticut
-\t$1,500 rebate for new vehicles with a base price under $42,000
-\nExemption from state emissions testing
-\nReduced vehicle registration fee
-\tSolar: Up to $300 per kW PTC
-\nDelaware
-\t$2,500 rebate for new vehicles with a base price under $60,000
-\n$500 rebate available for home charging installation
-\tSelect utilities may offer a Solar incentive
-\nFlorida
-\tFunding may be available for home charging installation assistance
-\t 
-\nHawaii
-\tCarpool lane access and reduced rates for electric vehicle charging
-\tSolar: State tax credit equal to the lesser of 35% of actual system cost or $5,000 per 5 kW
-\nIdaho
-\tState exemption from vehicle inspection & maintenance program
-\t 
-\nIllinois
-\tEV exemption from state emissions testing; reduced registration fees
-\tEarn $1,000 per kW off the cash or loan price of solar panels, and $860 per kW off the cash or loan price of Solar Roof by trading your Solar Renewable Energy Credits (SREC)
-\nLouisiana
-\t$2,500 income tax credit
-\t 
-\nMaine
-\t$2,000 rebate for new vehicles with a base price under $50,000
-\t 
-\nMaryland
-\t$3,000 Excise Tax Credit for new vehicles with a total price under $60,000
-\n$700 rebate on wall connectors and installation
-\nQualified vehicles are exempt from emissions testing
-\tSolar: $1,000 per system
-\nSolar: Earn $170 per kW off the cash or loan price of solar panels and $140 per kW off the cash or loan price of Solar Roof by trading your Solar Renewable Energy Credits (SREC)
-\nPowerwall: State tax credit equal to 30% of installed cost up to $5,000 per property
-\nMassachusetts
-\t$2,500 rebate for new vehicles with a purchase price under $50,000
-\tSolar: Up to $1,000 State Tax Credit
-\nSolar: Select utilities may offer a solar incentive
-\nPowerwall: Select utilities may offer a storage incentive
-\nNevada
-\tReduced rates for electric vehicle charging
-\nAFV Parking Fee & state emissions testing exemptions
-\tPowerwall: Up to $3,000
-\nNew Hampshire
-\t 
-\tSolar: Earn $100 per kW off the cash or loan price of solar panels and $80 per kW off the cash or loan price of Solar Roof by trading your Solar Renewable Energy Credits (SREC)
-\nNew Jersey
-\t$5,000 rebate for purchase or lease of a new vehicle with a purchase price under $55,000
-\nSales tax exemption
-\n10% discount on off-peak toll prices on NJT & GSP through EZ-Pass
-\tSolar: Earn $720 per kW off the cash or loan price of solar panels and $600 per kW off the cash or loan price of Solar Roof by trading your Solar Renewable Energy Credits (SREC)
-\nNew York
-\t$500 rebate for new vehicles with a base price over $60,000
-\n$2,000 rebate for new vehicles with a base price under $60,000
-\nState emissions testing exception
-\tSolar: Up to $350 per kW and up to $5,000 state tax credit
-\nNorth Carolina
-\tState emissions testing exemption & HOV lane access
-\t 
-\nPennsylvania
-\t 
-\tSolar: Earn $90 per kW off the cash or loan price of solar panels and $80 per kW off the cash or loan price of Solar Roof by trading your Solar Renewable Energy Credits (SREC)
-\nOregon
-\tStandard Rebate of $2,500 for purchase or lease of a new Tesla
-\nCharge Ahead rebate of $2,500 for purchase or lease of new or used Tesla for eligible customers
-\tSolar: $300 per kW up to $2,400
-\nRhode Island
-\tState emissions testing exemption
-\tSolar: Earn $100 per kW off the cash or loan price of solar panels and $80 per kW off the cash or loan price of Solar Roof by trading your Solar Renewable Energy Credits (SREC)
-\nTexas
-\t 
-\tSolar: Select utilities may offer a Solar incentive
-\nUtah
-\t 
-\tSolar: Up to $1,600 state tax credit
-\nVermont
-\tDepending on income level, up to $5,000 rebate for purchase or lease of a new vehicle with a base price under $40,000
-\tSolar: $0.02 per kWh production incentive for 10 years
-\nWashington
-\tA retail sales tax reduction is available on the purchase or lease of a new vehicle.
-\t 
-\nWashington DC
-\tExcise tax exempt
-\nReduced vehicle registration fees
-\nTax credit for 50% of costs of home charging installation, up to $1,000
-\tSolar: Earn $930 per kW off the cash or loan price of solar panels and $780 per kW off the cash or loan price of Solar Roof by trading your Solar Renewable Energy Credits (SREC)
-` ]
