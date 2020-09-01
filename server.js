@@ -267,6 +267,45 @@ let scrape = async () => {
         };
 
 
+        const getQualificationData = async (stateNames, allStates) => { 
+
+            const tableSelector = '#tesla-rich-text-7746 > table > thead > tr';
+            await page.goto('https://www.tesla.com/support/energy/solar-panels/learn/subscription-solar', { timeout: 60 * 1000 });
+            await page.waitForSelector(tableSelector); 
+
+            let data = await page.evaluate(() => {
+
+                return [...document.querySelectorAll('#tesla-rich-text-9538 > table > tbody > tr')].map((tr, i) => {
+                    if(i > 1) {
+                        let item = {};
+                        [...tr.querySelectorAll('td')].map((td, j) => {
+                            switch(j) {
+                                case 0:
+                                    item['type'] = td.innerText;
+                                    break;
+                                case 1:
+                                    item['subscription'] = td.innerText;
+                                    break;
+                                case 2:
+                                    item['loanPurchase'] = td.innerText;
+                                    break;
+                                case 3:
+                                    item['cashPurchase'] = td.innerText;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        });
+                        return item;
+                    }
+                });
+            });
+
+            return data;
+
+        };
+
+
         const getIncentiveTable = async (stateNames, allStates) => {
             // this function scrapes the incentives table and stores data in our states object
 
@@ -418,8 +457,7 @@ let scrape = async () => {
         };
 
 
-        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getIncentiveTable(), await getSolarPanelData(), await getIncentiveTable(stateNames, allStates) ];
-
+        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getSolarPanelData(), await getIncentiveTable(stateNames, allStates), await getQualificationData() ];
 
     } catch (err) {
         console.log(err)
