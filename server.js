@@ -267,7 +267,39 @@ let scrape = async () => {
         };
 
 
-        const getQualificationData = async (stateNames, allStates) => { 
+        const getQualifyingUtility = async () => {
+            
+            const tableSelector = '#tesla-rich-text-7746 > table > tbody';
+            await page.goto('https://www.tesla.com/support/energy/solar-panels/learn/subscription-solar', { timeout: 60 * 1000 });
+            await page.waitForSelector(tableSelector); 
+
+            let data = await page.evaluate(() => {
+
+                return [...document.querySelectorAll('#tesla-rich-text-7746 > table > tbody > tr')].map((tr, i) => {
+                    if(i > 1) {
+                        let item = {};
+                        [...tr.querySelectorAll('td')].map((td, j) => {
+                            switch(j) {
+                                case 0:
+                                    item['state'] = td.innerText;
+                                    break;
+                                case 1:
+                                    item['utility'] = td.innerText;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        });
+                        return item;
+                    }
+                });
+            });
+
+            return data;
+        }
+
+
+        const getQualificationData = async () => { 
 
             const tableSelector = '#tesla-rich-text-7746 > table > thead > tr';
             await page.goto('https://www.tesla.com/support/energy/solar-panels/learn/subscription-solar', { timeout: 60 * 1000 });
@@ -457,7 +489,8 @@ let scrape = async () => {
         };
 
 
-        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getSolarPanelData(), await getIncentiveTable(stateNames, allStates), await getQualificationData() ];
+        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getSolarPanelData(), await getIncentiveTable(stateNames, allStates), await getQualificationData(), await getQualifyingUtility() ];
+
 
     } catch (err) {
         console.log(err)
