@@ -266,6 +266,43 @@ let scrape = async () => {
             return result; 
         };
 
+        const getMobileCharging = async () => {
+            
+            const tableSelector = 'table.table-charging tbody tr';
+            await page.goto('https://www.tesla.com/support/home-charging-installation/mobile-connector', { timeout: 60 * 1000 });
+            await page.waitForSelector(tableSelector);
+
+            let data = await page.evaluate(() => {
+
+                return [...document.querySelectorAll('table.table-charging tbody tr')].map((tr, i) => {
+                    if(i > 1) {
+                        let item = {};
+                        [...tr.querySelectorAll('td')].map((td, j) => {
+                            switch(j) {
+                                case 0:
+                                    item['outlets'] = td.innerText;
+                                    break;
+                                case 1:
+                                    item['model_3_rph'] = td.innerText;
+                                    break;
+                                case 2:
+                                    item['model_S_rph'] = td.innerText;
+                                    break;
+                                case 3:
+                                    item['model_X_rph'] = td.innerText;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        });
+                        return item;
+                    }
+                });
+            });
+
+            return data;
+        }
+
 
         const getQualifyingUtility = async () => {
             
@@ -489,7 +526,7 @@ let scrape = async () => {
         };
 
 
-        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getSolarPanelData(), await getIncentiveTable(stateNames, allStates), await getQualificationData(), await getQualifyingUtility() ];
+        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getSolarPanelData(), await getIncentiveTable(stateNames, allStates), await getQualificationData(), await getQualifyingUtility(), await getMobileCharging() ];
 
 
     } catch (err) {
