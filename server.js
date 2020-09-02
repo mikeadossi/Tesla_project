@@ -266,6 +266,74 @@ let scrape = async () => {
             return result; 
         };
 
+        const getWallConnectorHeading = async () => {
+
+            const tableSelector = 'table.table-charging.hide-on-mobile thead';
+            await page.goto('https://www.tesla.com/support/home-charging-installation/wall-connector', { timeout: 60 * 1000 });
+            await page.waitForSelector(tableSelector);
+
+            let headerData = await page.evaluate(() => {
+
+                return [...document.querySelectorAll('table.table-charging.hide-on-mobile thead tr:nth-child(2) th')].map((th) => {
+                        let item = [];
+                        let text = th.innerText
+                        text = text.replace(/\s/g,'_'); // replace white space with '_'. Ex: 'Circuit breaker\n(amps)' = 'Circuit_breaker\n(amps)'
+                        item.push(text);
+                        return item;
+                });
+            });
+            
+            return headerData;
+        }
+
+        const getWallConnectorData = async () => {
+
+            const tableHeadersArray = await getWallConnectorHeading(); 
+
+            const tableSelector = 'table.table-charging.hide-on-mobile thead';
+            await page.goto('https://www.tesla.com/support/home-charging-installation/wall-connector', { timeout: 60 * 1000 });
+            await page.waitForSelector(tableSelector);
+
+            let headerData = await page.evaluate((tableHeadersArray) => {
+                
+                return [...document.querySelectorAll('table.table-charging.hide-on-mobile > tbody:nth-child(3) tr')].map((tr, i) => {
+                
+                    let item = {};
+                    [...tr.querySelectorAll('td')].map((td, j) => {
+                        switch(j) {
+                            case 0:
+                                item[tableHeadersArray[j]] = td.innerText;
+                                break;
+                            case 1:
+                                item[tableHeadersArray[j]] = td.innerText;
+                                break;
+                            case 2:
+                                item[tableHeadersArray[j]] = td.innerText;
+                                break;
+                            case 3:
+                                item[tableHeadersArray[j]] = td.innerText;
+                                break;
+                            case 4:
+                                item[tableHeadersArray[j]] = td.innerText;
+                                break;
+                            case 5:
+                                item[tableHeadersArray[j]] = td.innerText;
+                                break;
+                            case 6:
+                                item[tableHeadersArray[j]] = td.innerText;
+                                break; 
+                            default:
+                                break;
+                        }
+                    });
+                    return item;
+                });
+            }, tableHeadersArray);
+
+            return headerData;
+        }
+
+
         const getMobileCharging = async () => {
             
             const tableSelector = 'table.table-charging tbody tr';
@@ -526,8 +594,8 @@ let scrape = async () => {
         };
 
 
-        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getSolarPanelData(), await getIncentiveTable(stateNames, allStates), await getQualificationData(), await getQualifyingUtility(), await getMobileCharging() ];
-
+        return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await m3FSD(), await mSBatteryResults(), await getSolarPanelData(), await getIncentiveTable(stateNames, allStates), await getQualificationData(), await getQualifyingUtility(), await getMobileCharging(), await getWallConnectorData(), await getWallConnectorData() ];
+        
 
     } catch (err) {
         console.log(err)
