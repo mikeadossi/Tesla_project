@@ -1,0 +1,9 @@
+.headerCenter{
+    width: 60%;
+    float: left;
+    text-align: center; 
+}
+
+.headerCenter_input_btn{
+    cursor: pointer;
+}

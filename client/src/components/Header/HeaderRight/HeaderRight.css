@@ -1,0 +1,14 @@
+.headerRight{
+    width: 20%;
+    float: right; 
+    text-align: right;
+    cursor: pointer;
+}
+
+.headerRight div{
+    display: inline-block;
+}
+
+.headerRight div:first-child{
+    margin-right: 15px;
+}

@@ -1,0 +1,14 @@
+.headerLeft{
+    display:block;
+    width: 20%;
+    float: left;
+}
+
+.headerLeft div{
+    display: inline-block;
+    cursor: pointer;
+}
+
+.headerLeft div:first-child{
+    margin-right: 15px;
+}
