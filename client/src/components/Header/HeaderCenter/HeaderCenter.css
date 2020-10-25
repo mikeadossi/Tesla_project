@@ -20,8 +20,12 @@
             user-select: none; /* Non-prefixed version, currently */
 }
 
-.headerCenter_input_btn:active{
+.headerCenter_input_btn:hover{
     background-color: rgb(60,120,200);
+}
+
+.headerCenter_input_btn:active{
+    background-color: rgb(70,110,200);
 }
 
 .headerCenter_input{

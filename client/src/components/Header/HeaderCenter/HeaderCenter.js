@@ -6,7 +6,7 @@ class HeaderCenter extends Component {
     return (
       <div className="headerCenter">
           <input className="headerCenter_input" placeholder="enter zipcode or area code"></input>
-          <button className="headerCenter_input_btn">submit</button>
+          <button className="headerCenter_input_btn">Submit</button>
       </div> 
     );
   }

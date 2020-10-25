@@ -8,6 +8,8 @@ import LocationDetails from './containers/LocationDetails/LocationDetails';
 import ProductMenu from './containers/ProductMenu/ProductMenu';
 import Footer from './containers/Footer/Footer';
 import Home from './containers/Home/Home'; 
+import Vehicles from './containers/Vehicles/Vehicles';
+import Solar from './containers/Solar/Solar';
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
         <ProductMenu />
         <Switch>
           <Route exact path="/" component={ Home }/> 
+          <Route exact path="/vehicles" component={ Vehicles }/>
+          <Route exact path="/solar" component={ Solar }/>
           <Route exact path="/userLogin" component={ LogIn }/> 
           <Route exact path="/userSignup" component={ SignUp }/> 
         </Switch>
