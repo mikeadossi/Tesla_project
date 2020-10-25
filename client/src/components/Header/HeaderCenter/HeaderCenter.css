@@ -7,3 +7,7 @@
 .headerCenter_input_btn{
     cursor: pointer;
 }
+
+.headerCenter_input{
+    width:  200px;
+}

@@ -12,3 +12,11 @@
 .headerRight div:first-child{
     margin-right: 15px;
 }
+
+.headerRight_links{
+    color: white;
+}
+
+.headerRight_login_btn:hover{
+    color: orange;
+}

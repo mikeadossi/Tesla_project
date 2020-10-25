@@ -1,5 +1,6 @@
 .nav_container{
-    background-color:red;
+    background-color:black;
+    color:white;
     display:block;
     padding: 10px 20px 10px 20px;
     overflow: hidden;
