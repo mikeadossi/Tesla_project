@@ -8,9 +8,9 @@
     cursor: pointer;
     background-color: steelblue;
     color: white;
-    padding: 6px;
+    padding: 7px;
     border: none;
-    border-radius: 2px;
+    border-radius: 0px 2px 2px 0px;
     outline: none;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -32,4 +32,10 @@
     width:  200px;
     padding: 5px;
     margin-right: 3px;
+    border: 2px solid gainsboro;
+}
+
+.headerCenter_input:focus{
+    outline: none;
+    border: 2px solid steelblue;
 }
