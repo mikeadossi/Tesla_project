@@ -1,7 +1,6 @@
 .productMenu_container{
     background-color:rgb(240,240,240);
-    display: block;
-    padding: 10px 20px 0px 20px;
+    display: block; 
     overflow: hidden;
     text-align: center;
 }

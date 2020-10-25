@@ -5,3 +5,61 @@
     overflow: hidden;
     color:white;
 }
+
+.LocationDetails_element{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.LocationDetails_zipcode{
+    font-size: 34px;
+    font-weight: bold;
+}
+
+.LocationDetails_city{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.locationDetails_container_1, .locationDetails_container_2, .locationDetails_container_3, .locationDetails_container_4{
+    border-right: solid 2px rgb(22,158,170);
+    float: left;
+}
+
+.locationDetails_container_2{
+    padding: 0px 20px 0px 20px;
+}
+
+.locationDetails_areacode{
+    font-size: 28px;
+}
+
+.locationDetails_areacode_subtext{
+    font-size: x-small;
+    margin-left: 9px;
+}
+
+.locationDetails_time_digital{
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 5px;
+    color: orange;
+}
+
+.locationDetails_container_3, .locationDetails_container_4{
+    padding: 0px 20px 0px 20px; 
+}
+
+.locationDetails_container_4{
+    color: white;
+}
+
+.locationDetails_region_name{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.locationDetails_project_sun, .locationDetails_weather{
+    display: inline-block;
+    padding: 0px 10px 0px 10px; 
+}
