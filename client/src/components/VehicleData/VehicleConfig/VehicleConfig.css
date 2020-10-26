@@ -1,0 +1,141 @@
+.vehicleConfig_container{ 
+    width: 100%;
+    padding: 20px; 
+    background-color: white;
+    border-radius: 5px 5px 5px 5px;
+    border: 1px solid grey;
+    margin-top: 20px;
+}
+
+.vehicleConfig_vehicleName{
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+    margin-bottom:10px;
+}
+
+.vehicleConfig_image_container{
+    border: 2px solid black; 
+    padding: 20px;
+}
+
+.vehicleConfig_columns{ 
+    width: 48%;
+    padding: 6px; 
+    display: inline-flex;
+}
+
+.vehicleConfig_column1{
+    border-right: 1px solid black;
+}
+
+.vehicleConfig_specs_container{
+    border: 1px solid gainsboro;
+}
+
+.vehicleConfig_specs_container{
+    display: block;
+    margin-top: 5px;
+}
+
+.vehicleConfig_spec{
+    display: inline-block;
+    padding:9px;
+}
+
+.vehicleConfig_range, .vehicleConfig_topSpeed{
+    border-right: 1px solid gainsboro;
+}
+
+.vehicleConfig_columns_content{
+    width: 100%;
+}
+
+.vehicleConfig_pricing div{
+    display: inline;
+}
+
+.vehicleConfig_pricing{
+    padding: 5px;
+}
+
+.vehicleConfig_select_ul{
+    list-style-type: none;
+    padding: 2px;
+    margin: 2px;
+}
+
+.vehicleConfig_selectColor_ul{
+    text-align: center;
+}
+
+.vehicleConfig_selectCar_container div, .vehicleConfig_selectColor_container div{
+    text-align: center;
+}
+
+.vehicleConfig_select{
+    border: 2px solid black;
+    padding: 0px 2px 4px 2px;
+    margin: 7px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.vehicleConfig_select:hover{
+    color: indianred;
+    border: 2px solid indianred;
+}
+
+.color_select{
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.vehicleConfig_deep_blue_metallic{
+    background-color: blue;
+}
+
+.vehicleConfig_pearl_white_multicoat{
+    background-color: white;
+}
+
+.vehicleConfig_solid_black{
+    background-color: black;
+}
+
+.vehicleConfig_midnight_silver_metallic{
+    background-color: silver;
+}
+
+.vehicleConfig_red_multicoat{
+    background-color: red;
+}
+
+.vehicleConfig_black_interior{
+    background-color: black;
+}
+
+.vehicleConfig_white_interior{
+    background-color: white;
+}
+
+.vehicleConfig_selectTowHitch_ul{
+    display: inline-block;
+}
+
+.accessory_select{
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
