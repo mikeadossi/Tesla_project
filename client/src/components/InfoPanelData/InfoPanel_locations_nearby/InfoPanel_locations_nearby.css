@@ -1,0 +1,12 @@
+.infoPanel_section_data{
+    border: 1px solid black;
+    height: 160px;
+}
+
+.infoPanel_location_text, .infoPanel_location_title{
+    margin: 0px;
+}
+
+.infoPanel_location_div{
+    padding-bottom: 5px;
+}
