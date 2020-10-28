@@ -6,6 +6,9 @@ class HeaderRight extends Component {
   render() {
     return (
       <div className="headerRight">
+          <Link to="/" className="headerRight_links">
+            <div className="headerRight_sign_up headerRight_login_btn">About</div>
+          </Link>
           <Link to="/userSignup" className="headerRight_links">
             <div className="headerRight_sign_up headerRight_login_btn">Sign up</div>
           </Link>

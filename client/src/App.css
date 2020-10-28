@@ -16,3 +16,19 @@
 .app_removeBlue{
   outline: none;
 }
+
+div{
+  font-size: 13px;
+}
+
+.app_textalign{
+  text-align: center;
+}
+
+.app_inline-block{
+  display: inline-block; 
+}
+
+.app_cursorPointer{
+  cursor: pointer;
+}

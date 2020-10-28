@@ -4,7 +4,7 @@
     background-color: white;
     border-radius: 5px 5px 5px 5px;
     border: 1px solid grey;
-    margin-top: 20px;
+    margin-top: 20px; 
 }
 
 .vehicleConfig_vehicleName{
@@ -13,40 +13,66 @@
     margin-bottom:10px;
 }
 
+.vehicleConfig_modelName_container{
+    padding-bottom: 10px;
+}
+
+.vehicleConfig_modelName{
+    padding-bottom: 10px; 
+}
+
+.vehicleConfig_modelPrice{
+    float: right; 
+}
+
 .vehicleConfig_image_container{
     border: 2px solid black; 
-    padding: 20px;
+    padding: 40px;
+    display: inline-block;
+    width: 38%;
+    float: left;
 }
 
 .vehicleConfig_columns{ 
-    width: 48%;
-    padding: 6px; 
+    width: 49%; 
     display: inline-flex;
 }
 
 .vehicleConfig_column1{
-    border-right: 1px solid black;
+    padding-right: 6px;
+}
+
+.vehicleConfig_column2{
+    padding-left: 6px;
+    border-left: 1px solid black;
+}
+
+.vehicleConfig_vehicleImg_container{
+    border-bottom: 1px solid gainsboro;
+    padding-bottom: 10px;
+}
+
+.vehicleConfig_pricing_container{
+    border-bottom: 1px solid gainsboro;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .vehicleConfig_specs_container{
     border: 1px solid gainsboro;
-}
-
-.vehicleConfig_specs_container{
-    display: block;
+    display: inline-block;
     margin-top: 5px;
 }
 
 .vehicleConfig_spec{
-    display: inline-block;
     padding:9px;
 }
 
 .vehicleConfig_range, .vehicleConfig_topSpeed{
-    border-right: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
 }
 
-.vehicleConfig_columns_content{
+.vehicleConfig_columns_blockContent{
     width: 100%;
 }
 
@@ -66,6 +92,35 @@
 
 .vehicleConfig_selectColor_ul{
     text-align: center;
+    flex-wrap: wrap;
+    width: 170px;
+}
+
+.vehicleConfig_selectCar_ul li{
+    padding: 2px 5px 3px 5px;
+}
+
+.vehicleConfig_selectColor_input{
+    width: 100%;
+}
+
+.vehicleConfig_selectCarAndColor_container{
+    padding-top: 10px;
+    border-bottom: 1px solid gainsboro;
+}
+
+.vehicleConfig_selectWheelAndInterior_container{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid gainsboro;
+}
+
+.vehicleConfig_selectWheel_container, .vehicleConfig_selectInteriorColor_container{
+    display: inline-block;
+}
+
+.vehicleConfig_selectCar_container, .vehicleConfig_selectColor_container{
+    display: inline-block;
 }
 
 .vehicleConfig_selectCar_container div, .vehicleConfig_selectColor_container div{
@@ -73,8 +128,8 @@
 }
 
 .vehicleConfig_select{
-    border: 2px solid black;
-    padding: 0px 2px 4px 2px;
+    border: 1px solid black;
+    padding: 2px 6px 4px 6px;
     margin: 7px;
     border-radius: 6px;
     cursor: pointer;
@@ -82,16 +137,17 @@
 }
 
 .vehicleConfig_select:hover{
-    color: indianred;
-    border: 2px solid indianred;
+    font-weight: bold;
+    border: 2px solid rgb(22, 131, 252);
 }
 
 .color_select{
-    height: 25px;
-    width: 25px;
+    height: 15px;
+    width: 15px;
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
+    padding: 0px !important;
 }
 
 .vehicleConfig_deep_blue_metallic{
@@ -124,10 +180,13 @@
 
 .vehicleConfig_selectTowHitch_ul{
     display: inline-block;
+    width: 98%;
+    border-bottom: 1px solid gainsboro;
+    margin-bottom: 6px;
 }
 
-.accessory_select{
-    display: block;
+.vehicleConfig_accessory_select{
+    display: inline-block;
     position: relative;
     padding-left: 35px;
     margin-bottom: 12px;
@@ -139,3 +198,56 @@
     user-select: none;
 }
 
+.vehicleConfig_pricing_subcontainer1{
+    border-right: 1px solid gainsboro;
+}
+
+.vehicleConfig_pricing_subcontainer3{
+    border-bottom: 1px solid gainsboro;
+    padding: 5px 0px 6px 0px;
+    text-align: center;
+}
+
+.vehicleConfig_autopilot{
+    padding-right: 48px;
+}
+
+.vehicleConfig_autopilot_container{
+    padding-left: 0px;
+    margin: 4px;
+}
+
+.vehicleConfig_incentives{
+    border-bottom: 1px solid gainsboro;
+}
+
+.vehicleConfig_selectLayout_container, .vehicleConfig_autopilot_container{
+    display: inline-grid;
+}
+
+.vehicleConfig_autopilot_container ul{
+    padding-left: 0px;
+}
+
+.vehicleConfig_selectLayout_and_autopilot_container{
+    border-bottom: 1px solid gainsboro; 
+}
+
+.veicleConfig_userEntry_container{
+    padding: 5px 0px 10px 0px;
+    border-bottom: 1px solid gainsboro;
+}
+
+.vehicleConfig_select_sr{
+    margin: 2px;
+    padding: 2px 10px 2px 10px;
+}
+
+.vehicleConfig_select_off{
+    margin: 2px;
+    padding: 2px 8px 2px 8px;
+}
+
+.vehicleConfig_select_srAndoff{
+    margin-top: 10px;
+}

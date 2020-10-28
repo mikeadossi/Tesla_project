@@ -1,0 +1,26 @@
+.vehicleMenu_container{ 
+    width: 100%;
+    padding: 20px; 
+    background-color: lightgrey;
+    border-radius: 5px 5px 5px 5px;
+    border: 1px solid grey;
+    height: 110px;
+}
+
+.vehicleMenu_models_btn{
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 6px 6px 6px 6px;
+    border: 2px solid black;
+    float: left;
+    margin: 5px; 
+}
+
+.vehicleMenu_models_btn:hover{
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.vehicleMenu_models_btn:active{
+    opacity: 0.4;
+}
