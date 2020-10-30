@@ -32,3 +32,11 @@ div{
 .app_cursorPointer{
   cursor: pointer;
 }
+
+.app_available{
+  color: green;
+}
+
+.app_unavailable{
+  color: red;
+}

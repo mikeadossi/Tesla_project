@@ -1,0 +1,9 @@
+.infoModalData_locations_container{
+    overflow: auto;
+    width: 100%;
+    height: 95%;
+}
+
+.infoModalData_showroom_container_padding{
+    height: 100px; 
+}

@@ -35,7 +35,7 @@ class InfoModalData_locations extends Component {
                   Monday - Saturday 10:00am - 9:00pm
                   Sunday 11:00am - 7:0pm
               </p>
-            </div> 
+            </div>
           </div>
         </div>
 
@@ -106,6 +106,9 @@ class InfoModalData_locations extends Component {
             </div> 
           </div>
         </div>
+
+        <div className="infoModalData_showroom_container_padding"></div>
+
       </div>
     );
   }

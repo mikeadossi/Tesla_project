@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './InfoPanel.css';
 import InfoPanel_locations_nearby from '../../components/InfoPanelData/InfoPanel_locations_nearby/InfoPanel_locations_nearby';
+import InfoPanel_payments from '../../components/InfoPanelData/InfoPanel_payments/InfoPanel_payments';
 
 class InfoPanel extends Component {
   render() {
@@ -34,7 +35,7 @@ class InfoPanel extends Component {
             <div className=""></div>
           </div>
           <div className="infoPanel_section_data">
-            <InfoPanel_locations_nearby />
+            <InfoPanel_payments />
           </div>
       </div>
     );
