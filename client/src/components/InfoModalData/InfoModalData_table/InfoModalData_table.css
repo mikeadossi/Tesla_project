@@ -1,0 +1,14 @@
+.infoModalData_table_head{
+    background-color: rgb(238, 238, 238, 238);
+    border: 1px solid rgb(221, 221, 221, 221);
+    padding: 10px;
+}
+
+.infoModalData_table_top{
+    width: 50%;
+}
+
+.table-charging-details-th td{
+    text-align: center;
+    border: 1px solid rgb(221, 221, 221, 221);
+}
