@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './InfoModalData_table.css';
 
-class InfoModalData_table extends Component {
+class InfoModalData_wc_table extends Component {
   render() {
     return ( 
-      <div className="infoModalData_table_container"> 
+      <div className="infoModalData_wc_table_container"> 
           <table>
               <thead>
                   <tr>
@@ -120,4 +120,4 @@ class InfoModalData_table extends Component {
   }
 }
 
-export default InfoModalData_table;
+export default InfoModalData_wc_table;

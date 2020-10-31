@@ -1,0 +1,9 @@
+.infoModalData_charging_btn_container{
+    padding: 10px;
+}
+
+.infoModalData_charging_btn{
+    display: inline-block;
+    margin-right: 10px;
+    width: 124px;
+}

@@ -4,6 +4,8 @@ import InfoPanel_locations_nearby from '../../components/InfoPanelData/InfoPanel
 import InfoPanel_payments from '../../components/InfoPanelData/InfoPanel_payments/InfoPanel_payments';
 import InfoPanel_incentives from '../../components/InfoPanelData/InfoPanel_incentives/InfoPanel_incentives';
 import InfoPanel_warranty from '../../components/InfoPanelData/InfoPanel_warranty/InfoPanel_warranty';
+import InfoPanel_links from '../../components/InfoPanelData/InfoPanel_links/InfoPanel_links';
+import InfoPanel_charging from '../../components/InfoPanelData/InfoPanel_charging/InfoPanel_charging';
 
 class InfoPanel extends Component {
   render() {
@@ -37,7 +39,7 @@ class InfoPanel extends Component {
             <div className=""></div>
           </div>
           <div className="infoPanel_section_data">
-            <InfoPanel_warranty />
+            <InfoPanel_charging />
           </div>
       </div>
     );

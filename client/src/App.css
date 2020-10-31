@@ -40,3 +40,30 @@ div{
 .app_unavailable{
   color: red;
 }
+
+.app_textdecorationNone{
+  text-decoration: none;
+}
+
+.app_source_footer{
+  margin-top: 20px;
+}
+
+.app_seeMore_btn{ 
+  cursor: pointer;
+  border: 2px solid black;
+  width: 62px;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.app_seeMore_btn:hover{
+  border: 2px solid rgb(22, 131, 252);
+}
+
+.app_modalData_content{
+  overflow: auto;
+  width: 100%;
+  height: 340px; 
+}

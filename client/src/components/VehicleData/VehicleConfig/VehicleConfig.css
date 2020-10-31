@@ -128,7 +128,7 @@
 }
 
 .vehicleConfig_select{
-    border: 1px solid black;
+    border: 2px solid black;
     padding: 2px 6px 4px 6px;
     margin: 7px;
     border-radius: 6px;
@@ -136,8 +136,7 @@
     text-align: center;
 }
 
-.vehicleConfig_select:hover{
-    font-weight: bold;
+.vehicleConfig_select:hover{ 
     border: 2px solid rgb(22, 131, 252);
 }
 

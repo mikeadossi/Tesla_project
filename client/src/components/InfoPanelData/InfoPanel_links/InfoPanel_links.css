@@ -1,0 +1,14 @@
+.InfoPanel_links_container div{
+    padding: 5px;
+}
+
+.infoPanel_links{
+    color: black;
+    font-weight: bold;
+    cursor: pointer
+}
+
+.infoPanel_links:hover{
+    color: steelblue;
+}
+
