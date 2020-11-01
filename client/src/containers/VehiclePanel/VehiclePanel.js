@@ -6,7 +6,7 @@ import VehicleConfig from '../../components/VehicleData/VehicleConfig/VehicleCon
 class VehiclePanel extends Component {
   render() {
     return ( 
-      <div className="vehiclePanel_container">
+      <div className="app_Panel_container">
         <VehicleMenu />
         <VehicleConfig />
       </div>  

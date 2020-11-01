@@ -4,9 +4,9 @@ import './VehicleConfig.css';
 class VehicleConfig extends Component {
   render() {
     return (
-      <div className="vehicleConfig_container">
-        <div className="vehicleConfig_vehicleName">Model 3</div>
-        <div className="vehicleConfig_columns vehicleConfig_column1">
+      <div className="app_Config_container">
+        <div className="app_configTitle vehicleConfig_vehicleName">Model 3</div>
+        <div className="app_inlineFlex app_columns_width vehicleConfig_column1">
           <div className="vehicleConfig_columns_blockContent">
 
             <div className="vehicleConfig_modelName_container">
@@ -144,7 +144,7 @@ class VehicleConfig extends Component {
           </div>
         </div>
         
-        <div className="vehicleConfig_columns vehicleConfig_column2">
+        <div className="app_inlineFlex app_columns_width vehicleConfig_column2">
           <div className="vehicleConfig_columns_blockContent">
 
             <div className="vehicleConfig_selectLayout_and_autopilot_container">

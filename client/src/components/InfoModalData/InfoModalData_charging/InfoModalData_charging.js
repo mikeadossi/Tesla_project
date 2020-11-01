@@ -7,7 +7,7 @@ class InfoModalData_charging extends Component {
   render() {
     return ( 
       <div className="infoModalData_charging_container">
-          <h1>CHARGING</h1>
+          <h1>CHARGING</h1> 
           <div className="app_modalData_content">
             <div className="infoModalData_charging_btn_container">
               <div className="app_seeMore_btn app_NoSelect infoModalData_charging_btn">Wall Connector</div>

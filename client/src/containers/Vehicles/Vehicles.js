@@ -11,7 +11,7 @@ class Vehicles extends Component {
       <div className="vehicles_container">
           <div className="vehicles_info_panel">
             <InfoPanel /> 
-            <InfoModal />
+            <VehiclePanel />
           </div>
       </div>  
     );
