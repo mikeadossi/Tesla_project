@@ -9,7 +9,7 @@ class Vehicles extends Component {
   render() {
     return ( 
       <div className="vehicles_container">
-          <div className="vehicles_info_panel">
+          <div className="vehicles_info_panel app_displayFlex">
             <InfoPanel /> 
             <VehiclePanel />
           </div>

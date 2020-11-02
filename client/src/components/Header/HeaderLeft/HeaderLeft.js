@@ -5,7 +5,7 @@ import { Link }  from 'react-router-dom';
 class HeaderLeft extends Component {
   render() {
     return (
-      <div className="headerLeft"> 
+      <div className="headerLeft app_marginTop"> 
           <img src="../../client/public/images/hamburger.png" alt=".." />
           <i className="fas fa-bars" aria-hidden="true"></i> 
           <Link to="/" className="headerLeft_link">

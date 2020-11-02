@@ -6,7 +6,8 @@ class SolarPowerWall extends Component {
     return (
         <div className="app_columns_width vehicleConfig_column2">
             <div className="app_configTitle">Power Wall</div>
-            <div className="">content</div>
+            <div className="">
+            </div>
         </div>
     );
   }

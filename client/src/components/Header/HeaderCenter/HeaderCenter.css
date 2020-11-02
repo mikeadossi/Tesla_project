@@ -5,30 +5,5 @@
 }
 
 .headerCenter_input_btn{
-    cursor: pointer;
-    background-color: steelblue;
-    color: white;
-    padding: 7px;
-    border: none;
     border-radius: 0px 2px 2px 0px;
-}
-
-.headerCenter_input_btn:hover{
-    background-color: rgb(60,120,200);
-}
-
-.headerCenter_input_btn:active{
-    background-color: rgb(70,110,200);
-}
-
-.headerCenter_input{
-    width:  200px;
-    padding: 5px;
-    margin-right: 3px;
-    border: 2px solid gainsboro;
-}
-
-.headerCenter_input:focus{
-    outline: none;
-    border: 2px solid steelblue;
 }

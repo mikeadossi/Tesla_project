@@ -10,9 +10,9 @@ class InfoModalData_charging extends Component {
           <h1>CHARGING</h1> 
           <div className="app_modalData_content">
             <div className="infoModalData_charging_btn_container">
-              <div className="app_seeMore_btn app_NoSelect infoModalData_charging_btn">Wall Connector</div>
-              <div className="app_seeMore_btn app_NoSelect infoModalData_charging_btn">Mobile Connector</div>
-              <div className="app_seeMore_btn app_NoSelect infoModalData_charging_btn">Charging Stations</div>
+              <div className="app_seeMore_btn app_noSelect infoModalData_charging_btn">Wall Connector</div>
+              <div className="app_seeMore_btn app_noSelect infoModalData_charging_btn">Mobile Connector</div>
+              <div className="app_seeMore_btn app_noSelect infoModalData_charging_btn">Charging Stations</div>
             </div>
             <InfoModalData_mc_table />
           </div>

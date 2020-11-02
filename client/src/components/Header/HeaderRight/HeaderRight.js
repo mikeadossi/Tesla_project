@@ -5,7 +5,7 @@ import { Link }  from 'react-router-dom';
 class HeaderRight extends Component {
   render() {
     return (
-      <div className="headerRight">
+      <div className="headerRight app_marginTop">
           <Link to="/" className="headerRight_links">
             <div className="headerRight_sign_up headerRight_login_btn">About</div>
           </Link>

@@ -19,10 +19,10 @@ class VehicleConfig extends Component {
                 <img src="../../public/images/model3.png"></img>
               </div>
 
-              <div className="vehicleConfig_specs_container">
-                <div className="vehicleConfig_spec vehicleConfig_range">263 miles range</div>
-                <div className="vehicleConfig_spec vehicleConfig_topSpeed">140 mph</div>
-                <div className="vehicleConfig_spec vehicleConfig_mph">5.3sec 0-60</div>
+              <div className="app_Config_specs_container vehicleConfig_specs_container">
+                <div className="app_Config_spec vehicleConfig_range">263 miles range</div>
+                <div className="app_Config_spec vehicleConfig_topSpeed">140 mph</div>
+                <div className="app_Config_spec vehicleConfig_mph">5.3sec 0-60</div>
               </div>
             </div>
 
@@ -101,23 +101,23 @@ class VehicleConfig extends Component {
                 <div>Select Battery: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectCar_ul">
                   <li className="vehicleConfig_select_srAndoff">
-                    <span className="app_NoSelect vehicleConfig_select vehicleConfig_select_sr">Standard</span>
-                    <span className="app_NoSelect vehicleConfig_select vehicleConfig_select_off">Off</span>
+                    <span className="app_noSelect vehicleConfig_select vehicleConfig_select_sr">Standard</span>
+                    <span className="app_noSelect vehicleConfig_select vehicleConfig_select_off">Off</span>
                   </li>
-                  <li className="app_NoSelect vehicleConfig_select">Long Range</li>
-                  <li className="app_NoSelect vehicleConfig_select">Performance</li>
+                  <li className="app_noSelect vehicleConfig_select">Long Range</li>
+                  <li className="app_noSelect vehicleConfig_select">Performance</li>
                 </ul>
               </div>
               <div className="vehicleConfig_selectColor_container">
                 <div>Select Color: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectColor_ul">
-                  <li className="app_NoSelect vehicleConfig_select color_select vehicleConfig_pearl_white_multicoat"></li>
-                  <li className="app_NoSelect vehicleConfig_select color_select vehicleConfig_solid_black"></li>
-                  <li className="app_NoSelect vehicleConfig_select color_select vehicleConfig_midnight_silver_metallic"></li>
-                  <li className="app_NoSelect vehicleConfig_select color_select vehicleConfig_deep_blue_metallic"></li>
-                  <li className="app_NoSelect vehicleConfig_select color_select vehicleConfig_red_multicoat"></li>
+                  <li className="app_noSelect vehicleConfig_select color_select vehicleConfig_pearl_white_multicoat"></li>
+                  <li className="app_noSelect vehicleConfig_select color_select vehicleConfig_solid_black"></li>
+                  <li className="app_noSelect vehicleConfig_select color_select vehicleConfig_midnight_silver_metallic"></li>
+                  <li className="app_noSelect vehicleConfig_select color_select vehicleConfig_deep_blue_metallic"></li>
+                  <li className="app_noSelect vehicleConfig_select color_select vehicleConfig_red_multicoat"></li>
                 </ul>
-                <input type="text" className="app_NoSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectColor_input" readonly="readonly" />
+                <input type="text" className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectColor_input" readonly="readonly" />
               </div>
             </div>
 
@@ -125,19 +125,19 @@ class VehicleConfig extends Component {
               <div className="vehicleConfig_selectWheel_container">
                 <div>Select Wheel: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectwheel_ul">
-                  <image className="app_NoSelect vehicleConfig_select wheel_select vehicleConfig_18_inch_aero_wheels" />
-                  <image className="app_NoSelect vehicleConfig_select wheel_select vehicleConfig_19_inch_sport_wheels" />
+                  <image className="app_noSelect vehicleConfig_select wheel_select vehicleConfig_18_inch_aero_wheels" />
+                  <image className="app_noSelect vehicleConfig_select wheel_select vehicleConfig_19_inch_sport_wheels" />
                 </ul>
-                <input type="text" className="app_NoSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input" readonly="readonly" />
+                <input type="text" className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input" readonly="readonly" />
               </div>
 
               <div className="vehicleConfig_selectInteriorColor_container">
                 <div>Select Interior Color: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectInteriorColor_ul">
-                  <li className="app_NoSelect vehicleConfig_select color_select vehicleConfig_black_interior"></li>
-                  <li className="app_NoSelect vehicleConfig_select color_select vehicleConfig_white_interior"></li>
+                  <li className="app_noSelect vehicleConfig_select color_select vehicleConfig_black_interior"></li>
+                  <li className="app_noSelect vehicleConfig_select color_select vehicleConfig_white_interior"></li>
                 </ul>
-                <input type="text" className="app_NoSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectInteriorColor_input" readonly="readonly" />
+                <input type="text" className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectInteriorColor_input" readonly="readonly" />
               </div>
             </div>
 
@@ -151,24 +151,24 @@ class VehicleConfig extends Component {
               <div className="vehicleConfig_selectLayout_container">
                 <div className="app_textalign">Select Layout: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectlayout_ul">
-                  <li className="app_NoSelect vehicleConfig_select layout_select vehicleConfig_5_seater">5 Seater - Included</li>
-                  <li className="app_NoSelect vehicleConfig_select layout_select vehicleConfig_6_seater">6 Seater - $1,500</li>
-                  <li className="app_NoSelect vehicleConfig_select layout_select vehicleConfig_6_seater">7 Seater - $3,000</li>
+                  <li className="app_noSelect vehicleConfig_select layout_select vehicleConfig_5_seater">5 Seater - Included</li>
+                  <li className="app_noSelect vehicleConfig_select layout_select vehicleConfig_6_seater">6 Seater - $1,500</li>
+                  <li className="app_noSelect vehicleConfig_select layout_select vehicleConfig_6_seater">7 Seater - $3,000</li>
                 </ul>
               </div>
 
               <div className="vehicleConfig_autopilot_container">
                 <div className="app_textalign">Select Autopilot: </div>
                 <div>
-                  <input type="radio" name="autopilot_radio" value="No Autopilot" className="app_NoSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_noAutopilot_radio"></input>
+                  <input type="radio" name="autopilot_radio" value="No Autopilot" className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_noAutopilot_radio"></input>
                   <span className="vehicleConfig_autopilot">No autopilot</span>
                 </div>
                 <div>
-                  <input type="radio" name="autopilot_radio" value="Autopilot" className="app_NoSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_autopilot_radio"></input>
+                  <input type="radio" name="autopilot_radio" value="Autopilot" className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_autopilot_radio"></input>
                   <span>Autopilot - $3,000</span>
                 </div>
                 <div>
-                  <input type="radio" name="autopilot_radio" value="Full Self Driving" className="app_NoSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_fsd_radio"></input>
+                  <input type="radio" name="autopilot_radio" value="Full Self Driving" className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_fsd_radio"></input>
                   <span>FSD - $10,000</span>
                 </div>
               </div>
@@ -176,7 +176,7 @@ class VehicleConfig extends Component {
 
             <div className="vehicleConfig_selectTowHitch_container"> 
               <ul className="vehicleConfig_select_ul vehicleConfig_selectTowHitch_ul">
-                <input type="checkbox" className="app_NoSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_towHitch_checkbox"></input>
+                <input type="checkbox" className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_towHitch_checkbox"></input>
                 <span>Tow Hitch - $1,000</span>
               </ul>
             </div>

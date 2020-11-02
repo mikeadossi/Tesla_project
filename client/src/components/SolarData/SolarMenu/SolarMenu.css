@@ -1,0 +1,32 @@
+.solarMenu_form_container{
+    margin-top: 10px;
+}
+
+.solarMenu_form_kwh, .solarMenu_form_submit_btn{
+    margin-left: 40px;
+}
+
+.solarMenu_form_submit_btn{
+    border-radius: 2px;
+}
+
+.solarMenu_form_bill_input{
+    width: 50px;
+}
+
+.solarMenu_form_kwh select{
+    cursor: pointer;
+    padding: 4px;
+}
+
+.solarMenu_form_bill_label{
+    padding-right: 5px;
+}
+
+.solarMenu_form_kwh select{
+    margin-right: 5px; 
+}
+
+.solarMenu_form_title{
+    margin-top: 0px;
+}

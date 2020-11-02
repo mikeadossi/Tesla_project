@@ -7,7 +7,7 @@ class Solar extends Component {
   render() {
     return ( 
       <div className="solar_container">
-          <div className="solar_info_panel">
+          <div className="solar_info_panel app_displayFlex">
             <InfoPanel />
             <SolarProductPanel />
           </div>
