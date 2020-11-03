@@ -9,7 +9,7 @@ class SolarConfig extends Component {
     return (
       <div className="app_Config_container app_inlineFlex">
         <SolarPanels />
-        <SolarRoof />
+        <SolarPowerWall />
       </div>
     );
   }

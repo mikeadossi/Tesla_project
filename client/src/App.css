@@ -235,7 +235,7 @@ div{
 .app_Solar_additions_select_div{
   flex-wrap: wrap;
   display: inline-flex;
-  padding: 10px 0px 10px 0px;
+  padding-bottom: 10px;
 }
 
 .app_Solar_additions_details{
@@ -261,4 +261,8 @@ div{
 
 .app_Solar_additions_details span{
   float: right;
+}
+
+.app_padding_bottom_10px{
+  padding-bottom: 10px;
 }

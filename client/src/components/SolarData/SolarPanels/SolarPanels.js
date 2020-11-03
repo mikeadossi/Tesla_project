@@ -74,9 +74,9 @@ class SolarPanels extends Component {
           </div>
 
           <div className="app_Solar_additions_container">
-            <div>Add Future Purchase</div>
+            <div className="app_padding_bottom_10px">Add Future Purchase</div>
             <div>
-                <div className="app_Solar_additions_select_div">
+                <div className="app_Solar_additions_select_div solarPanel_additions_select">
                   <div className="app_seeMore_btn app_noSelect app_Solar_additions_item">Model 3</div>
                   <div className="app_seeMore_btn app_noSelect app_Solar_additions_item">Model S</div>
                   <div className="app_seeMore_btn app_noSelect app_Solar_additions_item">Model X</div>
