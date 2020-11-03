@@ -220,3 +220,21 @@
 .vehicleConfig_select_srAndoff{
     margin-top: 10px;
 }
+
+.vehicleConfig_userInput_container{
+    float: right
+}
+
+.vehicleConfig_submit_btn_container{
+    padding: 25px 10px 20px 0px;
+    text-align: center;
+}
+
+.vehicleConfig_control_btn{
+    padding: 5px;
+    width: 46%;
+}
+
+.vehicleConfig_reset_btn{
+    margin-right: 10px;
+}

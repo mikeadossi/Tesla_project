@@ -12,3 +12,66 @@
     text-align: center;
     border: 1px solid rgb(221, 221, 221, 221);
 }
+
+.infoModalData_charging_select{ 
+    width: 50%;
+}
+
+.infoModalData_charging_state{ 
+    width: 50%;
+}
+
+.infoModalData_charging_meter{
+    height: 5px; 
+    margin: 5px 0px 5px 0px; 
+    background-color: gainsboro;
+}
+
+.infoModalData_socket_img{
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin: 5px auto;
+}
+
+.infoModalData_socket_btn{
+    margin: 2.5px;
+    width: 78px;
+    padding: 8px;
+}
+
+.infoModalData_socket_container{
+    flex-wrap: wrap;
+    display: inline-flex;
+}
+
+.infoModalData_charging_select, .infoModalData_charging_state{
+    padding : 10px;
+}
+
+.infoModalData_select_title{
+    padding-bottom: 10px;
+}
+
+.infoModalData_charging_result{
+    text-align: center;
+    padding: 10px;
+}
+
+.infoModalData_pricePerKwh_input{
+    width: 40px;
+}
+
+.infoModalData_pricePerKwh_btn{
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.infoModalData_meter_right{
+    text-align: right;
+}
+
+.infoModalData_meter_lr{
+    width: 50%;
+}

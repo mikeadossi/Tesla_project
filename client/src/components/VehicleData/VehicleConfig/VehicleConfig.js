@@ -191,64 +191,85 @@ class VehicleConfig extends Component {
             </div>
 
             <div className="veicleConfig_userEntry_container">
-              <div className="vehicleConfig_userEntry_container1 app_inline-block">
+              <div className="vehicleConfig_userEntry_container1">
                 <div className="vehicleConfig_pricing vehicleConfig_stateTax">
                   <label>APR: </label>
-                  <input></input>
-                  <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  <span className="vehicleConfig_userInput_container">
+                    <input></input>
+                    <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  </span>
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_stateFees">
                   <label>Lease Term: </label>
-                  <input></input>
-                  <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  <span className="vehicleConfig_userInput_container">
+                    <input></input>
+                    <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  </span>
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_cashAmtDue">
                   <label>Finance Term: </label>
-                  <input></input>
-                  <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  <span className="vehicleConfig_userInput_container">
+                    <input></input>
+                    <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  </span>
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_loanAmtDue">
                   <label>Trade-in Lien Type: </label>
-                  <input></input>
-                  <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  <span className="vehicleConfig_userInput_container">
+                    <input></input>
+                    <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  </span>
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_leaseAmtDue">
                   <label>Select Miles: </label>
-                  <input></input>
-                  <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  <span className="vehicleConfig_userInput_container">
+                    <input></input>
+                    <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  </span>
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_customerCashDown">
                   <label>Cash Down pymt: </label>
-                  <input></input>
-                  <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  <span className="vehicleConfig_userInput_container">
+                    <input></input>
+                    <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  </span>
                 </div>
               </div>
 
-              <div className="vehicleConfig_userEntry_container2 .app_inline-block">
+              <div className="vehicleConfig_userEntry_container2">
                 <div className="vehicleConfig_pricing vehicleConfig_stateTax">
                   <label>Enter Adjustments: </label>
-                  <input></input>
-                  <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  <span className="vehicleConfig_userInput_container">
+                    <input></input>
+                    <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  </span>
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_stateFees">
                   <label>Enter trade-in value: </label>
-                  <input></input>
-                  <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  <span className="vehicleConfig_userInput_container">
+                    <input></input>
+                    <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  </span>
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_cashAmtDue">
                   <label>Enter trade-in payoff: </label>
-                  <input></input>
-                  <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  <span className="vehicleConfig_userInput_container">
+                    <input></input>
+                    <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  </span>
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_loanAmtDue">
                   <label>Trade-in Equity: </label>
-                  <input></input>
-                  <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  <span className="vehicleConfig_userInput_container">
+                    <input></input>
+                    <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
+                  </span>
                 </div>
               </div>
 
-              <div>
-                <button className="vehicleConfig_reset_btn app_cursorPointer">Reset all entries</button>
+              <div className="vehicleConfig_submit_btn_container">
+                <button className="app_submit_btn app_noSelect vehicleConfig_control_btn vehicleConfig_reset_btn app_cursorPointer">Reset entries</button>
+                <button className="app_submit_btn app_noSelect vehicleConfig_control_btn vehicleConfig_submit_btn app_cursorPointer">Submit</button>
               </div>
             </div>
 

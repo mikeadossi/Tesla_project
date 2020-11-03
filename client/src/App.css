@@ -133,6 +133,7 @@ div{
   color: white;
   padding: 7px;
   border: none;
+  border-radius: 2px;
 }
 
 .app_submit_btn:hover{

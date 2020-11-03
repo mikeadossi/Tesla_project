@@ -13,31 +13,39 @@ class SolarMenu extends Component {
             <div className="app_Menu_btn app_noSelect select_sp_and_sr">SP vs SR</div>
             <div className="app_Menu_btn app_noSelect select_pw">Powerwall</div>
           </div>
-          <div className="solarMenu_utility_container">
-            <label>Customers Utility Company: </label>
-            <select className="app_inline-block solarMenu_utiltiy_select app_removeBlue">
-                <option value="CentralHudsonGasElecCorp">Central Hudson Gas Elec Corp.</option>
-                <option value="NYStateGasElecCorp">NY State Gas Elec Corp.</option>
-                <option value="RochesterGasAndElecCorp">Rochester Gas and Elec Corp.</option>
-            </select>
-          </div>
         </div> 
         <div className="app_Menu_container solarMenu_form_container">
           <h3 className="solarMenu_form_title">Submit Energy Use</h3>
           <div className="solarMenu_div">
-            <form className="solarMenu_form app_displayFlex">
-              <div className="solarMenu_form_bill">
-                <label className="solarMenu_form_bill_label">Enter monthly electricity cost:</label>
-                <span>$</span><input className="solarMenu_form_bill_input app_main_submit_input app_removeBlue"></input>
+            <form className="solarMenu_form">
+              <div className="app_displayFlex">
+                <div className="solarMenu_form_bill">
+                  <label className="solarMenu_form_bill_label">Enter monthly electricity cost:</label>
+                  <span>$</span><input className="solarMenu_form_bill_input app_main_submit_input app_removeBlue"></input>
+                </div>
+                <div className="solarMenu_form_kwh">
+                  <label>Enter kWh use: </label>
+                  <select className="solarMenu_form_select app_removeBlue">
+                      <option value="Daily">Daily</option>
+                      <option value="Monthly">Monthly</option>
+                      <option value="Yearly">Yearly</option>
+                  </select>
+                  <span>$</span><input className="solarMenu_form_bill_input app_main_submit_input app_removeBlue"></input>
+                </div>
               </div>
-              <div className="solarMenu_form_kwh">
-                <label>Enter kWh use: </label>
-                <select className="solarMenu_form_select app_removeBlue">
-                    <option value="Daily">Daily</option>
-                    <option value="Monthly">Monthly</option>
-                    <option value="Yearly">Yearly</option>
-                </select>
-                <span>$</span><input className="solarMenu_form_bill_input app_main_submit_input app_removeBlue"></input>
+              <div className="app_displayFlex">
+                <div className="solarMenu_utility_container">
+                  <label>Customers Utility Company: </label>
+                  <select className="app_inline-block solarMenu_utiltiy_select app_removeBlue">
+                      <option value="CentralHudsonGasElecCorp">Central Hudson Gas Elec Corp.</option>
+                      <option value="NYStateGasElecCorp">NY State Gas Elec Corp.</option>
+                      <option value="RochesterGasAndElecCorp">Rochester Gas and Elec Corp.</option>
+                  </select>
+                </div>
+                <div className="solarMenu_utility_container">
+                  <label>Do you have Solar?: </label>
+                  <input></input>kW
+                </div>
               </div>
               <button className="solarMenu_form_submit_btn app_submit_btn app_noSelect app_removeBlue">Submit</button>
             </form>
