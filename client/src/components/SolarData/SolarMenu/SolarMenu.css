@@ -30,3 +30,11 @@
 .solarMenu_form_title{
     margin-top: 0px;
 }
+
+.solarMenu_utility_container{
+    padding: 20px 20px 20px 7px;
+}
+
+.solarMenu_utiltiy_select{
+    padding: 5px;
+}

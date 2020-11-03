@@ -172,3 +172,93 @@ div{
 .app_marginTop{
   margin-top: 6px;
 }
+
+.app_Solar_cost{
+  float: right;
+}
+
+.app_Solar_cost_div{
+  padding: 5px;
+}
+
+.app_Solar_costs_container{
+  margin-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid gainsboro;
+}
+
+.app_Solar_select_kw_btn{
+  padding: 5px;
+  margin-right: 9px;
+}
+
+.app_Solar_kw_div{
+  margin-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid gainsboro;
+}
+
+.app_Solar_selectKwSize_div{
+  padding-top: 20px;
+}
+
+.app_Solar_select{
+  padding: 4px 20px 4px 20px;
+  border: 2px solid black;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.app_Solar_selectPymt_btn{
+  padding: 5px;
+  width: 32%;
+  border: 1px solid gainsboro;
+  border-bottom: 3px solid gainsboro;
+  text-align: center;
+  margin-right: 2px;
+  cursor: pointer;
+}
+
+.app_Solar_selectPymt_btn:hover{
+  border-bottom: 3px solid rgb(22, 131, 252);
+}
+
+.app_Solar_selectPymt_div{
+  margin-bottom: 10px;
+}
+
+.app_Solar_Img_container{
+  border-bottom: 1px solid gainsboro;
+  padding-bottom: 35px;
+}
+
+.app_Solar_additions_select_div{
+  flex-wrap: wrap;
+  display: inline-flex;
+  padding: 10px 0px 10px 0px;
+}
+
+.app_Solar_additions_details{
+}
+
+.app_Solar_additions_item{
+  padding: 4px;
+  margin: 4px;
+}
+
+.app_Solar_pool_wider_btn{
+  width: 143px;
+}
+
+.app_Solar_additions_container{
+  padding: 10px 0px 10px 0px;
+  border-bottom: 1px solid gainsboro; 
+}
+
+.app_Solar_additions_details div{
+  padding: 7px;
+}
+
+.app_Solar_additions_details span{
+  float: right;
+}

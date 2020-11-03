@@ -13,6 +13,14 @@ class SolarMenu extends Component {
             <div className="app_Menu_btn app_noSelect select_sp_and_sr">SP vs SR</div>
             <div className="app_Menu_btn app_noSelect select_pw">Powerwall</div>
           </div>
+          <div className="solarMenu_utility_container">
+            <label>Customers Utility Company: </label>
+            <select className="app_inline-block solarMenu_utiltiy_select app_removeBlue">
+                <option value="CentralHudsonGasElecCorp">Central Hudson Gas Elec Corp.</option>
+                <option value="NYStateGasElecCorp">NY State Gas Elec Corp.</option>
+                <option value="RochesterGasAndElecCorp">Rochester Gas and Elec Corp.</option>
+            </select>
+          </div>
         </div> 
         <div className="app_Menu_container solarMenu_form_container">
           <h3 className="solarMenu_form_title">Submit Energy Use</h3>
