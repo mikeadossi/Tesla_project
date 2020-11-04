@@ -6,6 +6,9 @@ import InfoPanel_incentives from '../../components/InfoPanelData/InfoPanel_incen
 import InfoPanel_warranty from '../../components/InfoPanelData/InfoPanel_warranty/InfoPanel_warranty';
 import InfoPanel_links from '../../components/InfoPanelData/InfoPanel_links/InfoPanel_links';
 import InfoPanel_charging from '../../components/InfoPanelData/InfoPanel_charging/InfoPanel_charging';
+import InfoPanel_solar_container from '../../components/InfoPanelData/InfoPanel_solar_container/InfoPanel_solar_container';
+import InfoPanel_vehicle_container from '../../components/InfoPanelData/InfoPanel_vehicle_container/InfoPanel_vehicle_container';
+import InfoPanel_neutral_container from '../../components/InfoPanelData/InfoPanel_neutral_container/InfoPanel_neutral_container';
 
 class InfoPanel extends Component {
   render() {
@@ -13,33 +16,11 @@ class InfoPanel extends Component {
       <div className="infoPanel_container">
           <h3 className="infoPanel_title"> 
             INFORMATION
-          </h3>
-          <div className="infoPanel_payments_div">
-            <div className="infoPanel_section app_cursorPointer">PAYMENTS</div>
-            <div className=""></div>
-          </div>
-          <div className="infoPanel_incentives_div">
-            <div className="infoPanel_section app_cursorPointer">INCENTIVES</div>
-            <div className=""></div>
-          </div>
-          <div className="infoPanel_locations_div">
-            <div className="infoPanel_section app_cursorPointer">LOCATIONS NEARBY</div>
-            <div className=""></div>
-          </div>
-          <div className="infoPanel_charging_div">
-            <div className="infoPanel_section app_cursorPointer">CHARGING</div>
-            <div className=""></div>
-          </div>
-          <div className="infoPanel_warranty_div">
-            <div className="infoPanel_section app_cursorPointer">WARRANTY</div>
-            <div className=""></div>
-          </div>
-          <div className="infoPanel_links_div">
-            <div className="infoPanel_section app_cursorPointer">LINKS</div>
-            <div className=""></div>
-          </div>
+          </h3> 
+          <InfoPanel_vehicle_container />
+          <InfoPanel_neutral_container />
           <div className="infoPanel_section_data">
-            <InfoPanel_charging />
+            <InfoPanel_links />
           </div>
       </div>
     );

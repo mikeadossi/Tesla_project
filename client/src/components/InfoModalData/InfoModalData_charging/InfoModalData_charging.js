@@ -17,7 +17,7 @@ class InfoModalData_charging extends Component {
               <div className="app_Solar_selectPymt_btn app_noSelect infoModalData_charging_btn">Charging Stations</div>
           </div>
           <div className="app_modalData_content">
-            <InfoModalData_charging_calculator />
+            <InfoModalData_charging_stations />
           </div>
       </div>
     );

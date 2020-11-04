@@ -10,7 +10,7 @@
     background-color: white;
     border-radius: 5px 5px 5px 5px;
     border: 1px solid gainsboro;
-    height: 560px;
+    height: 575px;
 }
 
 .infoPanel_title{
@@ -25,6 +25,7 @@
 .infoPanel_section_data{
     overflow: auto;
     width: 94%;
-    height: 95%;
     padding: 10px;
+    border: 1px solid gainsboro;
+    height: 160px; 
 }

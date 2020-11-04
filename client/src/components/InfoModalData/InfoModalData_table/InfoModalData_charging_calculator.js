@@ -79,7 +79,7 @@ class InfoModalData_charging_calculator extends Component {
                      </div> 
                      <div className="infoModalData_charging_result">
                          <span>Charging costs:</span>
-                         <span> <span>29</span>hr <span>18</span>min</span>
+                         <span> $<span>6.8</span></span>
                      </div> 
                  </div>
               </div>
