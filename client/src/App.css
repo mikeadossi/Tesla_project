@@ -274,12 +274,14 @@ div{
 }
 
 .app_active_register_btn{
-  background-color: #FBFBFB;
+  background-color: #FBFBFB; 
 }
 
 .app_inactive_register_btn{
   background-color: #F2F2F2;
+  border-bottom: 1px solid gainsboro;
   cursor: pointer;
+  color: inherit;
 } 
 
 .app_inactive_register_btn:hover{
@@ -312,6 +314,10 @@ div{
 }
 
 .app_register_submit_btn:hover{
+  opacity: 0.9;
+}
+
+.app_register_submit_btn:active{
   opacity: 0.8;
 }
 
@@ -331,6 +337,9 @@ div{
   padding: 40px;
   margin: auto;
   margin-bottom: 60px;
+  border-bottom: 1px solid gainsboro;
+  border-left: 1px solid gainsboro;
+  border-right: 1px solid gainsboro;
 }
 
 .app_register_option_btn{
@@ -347,4 +356,13 @@ div{
   max-width: 590px;
   margin: auto;
   margin-top: 60px;
+  border-top: 1px solid gainsboro;
+  border-right: 1px solid gainsboro;
+  border-left: 1px solid gainsboro;
+  display: flex;
 }
+
+.app_register_border{
+  display: inline-block;
+  border-right: 1px solid gainsboro;
+} 

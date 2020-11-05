@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './LogIn.css'; 
+import { Link }  from 'react-router-dom';
 
 class LogIn extends Component {
   render() {
@@ -7,7 +8,8 @@ class LogIn extends Component {
       <div className="logIn_container">
         <div className="app_register_select_container">
           <div className="app_active_register_btn app_register_option_btn"><a>Log In</a></div>
-          <div className="app_inactive_register_btn app_register_option_btn app_noSelect">Create Account</div>
+          <div className="app_register_border"></div>
+          <Link to="/userSignUp" className="app_inactive_register_btn app_register_option_btn app_noSelect app_textdecorationNone">Create Account</Link>
         </div>
         <div className="app_register_container_div">
           <form className="logIn_form_container">

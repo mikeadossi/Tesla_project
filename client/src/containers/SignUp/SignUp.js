@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './SignUp.css'; 
+import { Link }  from 'react-router-dom';
 
 class SignUp extends Component {
   render() {
     return (
       <div className="signUp_container">
         <div className="app_register_select_container">
-          <div className="app_inactive_register_btn signUp_login_btn app_register_option_btn"><a>Log In</a></div>
+          <Link to="/userLogin" className="app_inactive_register_btn signUp_login_btn app_register_option_btn app_textdecorationNone">Log In</Link>
+          <div className="app_register_border"> </div>
           <div className="app_active_register_btn signUp_signup_btn app_register_option_btn">Create Account</div>
         </div>
         <div className="app_register_container_div">

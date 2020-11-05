@@ -20,6 +20,12 @@
 .infoPanel_section{
     padding: 20px 20px 20px 20px;
     border-bottom: 1px solid gainsboro;
+    color: grey;
+}
+
+.infoPanel_section:hover{
+    color: black;
+    font-weight: bold;
 }
 
 .infoPanel_section_data{

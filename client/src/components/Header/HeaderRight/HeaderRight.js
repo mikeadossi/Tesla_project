@@ -7,13 +7,16 @@ class HeaderRight extends Component {
     return (
       <div className="headerRight app_marginTop">
           <Link to="/" className="headerRight_links">
-            <div className="headerRight_sign_up headerRight_login_btn">About</div>
+            <div className="headerRight_about headerRight_login_btn">About</div>
           </Link>
           <Link to="/userSignup" className="headerRight_links">
             <div className="headerRight_sign_up headerRight_login_btn">Sign up</div>
           </Link>
           <Link to="/userLogin" className="headerRight_links">
            <div className="headerRight_log_in headerRight_login_btn">Log in</div>
+          </Link> 
+          <Link to="/userLogin" className="headerRight_links">
+           <div className="headerRight_log_in headerRight_login_btn">Log out</div>
           </Link> 
       </div>
     );
