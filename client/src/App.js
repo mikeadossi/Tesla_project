@@ -20,7 +20,9 @@ function App() {
         <LocationDetails />
         <ProductMenu />
         <Switch>
-          <Route exact path="/" component={ Home }/> 
+          <Route exact path="/" component={ Home }/>
+          <Route exact path="/signUp" component={ SignUp }/> 
+          <Route exact path="/logIn" component={ LogIn }/> 
           <Route exact path="/vehicles" component={ Vehicles }/>
           <Route exact path="/solar" component={ Solar }/>
           <Route exact path="/userLogin" component={ LogIn }/> 

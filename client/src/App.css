@@ -60,6 +60,11 @@ div{
 
 .app_seeMore_btn:hover{
   border: 2px solid rgb(22, 131, 252);
+  background:
+  linear-gradient(
+    rgba(0, 0, 0, 0.05), 
+    rgba(0, 0, 0, 0.05)
+  )
 }
 
 .app_modalData_content{
@@ -266,4 +271,80 @@ div{
 
 .app_padding_bottom_10px{
   padding-bottom: 10px;
+}
+
+.app_active_register_btn{
+  background-color: #FBFBFB;
+}
+
+.app_inactive_register_btn{
+  background-color: #F2F2F2;
+  cursor: pointer;
+} 
+
+.app_inactive_register_btn:hover{
+  background:
+  linear-gradient(
+    rgba(0, 0, 0, 0.08), 
+    rgba(0, 0, 0, 0.08)
+  )
+}
+
+.app_register_label{
+  font-size: 20px;
+}
+
+.app_register_input_box{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 94%;
+  padding: 11px;
+}
+
+.app_register_submit_btn{
+  margin-top: 10px;
+  padding: 10px;
+  background-color: steelblue;
+  text-align: center;
+  color: white;
+  cursor: pointer; 
+  border-radius: 6px;
+}
+
+.app_register_submit_btn:hover{
+  opacity: 0.8;
+}
+
+.app_register_directive{
+  color: grey;
+  padding-bottom: 20px;
+}
+
+.app_register_password_container{
+  padding-top: 10px;
+}
+
+.app_register_container_div{
+  width: 74%;
+  max-width: 510px;
+  background-color: #FBFBFB;
+  padding: 40px;
+  margin: auto;
+  margin-bottom: 60px;
+}
+
+.app_register_option_btn{
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  padding: 20px 0 20px 0;
+  font-size: 20px;
+}
+
+.app_register_select_container{
+  text-align: center;
+  width: 94%;
+  max-width: 590px;
+  margin: auto;
+  margin-top: 60px;
 }
