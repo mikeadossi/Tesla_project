@@ -1,20 +1,26 @@
-require("dotenv").config(); 
-const { pool } = require('./utility/database')
+require("dotenv").config();
+const pool = require('./utility/database')
 
 let queries = {
 
-  getAll: function(){
-    return new Promise((resolve, reject) => {
-      pool.getConnection((err, connection) => {
-        if(err) reject(err);
-        connection.query('SELECT * from cars LIMIT 1', (err, rows) => {
-            connection.release();
-            if(err) reject(err);
-            return resolve(rows)
-        });
+  getAll: function () {
+    return new Promise((resolve, reject) => { 
+      pool.query('SELECT * from stateData', (err, rows) => {
+        console.log(rows);
+        if (err) return reject(err);
+        return resolve(rows)
       });
     });
+  },
+
+  createTable: function () {
+    return pool.query('CREATE TABLE cars (name VARCHAR(255), model VARCHAR(255))');
+  },
+
+  insertData: function () {
+    return pool.query("INSERT INTO cars (name, model) VALUES ('Tesla','S')");
   }
 
-};1
+}; 
+
 module.exports = queries;

@@ -3,7 +3,7 @@ let mysql = require('mysql');
 
 
 const pool = mysql.createPool({
-    host : '127.0.0.1',
+    host : 'localhost',
     user : 'root',
     password: process.env.PASSWORD,
     database: 'tesla_project'

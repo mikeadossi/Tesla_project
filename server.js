@@ -1,24 +1,26 @@
 const queries = require("./queries");
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const PORT = process.env.PORT || 3002; 
 require('dotenv').config({ path: __dirname + '/.env' });
 let mysql = require('mysql');
 
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json())
 
-app.get('/', async (req, res) => {
+app.post('/statedata', async (req, res) => {
     console.log('request received');
     try {
         const rows = await queries.getAll();
-        return res.status(200).json({data: rows});
+        return res.status(200).send(JSON.stringify(rows));
     } catch (e) {
         return res.status(500);
     }
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on port ${PORT}`);
 })
