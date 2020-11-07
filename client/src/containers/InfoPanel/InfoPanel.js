@@ -20,7 +20,7 @@ class InfoPanel extends Component {
           <InfoPanel_vehicle_container />
           <InfoPanel_neutral_container />
           <div className="infoPanel_section_data">
-            <InfoPanel_links />
+            <InfoPanel_links /> 
           </div>
       </div>
     );
