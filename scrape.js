@@ -9,7 +9,7 @@ let scrape = async () => {
     try {
 
         browser = await puppeteer.launch({
-            headless: true, args: [
+            headless: false, args: [
                 '--window-size=1920,1080',
             ]
         });
@@ -933,6 +933,33 @@ let scrape = async () => {
             return await page.url(); 
         };
 
+        const getAllZipcodes = async () => {
+            const usStateNames = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New-Hampshire','New-Jersey','New-Mexico','New-York','North-Carolina','North-Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode-Island','South-Carolina','South-Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West-Virginia','Wisconsin','Wyoming'];
+            let locationDataObj = {zipcode: null,county: null,state_name: null,state_abbr: null,area_code: null,latitude_range: null,longitude_range: null};
+            const tableSelector = 'body > div.jumbo.state-jumbo > div > div:nth-child(1) > table > tbody';
+
+            await page.goto('https://zipcodes.org/36310-zip-code', { timeout: 60 * 1000 }); 
+            await page.waitForSelector(tableSelector);
+
+            let data = await page.evaluate(() => {
+                return [...document.querySelectorAll('body > div.jumbo.state-jumbo > div > div:nth-child(1) > table > tbody')].map((tr, i) => {
+                    let stateName = 'AL';
+                    let dataObj = {}; 
+                    dataObj[stateName] = {zipcode: null,county: null,state_name: null,state_abbr: null,area_code: null,latitude_range: null,longitude_range: null};
+                    dataObj[stateName]['zipcode'] = document.querySelector('body > div.jumbo.state-jumbo > div > div:nth-child(1) > h1').innerText; 
+                    dataObj[stateName]['county'] = document.querySelector('body > div.jumbo.state-jumbo > div > div:nth-child(1) > table > tbody > tr:nth-child(1) > td:nth-child(2)').innerText;
+                    dataObj[stateName]['state_name'] = document.querySelector('body > div.jumbo.state-jumbo > div > div:nth-child(1) > table > tbody > tr:nth-child(2) > td:nth-child(2)').innerText;
+                    dataObj[stateName]['state_abbr'] = document.querySelector('body > div.jumbo.state-jumbo > div > div:nth-child(1) > table > tbody > tr:nth-child(3) > td:nth-child(2)').innerText;
+                    dataObj[stateName]['area_code'] = document.querySelector('body > div.jumbo.state-jumbo > div > div:nth-child(1) > table > tbody > tr:nth-child(4) > td:nth-child(2)').innerText;
+                    dataObj[stateName]['latitude_range'] = document.querySelector('body > div.jumbo.state-jumbo > div > div:nth-child(1) > table > tbody > tr:nth-child(6) > td:nth-child(2)').innerText;
+                    dataObj[stateName]['longitude_range'] = document.querySelector('body > div.jumbo.state-jumbo > div > div:nth-child(1) > table > tbody > tr:nth-child(7) > td:nth-child(2)').innerText;
+                    console.log('data stored!')
+                    return dataObj;
+                })
+            })
+
+            return data; 
+        }
 
         return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await getSolarPanelData(), await getIncentiveTable(stateNames, allStates), await getQualificationData(), await getQualifyingUtility(), await getMobileCharging(), await getWallConnectorData() ];
 
