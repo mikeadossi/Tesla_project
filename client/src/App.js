@@ -10,6 +10,7 @@ import Footer from './containers/Footer/Footer';
 import Home from './containers/Home/Home'; 
 import Vehicles from './containers/Vehicles/Vehicles';
 import Solar from './containers/Solar/Solar';
+import DynamicMenu from './containers/DynamicMenu/DynamicMenu';
 
 
 function App() {

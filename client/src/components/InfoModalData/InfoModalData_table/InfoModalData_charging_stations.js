@@ -81,8 +81,8 @@ class InfoModalData_charging_stations extends Component {
             </div>
         </div>
         <div className="app_source_footer">
-          <div><a href="https://evcompare.io/charging-calculator/" target="_blank">Credit- EVCompare</a></div>
-          <div><a href="https://chargehub.com/en/electric-car-charging-guide.html" target="_blank">Credit- ChargeHub</a></div>
+          <div><a href="https://evcompare.io/charging-calculator/" target="_blank" rel="noopener noreferrer">Credit- EVCompare</a></div>
+          <div><a href="https://chargehub.com/en/electric-car-charging-guide.html" target="_blank" rel="noopener noreferrer">Credit- ChargeHub</a></div>
         </div>
       </div>
     );

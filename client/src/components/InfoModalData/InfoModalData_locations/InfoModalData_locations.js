@@ -9,7 +9,7 @@ class InfoModalData_locations extends Component {
         <h1>LOCATIONS NEARBY</h1>
         <div className="app_modalData_content">
           <div className="infoModalData_showrooms_container">
-            <div className=""><a className="app_textdecorationNone" href="https://www.tesla.com/findus?search=90210%2C%20USA&bounds=34.151956579194035%2C-118.30060511874998%2C34.05402148312065%2C-118.52033168124998&zoom=13&filters=store%2Cservice%2Csupercharger%2Cdestination%20charger" target="_blank">Tesla Find Us</a></div>
+            <div className=""><a className="app_textdecorationNone" href="https://www.tesla.com/findus?search=90210%2C%20USA&bounds=34.151956579194035%2C-118.30060511874998%2C34.05402148312065%2C-118.52033168124998&zoom=13&filters=store%2Cservice%2Csupercharger%2Cdestination%20charger" target="_blank" rel="noopener noreferrer">Tesla Find Us</a></div>
             <div className="">SHOWROOMS</div>
             <div className="infoModalData_showroom_container">
               <div className="infoPanel_showroom1">

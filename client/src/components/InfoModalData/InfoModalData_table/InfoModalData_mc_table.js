@@ -110,7 +110,7 @@ class InfoModalData_mc_table extends Component {
                   </tr>
               </tbody>
           </table>
-          <div className="app_source_footer"><a href="https://www.tesla.com/support/home-charging-installation/mobile-connector" target="_blank">Source</a></div>
+          <div className="app_source_footer"><a href="https://www.tesla.com/support/home-charging-installation/mobile-connector" target="_blank" rel="noopener noreferrer">Source</a></div>
       </div>
     );
   }

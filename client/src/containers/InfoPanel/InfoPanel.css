@@ -10,7 +10,7 @@
     background-color: white;
     border-radius: 5px 5px 5px 5px;
     border: 1px solid gainsboro;
-    height: 575px;
+    height: 520px;
 }
 
 .infoPanel_title{
@@ -18,7 +18,7 @@
 }
 
 .infoPanel_section{
-    padding: 20px 20px 20px 20px;
+    padding: 10px;
     border-bottom: 1px solid gainsboro;
     color: grey;
 }
@@ -33,5 +33,12 @@
     width: 94%;
     padding: 10px;
     border: 1px solid gainsboro;
+    border-top: 2px solid steelblue;
     height: 160px; 
+}
+
+#infoPanel_loaded_title{
+    padding: 40px 15px 10px 15px;
+    font-weight: bold;
+    color: steelblue; 
 }

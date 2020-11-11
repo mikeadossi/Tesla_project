@@ -14,7 +14,7 @@ class InfoPanel_payments extends Component {
           <div className="content_vehicle">CA Title Fees: $0</div>
           <div className="content_solar">Notice: There may be additional upgrades required, e.g., electric main panel, or hidden conduit.</div>
           <div className="content_solar">A Federal Investment Tax Credit (ITC) is generally available to anyone who purchases solar panels. Powerwall paired with solar, including existing solar PV systems, is a qualified expenditure. To be eligible for tax credits, you must have tax liability at least equal to the credit. Tesla does not guarantee incentive amounts or your eligibility. Please consult with a tax advisor.</div>
-          <div className="app_source_footer"><a href="https://www.dmv.ca.gov/portal/vehicle-registration/registration-fees/" target="_blank">Source</a></div>
+          <div className="app_source_footer"><a href="https://www.dmv.ca.gov/portal/vehicle-registration/registration-fees/" target="_blank" rel="noopener noreferrer">Source</a></div>
       </div>
     );
   }

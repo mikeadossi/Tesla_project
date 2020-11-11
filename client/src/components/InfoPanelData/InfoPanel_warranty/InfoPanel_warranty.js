@@ -25,8 +25,8 @@ class InfoPanel_warranty extends Component {
             </ul>
           </div>
         </div>
-        <div className="app_source_footer content_vehicle"><a href="https://www.tesla.com/support/vehicle-warranty" target="_blank">Vehicle Warranty</a></div>
-        <div className="app_source_footer content_solar"><a href="https://www.tesla.com/support/energy/solar-panels/learn/solar-service-warranty" target="_blank">Solar Warranty</a></div>
+        <div className="app_source_footer content_vehicle"><a href="https://www.tesla.com/support/vehicle-warranty" target="_blank" rel="noopener noreferrer">Vehicle Warranty</a></div>
+        <div className="app_source_footer content_solar"><a href="https://www.tesla.com/support/energy/solar-panels/learn/solar-service-warranty" target="_blank" rel="noopener noreferrer">Solar Warranty</a></div>
       </div>
     );
   }

@@ -1,0 +1,118 @@
+.dynamicMenu_container{
+    border-top: 4px solid black;
+}
+
+.dynamicMenu_nav_section{
+    background-color: black;
+    padding: 2px 5px 5px 5px;
+}
+
+.dynamicMenu_locationDetails_section{
+    background-color: lightseagreen;
+    padding: 5px; 
+    color: white;
+    width: 68%;
+}
+
+.dynamicMenu_productMenu_section{
+    background-color: rgb(240,240,240,240);
+    border-bottom: 1px solid gainsboro;
+}
+
+.dynamicMenu_input{
+    width:120px;
+    padding: 2px;
+}
+
+.dynamicMenu_submit_btn{
+    padding: 4px 6px 4px 6px;
+}
+
+.dynamicMenu_areacode_subtext{
+    font-size: x-small;
+}
+
+.dynamicMenu_select_btn{
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    cursor: pointer; 
+    border-bottom: 3px solid rgb(240,240,240,240);
+    color: black;
+}
+
+.dynamicMenu_select_btn:hover{
+    border-bottom: 3px solid red;
+}
+
+.dynamicMenu_zipcode, .dynamicMenu_city{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.dynamicMenu_extra_links{
+    display: inline-block;
+}
+
+.dynamicMenu_home_link{
+    width: 40%; 
+    text-align: center;
+    color: white;
+}
+
+.dynamicMenu_projectSun, .dynamicMenu_weather{
+    text-align: center; 
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.dynamicMenu_projectSun{
+    padding-bottom: 5px;
+}
+
+.dynamicMenu_timezone{
+    font-size: x-small;
+}
+
+.dynamicMenu_areacode{
+    font-size: 20px;
+    padding-right: 5px;
+}
+
+.dynamicMenu_container_2{
+    /* padding: 0px 10px 0px 10px;  */
+}
+
+.dynamicMenu_containers{
+    border-right: solid 2px rgb(22,158,170);
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px; 
+}
+
+.dynamicMenu_region_tag{
+    font-size: x-small;
+}
+
+.dynamicMenu_subcontainer{
+    width: 32%;
+}
+
+.dynamicMenu_areacode, .dynamicMenu_areacode_subcontainer{
+    display: inline-block;
+}
+
+.dynamicMenu_time_digital{
+    font-size: 17px;
+    font-weight: bold; 
+    color: orange;
+}
+
+.dynamicMenu_region_name{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.dynamicMenu_product_select{
+    width: 50%;
+}

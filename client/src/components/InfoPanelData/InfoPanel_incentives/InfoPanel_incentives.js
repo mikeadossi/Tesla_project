@@ -14,7 +14,7 @@ class InfoPanel_incentives extends Component {
           Solar: Select utilities may offer incentives
           Powerwall: see California Self-Generation Incentive Program (SGIP)
         </p>
-        <div className="app_source_footer"><a href="https://www.tesla.com/support/vehicle-warranty" target="_blank">Source</a></div>
+        <div className="app_source_footer"><a href="https://www.tesla.com/support/vehicle-warranty" target="_blank" rel="noopener noreferrer">Source</a></div>
       </div>
     );
   }

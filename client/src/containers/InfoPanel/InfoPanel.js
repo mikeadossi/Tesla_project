@@ -19,9 +19,12 @@ class InfoPanel extends Component {
           </h3> 
           <InfoPanel_vehicle_container />
           <InfoPanel_neutral_container />
-          <div className="infoPanel_section_data">
-            <InfoPanel_links /> 
-          </div>
+          <div>
+            <div id="infoPanel_loaded_title">LOCATIONS NEARBY</div>
+            <div className="infoPanel_section_data">
+              <InfoPanel_links /> 
+            </div>
+          </div> 
       </div>
     );
   }

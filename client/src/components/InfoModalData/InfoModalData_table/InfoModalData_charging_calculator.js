@@ -84,7 +84,7 @@ class InfoModalData_charging_calculator extends Component {
                  </div>
               </div>
           </div>
-          <div className="app_source_footer"><a href="https://evcompare.io/charging-calculator/" target="_blank">Credit</a></div>
+          <div className="app_source_footer"><a href="https://evcompare.io/charging-calculator/" target="_blank" rel="noopener noreferrer">Credit</a></div>
       </div>
     );
   }
