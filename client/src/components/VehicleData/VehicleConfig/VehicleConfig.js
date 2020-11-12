@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import './VehicleConfig.css';
 
-class VehicleConfig extends Component {
-  render() {
-    return (
-      <div className="app_Config_container">
-        <div className="app_configTitle vehicleConfig_vehicleName">Model 3</div>
+const VehicleConfig = () => {
+
+  const defaultColor = 'white';
+  const [selectedColor, setColor] = React.useState(defaultColor);
+
+  return (
+    <div className="app_Config_container">
+      <div className="app_configTitle vehicleConfig_vehicleName">Model 3</div>
+      <div className="app_displayFlex">
         <div className="app_inlineFlex app_columns_width vehicleConfig_column1">
           <div className="vehicleConfig_columns_blockContent">
 
@@ -111,11 +115,11 @@ class VehicleConfig extends Component {
               <div className="vehicleConfig_selectColor_container">
                 <div>Select Color: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectColor_ul">
-                  <li className="app_noSelect vehicleConfig_select color_select vehicleConfig_pearl_white_multicoat"></li>
-                  <li className="app_noSelect vehicleConfig_select color_select vehicleConfig_solid_black"></li>
-                  <li className="app_noSelect vehicleConfig_select color_select vehicleConfig_midnight_silver_metallic"></li>
-                  <li className="app_noSelect vehicleConfig_select color_select vehicleConfig_deep_blue_metallic"></li>
-                  <li className="app_noSelect vehicleConfig_select color_select vehicleConfig_red_multicoat"></li>
+                  <li onClick={() => setColor('white')} className={`app_noSelect vehicleConfig_select color_select vehicleConfig_pearl_white_multicoat ${selectedColor == 'white' && 'selected'}`}></li>
+                  <li onClick={() => setColor('black')} className={`app_noSelect vehicleConfig_select color_select vehicleConfig_solid_black ${selectedColor == 'black' && 'selected'}`}></li>
+                  <li onClick={() => setColor('silver')} className={`app_noSelect vehicleConfig_select color_select vehicleConfig_midnight_silver_metallic ${selectedColor == 'silver' && 'selected'}`}></li>
+                  <li onClick={() => setColor('blue')} className={`app_noSelect vehicleConfig_select color_select vehicleConfig_deep_blue_metallic ${selectedColor == 'blue' && 'selected'}`}></li>
+                  <li onClick={() => setColor('red')} className={`app_noSelect vehicleConfig_select color_select vehicleConfig_red_multicoat ${selectedColor == 'red' && 'selected'}`}></li>
                 </ul>
                 <input type="text" className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectColor_input" readonly="readonly" />
               </div>
@@ -143,6 +147,8 @@ class VehicleConfig extends Component {
 
           </div>
         </div>
+
+        <div className="app_config_border"></div>
         
         <div className="app_inlineFlex app_columns_width vehicleConfig_column2">
           <div className="vehicleConfig_columns_blockContent">
@@ -275,10 +281,11 @@ class VehicleConfig extends Component {
 
           </div>
         </div> 
-
       </div>
-    );
-  }
+
+
+    </div>
+  );
 }
 
 export default VehicleConfig;

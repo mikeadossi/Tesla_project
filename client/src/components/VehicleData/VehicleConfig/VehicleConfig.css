@@ -23,8 +23,7 @@
 }
 
 .vehicleConfig_column2{
-    padding-left: 6px;
-    border-left: 1px solid black;
+    padding-left: 6px; 
 }
 
 .vehicleConfig_vehicleImg_container{
@@ -237,4 +236,8 @@
 
 .vehicleConfig_reset_btn{
     margin-right: 10px;
+}
+
+.selected{
+    border: 4px solid green;
 }
