@@ -1,0 +1,31 @@
+.scrollUp_container{ 
+    position: fixed;
+    bottom: 110px;
+    right: 34px;
+    padding: 5px;
+}
+
+.scrollUp_vehicle_container{
+    border-radius: 4px;
+    border: 1px solid black;
+    padding: 3px;
+    background-color: gainsboro
+}
+
+.scrollUp_button, .scrollUp_top{
+    border: 1px solid black;
+    padding: 4px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.scrollUp_button:hover{ 
+    font-weight: bold;
+}
+
+.scrollUp_top{
+    margin-bottom: 10px;
+    background-color: gainsboro
+}
