@@ -17,12 +17,14 @@ class SignUp extends Component {
               <div className="app_register_directive">Sign up with your email address</div>
               <label className="app_register_label">Email Address</label>
               <input className="app_register_input_box signUp_email_address" placeholder="enter email address" />
+              <div className="register_alert register_alert_1">Please enter company email address</div>
             </div>
             <div className="app_register_password_container">
               <label className="app_register_label">Password</label>
               <div className="signUp_password"><input className="app_register_input_box " placeholder="enter password" /></div>
               <div className="signUp_password_reentry"><input className="app_register_input_box " placeholder="reenter password" /></div>
             </div>
+            <div className="register_alert register_alert_2">Please ensure both passwords match</div>
             <div className="app_register_submit_btn signUp_submit_btn">SIGN UP</div>
           </form>
         </div>

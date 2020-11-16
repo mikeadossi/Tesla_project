@@ -25,3 +25,16 @@
 .solar_menu_btn:hover{
     border-bottom: 3px solid red;
 }
+
+.productMenu_loggedIn{
+    background-color: darkseagreen;
+    border: 1px solid seagreen;
+    padding: 10px;
+    width: 300px;
+    border-radius: 6px;
+    color: white; 
+    text-align: center; 
+    margin: auto; 
+    font-weight: bold; 
+    /* display: none; */
+}  
