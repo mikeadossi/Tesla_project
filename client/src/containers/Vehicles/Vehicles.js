@@ -5,17 +5,21 @@ import InfoModal from '../InfoModal/InfoModal.js';
 import VehiclePanel from '../VehiclePanel/VehiclePanel.js'; 
 
 
-class Vehicles extends Component {
-  render() {
-    return ( 
-      <div className="vehicles_container">
-          <div className="vehicles_info_panel app_displayFlex">
-            <InfoPanel /> 
-            <VehiclePanel />
-          </div>
-      </div>  
-    );
-  }
+const Vehicles = (props) => {
+  const {statedata} = props;
+  return ( 
+    <div className="vehicles_container app_pageHeight">
+        <div className="vehicles_info_panel app_displayFlex">
+          {
+            statedata.map((s)=>(
+              <div>{s.region}</div>
+            ))
+          }
+          <InfoPanel />
+          <VehiclePanel /> 
+        </div>
+    </div>  
+  ); 
 }
 
 export default Vehicles;
