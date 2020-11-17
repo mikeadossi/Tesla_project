@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import './VehicleConfig.css';
 
-const VehicleConfig = () => {
+const VehicleConfig = ({selectedVehicle}) => {
 
   const defaultColor = 'white';
   const [selectedColor, setColor] = React.useState(defaultColor);
 
   return (
     <div className="app_Config_container">
-      <div className="app_configTitle vehicleConfig_vehicleName">Model 3</div>
+      <div className="app_configTitle app_displayFlex">
+          <div className="vehicleConfig_vehicleName">{selectedVehicle.name}</div>
+          <div className="vehicleConfig_close_container">
+            <div className="vehicleConfig_close">X</div>
+          </div>
+      </div>
       <div className="app_displayFlex">
         <div className="app_inlineFlex app_columns_width vehicleConfig_column1">
           <div className="vehicleConfig_columns_blockContent">
@@ -20,7 +25,7 @@ const VehicleConfig = () => {
 
             <div className="vehicleConfig_vehicleImg_container">
               <div className="vehicleConfig_image_container">
-                <img src="../../public/images/model3.png"></img>
+                <img className="vehicleConfig_img" src="../../../../images/model3/model3_white_perf_20.png"></img>
               </div>
 
               <div className="app_Config_specs_container vehicleConfig_specs_container">
@@ -41,15 +46,15 @@ const VehicleConfig = () => {
                   <div>$200/mo.</div> 
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_tradein">
-                  <div>T.I. Value: </div>
+                  <div>Trd Value: </div>
                   <div>$100,000</div> 
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_tradeinPayoff">
-                  <div>T.I. Payoff: </div>
+                  <div>Trd Payoff: </div>
                   <div>$100,000</div> 
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_tradeinEquity">
-                  <div>T.I. Equity: </div>
+                  <div>Trd Equity: </div>
                   <div>$100,000</div> 
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_loanToValueRatio">
@@ -57,7 +62,7 @@ const VehicleConfig = () => {
                   <div>100%</div> 
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_tradeinCashback">
-                  <div>T.I. cashback: </div>
+                  <div>Trd cashback: </div>
                   <div>$100,000</div> 
                 </div>
               </div>
@@ -114,14 +119,14 @@ const VehicleConfig = () => {
               </div>
               <div className="vehicleConfig_selectColor_container">
                 <div>Select Color: </div>
-                <ul className="vehicleConfig_select_ul vehicleConfig_selectColor_ul">
-                  <li onClick={() => setColor('white')} className={`app_noSelect vehicleConfig_select color_select vehicleConfig_pearl_white_multicoat ${selectedColor == 'white' && 'selected'}`}></li>
-                  <li onClick={() => setColor('black')} className={`app_noSelect vehicleConfig_select color_select vehicleConfig_solid_black ${selectedColor == 'black' && 'selected'}`}></li>
-                  <li onClick={() => setColor('silver')} className={`app_noSelect vehicleConfig_select color_select vehicleConfig_midnight_silver_metallic ${selectedColor == 'silver' && 'selected'}`}></li>
-                  <li onClick={() => setColor('blue')} className={`app_noSelect vehicleConfig_select color_select vehicleConfig_deep_blue_metallic ${selectedColor == 'blue' && 'selected'}`}></li>
-                  <li onClick={() => setColor('red')} className={`app_noSelect vehicleConfig_select color_select vehicleConfig_red_multicoat ${selectedColor == 'red' && 'selected'}`}></li>
-                </ul>
-                <input type="text" className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectColor_input" readonly="readonly" />
+                <div className="vehicleConfig_select_ul vehicleConfig_selectColor_ul">
+                  <div onClick={() => setColor('white')} className={`app_noSelect app_inlineFlex color_select_container ${selectedColor == 'white' && 'selected'}`}><img className="color_select vehicleConfig_pearl_white_multicoat" src="../../../../images/paint/white_paint.png" /></div>
+                  <div onClick={() => setColor('black')} className={`app_noSelect app_inlineFlex color_select_container ${selectedColor == 'black' && 'selected'}`}><img className="color_select vehicleConfig_solid_black" src="../../../../images/paint/black_paint.png" /></div>
+                  <div onClick={() => setColor('silver')} className={`app_noSelect app_inlineFlex color_select_container ${selectedColor == 'silver' && 'selected'}`}><img className="color_select vehicleConfig_midnight_silver_metallic" src="../../../../images/paint/silver_paint.png" /></div>
+                  <div onClick={() => setColor('blue')} className={`app_noSelect app_inlineFlex color_select_container ${selectedColor == 'blue' && 'selected'}`}><img className="color_select vehicleConfig_deep_blue_metallic" src="../../../../images/paint/blue_paint.png" /></div>
+                  <div onClick={() => setColor('red')} className={`app_noSelect app_inlineFlex color_select_container ${selectedColor == 'red' && 'selected'}`}><img className="color_select vehicleConfig_red_multicoat" src="../../../../images/paint/red_paint.png" /></div>
+                </div>
+                <input type="text" placeholder="Pearl white - included" className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectColor_input" readonly="readonly" />
               </div>
             </div>
 
@@ -129,19 +134,19 @@ const VehicleConfig = () => {
               <div className="vehicleConfig_selectWheel_container">
                 <div>Select Wheel: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectwheel_ul">
-                  <image className="app_noSelect vehicleConfig_select wheel_select vehicleConfig_18_inch_aero_wheels" />
-                  <image className="app_noSelect vehicleConfig_select wheel_select vehicleConfig_19_inch_sport_wheels" />
+                  <div className="app_noSelect app_inlineFlex color_select_container selected"><img className="app_noSelect vehicleConfig_wheel_select vehicleConfig_18_inch_aero_wheels" src="../../../../images/wheels/m3_aero_18.png" /></div>
+                  <div className="app_noSelect app_inlineFlex color_select_container"><img className="app_noSelect vehicleConfig_wheel_select vehicleConfig_19_inch_sport_wheels" src="../../../../images/wheels/m3_sport_19.png" /></div>
                 </ul>
-                <input type="text" className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input" readonly="readonly" />
+                <input type="text" placeholder='18" Aero wheels - incl.' className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input" readonly="readonly" />
               </div>
 
               <div className="vehicleConfig_selectInteriorColor_container">
                 <div>Select Interior Color: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectInteriorColor_ul">
-                  <li className="app_noSelect vehicleConfig_select color_select vehicleConfig_black_interior"></li>
-                  <li className="app_noSelect vehicleConfig_select color_select vehicleConfig_white_interior"></li>
+                  <div className="app_noSelect app_inlineFlex color_select_container selected"><img className="app_noSelect color_select vehicleConfig_black_interior" src="../../../../images/interior/black_interior.png" /></div>
+                  <div className="app_noSelect app_inlineFlex color_select_container"><img className="app_noSelect color_select vehicleConfig_white_interior" src="../../../../images/interior/white_interior.png" /></div>
                 </ul>
-                <input type="text" className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectInteriorColor_input" readonly="readonly" />
+                <input type="text" placeholder="All black - included" className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectInteriorColor_input" readonly="readonly" />
               </div>
             </div>
 
@@ -201,42 +206,42 @@ const VehicleConfig = () => {
                 <div className="vehicleConfig_pricing vehicleConfig_stateTax">
                   <label>APR: </label>
                   <span className="vehicleConfig_userInput_container">
-                    <input></input>
+                    <input className="vehicleConfig_userInput"></input>
                     <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
                   </span>
                 </div>
-                <div className="vehicleConfig_pricing vehicleConfig_stateFees">
+                <div className="vehicleConfig_pricing vehicleConfig_pricing_grey vehicleConfig_stateFees">
                   <label>Lease Term: </label>
                   <span className="vehicleConfig_userInput_container">
-                    <input></input>
+                    <input className="vehicleConfig_userInput"></input>
                     <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
                   </span>
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_cashAmtDue">
                   <label>Finance Term: </label>
                   <span className="vehicleConfig_userInput_container">
-                    <input></input>
+                    <input className="vehicleConfig_userInput"></input>
                     <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
                   </span>
                 </div>
-                <div className="vehicleConfig_pricing vehicleConfig_loanAmtDue">
+                <div className="vehicleConfig_pricing vehicleConfig_pricing_grey vehicleConfig_loanAmtDue">
                   <label>Trade-in Lien Type: </label>
                   <span className="vehicleConfig_userInput_container">
-                    <input></input>
+                    <input className="vehicleConfig_userInput"></input>
                     <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
                   </span>
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_leaseAmtDue">
                   <label>Select Miles: </label>
                   <span className="vehicleConfig_userInput_container">
-                    <input></input>
+                    <input className="vehicleConfig_userInput"></input>
                     <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
                   </span>
                 </div>
-                <div className="vehicleConfig_pricing vehicleConfig_customerCashDown">
+                <div className="vehicleConfig_pricing vehicleConfig_pricing_grey vehicleConfig_customerCashDown">
                   <label>Cash Down pymt: </label>
                   <span className="vehicleConfig_userInput_container">
-                    <input></input>
+                    <input className="vehicleConfig_userInput"></input>
                     <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
                   </span>
                 </div>
@@ -246,35 +251,36 @@ const VehicleConfig = () => {
                 <div className="vehicleConfig_pricing vehicleConfig_stateTax">
                   <label>Enter Adjustments: </label>
                   <span className="vehicleConfig_userInput_container">
-                    <input></input>
+                    <input className="vehicleConfig_userInput"></input>
                     <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
                   </span>
                 </div>
-                <div className="vehicleConfig_pricing vehicleConfig_stateFees">
+                <div className="vehicleConfig_pricing vehicleConfig_pricing_grey vehicleConfig_stateFees">
                   <label>Enter trade-in value: </label>
                   <span className="vehicleConfig_userInput_container">
-                    <input></input>
+                    <input className="vehicleConfig_userInput"></input>
                     <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
                   </span>
                 </div>
                 <div className="vehicleConfig_pricing vehicleConfig_cashAmtDue">
                   <label>Enter trade-in payoff: </label>
                   <span className="vehicleConfig_userInput_container">
-                    <input></input>
+                    <input className="vehicleConfig_userInput"></input>
                     <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
                   </span>
                 </div>
-                <div className="vehicleConfig_pricing vehicleConfig_loanAmtDue">
+                <div className="vehicleConfig_pricing vehicleConfig_pricing_grey vehicleConfig_loanAmtDue">
                   <label>Trade-in Equity: </label>
                   <span className="vehicleConfig_userInput_container">
-                    <input></input>
+                    <input className="vehicleConfig_userInput"></input>
                     <button className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1">Edit</button>
                   </span>
                 </div>
               </div>
 
               <div className="vehicleConfig_submit_btn_container">
-                <button className="app_submit_btn app_noSelect vehicleConfig_control_btn vehicleConfig_reset_btn app_cursorPointer">Reset entries</button>
+                <button className="app_submit_btn app_noSelect vehicleConfig_control_btn vehicleConfig_setAll_btn app_cursorPointer">Apply to All</button>
+                <button className="app_submit_btn app_noSelect vehicleConfig_control_btn vehicleConfig_reset_btn app_cursorPointer">Reset to Base</button>
                 <button className="app_submit_btn app_noSelect vehicleConfig_control_btn vehicleConfig_submit_btn app_cursorPointer">Submit</button>
               </div>
             </div>
