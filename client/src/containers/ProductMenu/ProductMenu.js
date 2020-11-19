@@ -7,13 +7,18 @@ class ProductMenu extends Component {
     return (
       <div>
         <div className="productMenu_container">
-          <div className="productMenu_btn_container">
-            <Link to="/vehicles" className="">
-              <h3 className="productMenu_btn vehicle_menu_btn">Vehicle</h3>
-            </Link>
-            <Link to="/solar" className="">
-              <h3 className="productMenu_btn solar_menu_btn">Solar</h3>
-            </Link>
+          <div className="productMenu_subcontainer app_displayFlex">
+            <div className="productMenu_hamburger_container">
+              <img className="productMenu_hamburger_btn" src="../../../../images/hamburger_grey.png" />
+            </div> 
+            <div className="productMenu_btn_container">
+              <Link to="/vehicles" className="">
+                <h3 className="productMenu_btn vehicle_menu_btn">Vehicle</h3>
+              </Link>
+              <Link to="/solar" className="">
+                <h3 className="productMenu_btn solar_menu_btn">Solar</h3>
+              </Link>
+            </div>
           </div>
         </div>
         <div className="productMenu_loggedIn_container">

@@ -35,6 +35,20 @@
     color: white; 
     text-align: center; 
     margin: auto; 
-    font-weight: bold; 
-    /* display: none; */
-}  
+    font-weight: bold;
+    display: none;
+}
+
+.productMenu_hamburger_btn{
+    height: 22px;
+    cursor: pointer;
+} 
+
+.productMenu_hamburger_container{ 
+    width: 4.8%;
+    margin: auto;
+}
+
+.productMenu_btn_container{ 
+    width: 99%;
+}
