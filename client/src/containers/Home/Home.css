@@ -1,4 +1,43 @@
-.home_container{ 
-    height: 400px;
+.home_container{
     text-align: center;
+    width: 1000px;
+    margin: auto;
+}
+
+.home_reasons{
+    text-align: center;
+}
+
+.home_reasons_number{
+    display: inline-block;
+    background-color: powderblue;
+    border-radius: 50%; 
+    height: 25px;
+    width: 25px;
+    margin-right: 20px;
+    padding: 10px 5px 0px 5px;
+    color: white;
+}
+
+.home_reasons_container{
+    width: 800px;
+    margin: auto;
+}
+
+.home_description{
+    margin-bottom: 5px;
+}
+
+.home_subtext{
+    font-weight: smaller;
+    color: grey;
+    margin-top: 0px;
+}
+
+.home_section{
+    margin-top: 50px;
+}
+
+.home_reasons_container{
+    padding-bottom: 30px;
 }
