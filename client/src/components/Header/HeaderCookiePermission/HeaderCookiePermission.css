@@ -1,0 +1,22 @@
+.headerCookiePermission_container{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: 2rem 5rem;
+    background-color: #f9f9f9;
+    opacity: .90;
+    box-shadow: 0 -8px 20px 0 rgba(0,0,0,.2);
+    margin: auto;
+    display: none;
+}
+
+.headerCookiePermission_container div{
+    margin: auto;
+}
+
+.headerCookiePermission_text{
+    color: black;
+    padding-right: 20px;
+    font-weight: bold;
+}
