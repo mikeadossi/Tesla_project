@@ -1,7 +1,6 @@
 .locationDetails_container{
-    background-color:lightseagreen;
-    display:block;
-    padding: 10px 20px 10px 20px;
+    background-color:lightseagreen; 
+    padding: 8px 20px 7px 20px;
     overflow: hidden;
     color:white;
 }
@@ -21,12 +20,7 @@
     font-weight: bold;
 }
 
-.locationDetails_container_1, .locationDetails_container_2, .locationDetails_container_3, .locationDetails_container_4{
-    border-right: solid 2px rgb(22,158,170);
-    float: left;
-}
-
-.locationDetails_container_2{
+.locationDetails_subcontainer_2{
     padding: 0px 20px 0px 20px;
 }
 
@@ -46,11 +40,11 @@
     color: orange;
 }
 
-.locationDetails_container_3, .locationDetails_container_4{
+.locationDetails_subcontainer_3, .locationDetails_subcontainer_4{
     padding: 0px 20px 0px 20px; 
 }
 
-.locationDetails_container_4{
+.locationDetails_subcontainer_4{
     color: white;
 }
 
@@ -59,7 +53,27 @@
     font-size: 20px;
 }
 
-.locationDetails_project_sun, .locationDetails_weather{
+.locationDetails_icons{
     display: inline-block;
     padding: 0px 10px 0px 10px; 
+    text-align: center;
+    cursor: pointer;
+    border-radius: 6px;
 }
+
+.locationDetails_icons:hover{
+    background-color: rgb(22,158,170);
+}
+
+.locationDetails_projectSun, .locationDetails_weather{
+    height: 40px;
+}
+
+.locationDetails_subcontainers{
+    margin: auto;
+}
+
+.locationDetails_projectSun_container{
+    margin-right: 5px;
+}
+
