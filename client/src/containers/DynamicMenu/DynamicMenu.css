@@ -1,5 +1,13 @@
 .dynamicMenu_container{
     border-top: 4px solid black;
+    background-color: black;
+}
+
+.dynamicMenu_containers{ 
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px; 
+    margin: auto;
 }
 
 .dynamicMenu_nav_section{
@@ -12,6 +20,8 @@
     padding: 5px; 
     color: white;
     width: 68%;
+    border-bottom: 2px solid rgb(22,158,170);
+    border-radius: 0px 10px 0px 0px;
 }
 
 .dynamicMenu_productMenu_section{
@@ -19,13 +29,14 @@
     border-bottom: 1px solid gainsboro;
 }
 
-.dynamicMenu_input{
-    width:120px;
-    padding: 2px;
+.dynamicMenu_input_container{
+    padding-left: 10px;
 }
 
-.dynamicMenu_submit_btn{
-    padding: 4px 6px 4px 6px;
+.dynamicMenu_input{
+    width: 140px;
+    padding: 2px;
+    border-radius: 4px;
 }
 
 .dynamicMenu_areacode_subtext{
@@ -52,10 +63,11 @@
 
 .dynamicMenu_extra_links{
     display: inline-block;
+    width: 67px;
 }
 
 .dynamicMenu_home_link{
-    width: 40%; 
+    width: 53%; 
     text-align: center;
     color: white;
 }
@@ -64,10 +76,15 @@
     text-align: center; 
     padding-left: 10px;
     cursor: pointer;
+    display: inline-block;
+}
+
+.dynamicMenu_projectSun:hover, .dynamicMenu_weather:hover{
+    color: orange;
 }
 
 .dynamicMenu_projectSun{
-    padding-bottom: 5px;
+    padding-bottom: 11px;
 }
 
 .dynamicMenu_timezone{
@@ -77,17 +94,6 @@
 .dynamicMenu_areacode{
     font-size: 20px;
     padding-right: 5px;
-}
-
-.dynamicMenu_container_2{
-    /* padding: 0px 10px 0px 10px;  */
-}
-
-.dynamicMenu_containers{
-    border-right: solid 2px rgb(22,158,170);
-    display: inline-block;
-    padding-left: 10px;
-    padding-right: 10px; 
 }
 
 .dynamicMenu_region_tag{
@@ -115,4 +121,29 @@
 
 .dynamicMenu_product_select{
     width: 50%;
+}
+
+.dynamicMenu_search_icon{
+    height: 11px;
+    margin-top: 3px;
+    margin-left: -24px;
+}
+
+.dynamicMenu_pin_icon{
+    height: 16px;
+    padding: 5px;
+}
+
+.dynamicMenu_productMenu_subcontainer{
+    width: 92%;
+}
+
+.dynamicMenu_pin_container{
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+.dynamicMenu_pin_container:hover{
+    opacity: 1;
+    background-color: moccasin;
 }
