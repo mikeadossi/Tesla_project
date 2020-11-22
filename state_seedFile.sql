@@ -23,7 +23,11 @@ local_surtax,
 additional_municipality_cost,
 additional_county_cost,
 average_district_tax,
+registration_fee,
 registration,
+solar_panel_subscription,
+leasing_available,
+financing_available,
 taxes_rebate_bool
 )
 VALUES (
@@ -46,12 +50,16 @@ VALUES (
     null,
     null,
     null,
-    null,
-    null,
+    null, 
+    null, 
     '[0.115,"https://www.salestaxhandbook.com/alabama/rates","*Highest city tax rate. Rates range from 5% to 11.5%"]',
     '[0.115,"https://www.salestaxhandbook.com/alabama/rates","*Highest county tax rate. Rates range from 5% to 11.5%"]',
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    false,
     true
 ),
 (
@@ -79,7 +87,11 @@ VALUES (
     '[7.85,"https://www.salestaxhandbook.com/alaska/rates","*Highest county tax rate. Rates range from 1% to 7.85%"]',
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    false,
     false
 ),
 (
@@ -108,7 +120,11 @@ VALUES (
     '[0.112,"https://www.salestaxhandbook.com/arizona/rates","*Highest city tax rate. Rates range from 8.6% to 11.2%"]',
     '[0.112,"https://www.salestaxhandbook.com/arizona/rates","*Highest county tax rate. Rates range from 8.6% to 11.2%"]',
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail your registration and the state DMV will mail your title. \n Tesla will mail your plates and registration once processing is complete."},
+    true,
+    true,
+    false,
     false
 ),
 (
@@ -133,11 +149,14 @@ VALUES (
     null,
     null,
     null,
-    null,
     '[0.112,"https://www.salestaxhandbook.com/arkansas/rates","*Highest city tax rate. Rates range from 8.6% to 11.2%"]',
     '[0.112,"https://www.salestaxhandbook.com/arkansas/rates","*Highest county tax rate. Rates range from 8.6% to 11.2%"]',
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    false,
     true
 ),
 (
@@ -236,7 +255,11 @@ VALUES (
     '[0.025,"https://www.salestaxhandbook.com/california/sales-tax-vehicles","*Local governments, such as districts and cities can collect additional taxes on the sale of vehicles up to 2.5%"]',
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will complete registration and the DMV will mail your title and registration card. \n You will receive a temporary registration placard to operate your vehicle while Tesla processes registration."},
+    true,
+    true,
+    true,
     true
 ),
 (
@@ -271,7 +294,11 @@ VALUES (
     '[0.05,"https://www.salestaxhandbook.com/colorado/sales-tax-vehicles","*Top municipal tax rate is 5%"]',
     '[0.08,"https://www.salestaxhandbook.com/colorado/sales-tax-vehicles","*Top county tax rate is 8%"]',
     '[0.01,"https://www.cdtfa.ca.gov/taxes-and-fees/sales-use-tax-rates.htm","*Highest district tax rate. Rates range from 0.10% to 1.00%"]',
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    true,
     true
 ),
 (
@@ -299,7 +326,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail your registration and the state DMV will mail your title. \n Tesla will mail your plates and registration once processing is complete."},
+    true,
+    true,
+    false,
     true
 ),
 (
@@ -328,7 +359,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    false,
+    false,
     false
 ),
 (
@@ -370,7 +405,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail your registration and the state DMV will mail your title. \n Tesla will mail your plates and registration once processing is complete."},
+    false,
+    true,
+    true,
     true
 ),
 (
@@ -403,7 +442,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will complete registration and the DMV will mail your title and registration card. \n You will receive a temporary registration placard to operate your vehicle while Tesla processes registration."},
+    false,
+    true,
+    true,
     true
 ),
 (
@@ -434,7 +477,11 @@ VALUES (
     null,
     '[0.047120,"*4.712% is the max tax rate of the 5 counties in Hawaii (Honolulu and Kauai County)."]',
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail your registration and the state DMV will mail your title. \n Tesla will mail your plates and registration once processing is complete."},
+    false,
+    true,
+    true,
     true
 ),
 (
@@ -463,7 +510,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    false,
     true
 ),
 (
@@ -504,7 +555,11 @@ VALUES (
     null,
     0.075,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will complete registration and the DMV will mail your title and registration card. \n You will receive a temporary registration placard to operate your vehicle while Tesla processes registration."},
+    false,
+    true,
+    true,
     true
 ),
 (
@@ -532,8 +587,12 @@ VALUES (
     null,
     null,
     null,
-    {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    null,
     0.05,
+    {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    false,
+    false,
     false
 ),
 (
@@ -561,7 +620,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will title your vehicle and you a self-registration packet. \n Tesla will title your car and mail (or email if NV) the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration."},
+    false,
+    true,
+    true,
     true
 ),
 (
@@ -589,7 +652,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    false,
     false
 ),
 (
@@ -617,7 +684,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    false,
+    false,
     false
 ),
 (
@@ -645,7 +716,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    false,
+    false,
     false
 ),
 (
@@ -673,7 +748,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    false,
     true
 ),
 (
@@ -704,7 +783,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail your registration and the state DMV will mail your title. \n Tesla will mail your plates and registration once processing is complete."},
+    false,
+    true,
+    true,
     true
 ),
 (
@@ -739,7 +822,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will complete registration during your delivery appointment. \n Temporary license plates cannot be issued and all vehicles must be registered upon delivery."},
+    true,
+    true,
+    true,
     false
 ),
 (
@@ -770,7 +857,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will complete registration during your delivery appointment. \n Temporary license plates cannot be issued and all vehicles must be registered upon delivery."},
+    false,
+    false,
+    false,
     true
 ),
 (
@@ -801,7 +892,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail your registration and the state DMV will mail your title. \n Tesla will mail your plates and registration once processing is complete."},
+    false,
+    true,
+    true,
     false
 ),
 (
@@ -830,7 +925,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    false,
+    false,
     true
 ),
 (
@@ -861,7 +960,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    true,
     false
 ),
 (
@@ -889,7 +992,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    false,
     false
 ),
 (
@@ -917,7 +1024,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    false,
+    false,
     false
 ),
 (
@@ -948,7 +1059,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will title your vehicle and you a self-registration packet. \n Tesla will title your car and mail (or email if NV) the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration."},
+    false,
+    true,
+    true,
     true
 ),
 (
@@ -976,7 +1091,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    false,
+    false,
     false
 ),
 (
@@ -1015,7 +1134,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will complete registration and mail your title and registration card. \n Tesla will mail your plates and registration once processing is complete."},
+    true,
+    true,
+    true,
     true
 ),
 (
@@ -1043,7 +1166,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    true,
+    true,
+    false,
     true
 ),
 (
@@ -1086,7 +1213,11 @@ VALUES (
     null,
     0.07,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail your registration and the state DMV will mail your title. \n Tesla will mail your plates and registration once processing is complete."},
+    false,
+    true,
+    true,
     true
 ),
 (
@@ -1117,7 +1248,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail your registration and the state DMV will mail your title. \n Tesla will mail your plates and registration once processing is complete."},
+    false,
+    true,
+    true,
     true
 ),
 (
@@ -1145,7 +1280,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    false,
     true
 ),
 (
@@ -1178,7 +1317,11 @@ VALUES (
     null,
     '["0.065","https://www.salestaxhandbook.com/ohio/calculator","*Top county tax rate is 6.5%"]',
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will complete registration and mail your title and registration card. \n Tesla will mail your plates and registration once processing is complete."},
+    false,
+    true,
+    true,
     true
 ),
 (
@@ -1207,7 +1350,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    false,
+    false,
     false
 ),
 (
@@ -1238,7 +1385,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will complete registration and the DMV will mail your title and registration card. \n You will receive a temporary registration placard to operate your vehicle while Tesla processes registration."},
+    false,
+    true,
+    true,
     false
 ),
 (
@@ -1260,7 +1411,8 @@ VALUES (
     '[["Allentown Supercharger","https://www.tesla.com/findus/location/supercharger/allentownsupercharger",["4680 Broadway\n","Allentown, PA 18104\n"]],["Altoona, PA Supercharger","https://www.tesla.com/findus/location/supercharger/altoonapasupercharger",["1915 Pleasant Valley Boulevard\n","Altoona, PA 16602\n"]],["Bellefonte, PA Supercharger","https://www.tesla.com/findus/location/supercharger/bellefontepasupercharger",["170 Buckaroo Ln\n","Bellefonte, PA 16823-9119\n"]],["Bensalem, PA Supercharger","https://www.tesla.com/findus/location/supercharger/bensalempasupercharger",["3620 Street Road\n","Bensalem, PA 19020\n"]],["Bloomsburg Supercharger","https://www.tesla.com/findus/location/supercharger/bloomsburgsupercharger",["11 Ricky Ave.\n","Bloomsburg, PA 17815\n"]],["Breezewood Supercharger","https://www.tesla.com/findus/location/supercharger/breezewoodsupercharger",["16417 Lincoln Highway\n","Breezewood, PA 15533\n"]],["Bridesburg, PA (coming soon)","https://www.tesla.com/findus/location/supercharger/bridesburgpasupercharger",["Bridesburg, PA\n"]],["Carlisle, PA Supercharger","https://www.tesla.com/findus/location/supercharger/carlislesupercharger",["1720 Harrisburg Pike\n","Carlisle, PA 17015\n"]],["Cranberry Township, PA Supercharger","https://www.tesla.com/findus/location/supercharger/cranberrytownshipsupercharger",["1308 Freedom Rd\n","Cranberry Township, PA 16066\n"]],["Erie Supercharger","https://www.tesla.com/findus/location/supercharger/eriesupercharger",["2225 Down Drive\n","Erie, PA 16509\n"]],["Falls Creek Supercharger","https://www.tesla.com/findus/location/supercharger/fallscreeksupercharger",["1867 Rich Highway\n","Falls Creek, 15840-9515\n"]],["Franklin Park, PA Supercharger","https://www.tesla.com/findus/location/supercharger/franklinparksupercharger",["2615 Nicholson Road & Wexford Bayne Road\n","Franklin Park, PA 15143-8504\n"]],["Gettysburg, PA Supercharger","https://www.tesla.com/findus/location/supercharger/gettysburgpasupercharger",["30 Camp Letterman Drive\n","Gettysburg, PA 17325\n"]],["Grove City, PA Supercharger","https://www.tesla.com/findus/location/supercharger/grovecitypasupercharger",["1931 Butler Pike\n","Grove City, PA 16127\n"]],["Harrisburg Supercharger","https://www.tesla.com/findus/location/supercharger/harrisburgsupercharger",["3819 Union Deposit Rd\n","Harrisburg, PA 17109\n"]],["Hermitage Supercharger","https://www.tesla.com/findus/location/supercharger/hermitagepasupercharger",["2381 S. Hermitage Road\n","Hermitage, PA 16148\n"]],["King of Prussia, PA (coming soon)","https://www.tesla.com/findus/location/supercharger/kingofprussiasupercharger",["King of Prussia, PA\n"]],["Lancaster, PA Supercharger","https://www.tesla.com/findus/location/supercharger/lancasterpasupercharger",["518 Greenfield Road\n","Lancaster, PA 17601\n"]],["Moosic Supercharger","https://www.tesla.com/findus/location/supercharger/moosicsupercharger",["1035 Shoppes Blvd\n","Moosic, PA 18507-2140\n"]],["North Huntingdon, PA Supercharger","https://www.tesla.com/findus/location/supercharger/northhuntingdonsupercharger",["7821 U.S. 30\n","North Huntingdon, PA 15642-0000\n"]],["Philadelphia, PA - Center City Supercharger","https://www.tesla.com/findus/location/supercharger/philadelphiacentercitysupercharger",["34 South 11th Street\n","Philadelphia, PA 19107\n"]],["Philadelphia, PA - North 20th Street Supercharger","https://www.tesla.com/findus/location/supercharger/philadelphiasupercharger",["420 North 20th Street\n","Philadelphia, PA 19130\n"]],["Pittsburgh, PA Supercharger","https://www.tesla.com/findus/location/supercharger/pitssburghpasupercharger",["5550 Centre Avenue\n","Pittsburgh, PA 15232\n"]],["Plymouth Meeting, PA (coming soon)","https://www.tesla.com/findus/location/supercharger/plymouthmeetingpasupercharger",["Plymouth Meeting, PA\n"]],["Robinson, PA (coming soon)","https://www.tesla.com/findus/location/supercharger/robinsonsupercharger",["Robinson, PA\n"]],["Somerset, PA Supercharger","https://www.tesla.com/findus/location/supercharger/somersetsupercharger",["1030 North Center Avenue\n","Somerset, PA 15501\n"]],["Springfield, PA (coming soon)","https://www.tesla.com/findus/location/supercharger/springfieldpasupercharger",["Springfield, PA\n"]],["Swartzville, PA (coming soon)","https://www.tesla.com/findus/location/supercharger/swartzvillepasupercharger",["Swartzville, PA\n"]],["Tannersville Supercharger","https://www.tesla.com/findus/location/supercharger/tannersvillesupercharger",["1000 Premium Outlets Dr\n","Tannersville, PA 18372\n"]],["Washington, PA Supercharger","https://www.tesla.com/findus/location/supercharger/washingtonpasupercharger",["331 Washington Road\n","Washington, PA 15301\n"]],["Williamsport, PA Supercharger","https://www.tesla.com/findus/location/supercharger/williamsportpasupercharger",["105 Maynard Street\n","Williamsport, PA 17701\n"]],["York, PA Supercharger","https://www.tesla.com/findus/location/supercharger/yorkpasupercharger",["160 Leader Heights Road\n","York, PA 17403\n"]]]',
     '7% for Allegheny County \n 8% for City of Philadelphia \n all other states collect 6%',
     '[0.07,0.08,0.06]',
-    '[["county","Allegheny",[vehicle_purchase_price,state_tax[0]]]', '["city","Philadelphia",["vehicle_purchase_price","state_tax[1]"]],[">0",["vehicle_purchase_price","state_tax[2]"]]]',
+    '[["county","Allegheny",["vehicle_purchase_price","state_tax[0]"]],["city","Philadelphia",["vehicle_purchase_price","state_tax[1]"]],[">0",["vehicle_purchase_price","state_tax[2]"]]]',
+    null,
     null,
     null,
     null,
@@ -1274,6 +1426,9 @@ VALUES (
     null,
     null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will complete registration during your delivery appointment. \n Temporary license plates cannot be issued and all vehicles must be registered upon delivery."},
+    false,
+    true,
+    true,
     false
 ),
 (
@@ -1302,7 +1457,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    false,
+    false,
     false
 ),
 (
@@ -1330,7 +1489,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    false,
     true
 ),
 (
@@ -1358,7 +1521,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    false,
+    false,
     true
 ),
 (
@@ -1387,7 +1554,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail your registration and the state DMV will mail your title. \n Tesla will mail your plates and registration once processing is complete."},
+    false,
+    true,
+    true,
     true
 ),
 (
@@ -1444,7 +1615,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    false,
     false
 ),
 (
@@ -1473,7 +1648,11 @@ VALUES (
     null,
     '[0.061,"https://www.salestaxhandbook.com/utah/calculator","*Top county tax rate is 6.1%"]',
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail your registration and the state DMV will mail your title. \n Tesla will mail your plates and registration once processing is complete."},
+    false,
+    true,
+    false,
     false
 ),
 (
@@ -1501,7 +1680,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    false,
     false
 ),
 (
@@ -1534,7 +1717,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail your registration and the state DMV will mail your title. \n Tesla will mail your plates and registration once processing is complete."},
+    false,
+    true,
+    true,
     true
 ),
 (
@@ -1573,7 +1760,11 @@ VALUES (
     null,
     0.07,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail your registration and the state DMV will mail your title. \n Tesla will mail your plates and registration once processing is complete."},
+    false,
+    true,
+    true,
     true
 ),
 (
@@ -1601,7 +1792,11 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    false,
     true
 ),
 (
@@ -1630,7 +1825,11 @@ VALUES (
     null,
     0.05,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    false,
+    false,
     true
 ),
 (
@@ -1642,6 +1841,7 @@ VALUES (
     null,
     null,
     null,
+    '[["Cheyenne, WY Supercharger","https://www.tesla.com/findus/location/supercharger/cheyennesupercharger",["1400 Dell Range Blvd.\n","Cheyenne, WY 82009\n"]],["Cody, WY (coming soon)","https://www.tesla.com/findus/location/supercharger/codywysupercharger",["Cody, WY\n"]],["Evanston Supercharger","https://www.tesla.com/findus/location/supercharger/evanstonsupercharger",["101 Wasatch Rd\n","Evanston, WY 82930-3094\n"]],["Evansville, WY Supercharger","https://www.tesla.com/findus/location/supercharger/evansvillewysupercharger",["6985 Nugget Street\n","Evansville, WY 82636\n"]],["Gillette Supercharger","https://www.tesla.com/findus/location/supercharger/gillettesupercharger",["211 Decker Court\n","Gillette, WY 82716\n"]],["Jackson Supercharger","https://www.tesla.com/findus/location/supercharger/jacksonwysupercharger",["1155 US-89\n","Jackson, WY 83001\n"]],["Laramie, WY Supercharger","https://www.tesla.com/findus/location/supercharger/laramiesupercharger",["1673 Centennial Drive\n","Laramie, WY 82070-8417\n"]],["Lusk, WY Supercharger","https://www.tesla.com/findus/location/supercharger/lusksupercharger",["730 S Main St\n","Lusk, WY 82225\n"]],["Rawlins Supercharger","https://www.tesla.com/findus/location/supercharger/rawlinssupercharger",["2370 E Cedar St.\n","Rawlins, WY 82301-6026\n"]],["Rock Springs Supercharger","https://www.tesla.com/findus/location/supercharger/rockspringssupercharger",["2441 Foothill Blvd\n","Rock Springs, 82901-5659\n"]],["Sheridan Supercharger","https://www.tesla.com/findus/location/supercharger/sheridansupercharger",["612 North Main Street\n","Sheridan, WY 82801\n"]],["Wheatland, WY Supercharger","https://www.tesla.com/findus/location/supercharger/wheatlandsupercharger",["1556 Sherard Road\n","Wheatland, WY 82201-8927\n"]]]', 
     '4% + county',
     0.04,
     null,
@@ -1657,7 +1857,11 @@ VALUES (
     null,
     '[0.04,"https://www.salestaxhandbook.com/wyoming/calculator","*Top county tax rate is 4%"]',
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail you a self-registration packet. \n Tesla will mail the documents you'll need to complete registration. Any registration fees will be calculated and collected at the time of registration. \n Note: If you lease from Tesla in one of these states, Tesla will complete the registration and titling."},
+    false,
+    true,
+    false,
     false
 ),
 (
@@ -1685,6 +1889,10 @@ VALUES (
     null,
     null,
     null,
+    null,
     {source:"https://www.tesla.com/support/registration", details:"Depending on your state, Tesla will either handle titling and registration for you, or process and mail you the documents you'll need to complete registration at your state’s motor vehicle department. \n Most states provide Tesla approximately 30 business days to finalize registration or process your self-registration paperwork. Depending on your state, temporary license plates may be provided, so you can drive after taking delivery. \n Tesla will start processing your documents once you've taken delivery and all payments have cleared. If any additional information is needed, Tesla will contact you to ensure your vehicle is registered as quickly as possible.", next_steps: "Tesla will mail your registration and the state DMV will mail your title. \n Tesla will mail your plates and registration once processing is complete."},
+    false,
+    true,
+    false,
     true
 )
