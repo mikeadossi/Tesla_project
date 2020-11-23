@@ -21,6 +21,18 @@ app.post('/statedata', async (req, res) => {
     }
 });
 
+app.get('/zipcode',  async (req, res) => {
+    const { query: { zipcode } } = req;
+    console.log('request received for zipcode: ', zipcode);
+    try {
+        const rows = await queries.getZipcodeData(zipcode);
+        return res.status(200).send(JSON.stringify(rows));
+    } catch (e) {
+        return res.status(500);
+    }
+})
+
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on port ${PORT}`);
+    // queries.initializeDatabase();
 })
