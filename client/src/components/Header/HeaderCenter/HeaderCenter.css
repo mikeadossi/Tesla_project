@@ -1,9 +1,15 @@
 .headerCenter{
-    width: 60%;
+    width: 59%;
     float: left;
-    text-align: center; 
+    text-align: center;
 }
 
-.headerCenter_input_btn{
-    border-radius: 0px 2px 2px 0px;
+.headerCenter_input{ 
+    border-radius: 4px;
+}
+
+.headerCenter_search_icon{
+    margin-left: -28px;
+    margin-top: 4px;
+    background-color: white;
 }

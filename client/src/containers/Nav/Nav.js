@@ -1,22 +1,25 @@
-import React, { Component, useEffect } from 'react';
-import './Nav.css';
-import HeaderLeft from '../../components/Header/HeaderLeft/HeaderLeft.js';
-import HeaderRight from '../../components/Header/HeaderRight/HeaderRight.js';
-import HeaderCenter from '../../components/Header/HeaderCenter/HeaderCenter.js';
+import React, { useEffect } from "react";
+import "./Nav.css";
+import HeaderLeft from "../../components/Header/HeaderLeft/HeaderLeft.js";
+import HeaderRight from "../../components/Header/HeaderRight/HeaderRight.js";
+import HeaderCenter from "../../components/Header/HeaderCenter/HeaderCenter.js";
+import HeaderMobileMenu from "../../components/Header/HeaderMobileMenu/HeaderMobileMenu.js";
+import HeaderCookiePermission from "../../components/Header/HeaderCookiePermission/HeaderCookiePermission.js";
 
-function Nav() {
+const defaultUsername = "Johnny Bravo";
 
-  useEffect(() => {
-    fetch('http://localhost:3002/statedata', { method:'POST', headers:{'Content-Type': 'application/json'}}).then(res => res.json()).then((res) => console.log(res)).catch((err)=> console.log(err))
-  });
+const Nav = ({ getZipcodeData }) => {
+  const [username, setUsername] = React.useState(defaultUsername);
 
   return (
     <div className="nav_container">
       <HeaderLeft />
-      <HeaderCenter />
+      <HeaderCenter getZipcodeData={getZipcodeData} />
       <HeaderRight />
+      <HeaderMobileMenu username={username} />
+      <HeaderCookiePermission />
     </div>
   );
-}
+};
 
 export default Nav;
