@@ -2,13 +2,19 @@ import React, { Component } from 'react';
 import './SolarPanels.css';
 
 class SolarPanels extends Component {
-  render() {
+  
+  render() { 
     return ( 
       <div className="app_columns_width vehicleConfig_column1">
-          <div className="app_configTitle">Solar Panels</div> 
+          <div className="app_configTitle app_displayFlex">
+            <div className="app_productName">Solar Panels</div>
+            <div className="vehicleConfig_header_options_container app_displayFlex"> 
+              <div className="app_options_btn">Specs</div>
+            </div>
+          </div> 
           <div className="app_Solar_Img_container">
-              <div className="vehicleConfig_image_container app_solar_image_container">
-                <img src="../../public/images/model3.png"></img>
+              <div className="solar_image_container app_solar_image_container">
+                <img className="solar_img" src="../../../../images/solar/solar_panels.png" alt="solar panel image" ></img>
               </div>
 
               <div className="app_Config_specs_container app_Solar_specs_container">

@@ -5,10 +5,15 @@ class SolarPowerWall extends Component {
   render() {
     return (
       <div className="app_columns_width vehicleConfig_column2">
-          <div className="app_configTitle">Powerwall</div> 
+          <div className="app_configTitle app_displayFlex">
+            <div className="app_productName">Powerwall</div>
+            <div className="vehicleConfig_header_options_container app_displayFlex"> 
+              <div className="app_options_btn">Specs</div>
+            </div>
+          </div> 
           <div className="app_Solar_Img_container solarPowerWall_Img_container">
-              <div className="vehicleConfig_image_container app_solar_image_container">
-                <img src="../../public/images/model3.png"></img>
+              <div className="solar_image_container app_solar_image_container">
+                <img className="solar_img" src="../../../../images/solar/powerwall.png" alt="powerwall image"></img>
               </div>
 
               <div className="app_Config_specs_container app_Solar_specs_container">
@@ -33,8 +38,12 @@ class SolarPowerWall extends Component {
               </div>
           </div>
           <div className="app_Solar_costs_container">
-                <div className="solarPowerWall_title">Cash and Incentives</div>
-                <div className="">
+                <div className="app_displayFlex app_Solar_selectPymt_div">
+                    <div className="app_Solar_selectPymt_btn">Cash</div>
+                    <div className="app_Solar_selectPymt_btn">Loan</div>
+                    <div className="app_Solar_selectPymt_btn">Lease</div>
+                </div>
+                <div className="solarPowerWall_pricing_container"> 
                     <div className="app_Solar_cost_div">
                         <span className="app_inline-block">2 Powerwalls</span>
                         <span className="app_inline-block app_Solar_cost">$16,400</span>

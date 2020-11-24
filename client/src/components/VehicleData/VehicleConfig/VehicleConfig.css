@@ -6,6 +6,11 @@
     padding-bottom: 10px; 
 }
 
+.vehicleConfig_vehicleName{
+    width: 79%;
+    font-weight: bold;
+}
+
 .vehicleConfig_modelPrice{
     float: right; 
 }
@@ -19,7 +24,8 @@
 }
 
 .vehicleConfig_img{
-    height: 72px;
+    height: 59px;
+    padding: 7px;
 }
 
 .vehicleConfig_column1{
@@ -232,13 +238,14 @@
 } 
 
 .vehicleConfig_submit_btn_container{
-    padding: 25px 0px 20px 0px;
+    padding: 16px 0px 7px 0px;
     margin: auto;
 }
 
 .vehicleConfig_control_btn{
     padding: 5px;
     width: 31%;
+    font-size: 10px;
 }
 
 .vehicleConfig_reset_btn, .vehicleConfig_setAll_btn{
@@ -258,16 +265,66 @@
     margin-left: 4px;
 }
 
-.vehicleConfig_close{
-    float: right;
-}
-
 .vehicleConfig_close_container{
     padding: 4px; 
     cursor: pointer;
+    margin-left: 10px;
 }
 
 .vehicleConfig_close_container:hover{
     background-color: gainsboro;
     border-radius: 6px;
+}
+
+.vehicleConfig_close{
+    height: 15px;
+}
+
+.vehicleConfig_edit_btn{
+    height: 10px;
+    padding: 3px;
+    opacity: 0.3;
+    cursor: pointer;
+    padding-right: 60px; 
+}
+
+.vehicleConfig_edit_btn:hover{
+    opacity: 1;
+}
+
+.vehicleConfig_userInput_subcontainer{
+    border: 1px solid grey;
+    padding: 3px 8px 3px 8px;
+    border-radius: 25px;
+    background-color: white;
+}
+
+.vehicleConfig_userInput{
+    border: none;
+    width: 70px;
+}
+
+.vehicleConfig_userSelect{
+    padding: 5px; 
+}
+
+.vehicleConfig_pricing_subcontainers, .vehicleConfig_userEntry_containers{
+    border: 1px solid gainsboro;
+    border-radius: 0px 0px 6px 6px;
+    border-top: 1px solid gainsboro;
+    margin-top: -5px;
+}
+
+.vehicleConfig_setAll_btn, .vehicleConfig_reset_btn{
+    background-color: white;
+    border: 2px solid black;
+    cursor: pointer;  
+    padding: 4px; 
+    border-radius: 25px;
+    font-size: 10px;
+}
+
+.vehicleConfig_setAll_btn:hover, .vehicleConfig_reset_btn:hover{
+    background-color: black;
+    color: white;
 }
