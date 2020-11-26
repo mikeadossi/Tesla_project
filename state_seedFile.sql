@@ -28,7 +28,9 @@ registration,
 solar_panel_subscription,
 leasing_available,
 financing_available,
-taxes_rebate_bool
+taxes_rebate_bool,
+region,
+default_zipcode
 )
 VALUES (
     'Alabama',
@@ -60,7 +62,9 @@ VALUES (
     false,
     true,
     false,
-    true
+    true,
+    'Nashville',
+    '36104'
 ),
 (
     'Alaska',
@@ -92,7 +96,9 @@ VALUES (
     false,
     true,
     false,
-    false
+    false,
+    'Portland',
+    '99801'
 ),
 (
     'Arizona',
@@ -125,7 +131,9 @@ VALUES (
     true,
     true,
     false,
-    false
+    false,
+    'Pheonix',
+    '85007'
 ),
 (
     'Arkansas',
@@ -157,7 +165,9 @@ VALUES (
     false,
     true,
     false,
-    true
+    true,
+    'Texas',
+    '72201'
 ),
 (
     'California',
@@ -241,7 +251,7 @@ VALUES (
     '[["Agoura Hills","https://www.tesla.com/findus/location/service/agourahills",["28721 Canwood Street Bldg A\n","Agoura Hills, CA 91301\n"]],["Bakersfield-Young Street","https://www.tesla.com/findus/location/service/bakersfieldyoungstreet",["5206 Young Street, Suite B\n","Bakersfield, CA 93311-8821\n"]],["Berkeley-901 Gilman","https://www.tesla.com/findus/location/service/berkeleygilman",["901 Gilman St.\n","Berkeley, CA 94710\n"]],["Buena Park","https://www.tesla.com/findus/location/service/buenapark",["6692 Auto Center Drive\n","Buena Park, CA 90621\n"]],["Burbank","https://www.tesla.com/findus/location/service/burbank",["811 S San Fernando Blvd\n","Burbank, CA 91502\n"]],["Burlingame","https://www.tesla.com/findus/location/service/burlingame",["50 Edwards Court\n","Burlingame, CA 94010\n"]],["Carlsbad","https://www.tesla.com/findus/location/service/carlsbad",["3248 Lionshead Avenue\n","Carlsbad, CA 92010\n"]],["Chico-Huss","https://www.tesla.com/findus/location/service/chicohussservice",["349 Huss Drive\n","Chico, CA 95928-8209\n"]],["Costa Mesa Service","https://www.tesla.com/findus/location/service/costamesaservice",["3020 Pullman Street\n","Costa Mesa, CA 92626\n"]],["Dublin-Amador Plaza","https://www.tesla.com/findus/location/service/dublinamador",["6701 Amador Plaza Road\n","Dublin, CA 94568\n"]],["Fremont Service","https://www.tesla.com/findus/location/service/fremontkatoroad",["48370 Kato Rd\n","Fremont, CA 94538\n"]],["Fresno","https://www.tesla.com/findus/location/service/fresnoservice",["2988 N. Burl Ave.\n","Fresno, CA 93727\n"]],["Lake Forest","https://www.tesla.com/findus/location/service/lakeforest",["25471 Arctic Ocean Dr\n","Lake Forest, CA 92630-8832\n"]],["Los Angeles-Centinela","https://www.tesla.com/findus/location/service/centinela",["5840 W. Centinela Ave\n","Los Angeles, CA 90045\n"]],["Monterey-Seaside","https://www.tesla.com/findus/location/service/montereyseaside",["1901 Del Monte Blvd\n","Seaside, CA 93955\n"]],["Oxnard-Galaxy Place","https://www.tesla.com/findus/location/service/oxnardgalaxyplaceservice",["3421 Galaxy Place\n","Oxnard, CA 93030\n"]],["Palm Springs-Cathedral City","https://www.tesla.com/findus/location/service/cathedralcity",["68080 Perez Road\n","Palm Springs, CA 92234\n"]],["Palo Alto","https://www.tesla.com/findus/location/service/paloalto",["4180 El Camino Real\n","Palo Alto, CA 94306\n"]],["Rancho Cucamonga-Edison Ct.","https://www.tesla.com/findus/location/service/ranchocucamongaedisonct",["10851 Edison Ct.\n","Rancho Cucamonga, CA 91730\n"]],["Sacramento-Rocklin","https://www.tesla.com/findus/location/service/rocklin",["4361 Granite Drive\n","Rocklin, CA 95677\n"]],["San Diego - Kearny Mesa","https://www.tesla.com/findus/location/service/sdkearnymesa",["5600 Kearny Mesa Rd\n","San Diego, CA 92111\n"]],["San Diego - Miramar","https://www.tesla.com/findus/location/service/sandiego",["9250 Trade Place\n","San Diego, CA 92126\n"]],["San Francisco - Van Ness","https://www.tesla.com/findus/location/service/sanfranciscovanness",["999 Van Ness Avenue\n","San Francisco, CA 94109\n"]],["San Rafael","https://www.tesla.com/findus/location/service/sanrafaelca",["470 DuBois Street\n","San Rafael, CA 94901\n"]],["Santa Ana Service","https://www.tesla.com/findus/location/service/santaanaservice",["3220-3230 S. Standard Ave\n","Santa Ana, CA 92705\n"]],["Santa Barbara-Hitchcock Way","https://www.tesla.com/findus/location/service/santabarbara",["400 Hitchcock Way\n","Santa Barbara, CA 93105\n"]],["Santa Clara-Northwestern Parkway","https://www.tesla.com/findus/location/service/santaclara",["2801 Northwestern Parkway\n","Santa Clara, CA 95051\n"]],["Serramonte-1500 Collins Ave","https://www.tesla.com/findus/location/service/serramonte1500collinsave",["1500 Collins Ave\n","Colma, CA 94014\n"]],["Sunnyvale","https://www.tesla.com/findus/location/service/sunnyvale",["750 E El Camino Real\n","Sunnyvale, CA 94087\n"]],["Torrance","https://www.tesla.com/findus/location/service/torrance",["2560 W. 237th St\n","Torrance, CA 90505\n"]],["Van Nuys","https://www.tesla.com/findus/location/service/vannuys",["6919-6921 Hayvenhurst Ave\n","Van Nuys, CA 91406\n"]],["West Los Angeles-Santa Monica Blvd","https://www.tesla.com/findus/location/service/westlosangelessantamonicablvd",["11163 Santa Monica Boulevard\n","Los Angeles, CA 90025\n"]]]',
 '[["Adelanto, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/adelantosupercharger",["Adelanto, CA\n"]],["Adin, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/adinsupercharger",["Adin, CA\n"]],["Alameda, CA Supercharger","https://www.tesla.com/findus/location/supercharger/alamedacasupercharger",["523 South Shore Center West\n","Alameda, CA 94501\n"]],["Anaheim, CA - East Katella Avenue Supercharger","https://www.tesla.com/findus/location/supercharger/anaheimeastkatellasupercharger",["2404 East Katella Avenue\n","Anaheim, CA 92806\n"]],["Anaheim, CA - Santa Ana Canyon Road Supercharger","https://www.tesla.com/findus/location/supercharger/anaheimcasupercharger",["8148 East Santa Ana Canyon Road\n","Anaheim, CA 92808\n"]],["Antioch, CA Supercharger","https://www.tesla.com/findus/location/supercharger/antiochcasupercharger",["5769 Lone Tree Way\n","Antioch, CA 94531\n"]],["Atascadero, CA Supercharger","https://www.tesla.com/findus/location/supercharger/atascaderosupercharger",["6950 El Camino Real\n","Atascadero, CA 93422\n"]],["Baker, CA Supercharger","https://www.tesla.com/findus/location/supercharger/bakercasupercharger",["71808 Baker Blvd\n","Baker, CA 92309-0000\n"]],["Bakersfield Supercharger","https://www.tesla.com/findus/location/supercharger/bakersfieldsupercharger",["29541 Stockdale Hwy\n","Bakersfield, CA 93314\n"]],["Bakersfield, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/bakersfieldcasupercharger",["Bakersfield, CA\n"]],["Barstow Supercharger","https://www.tesla.com/findus/location/supercharger/barstowcasupercharger",["2812 Lenwood Road\n","Barstow, CA 92311\n"]],["Beaumont, CA Supercharger","https://www.tesla.com/findus/location/supercharger/beaumontcasupercharger",["1540 E. 2nd Street\n","Beaumont, CA 92223\n"]],["Berkeley, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/berkeleysupercharger",["Berkeley, CA\n"]],["Beverly Hills, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/beverlyhillscaliforniasupercharger",["Beverly Hills, CA\n"]],["Big Sur, CA - Ventana Supercharger","https://www.tesla.com/findus/location/supercharger/bigsurcasupercharger",["48123 Highway 1\n","Big Sur, CA 93920\n"]],["Bishop, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/bishopcasupercharger",["Bishop, CA\n"]],["Brea, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/breacaliforniasupercharger",["Brea, CA\n"]],["Buellton, CA Supercharger","https://www.tesla.com/findus/location/supercharger/buelltonsupercharger",["555 McMurray Rd\n","Buellton, CA 93427\n"]],["Buena Park","https://www.tesla.com/findus/location/supercharger/buenapark",["6692 Auto Center Drive\n","Buena Park, CA 90621\n"]],["Buena Park, CA - Beach Boulevard Supercharger","https://www.tesla.com/findus/location/supercharger/buenaparkcabeachboulevarsdupercharger",["6940 Beach Boulevard\n","Buena Park, CA 90621\n"]],["Burbank - North Third Street","https://www.tesla.com/findus/location/supercharger/burbanknorththirdstsupercharger",["495 North Third Street\n","Burbank, CA 91502\n"]],["Buttonwillow Supercharger","https://www.tesla.com/findus/location/supercharger/buttonwillowsupercharger",["20673 Tracy Ave.\n","Buttonwillow, CA 93206\n"]],["Cabazon Supercharger","https://www.tesla.com/findus/location/supercharger/cabazoncaliforniasupercharger",["48400 Seminole Drive\n","Cabazon, CA 92230\n"]],["Calabasas, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/calabasascasupercharger",["Calabasas, CA\n"]],["Cambria, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/cambriacasupercharger",["Cambria, CA\n"]],["Carlsbad, CA Supercharger","https://www.tesla.com/findus/location/supercharger/carlsbadsupercharger",["7710-7770 El Camino Real\n","Carlsbad, CA 92009-8562\n"]],["Castro Valley, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/castrovalleycasupercharger",["Castro Valley, CA\n"]],["Cerritos, CA Supercharger","https://www.tesla.com/findus/location/supercharger/cerritoscaliforniasupercharger",["239 Los Cerritos Center\n","Cerritos, CA 90703-5422\n"]],["Chico, CA Supercharger","https://www.tesla.com/findus/location/supercharger/chicocaliforniasupercharger",["1951 East 20th Street\n","Chico, CA 95928\n"]],["Chino Hills, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/chinohillsupercharger",["Chino Hills, CA\n"]],["Chula Vista, CA Supercharger","https://www.tesla.com/findus/location/supercharger/chulavistacaliforniasupercharger",["910 Eastlake Parkway\n","Chula Vista, CA 91914\n"]],["Commerce, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/commercesupercharger",["Commerce, CA\n"]],["Concord, CA Supercharger","https://www.tesla.com/findus/location/supercharger/concordcasupercharger",["2001 Diamond Blvd\n","Concord, 94520\n"]],["Corning, CA Supercharger","https://www.tesla.com/findus/location/supercharger/corningsupercharger",["950 Hwy 99 W\n","Corning, CA 96021\n"]],["Corona, CA Supercharger","https://www.tesla.com/findus/location/supercharger/coronacasupercharger",["2615 Tuscany Street\n","Corona, CA 92881-4631\n"]],["Corte Madera, CA Supercharger","https://www.tesla.com/findus/location/supercharger/cortemaderasupercharger",["1618 Redwood Highway\n","Corte Madera, CA 94925\n"]],["Costa Mesa, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/costamesacasupercharter",["Costa Mesa, CA\n"]],["Crescent City Supercharger","https://www.tesla.com/findus/location/supercharger/crescentcitysupercharger",["1000 Front Street\n","Crescent City, CA 95531\n"]],["Culver City Supercharger","https://www.tesla.com/findus/location/supercharger/culvercitysupercharger",["6000 Sepulveda Blvd.\n","Culver City, CA 90230\n"]],["Cupertino, CA Supercharger","https://www.tesla.com/findus/location/supercharger/cupertinosupercharger",["19500 Vallco Parkway\n","Cupertino, 95014-0000\n"]],["Daly City, CA Supercharger","https://www.tesla.com/findus/location/supercharger/dalycitysupercharger",["3 Serramonte Center\n","Daly City, CA 94015\n"]],["Dana Point, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/danapointcaliforniasupercharger",["Dana Point, CA\n"]],["Davis, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/davissupercharger",["Davis, CA\n"]],["Downey, CA - Lakewood Boulevard Supercharger","https://www.tesla.com/findus/location/supercharger/downeysupercharger",["9500 Lakewood Boulevard\n","Downey, CA 90240-3307\n"]],["Downey, CA - Stonewood Street Supercharger","https://www.tesla.com/findus/location/supercharger/downeycastonewoodsupercharger",["251 Stonewood Street\n","Downey, CA 90241\n"]],["Dublin-Amador Plaza","https://www.tesla.com/findus/location/supercharger/dublinamador",["6701 Amador Plaza Road\n","Dublin, CA 94568\n"]],["East Palo Alto, CA Supercharger","https://www.tesla.com/findus/location/supercharger/paloaltocaliforniasupercharger",["1771 East Bayshore Road\n","Palo Alto, CA 94303\n"]],["El Cajon, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/elcajonsupercharger",["El Cajon, CA\n"]],["El Centro Supercharger","https://www.tesla.com/findus/location/supercharger/elcentrosupercharger",["3551 S Dogwood Rd\n","El Centro, CA 92243\n"]],["El Cerrito, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/elcerritocaliforniasupercharger",["El Cerrito, CA\n"]],["El Cerrito, CA Supercharger","https://www.tesla.com/findus/location/supercharger/elcerritocasupercharger",["280 El Cerrito Plaza\n","El Cerrito, CA 94530\n"]],["Elk Grove, CA - Elk Grove Blvd Supercharger","https://www.tesla.com/findus/location/supercharger/elkgrovecaelkgroveblvdsupercharger",["8451 Elk Grove Boulevard\n","Elk Grove, CA 95758\n"]],["Emeryville, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/emeryvillesupercharger",["Emeryville, CA\n"]],["Emeryville, CA - Powell Street Plaza Supercharger","https://www.tesla.com/findus/location/supercharger/emeryvillecapowellstreetplazasupercharger",["5795 Christie Avenue\n","Emeryville, CA 94608\n"]],["Escondido, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/escondidoonsupercharger",["Escondido, CA\n"]],["Eureka Supercharger","https://www.tesla.com/findus/location/supercharger/eurekasupercharger",["3300 Broadway St.\n","Eureka, CA 95501\n"]],["Fairfield, CA - Holiday Lane Supercharger","https://www.tesla.com/findus/location/supercharger/fairfieldholidaylanesupercharger",["1350 Holiday Lane\n","Fairfield, CA 94534\n"]],["Fairfield, CA - Travis Blvd Supercharger","https://www.tesla.com/findus/location/supercharger/fairfieldcasupercharger",["1350 Travis Blvd\n","Fairfield, CA 94533-3432\n"]],["Firebaugh, CA Supercharger","https://www.tesla.com/findus/location/supercharger/firebaughsupercharger",["46272 West Panoche Road\n","Firebaugh, CA 93622\n"]],["Fish Camp Supercharger","https://www.tesla.com/findus/location/supercharger/fishcampsupercharger",["1122 Highway 41\n","Fish Camp, CA 93623\n"]],["Folsom, CA - Iron Point Road Supercharger","https://www.tesla.com/findus/location/supercharger/folsompremiumoutletssupercharger",["220 Iron Point Rd\n","Folsom, CA 95630\n"]],["Folsom, CA - Palladio Parkway Supercharger","https://www.tesla.com/findus/location/supercharger/palladiofolsomsupercharger",["220 Palladio Parkway\n","Folsom, CA 95630\n"]],["Fontana, CA Supercharger","https://www.tesla.com/findus/location/supercharger/fontanacaliforniasupercharger",["152234 Summit Avenue\n","Fontana, CA 92336\n"]],["Fountain Valley Supercharger","https://www.tesla.com/findus/location/supercharger/fountainvalleycaliforniasupercharger",["17940 Newhope St\n","Fountain Valley, CA 92708\n"]],["Fremont","https://www.tesla.com/findus/location/supercharger/fremont",["45500 Fremont Blvd\n","Fremont, CA 94538\n"]],["Fremont, CA - 39201 Fremont Blvd Supercharger","https://www.tesla.com/findus/location/supercharger/fremontcaliforniasupercharger",["39201 Fremont Blvd\n","Fremont, CA 94538-1301\n"]],["Fresno Supercharger","https://www.tesla.com/findus/location/supercharger/fresnosupercharger",["6709 N Riverside Dr\n","Fresno, CA 93722\n"]],["Fresno, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/fresnocasupercharger",["Fresno, CA\n"]],["Gilroy, CA Supercharger","https://www.tesla.com/findus/location/supercharger/gilroyoutletsupercharger",["Gilroy Premium Outlets\n","Gilroy, CA 95020\n"]],["Glendale, CA Supercharger","https://www.tesla.com/findus/location/supercharger/glendalesupercharger",["899 Americana Way\n","Glendale, CA 91210\n"]],["Goleta, CA Supercharger","https://www.tesla.com/findus/location/supercharger/goletacasupercharger",["7004 Marketplace Drive\n","Goleta, CA 93117\n"]],["Greenville, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/greenvillesupercharger",["Greenville, CA\n"]],["Groveland Supercharger","https://www.tesla.com/findus/location/supercharger/grovelandsupercharger",["11875 Ponderosa Lane\n","Groveland, CA 95321\n"]],["Gustine Supercharger","https://www.tesla.com/findus/location/supercharger/gustinesupercharger",["12411 CA-33\n","Gustine, CA 95322\n"]],["Half Moon Bay, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/halfmoonbaycasupercharger",["Half Moon Bay, CA\n"]],["Harris Ranch Supercharger","https://www.tesla.com/findus/location/supercharger/harrisranchcasupercharger",["24505 W Dorris Ave\n","Coalinga, CA 93210\n"]],["Hawthorne, CA - El Segundo Boulevard Supercharger","https://www.tesla.com/findus/location/supercharger/hawthornelsegundosupercharger",["4427 West El Segundo Boulevard\n","Hawthorne, CA 90250\n"]],["Hawthorne, CA - West 120th Street Supercharger","https://www.tesla.com/findus/location/supercharger/hawthornecaweststreetsupercharger",["2700 West 120th Avenue\n","Hawthorne, CA 90250\n"]],["Hayward, CA Supercharger","https://www.tesla.com/findus/location/supercharger/haywardcaliforniasupercharger",["19661 Hesperian Boulevard\n","Hayward, CA 94541\n"]],["Hermosa Beach, CA Supercharger","https://www.tesla.com/findus/location/supercharger/hermosabeachcasupercharger",["710 16th St.\n","Hermosa Beach, CA 90254\n"]],["Hesperia, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/hesperiasupercharger",["Hesperia, CA\n"]],["Highland, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/highlandcaliforniasupercharger",["Highland, CA\n"]],["Hollister, CA Supercharger","https://www.tesla.com/findus/location/supercharger/hollistercasupercharger",["10021 Pacheco Pass Hwy\n","Hollister, CA 95023-9541\n"]],["Hollywood, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/hollywoodsupercharger",["Hollywood, CA\n"]],["Huntington Beach, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/huntingtonbeachcasupercharger",["Huntington Beach, CA\n"]],["Indio Supercharger","https://www.tesla.com/findus/location/supercharger/indiocaliforniasupercharger",["42100 Jackson St\n","Indio, CA 92203\n"]],["Indio, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/indiosupercharger",["Indio, CA\n"]],["Inyokern Supercharger","https://www.tesla.com/findus/location/supercharger/inyokernsupercharger",["1353 Brown Road\n","Inyokern, CA 93527\n"]],["Irvine, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/irvinesupercharger",["Irvine, CA\n"]],["Irvine, CA - Michelson Drive Supercharger","https://www.tesla.com/findus/location/supercharger/irvineparkplacesupercharger",["3021 Michelson Drive\n","Irvine, CA 92612-0626\n"]],["Jackson, CA Supercharger","https://www.tesla.com/findus/location/supercharger/sonoracasupercharger",["31 CA-88\n","Jackson, CA 95642\n"]],["Kettleman City, CA Supercharger","https://www.tesla.com/findus/location/supercharger/kettlemancitysupercharger",["27675 Bernard Drive\n","Kettleman City, CA 93239\n"]],["Kramer Junction, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/kramerjunctioncasupercharger",["Kramer Junction, CA\n"]],["Lake Elsinore, CA Supercharger","https://www.tesla.com/findus/location/supercharger/lakeelsinorecasupercharger",["17600 Collier Avenue\n","Lake Elsinore, CA 92530\n"]],["Lakewood, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/lakewoodcaliforniasupercharger",["Lakewood, CA\n"]],["Laytonville, CA Supercharger","https://www.tesla.com/findus/location/supercharger/laytonvillesupercharger",["45020 N US Highway 101\n","Laytonville, CA 95454-9049\n"]],["Lincoln, CA - Groveland Lane Supercharger","https://www.tesla.com/findus/location/supercharger/lincolncagrovelandlanesupercharger",["950 Groveland Lane\n","Lincoln, CA 95648\n"]],["Livermore, CA Supercharger","https://www.tesla.com/findus/location/supercharger/livermorecasupercharger",["2774 Livermore Outlets Drive\n","Livermore, CA 94551\n"]],["Lone Pine, CA Supercharger","https://www.tesla.com/findus/location/supercharger/lonepinecasupercharger",["701 S Main St\n","Lone Pine, CA 93545\n"]],["Long Beach, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/longbeachsupercharger",["Long Beach, CA\n"]],["Los Altos, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/losaltossupercharger",["Los Altos, CA\n"]],["Los Altos, CA Supercharger","https://www.tesla.com/findus/location/supercharger/losaltoscasupercharger",["4800 El Camino Real\n","Los Altos, CA 94022\n"]],["Los Angeles, CA - Francisco Street Supercharger","https://www.tesla.com/findus/location/supercharger/losangelesdowntownsupercharger",["899 South Francisco Street\n","Los Angeles, CA 90015\n"]],["Los Gatos, CA Supercharger","https://www.tesla.com/findus/location/supercharger/losgatossupercharger",["142 Los Gatos-Saratoga Road\n","Los Gatos, CA 95032\n"]],["Malibu, CA - Whole Foods and the Park Supercharger","https://www.tesla.com/findus/location/supercharger/malibucaliforniasupercharger",["23475 Civic Center Way\n","Malibu, CA 90265\n"]],["Mammoth Lakes Supercharger","https://www.tesla.com/findus/location/supercharger/mammothlakessupercharger",["1475 Tavern Road\n","Mammoth Lakes, CA 93546\n"]],["Manhattan Beach, CA Supercharger","https://www.tesla.com/findus/location/supercharger/manhattanbeachcasupercharger",["3200 North Sepulveda Boulevard\n","Manhattan Beach, CA 90266\n"]],["Manteca Supercharger","https://www.tesla.com/findus/location/supercharger/mantecacasupercharger",["960 Perimeter Dr\n","Manteca, CA 95337\n"]],["Manteca, CA - Spreckels Avenue Supercharger","https://www.tesla.com/findus/location/supercharger/mantecacaspreckelsavenuesupercharger",["280 Spreckels Avenue\n","Manteca, CA 95336\n"]],["Marin City, CA - Donahue Street Supercharger","https://www.tesla.com/findus/location/supercharger/marincitycasupercharger",["190 Donahue Street\n","Marin City, CA 94965\n"]],["Marina Del Rey, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/marinadelreysupercharger",["Marina Del Rey, CA\n"]],["Mariposa, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/mariposacasupercharger",["Mariposa, CA\n"]],["Mendocino, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/mendocinosupercharger",["Mendocino, CA\n"]],["Menifee, CA Supercharger","https://www.tesla.com/findus/location/supercharger/menifeecasupercharger",["30340 Haun Road\n","Menifee, CA 92584\n"]],["Menlo Park, CA Supercharger","https://www.tesla.com/findus/location/supercharger/melonparkcasupercharger",["325 Sharon Park Drive\n","Menlo Park, CA 94025\n"]],["Milpitas, CA - Great Mall Supercharger","https://www.tesla.com/findus/location/supercharger/milpitasgreatmallsupercharger",["447 Great Mall Drive\n","Milpitas, CA 95035\n"]],["Milpitas, CA Supercharger","https://www.tesla.com/findus/location/supercharger/milpitascasupercharger",["901 East Calaveras Boulevard\n","Milpitas, CA 95035\n"]],["Mission Viejo, CA Supercharger","https://www.tesla.com/findus/location/supercharger/missionviejocasupercharger",["555 The Shops at Mission Viejo\n","Mission Viejo, CA 92691\n"]],["Modesto, CA - Sisk Road Supercharger","https://www.tesla.com/findus/location/supercharger/modestocasiskroadsupercharger",["3900 Sisk Road\n","Modesto, CA 95356\n"]],["Mojave Supercharger","https://www.tesla.com/findus/location/supercharger/mojavecaliforniasupercharger",["16940 California 14\n","Mojave, CA 93501\n"]],["Mojave, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/mojavesupercharger",["Mojave, CA\n"]],["Montebello, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/montebellocasupercharger",["Montebello, CA\n"]],["Monterey Supercharger","https://www.tesla.com/findus/location/supercharger/montereysupercharger",["1410 Del Monte Center\n","Monterey, CA 93940-6168\n"]],["Monterey-Seaside","https://www.tesla.com/findus/location/supercharger/montereyseaside",["1901 Del Monte Blvd\n","Seaside, CA 93955\n"]],["Moreno Valley, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/morenovalleycasupercharger",["Moreno Valley, CA\n"]],["Morgan Hill, CA Supercharger","https://www.tesla.com/findus/location/supercharger/morganhillsupercharger",["1061 Cochrane Road\n","Morgan Hill, CA 95037\n"]],["Mountain View Supercharger","https://www.tesla.com/findus/location/supercharger/mountainviewcasupercharger",["1401 N. Shoreline Blvd.\n","Mountain View, CA 94043\n"]],["Mountain View, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/mountainviewcaliforniasupercharger",["Mountain View, CA\n"]],["Mt. Shasta Supercharger","https://www.tesla.com/findus/location/supercharger/mtshastacaliforniasupercharger",["111 Morgan Way\n","Mt. Shasta, CA 96067\n"]],["Mt. Shasta, CA - 134 Morgan Way Supercharger","https://www.tesla.com/findus/location/supercharger/mtshastasupercharger",["134 Morgan Way\n","Mt. Shasta, CA 96067-2501\n"]],["Napa, CA - Factory Stores Drive Supercharger","https://www.tesla.com/findus/location/supercharger/napacafactorysupercharger",["629 Factory Stores Drive\n","Napa, CA 94558\n"]],["Napa, CA Supercharger","https://www.tesla.com/findus/location/supercharger/napacaliforniasupercharger",["221 Devlin Rd\n","Napa, CA 94558\n"]],["Needles Supercharger","https://www.tesla.com/findus/location/supercharger/needlescasupercharger",["2451 Needles HWY\n","Needles, CA 92363\n"]],["Newark, CA Supercharger","https://www.tesla.com/findus/location/supercharger/newarkcasupercharger",["3100 Newpark Mall\n","Newark, CA 94560\n"]],["Newell, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/newellcasupercharger",["Newel, CA\n"]],["Northridge, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/northridgesupercharger",["Northridge, CA\n"]],["Novato, CA Supercharger","https://www.tesla.com/findus/location/supercharger/novatocasupercharger",["208 Vintage Way\n","Novato, CA 94945\n"]],["Oakland, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/oaklandcasupercharger",["Oakland, CA\n"]],["Oakland, CA - Hegenberger Rd Supercharger","https://www.tesla.com/findus/location/supercharger/oaklandcahegenbergerrdsupercharger",["640 Hegenberger Road\n","Oakland, CA 94621\n"]],["Ojai, CA Supercharger","https://www.tesla.com/findus/location/supercharger/ojaisupercharger",["987 West Ojai Avenue\n","Ojai, CA 93023\n"]],["Ontario, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/ontariocaliforniasupercharger",["Ontario, CA\n"]],["Oxnard Supercharger","https://www.tesla.com/findus/location/supercharger/oxnardcasupercharger",["2751 Park View Ct\n","Oxnard, CA 93036\n"]],["Pacific Palisades, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/pacificpalisadessupercharger",["Pacific Palisades, CA\n"]],["Palm Springs, CA Supercharger","https://www.tesla.com/findus/location/supercharger/palmspinrgscaliforniasupercharger",["101 North Museum Drive\n","Palm Springs, CA 92262\n"]],["Palmdale, CA Supercharger","https://www.tesla.com/findus/location/supercharger/palmdalecaliforniasupercharger",["1233 Rancho Vista Boulevard\n","Palmdale, CA 93551\n"]],["Palo Alto, CA - Stanford Shopping Center Supercharger","https://www.tesla.com/findus/location/supercharger/stanfordshoppingsupercharger",["660 Stanford Shopping Center\n","Palo Alto, CA 94304\n"]],["Pasadena, CA Supercharger","https://www.tesla.com/findus/location/supercharger/pasadenasupercharger",["155 East Green Street\n","Pasadena, CA 91105\n"]],["Paso Robles, CA Supercharger","https://www.tesla.com/findus/location/supercharger/pasoroblessupercharger",["2421-2445 Golden Hill Road\n","Paso Robles, CA 93446\n"]],["Patterson, CA - Speno Dr Supercharger","https://www.tesla.com/findus/location/supercharger/pattersoncaspenodrsupercharger",["2959 Speno Drive\n","Patterson, CA 95363\n"]],["Petaluma, CA Supercharger","https://www.tesla.com/findus/location/supercharger/petalumacasupercharger",["401 Kenilworth Drive\n","Petaluma, CA 94952\n"]],["Pinole, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/pinolesupercharger",["Pinole, CA\n"]],["Pismo Beach, CA Supercharger","https://www.tesla.com/findus/location/supercharger/pismobeachcasupercharger",["333 5 Cities Drive\n","Pismo Beach, CA 93449\n"]],["Placerville, CA Supercharger","https://www.tesla.com/findus/location/supercharger/placervillesupercharger",["1216-1252 Broadway\n","Placerville, CA 95667\n"]],["Playa Vista, CA - West Jefferson Blvd Supercharger","https://www.tesla.com/findus/location/supercharger/playavistacasupercharger",["12746 W Jefferson Blvd\n","Playa Vista, CA 90094\n"]],["Pleasanton, CA Supercharger","https://www.tesla.com/findus/location/supercharger/pleasantonsqushoppingsupercharger",["6000 Johnson Drive\n","Pleasanton, CA 94588\n"]],["Pomona, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/pomonasupercharger",["Pomona, CA\n"]],["Rancho Cucamonga Supercharger","https://www.tesla.com/findus/location/supercharger/ranchocucamongasupercharger",["12642 Cultural Center Dr.\n","Rancho Cucamonga, CA 91739\n"]],["Rancho Mirage, CA Supercharger","https://www.tesla.com/findus/location/supercharger/ranchoimragesupercharger",["71800 CA-111\n","Rancho Mirage, CA 92270\n"]],["Red Bluff, CA Supercharger","https://www.tesla.com/findus/location/supercharger/redbluffsupercharger",["82 Belle Mill Road\n","Red Bluff, CA 96080\n"]],["Redondo Beach Supercharger","https://www.tesla.com/findus/location/supercharger/redondobeachcasupercharger",["2410 Marine Avenue\n","Redondo Beach, CA 90278\n"]],["Richmond, CA - Pierce Street Supercharger","https://www.tesla.com/findus/location/supercharger/richmondcapiercestreetsupercharger",["3288 Pierce St\n","Richmond, CA 94804\n"]],["Richmond, CA Supercharger","https://www.tesla.com/findus/location/supercharger/richmoncaliforniasupercharger",["2157 Meeker Avenue\n","Richmond, CA 94804\n"]],["Riverside, CA - Canyon Springs Parkway Supercharger","https://www.tesla.com/findus/location/supercharger/riversidecanyonspringssupercharger",["2755 Canyon Springs Parkway\n","Riverside, CA 92507\n"]],["Riverside, CA Supercharger","https://www.tesla.com/findus/location/supercharger/riversidecaliforniasupercharger",["3370 9th St\n","Riverside, 92501\n"]],["Rohnert Park, CA Supercharger","https://www.tesla.com/findus/location/supercharger/rohnertparkcasupercharger",["475 Rohnert Park Expressway\n","Rohnert Park, CA 94928\n"]],["Roseville, CA - Galleria Boulevard Supercharger","https://www.tesla.com/findus/location/supercharger/rosevillegalleriasupercharger",["1120 Galleria Boulevard\n","Roseville, CA 95678\n"]],["Roseville, CA Supercharger","https://www.tesla.com/findus/location/supercharger/rosevillesupercharger",["1151 Galleria Blvd\n","Roseville, CA 95678\n"]],["Rowland Heights, CA Supercharger","https://www.tesla.com/findus/location/supercharger/rowlandheightscasupercharger",["Rowland Heights, CA 91748\n"]],["Sacramento, CA - Arden Way Supercharger","https://www.tesla.com/findus/location/supercharger/sacramentocasupercharger",["1689 Arden Way\n","Sacramento, CA 95815\n"]],["Sacramento, CA - Freeport Boulevard Supercharger","https://www.tesla.com/findus/location/supercharger/southsacramentosupercharger",["4700 Freeport Blvd\n","Sacramento, CA 95822\n"]],["Sacramento, CA Supercharger","https://www.tesla.com/findus/location/supercharger/sacramentosupercharger",["3668 N. Freeway Blvd\n","Sacramento, CA 95834-0000\n"]],["Sacramento-Rocklin","https://www.tesla.com/findus/location/supercharger/rocklin",["4361 Granite Drive\n","Rocklin, CA 95677\n"]],["Salinas, CA Supercharger","https://www.tesla.com/findus/location/supercharger/salinassupercharger",["1606 North Main Street\n","Salinas, CA 93906-5102\n"]],["San Bernardino, CA Supercharger","https://www.tesla.com/findus/location/supercharger/sanbernardinosupercharger",["500 Inland Center Drive\n","San Bernardino, CA 92408\n"]],["San Bruno, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/sanbrunocasupercharger",["San Bruno, CA\n"]],["San Carlos, CA Supercharger","https://www.tesla.com/findus/location/supercharger/sancarlocaliforniasupercharger",["1127 Industrial Road\n","San Carlos, CA 94070\n"]],["San Clemente, CA - Avenida Vista Hermosa Supercharger","https://www.tesla.com/findus/location/supercharger/sanclementecaavenidavistahermosasupercharger",["990 Avenida Vista Hermosa\n","San Clemente, CA 92673\n"]],["San Clemente, CA Supercharger","https://www.tesla.com/findus/location/supercharger/sanclementesupercharger",["101 West Avenida Vista Hermosa\n","San Clemente, CA 92672-7706\n"]],["San Diego Supercharger","https://www.tesla.com/findus/location/supercharger/sandiegopacificheightssupercharger",["10155 Pacific Heights Blvd\n","San Diego, CA 92121\n"]],["San Diego, CA - A Street Supercharger","https://www.tesla.com/findus/location/supercharger/sandiegosupercharger",["1350 6th Avenue\n","San Diego, CA 92101\n"]],["San Diego, CA - Camino Del Sur Supercharger","https://www.tesla.com/findus/location/supercharger/sdcaminodelsursupercharger",["17170 Camino Del Sur\n","San Diego, CA 92127\n"]],["San Diego, CA - Del Mar Heights Road Supercharger","https://www.tesla.com/findus/location/supercharger/delmarheightsrdsupercharger",["3275 Del Mar Heights Road\n","San Diego, CA 92014\n"]],["San Diego, CA - Friars Road Supercharger","https://www.tesla.com/findus/location/supercharger/sdmissionvalleysupercharger",["7007 Friars Road\n","San Diego, CA 92108\n"]],["San Diego, CA - La Jolla (coming soon)","https://www.tesla.com/findus/location/supercharger/sandiegolajollasupercharger",["San Diego, CA\n"]],["San Dimas, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/dandimascasupercharger",["San Dimas, CA\n"]],["San Francisco, CA - Financial District (coming soon)","https://www.tesla.com/findus/location/supercharger/san%20franciscofinancialdistrictsupercharger",["San Francisco, CA\n"]],["San Francisco, CA - Letterman Drive Supercharger","https://www.tesla.com/findus/location/supercharger/sflettermandrsupercharger",["1 Letterman Drive\n","94129, CA San Francisco\n"]],["San Francisco, CA - Mission (coming soon)","https://www.tesla.com/findus/location/supercharger/san%20franciscomissionsupercharger",["San Francisco, CA\n"]],["San Francisco, CA - SOMA (coming soon)","https://www.tesla.com/findus/location/supercharger/san%20franciscosomasupercharger",["San Francisco, CA\n"]],["San Francisco, CA Supercharger","https://www.tesla.com/findus/location/supercharger/sanfranciscocasupercharger",["601 Van Ness Avenue\n","San Francisco, CA 94102\n"]],["San Gabriel, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/sangabrielsupercharger",["San Gabriel, CA\n"]],["San Jose, CA (West) (coming soon)","https://www.tesla.com/findus/location/supercharger/wsanjosesupercharger",["San Jose, CA\n"]],["San Jose, CA - Blossom Hill Road Supercharger","https://www.tesla.com/findus/location/supercharger/sjblossomhillsupercharger",["1375 Blossom Hill Road\n","San Jose, CA 95118\n"]],["San Jose, CA - Cherry Avenue Supercharger","https://www.tesla.com/findus/location/supercharger/sanjosecherryavesupercharger",["5160 Cherry Avenue\n","San Jose, CA 95118\n"]],["San Jose, CA - Coleman Avenue Supercharger","https://www.tesla.com/findus/location/supercharger/sanjosecaliforniasupercharger",["533 Coleman Avenue\n","San Jose, CA 95110\n"]],["San Jose, CA - E Capitol Expressway Supercharger","https://www.tesla.com/findus/location/supercharger/sanjosecaecapitolexpresswaysupercharger",["1029 East Capitol Expressway\n","San Jose, CA 95121\n"]],["San Jose, CA - Holger Way Supercharger","https://www.tesla.com/findus/location/supercharger/sanjosecaholgerwaysupercharger",["95 Holger Way\n","San Jose, CA 95134\n"]],["San Jose, CA - Santana Row Supercharger","https://www.tesla.com/findus/location/supercharger/santanarowsjsupercharger",["330 South Winchester\n","San Jose, CA 95128\n"]],["San Jose, CA - Valet - Santana Row Supercharger","https://www.tesla.com/findus/location/supercharger/santanarowvaletsupercharger",["330 South Winchester Santana Row\n","San Jose, CA 95128\n"]],["San Juan Capistrano, CA Supercharger","https://www.tesla.com/findus/location/supercharger/sanjuancapistranosupercharger",["31971 Camino Capistrano\n","San Juan Capistrano, CA 92675\n"]],["San Luis Obispo, CA Supercharger","https://www.tesla.com/findus/location/supercharger/sanluisobisposupercharger",["100 Madonna Road\n","San Luis Obispo, CA 93405\n"]],["San Mateo Supercharger","https://www.tesla.com/findus/location/supercharger/sanmateosupercharger",["1200 Park Place\n","San Mateo, CA 94403\n"]],["San Mateo, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/sanmateocaliforniasupercharger",["San Mateo, CA\n"]],["San Mateo, CA - Bridgepointe Pkwy Supercharger","https://www.tesla.com/findus/location/supercharger/sanmbridgepointepkwysupercharger",["2220 Bridgepointe Pkwy\n","San Mateo, CA 94404-1569\n"]],["San Ramon, CA - Diablo Plaza Supercharger","https://www.tesla.com/findus/location/supercharger/sanramondiabloplazasupercharger",["2415-2505 San Ramon Valley Boulevard\n","San Ramon, CA 94583\n"]],["San Ramon, CA Supercharger","https://www.tesla.com/findus/location/supercharger/sanramoncaliforniasupercharger",["2610 Bishop Drive\n","San Ramon, CA 94583\n"]],["San Ysidro, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/sanysidrocaupserhcarger",["San Ysidro, CA\n"]],["Santa Ana Supercharger","https://www.tesla.com/findus/location/supercharger/santaanasupercharger",["2800 N. Main Street\n","Santa Ana, CA 92705-6607\n"]],["Santa Barbara, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/santabarbaracaliforniasupercharger",["Santa Barbara, CA\n"]],["Santa Clara, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/santaclarasupercharger",["Santa Clara, CA\n"]],["Santa Clara, CA Supercharger","https://www.tesla.com/findus/location/supercharger/santaclaracasupercharger",["3945 Rivermark Plaza\n","Santa Clara, CA 95054\n"]],["Santa Clarita, CA Supercharger","https://www.tesla.com/findus/location/supercharger/santaclaritacaliforniasupercharger",["24061 Newhall Ranch Road\n","Valencia, CA 91355\n"]],["Santa Cruz, CA Supercharger","https://www.tesla.com/findus/location/supercharger/santacruzcaliforniasupercharger",["911 Soquel Avenue\n","Santa Cruz, CA 95062\n"]],["Santa Monica, CA - Santa Monica Place Supercharger","https://www.tesla.com/findus/location/supercharger/santamonicacaliforniasupercharger",["395 Santa Monica Place\n","Santa Monica, CA 90401\n"]],["Santa Rosa, CA Supercharger","https://www.tesla.com/findus/location/supercharger/santarosacasupercharger",["733 Coddingtown Center\n","Santa Rosa, CA 95401\n"]],["Santa Ysabel, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/santaysabelcsupercharger",["Santa Ysabel, CA\n"]],["Scotts Valley, CA, Supercharger","https://www.tesla.com/findus/location/supercharger/scottsvalleysupercharger",["230 Mount Hermon Road\n","Scott\'s Valley, CA 95066\n"]],["Sherman Oaks, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/shermanoakssupercharger",["Sherman Oaks, CA\n"]],["Simi Valley, CA - Tierra Rejada Road Supercharger","https://www.tesla.com/findus/location/supercharger/simivalleycasupercharger",["51 Tierra Rejada Road\n","Simi Valley, CA 93065\n"]],["Soledad, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/soledadsupercharger",["Soledad, CA\n"]],["Sonoma, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/sonomacasupercharger",["Sonoma, CA\n"]],["South San Francisco, CA Supercharger","https://www.tesla.com/findus/location/supercharger/southsfsupercharger",["250 Gateway Boulevard\n","South San Francisco, CA 94080\n"]],["Stockton, CA Supercharger","https://www.tesla.com/findus/location/supercharger/stocktonsupercharger",["2323 Grand Canal Boulevard\n","Stockton, CA 95207\n"]],["Studio City, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/studiocitycasupercharger",["Studio City, CA\n"]],["Sunnyvale, CA - W. McKinley Ave Supercharger","https://www.tesla.com/findus/location/supercharger/sunnyvalecaliforniasupercharger",["298 W. McKinley Ave\n","Sunnyvale, 94086-6193\n"]],["Susanville, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/susanvillecasupercharger",["Susanville, CA\n"]],["Tahoe City, CA Supercharger","https://www.tesla.com/findus/location/supercharger/tahoecitysupercharger",["140 Lake Boulevard\n","Tahoe City, CA 96145\n"]],["Tejon Ranch Supercharger","https://www.tesla.com/findus/location/supercharger/tejonranchcasupercharger",["5602 Dennis McCarthy Dr\n","Lebec, CA 93243\n"]],["Temecula Supercharger","https://www.tesla.com/findus/location/supercharger/temeculasupercharger",["40820 Winchester Rd.\n","Temecula, CA 92591\n"]],["Thousand Oaks, CA - East Thousand Oaks Boulevard Supercharger","https://www.tesla.com/findus/location/supercharger/thousandoakssupercharger",["4000 East Thousand Oaks Boulevard\n","Thousand Oaks, 91362\n"]],["Thousand Oaks, CA - West Hillcrest Drive Supercharger","https://www.tesla.com/findus/location/supercharger/thousandoakswesthillcrestsupercharger",["350 West Hillcrest Drive\n","Thousand Oaks, CA 91360\n"]],["Traver, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/traversupercharger",["Traver, CA\n"]],["Truckee Brockway Road Supercharger","https://www.tesla.com/findus/location/supercharger/truckeebrockwayroadsupercharger",["11209 Brockway Road\n","Truckee, CA 96161\n"]],["Truckee Donner Pass Supercharger","https://www.tesla.com/findus/location/supercharger/truckeecasupercharger",["11290 Donner Pass Rd\n","Truckee, CA 96161\n"]],["Tustin, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/tustincaliforniasupercharger",["Tustin, CA\n"]],["Twentynine Palms Supercharger","https://www.tesla.com/findus/location/supercharger/twentyninepalmssupercharger",["73829 Baseline Road\n","Twentynine Palms, CA 92277-4125\n"]],["Ukiah Supercharger","https://www.tesla.com/findus/location/supercharger/ukiahsupercharger",["250 W Clay St.\n","Ukiah, CA 95482\n"]],["Vacaville Supercharger","https://www.tesla.com/findus/location/supercharger/vacavillecasupercharger",["321 Nut Tree Road\n","Vacaville, CA 95687\n"]],["Vallejo, CA Supercharger","https://www.tesla.com/findus/location/supercharger/vallejosupercharger",["904 Admiral Callaghan Lane\n","Vallejo, CA 94591\n"]],["Venice, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/venicecaliforniasupercharger",["Venice, CA\n"]],["Ventura, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/venturacaliforniasupercharger",["Ventura, CA\n"]],["Visalia, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/visaliacaliforniasupercharger",["Visalia, CA\n"]],["Vista, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/vistasupercharger",["Vista, CA\n"]],["Walnut Creek, CA Supercharger","https://www.tesla.com/findus/location/supercharger/walnutcreekcasupercharger",["1153 Locust Street\n","Walnut Creek, CA 94596\n"]],["Watsonville, CA Supercharger","https://www.tesla.com/findus/location/supercharger/watsonvillecasupercharger",["1415 Main Street\n","Watsonville, CA 95076\n"]],["Webster, TX Supercharger","https://www.tesla.com/findus/location/supercharger/webstertxsupercharger",["21361 Gulf Freeway\n","Webster, CA 77598\n"]],["West Covina, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/westcovinacasupercharger",["West Covina, CA\n"]],["Westminster, CA Supercharger","https://www.tesla.com/findus/location/supercharger/westminstersupercharger",["1025 Westminster Mall\n","Westminster, CA 92683\n"]],["Westwood, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/westwoodcasupercharger",["Westwood, CA\n"]],["Williams, CA Supercharger","https://www.tesla.com/findus/location/supercharger/williamssupercharger",["464 6th Street\n","Williams, CA 95987\n"]],["Woodland, CA (coming soon)","https://www.tesla.com/findus/location/supercharger/woodlandcaliforniasupercharger",["Woodland, CA\n"]],["Yermo, CA Supercharger","https://www.tesla.com/findus/location/supercharger/yermosupercharger",["36017 Calico Road\n","Yermo, CA 92398\n"]],["Yuba City, CA Supercharger","https://www.tesla.com/findus/location/supercharger/yubacitycaliforniasupercharger",["1475 Tharp Road\n","Yuba City, CA 95993\n"]],["Los Angeles, CA - Alameda Street Supercharger","https://www.tesla.com/findus/location/supercharger/losangelescaalamedastreetsupercharger",["787 S. Alameda Street\n","Los Angeles, CA 90021\n"]]]',
     '7.25% + local',
-    0.725,
+    0.0725,
     null,
     null,
     null,
@@ -260,7 +270,9 @@ VALUES (
     true,
     true,
     true,
-    true
+    true,
+    '[{region:"Greater LA/SD",longitude:"-118.298662",latitude:"+33.786594"},{region:"Bay Area",longitude:"-121.958320",latitude:"+37.509453"}]',
+    '94538'
 ),
 (
     'Colorado',
@@ -299,7 +311,9 @@ VALUES (
     false,
     true,
     true,
-    true
+    true,
+    'Denver',
+    '80203'
 ),
 (
     'Connecticut',
@@ -331,7 +345,9 @@ VALUES (
     true,
     true,
     false,
-    true
+    true,
+    'NY Metro',
+    '06106'
 ),
 (
     'Delaware',
@@ -364,7 +380,9 @@ VALUES (
     false,
     false,
     false,
-    false
+    false,
+    'Philadelphia',
+    '19901'
 ),
 (
     'Florida',
@@ -410,7 +428,9 @@ VALUES (
     false,
     true,
     true,
-    true
+    true,
+    'Florida',
+    '32399'
 ),
 (
     'Georgia',
@@ -447,7 +467,9 @@ VALUES (
     false,
     true,
     true,
-    true
+    true,
+    'Atlanta',
+    '30334'
 ),
 (
     'Hawaii',
@@ -482,7 +504,9 @@ VALUES (
     false,
     true,
     true,
-    true
+    true,
+    'Honolulu',
+    '96813'
 ),
 (
     'Idaho',
@@ -515,7 +539,9 @@ VALUES (
     false,
     true,
     false,
-    true
+    true,
+    'Portland',
+    '83702'
 ),
 (
     'Illinois',
@@ -560,7 +586,9 @@ VALUES (
     false,
     true,
     true,
-    true
+    true,
+    'Indianapolis',
+    '62701'
 ),
 (
     'Iowa',
@@ -593,7 +621,9 @@ VALUES (
     false,
     false,
     false,
-    false
+    false,
+    'St. Louis',
+    '50319'
 ),
 (
     'Indiana',
@@ -625,7 +655,9 @@ VALUES (
     false,
     true,
     true,
-    true
+    true,
+    'Indianapolis',
+    '46204'
 ),
 (
     'Kansas',
@@ -657,7 +689,9 @@ VALUES (
     false,
     true,
     false,
-    false
+    false,
+    'Kansas City',
+    '66612'
 ),
 (
     'Kentucky',
@@ -689,7 +723,9 @@ VALUES (
     false,
     false,
     false,
-    false
+    false,
+    'Nashville',
+    '40601'
 ),
 (
     'Louisiana',
@@ -721,7 +757,9 @@ VALUES (
     false,
     false,
     false,
-    false
+    false,
+    'Texas',
+    '70802'
 ),
 (
     'Maine',
@@ -753,7 +791,9 @@ VALUES (
     false,
     true,
     false,
-    true
+    true,
+    'Boston',
+    '04333'
 ),
 (
     'Maryland',
@@ -788,7 +828,9 @@ VALUES (
     false,
     true,
     true,
-    true
+    true,
+    'Philadelphia',
+    '21401'
 ),
 (
     'Massachusetts',
@@ -827,7 +869,9 @@ VALUES (
     true,
     true,
     true,
-    false
+    false,
+    'Boston',
+    '02108'
 ),
 (
     'Michigan',
@@ -862,7 +906,9 @@ VALUES (
     false,
     false,
     false,
-    true
+    true,
+    'Ohio',
+    '48906'
 ),
 (
     'Minnesota',
@@ -897,7 +943,9 @@ VALUES (
     false,
     true,
     true,
-    false
+    false,
+    'Minneapolis',
+    '55155'
 ),
 (
     'Mississippi',
@@ -930,7 +978,9 @@ VALUES (
     false,
     false,
     false,
-    true
+    true,
+    'Nashville',
+    '39201'
 ),
 (
     'Missouri',
@@ -965,7 +1015,9 @@ VALUES (
     false,
     true,
     true,
-    false
+    false,
+    'St. Louis',
+    '65101'
 ),
 (
     'Montana',
@@ -997,7 +1049,9 @@ VALUES (
     false,
     true,
     false,
-    false
+    false,
+    'Portland',
+    '59601'
 ),
 (
     'Nebraska',
@@ -1029,7 +1083,9 @@ VALUES (
     false,
     false,
     false,
-    false
+    false,
+    'Denver',
+    '68508'
 ),
 (
     'Nevada',
@@ -1064,7 +1120,9 @@ VALUES (
     false,
     true,
     true,
-    true
+    true,
+    'Las Vegas',
+    '89701'
 ),
 (
     'New Hampshire',
@@ -1096,7 +1154,9 @@ VALUES (
     false,
     false,
     false,
-    false
+    false,
+    'Boston',
+    '03301'
 ),
 (
     'New Jersey',
@@ -1139,7 +1199,9 @@ VALUES (
     true,
     true,
     true,
-    true
+    true,
+    'NY Metro',
+    '08608'
 ),
 (
     'New Mexico',
@@ -1171,7 +1233,9 @@ VALUES (
     true,
     true,
     false,
-    true
+    true,
+    'Pheonix',
+    '87501'
 ),
 (
     'New York',
@@ -1218,7 +1282,9 @@ VALUES (
     false,
     true,
     true,
-    true
+    true,
+    'NY Metro',
+    '12207'
 ),
 (
     'North Carolina',
@@ -1253,7 +1319,9 @@ VALUES (
     false,
     true,
     true,
-    true
+    true,
+    'North Carolina',
+    '27601'
 ),
 (
     'North Dakota',
@@ -1285,7 +1353,9 @@ VALUES (
     false,
     true,
     false,
-    true
+    true,
+    'Minneapolis',
+    '58505'
 ),
 (
     'Ohio',
@@ -1322,7 +1392,9 @@ VALUES (
     false,
     true,
     true,
-    true
+    true,
+    'Ohio',
+    '43215'
 ),
 (
     'Oklahoma',
@@ -1355,7 +1427,9 @@ VALUES (
     false,
     false,
     false,
-    false
+    false,
+    'Kansas City',
+    '73105'
 ),
 (
     'Oregon',
@@ -1390,7 +1464,9 @@ VALUES (
     false,
     true,
     true,
-    false
+    false,
+    'Portland',
+    '97301'
 ),
 (
     'Pennsylvania',
@@ -1429,7 +1505,9 @@ VALUES (
     false,
     true,
     true,
-    false
+    false,
+    'Pittsburgh',
+    '17120'
 ),
 (
     'Rhode Island',
@@ -1462,7 +1540,9 @@ VALUES (
     false,
     false,
     false,
-    false
+    false,
+    'Boston',
+    '02903'
 ),
 (
     'South Carolina',
@@ -1494,7 +1574,9 @@ VALUES (
     false,
     true,
     false,
-    true
+    true,
+    'North Carolina',
+    '29201'
 ),
 (
     'South Dakota',
@@ -1526,7 +1608,9 @@ VALUES (
     false,
     false,
     false,
-    true
+    true,
+    'Minneapolis',
+    '57501'
 ),
 (
     'Tennessee',
@@ -1559,7 +1643,9 @@ VALUES (
     false,
     true,
     true,
-    true
+    true,
+    'Nasville',
+    '37243'
 ),
 (
     'Texas',
@@ -1620,7 +1706,9 @@ VALUES (
     false,
     true,
     false,
-    false
+    false,
+    'Texas',
+    '78701'
 ),
 (
     'Utah',
@@ -1653,7 +1741,9 @@ VALUES (
     false,
     true,
     false,
-    false
+    false,
+    'Salt Lake City',
+    '84114'
 ),
 (
     'Vermont',
@@ -1685,7 +1775,9 @@ VALUES (
     false,
     true,
     false,
-    false
+    false,
+    'NY Metro',
+    '05633'
 ),
 (
     'Virginia',
@@ -1722,7 +1814,9 @@ VALUES (
     false,
     true,
     true,
-    true
+    true,
+    'Philadelphia',
+    '23219'
 ),
 (
     'Washington',
@@ -1765,7 +1859,9 @@ VALUES (
     false,
     true,
     true,
-    true
+    true,
+    'Portland',
+    '98504'
 ),
 (
     'West Virginia',
@@ -1797,7 +1893,9 @@ VALUES (
     false,
     true,
     false,
-    true
+    true,
+    'Ohio',
+    '25271'
 ),
 (
     'Wisconsin',
@@ -1830,7 +1928,9 @@ VALUES (
     false,
     false,
     false,
-    true
+    true,
+    'Minneapolis',
+    '53703'
 ),
 (
     'Wyoming',
@@ -1862,7 +1962,9 @@ VALUES (
     false,
     true,
     false,
-    false
+    false,
+    'Denver',
+    '82002'
 ),
 (
     'District of Columbia',
@@ -1894,5 +1996,7 @@ VALUES (
     false,
     true,
     false,
-    true
+    true,
+    'Philadelphia',
+    '20004'
 )
