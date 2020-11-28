@@ -11,13 +11,9 @@ import InfoPanel_roofTypes from '../../components/InfoPanelData/InfoPanel_roofTy
 import InfoPanel_solar_container from '../../components/InfoPanelData/InfoPanel_solar_container/InfoPanel_solar_container';
 import InfoPanel_vehicle_container from '../../components/InfoPanelData/InfoPanel_vehicle_container/InfoPanel_vehicle_container';
 import InfoPanel_neutral_container from '../../components/InfoPanelData/InfoPanel_neutral_container/InfoPanel_neutral_container';
-import { useLocation } from 'react-router-dom';
 
 
-const InfoPanel = ({defaultInfoDisplay}) => {
-
-  const location = useLocation();
-  const pathname = location.pathname;
+const InfoPanel = (props) => {
 
   const [visibility,setVisibility]=useState({
 
@@ -36,25 +32,35 @@ const InfoPanel = ({defaultInfoDisplay}) => {
 
   return ( 
     <div className="infoPanel_container">
+      <div className="infoPanel_subcontainer">
         <h3 className="infoPanel_title"> 
           INFORMATION
         </h3> 
-  
-        {pathname=="/vehicles"?<InfoPanel_vehicle_container  showComponent={showComponent}/>:<InfoPanel_solar_container showComponent={showComponent}/> }
+        {props.whichComponent == "vehicles" && 
+        <>
+        <InfoPanel_vehicle_container  showComponent={showComponent}/> 
         <InfoPanel_neutral_container showComponent={showComponent}/>
+        </>
+        } 
+        {props.whichComponent == "solar" && 
+        <>
+        <InfoPanel_solar_container  showComponent={showComponent}/>  
+        <InfoPanel_neutral_container showComponent={showComponent}/>
+        </>
+        }
+      
         <div>
-          <div id="infoPanel_loaded_title">LOCATIONS NEARBY</div>
-          <div className="infoPanel_section_data"> 
-            {visibility.InfoPanel_locations_nearby ? <InfoPanel_locations_nearby />:""}
-            {visibility.InfoPanel_charging ? <InfoPanel_charging />:""}
-            {visibility.InfoPanel_payments ? <InfoPanel_payments />:""}
-            {visibility.InfoPanel_links ? <InfoPanel_links />:""}
-            {visibility.InfoPanel_warranty ? <InfoPanel_warranty />:""}
-            {visibility.InfoPanel_incentives ? <InfoPanel_incentives />:""}
-            {visibility.InfoPanel_installation ? <InfoPanel_installation />:""}
-            {visibility.InfoPanel_roofTypes ? <InfoPanel_roofTypes />:""}
-          </div>
+          {visibility.InfoPanel_locations_nearby ? <InfoPanel_locations_nearby />:""}
+          {visibility.InfoPanel_charging ? <InfoPanel_charging />:""}
+          {visibility.InfoPanel_payments ? <InfoPanel_payments />:""}
+          {visibility.InfoPanel_links ? <InfoPanel_links />:""}
+          {visibility.InfoPanel_warranty ? <InfoPanel_warranty />:""}
+          {visibility.InfoPanel_incentives ? <InfoPanel_incentives />:""}
+          {visibility.InfoPanel_installation ? <InfoPanel_installation />:""}
+          {visibility.InfoPanel_roofTypes ? <InfoPanel_roofTypes />:""}
         </div> 
+
+      </div>
     </div>
   ); 
 }

@@ -4,13 +4,17 @@
 
 .infoPanel_container{
     display: inline-block;
-    width: 30%;
+    width: 35%; 
+}
+
+.infoPanel_subcontainer{ 
     padding: 20px;
-    margin: 20px 10px 20px 10px;
+    margin: 20px 0px 20px 0px;
     background-color: white;
     border-radius: 5px 5px 5px 5px;
     border: 1px solid gainsboro;
-    height: 520px;
+    max-height: 520px;
+    min-height: 300px;
 }
 
 .infoPanel_title{
@@ -25,7 +29,7 @@
 
 .infoPanel_section:hover{
     color: black;
-    font-weight: bold;
+    color: black;
 }
 
 .infoPanel_section_data{
