@@ -1,10 +1,29 @@
-import React, { Component } from 'react';
+import React, { Component , useState } from 'react';
 import './VehicleConfig.css';
+import VehicleCash from '../../VehicleData/Vehicle_pymt/VehicleCash/VehicleCash';
+import VehicleLeasing from '../../VehicleData/Vehicle_pymt/VehicleLeasing/VehicleLeasing';
+import VehicleFinance from '../../VehicleData/Vehicle_pymt/VehicleFinance/VehicleFinance';
 
 const VehicleConfig = ({selectedVehicle}) => {
 
-  const defaultColor = 'white';
+  const defaultColor = 'white'; 
+  const defaultWheel = 'm3_aero_18';
+  const defaultInterior = 'black_interior';
+  const defaultBattery = 'standard';
+  const defaultLayout = '5 seater';
+
   const [selectedColor, setColor] = React.useState(defaultColor);
+  const [selectedWheel, setWheel] = React.useState(defaultWheel);
+  const [selectedInterior, setInterior] = React.useState(defaultInterior);
+  const [selectedBattery, setBattery] = React.useState(defaultBattery);
+  const [selectedLayout, setLayout] = React.useState(defaultLayout);
+
+  const showComponent = (value) => { setVisibility({[value]:true}) } 
+  const [visibility,setVisibility]=useState({
+    Cash: true,
+    Lease: false,
+    Loan: false
+  })
 
   return (
     <div className="app_Config_container">
@@ -41,74 +60,15 @@ const VehicleConfig = ({selectedVehicle}) => {
 
             <div className="vehicleConfig_pricing_container">
               <div className="app_displayFlex app_Solar_selectPymt_div">
-                  <div className="app_Solar_selectPymt_btn">Cash</div>
-                  <div className="app_Solar_selectPymt_btn">Loan</div>
-                  <div className="app_Solar_selectPymt_btn">Lease</div>
+                  <div onClick={() => showComponent('Cash')} className="app_Solar_selectPymt_btn">Cash</div>
+                  <div onClick={() => showComponent('Loan')} className="app_Solar_selectPymt_btn">Loan</div>
+                  <div onClick={() => showComponent('Lease')} className="app_Solar_selectPymt_btn">Lease</div>
               </div>
               <div className="vehicleConfig_pricing_subcontainers">
-                <div className="vehicleConfig_pricing_subcontainer1 app_inline-block">
-                  <div className="vehicleConfig_pricing vehicleConfig_lease">
-                    <div>Lease: </div>
-                    <div>$300/mo.</div>
-                  </div>
-                  <div className="vehicleConfig_pricing vehicleConfig_loan">
-                    <div>Loan: </div>
-                    <div>$200/mo.</div> 
-                  </div>
-                  <div className="vehicleConfig_pricing vehicleConfig_tradein">
-                    <div>Trd Value: </div>
-                    <div>$100,000</div> 
-                  </div>
-                  <div className="vehicleConfig_pricing vehicleConfig_tradeinPayoff">
-                    <div>Trd Payoff: </div>
-                    <div>$100,000</div> 
-                  </div>
-                  <div className="vehicleConfig_pricing vehicleConfig_tradeinEquity">
-                    <div>Trd Equity: </div>
-                    <div>$100,000</div> 
-                  </div>
-                  <div className="vehicleConfig_pricing vehicleConfig_loanToValueRatio">
-                    <div>Loan to Value: </div>
-                    <div>100%</div> 
-                  </div>
-                  <div className="vehicleConfig_pricing vehicleConfig_tradeinCashback">
-                    <div>Trd cashback: </div>
-                    <div>$100,000</div> 
-                  </div>
-                </div>
-
-                <div className="vehicleConfig_pricing_subcontainer2 app_inline-block">
-                  <div className="vehicleConfig_pricing vehicleConfig_stateFees">
-                    <div>CA Total Fees: </div>
-                    <div>$200,000</div> 
-                  </div>
-                  <div className="vehicleConfig_pricing vehicleConfig_stateTax">
-                    <div>CA Tax: </div>
-                    <div>$3,000</div> 
-                  </div>
-                  <div className="vehicleConfig_pricing vehicleConfig_leaseTax">
-                    <div>Lease Tax: </div>
-                    <div>$3,000</div> 
-                  </div>
-                  <div className="vehicleConfig_pricing vehicleConfig_cashAmtDue">
-                    <div>Amt Due (CASH): </div>
-                    <div>$10,000</div> 
-                  </div>
-                  <div className="vehicleConfig_pricing vehicleConfig_loanAmtDue">
-                    <div>Amt Due (LOAN): </div>
-                    <div>$1,000</div> 
-                  </div>
-                  <div className="vehicleConfig_pricing vehicleConfig_leaseAmtDue">
-                    <div>Amt Due (LEASE): </div>
-                    <div>$1,000</div> 
-                  </div>
-                  <div className="vehicleConfig_pricing vehicleConfig_customerCashDown">
-                    <div>Cash Down Payment: </div>
-                    <div>$0</div>
-                  </div>
-                </div>
+                {visibility.Cash ? <VehicleCash />:""}
+                {visibility.Loan ? <VehicleFinance />:""}
+                {visibility.Lease ? <VehicleLeasing />:""}
               </div>
-
             </div>
 
             <div className="vehicleConfig_pricing_subcontainer3 vehicleConfig_pricing vehicleConfig_adjustments">
@@ -121,11 +81,11 @@ const VehicleConfig = ({selectedVehicle}) => {
                 <div>Select Battery: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectCar_ul">
                   <li className="vehicleConfig_select_srAndoff">
-                    <span className="app_noSelect vehicleConfig_select vehicleConfig_select_sr">Standard</span>
-                    <span className="app_noSelect vehicleConfig_select vehicleConfig_select_off">Off</span>
+                    <span onClick={() => setBattery('standard')} className={`app_noSelect vehicleConfig_select vehicleConfig_select_sr ${selectedBattery == 'standard' && 'selected_btn'}`}>Standard</span>
+                    <span onClick={() => setBattery('offmenu')} className={`app_noSelect vehicleConfig_select vehicleConfig_select_off ${selectedBattery == 'offmenu' && 'selected_btn_alt'}`}>Off</span>
                   </li>
-                  <li className="app_noSelect vehicleConfig_select">Long Range</li>
-                  <li className="app_noSelect vehicleConfig_select">Performance</li>
+                  <li onClick={() => setBattery('long_range')} className={`app_noSelect vehicleConfig_select ${selectedBattery == 'long_range' && 'selected_btn'}`}>Long Range</li>
+                  <li onClick={() => setBattery('performance')} className={`app_noSelect vehicleConfig_select ${selectedBattery ==  'performance' && 'selected_btn'}`}>Performance</li>
                 </ul>
               </div>
               <div className="vehicleConfig_selectColor_container">
@@ -145,8 +105,8 @@ const VehicleConfig = ({selectedVehicle}) => {
               <div className="vehicleConfig_selectWheel_container">
                 <div>Select Wheel: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectwheel_ul">
-                  <div className="app_noSelect app_inlineFlex color_select_container selected"><img className="app_noSelect vehicleConfig_wheel_select vehicleConfig_18_inch_aero_wheels" src="../../../../images/wheels/m3_aero_18.png" /></div>
-                  <div className="app_noSelect app_inlineFlex color_select_container"><img className="app_noSelect vehicleConfig_wheel_select vehicleConfig_19_inch_sport_wheels" src="../../../../images/wheels/m3_sport_19.png" /></div>
+                  <div onClick={() => setWheel('m3_aero_18')} className={`app_noSelect app_inlineFlex color_select_container ${selectedWheel == 'm3_aero_18' && 'selected'}`}><img className="app_noSelect vehicleConfig_wheel_select vehicleConfig_18_inch_aero_wheels" src="../../../../images/wheels/m3_aero_18.png" /></div>
+                  <div onClick={() => setWheel('m3_sport_19')} className={`app_noSelect app_inlineFlex color_select_container ${selectedWheel == 'm3_sport_19' && 'selected'}`}><img className="app_noSelect vehicleConfig_wheel_select vehicleConfig_19_inch_sport_wheels" src="../../../../images/wheels/m3_sport_19.png" /></div>
                 </ul>
                 <input type="text" placeholder='18" Aero wheels - incl.' className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input" readonly="readonly" />
               </div>
@@ -154,8 +114,8 @@ const VehicleConfig = ({selectedVehicle}) => {
               <div className="vehicleConfig_selectInteriorColor_container">
                 <div>Select Interior Color: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectInteriorColor_ul">
-                  <div className="app_noSelect app_inlineFlex color_select_container selected"><img className="app_noSelect color_select vehicleConfig_black_interior" src="../../../../images/interior/black_interior.png" /></div>
-                  <div className="app_noSelect app_inlineFlex color_select_container"><img className="app_noSelect color_select vehicleConfig_white_interior" src="../../../../images/interior/white_interior.png" /></div>
+                  <div onClick={() => setInterior('black_interior')} className={`app_noSelect app_inlineFlex color_select_container ${selectedInterior == 'black_interior' && 'selected'}`}><img className="app_noSelect color_select vehicleConfig_black_interior" src="../../../../images/interior/black_interior.png" /></div>
+                  <div onClick={() => setInterior('white_interior')} className={`app_noSelect app_inlineFlex color_select_container ${selectedInterior == 'white_interior' && 'selected'}`}><img className="app_noSelect color_select vehicleConfig_white_interior" src="../../../../images/interior/white_interior.png" /></div>
                 </ul>
                 <input type="text" placeholder="All black - included" className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectInteriorColor_input" readonly="readonly" />
               </div>
@@ -173,9 +133,9 @@ const VehicleConfig = ({selectedVehicle}) => {
               <div className="vehicleConfig_selectLayout_container">
                 <div className="app_textalign">Select Layout: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectlayout_ul">
-                  <li className="app_noSelect vehicleConfig_select layout_select vehicleConfig_5_seater">5 Seater - Included</li>
-                  <li className="app_noSelect vehicleConfig_select layout_select vehicleConfig_6_seater">6 Seater - $1,500</li>
-                  <li className="app_noSelect vehicleConfig_select layout_select vehicleConfig_6_seater">7 Seater - $3,000</li>
+                  <li onClick={() => setLayout('5 seater')} className={`app_noSelect vehicleConfig_select layout_select vehicleConfig_5_seater ${selectedLayout == '5 seater' && 'selected_btn'}`}>5 Seater - Included</li>
+                  <li onClick={() => setLayout('6 seater')} className={`app_noSelect vehicleConfig_select layout_select vehicleConfig_6_seater ${selectedLayout == '6 seater' && 'selected_btn'}`}>6 Seater - $1,500</li>
+                  <li onClick={() => setLayout('7 seater')} className={`app_noSelect vehicleConfig_select layout_select vehicleConfig_6_seater ${selectedLayout == '7 seater' && 'selected_btn'}`}>7 Seater - $3,000</li>
                 </ul>
               </div>
 
