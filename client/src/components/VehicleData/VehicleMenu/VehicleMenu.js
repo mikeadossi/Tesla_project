@@ -1,26 +1,32 @@
-import React, { Component } from 'react';
-import './VehicleMenu.css';
-import ScrollUp from '../../ScrollUp/ScrollUp';
+import React, { Component, useState } from "react";
+import "./VehicleMenu.css";
+import ScrollUp from "../../ScrollUp/ScrollUp";
 
-const VehicleMenu = ({vehicle}) => {
+const VehicleMenu = ({ vehicleChoice, getVehicleData, setVehicleContent }) => {
+  const defaultVehicle = "";
+  const [selectedVehicle, setVehicle] = useState(defaultVehicle);
 
-  const defaultVehicle = '';
-  const [selectedVehicle, setVehicle] = React.useState(defaultVehicle);
+
+  const chooseAndSetVehice = async (vehicle) => {
+    let str = vehicle.replace(/ /g,'');
+    str = str.toLowerCase();
+    let data = await getVehicleData(str); 
+    setVehicleContent(data);
+    vehicleChoice(vehicle);
+  };
 
   return (
     <div className="app_Menu_container">
       <h3>Select Vehicle</h3>
       <div className="vehicleMenu_models app_displayFlex">
-          <div className="app_Menu_btn app_noSelect select_Model_3" onClick={()=>vehicle("model-3")}>Model 3</div>
-          <div className="app_Menu_btn app_noSelect select_Model_S" onClick={()=>vehicle("model-s")}>Model S</div>
-          <div className="app_Menu_btn app_noSelect select_Model_X" onClick={()=>vehicle("model-x")}>Model X</div>
-          <div className="app_Menu_btn app_noSelect select_Model_Y" onClick={()=>vehicle("model-y")}>Model Y</div>
-          <div className="app_Menu_btn app_noSelect select_Cybertruck" onClick={()=>vehicle("cybertruck")}>Cybertruck</div>
-          <div className="app_Menu_btn app_noSelect select_Roadster" onClick={()=>vehicle("roadster")}>Roadster</div>
+        <div className="app_Menu_btn app_noSelect select_Model_3" onClick={() => chooseAndSetVehice("Model 3")}>Model 3</div>
+        <div className="app_Menu_btn app_noSelect select_Model_S" onClick={() => chooseAndSetVehice("Model S")}>Model S</div>
+        <div className="app_Menu_btn app_noSelect select_Model_X" onClick={() => chooseAndSetVehice("Model X")}>Model X</div>
+        <div className="app_Menu_btn app_noSelect select_Model_Y" onClick={() => chooseAndSetVehice("Model Y")}>Model Y</div>
       </div>
-      < ScrollUp />
+      <ScrollUp />
     </div>
   );
-}
+};
 
 export default VehicleMenu;
