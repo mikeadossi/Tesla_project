@@ -8,7 +8,7 @@ const VehicleCash = () => {
         <div className="vehicleConfig_pricing_subcontainer1 app_inline-block">
             <div className="vehicleConfig_pricing vehicleConfig_lease" >
                 <div>Order Payment: </div>
-                <div>$100</div>
+                $<input className="vehicleConfig_returnInput2 app_removeBlue" />
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_loan">
                 <div>Trade-in Equity </div>
