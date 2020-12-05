@@ -27,6 +27,13 @@ const VehicleUserEntry_cash = () => {
                 <img className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1" src="../../../../images/edit_icon.png" />
                 </span>
             </div>
+            <div className="vehicleConfig_pricing vehicleConfig_stateTax">
+                <label>Enter Adjustments: </label>
+                <span className="vehicleConfig_userInput_container">
+                <div className="vehicleConfig_userInput_subcontainer">$<input className="vehicleConfig_userInput app_removeBlue"></input></div>
+                <img className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1" src="../../../../images/edit_icon.png" />
+                </span>
+            </div>
         </div>
     </div>
   );

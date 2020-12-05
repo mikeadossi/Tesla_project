@@ -37,6 +37,10 @@ const VehicleLeasing = () => {
         </div>
         <div className="vehicleConfig_pricing_subcontainer2 app_inline-block">
             <div className="vehicleConfig_pricing vehicleConfig_stateFees">
+                <div>Adjustments: </div>
+                $<input className="vehicleConfig_returnInput app_removeBlue" />
+            </div>
+            <div className="vehicleConfig_pricing vehicleConfig_stateFees">
                 <div>CA Sales tax: </div>
                 $<input className="vehicleConfig_returnInput app_removeBlue" />
             </div>

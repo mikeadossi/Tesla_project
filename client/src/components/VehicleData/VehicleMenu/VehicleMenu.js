@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import "./VehicleMenu.css";
-import ScrollUp from "../../ScrollUp/ScrollUp";
+import ScrollUp from "../../ScrollUp/ScrollUp"; 
 
 const VehicleMenu = ({ vehicleChoice, getVehicleData, setVehicleContent }) => {
   const defaultVehicle = "";

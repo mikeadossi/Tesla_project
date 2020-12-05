@@ -34,6 +34,10 @@ const VehicleFinance = () => {
                 $<input className="vehicleConfig_returnInput2 app_removeBlue" />
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_stateFees">
+                <div>Adjustments: </div>
+                $<input className="vehicleConfig_returnInput app_removeBlue" />
+            </div>
+            <div className="vehicleConfig_pricing vehicleConfig_stateFees">
                 <div>CA Sales tax: </div>
                 $<input className="vehicleConfig_returnInput app_removeBlue" />
             </div>
