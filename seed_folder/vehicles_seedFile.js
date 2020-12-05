@@ -8,7 +8,7 @@ module.exports = {
 
     model: "Model 3",
 
-    standard: {
+    standard_battery: {
       purchase_price: 37990,
       image_vehicle: "model3",
       image_trim: "_std",
@@ -176,7 +176,7 @@ module.exports = {
       "Premium audio system specifically tuned for a Tesla’s ultra-quiet cabin <br/> Cold weather features including heated seats for every passenger, heated steering wheel, wiper blade defrosters and washer nozzle heaters <br/> HEPA air filtration system prevents viruses, bacteria and offensive odors from entering the cabin <br/> Premium Connectivity (1 year included) <br/> Music and media over Bluetooth® <br/> Location-aware automatic garage door opener <br/> LED fog lamps <br/> Tinted glass roof with ultraviolet and infrared protection <br/> Auto dimming, power folding, heated side mirrors <br/> Custom driver profiles <br/> Wireless phone charging in center console",
 
     model: "Model S",
-    standard: null,
+    standard_battery: null,
     off_menu: null,
 
     long_range: {
@@ -192,7 +192,7 @@ module.exports = {
         Wheels: "19” or 21”",
         Weight: "4,815 lbs",
         Cargo: "28 cu ft",
-        Displays: 'Driver Display + 17" Touchscreen',
+        Displays: 'Driver Display + 17 inches Touchscreen',
         "Supercharger Max/Payment Type": "250 kW max; Pay Per Use",
         "Onboard Charger Max": "11.5 kW max (48A)",
         Warranty:
@@ -236,7 +236,7 @@ module.exports = {
         Wheels: "19” or 21”",
         Weight: "4,929 lbs",
         Cargo: "28 cu ft",
-        Displays: 'Driver Display + 17" Touchscreen',
+        Displays: 'Driver Display + 17 inches Touchscreen',
         "Supercharger Max/Payment Type": "250 kW max; Pay Per Use",
         "Onboard Charger Max": "11.5 kW max (48A)",
         Warranty:
@@ -304,7 +304,7 @@ module.exports = {
       "Premium audio system specifically tuned for a Tesla’s ultra-quiet cabin <br/> Cold weather features including heated seats for every passenger, heated steering wheel, wiper blade defrosters and washer nozzle heaters <br/> HEPA air filtration system prevents viruses, bacteria and offensive odors from entering the cabin <br/> Premium Connectivity (1 year included) <br/> Music and media over Bluetooth® <br/> Location-aware automatic garage door opener <br/> LED fog lamps <br/> Tinted glass roof with ultraviolet and infrared protection <br/> Auto dimming, power folding, heated side mirrors <br/> Custom driver profiles <br/> Wireless phone charging in center console",
 
     model: "Model X",
-    standard: null,
+    standard_battery: null,
     off_menu: null,
 
     long_range: {
@@ -320,7 +320,7 @@ module.exports = {
         Wheels: "20” or 22”",
         Weight: "5,437 lbs",
         Cargo: "88 cu ft",
-        Displays: 'Driver Display + 17" Touchscreen',
+        Displays: 'Driver Display + 17 inches Touchscreen',
         "Supercharger Max/Payment Type": "250 kW max; Pay Per Use",
         "Onboard Charger Max": "11.5 kW max (48A)",
         Warranty:
@@ -368,7 +368,7 @@ module.exports = {
         Wheels: "20” or 22”",
         Weight: "5,498 lbs",
         Cargo: "88 cu ft",
-        Displays: 'Driver Display + 17" Touchscreen',
+        Displays: 'Driver Display + 17 inches Touchscreen',
         "Supercharger Max/Payment Type": "250 kW max; Pay Per Use",
         "Onboard Charger Max": "11.5 kW max (48A)",
         Warranty:
@@ -412,7 +412,7 @@ module.exports = {
       "12-way power adjustable front and rear heated seats <br/> 2nd row seats that fold flat <br/> Premium audio – 14 speakers, 1 subwoofer, 2 amps, and immersive sound <br/> LED fog lamps <br/> Tinted glass roof with ultraviolet and infrared protection <br/> Power folding, heated side mirrors <br/> Music and media over Bluetooth® <br/> Custom driver profiles <br/> Center console with storage, 4 USB ports and docking for 2 smartphones",
 
     model: "Model Y",
-    standard: null,
+    standard_battery: null,
     off_menu: null,
 
     long_range: {
@@ -425,7 +425,7 @@ module.exports = {
         Range: "326 miles (EPA est.)",
         Drive: "Dual Motor All-Wheel Drive",
         Seating: "Up to 7 Adults",
-        Wheels: '19 inches or 20"',
+        Wheels: '19 inches or 20 inches',
         Weight: "4,416 lbs",
         "Max Cargo Volume": "68 cu ft",
         "Top Speed": "135 mph",
