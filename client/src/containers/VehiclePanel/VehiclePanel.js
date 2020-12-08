@@ -40,7 +40,8 @@ const VehiclePanel = () => {
         vehicleData={vehicleData}
         vehicleChoice={vehicleChoice}
         getVehicleData={getVehicleData}
-        setVehicleContent={setVehicleContent}
+        setVehicleContent={setVehicleContent} 
+        setVehicleData={setVehicleData}
       />
 
       {vehicleData.map((ele) => (
