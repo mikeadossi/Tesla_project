@@ -3,8 +3,10 @@ import { createStore } from 'redux';
 import "./VehiclePanel.css";
 import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfig from "../../components/VehicleData/VehicleConfig/VehicleConfig";
+import {connect} from "react-redux";
+import {getAllVehicles} from "../../config/actions/vehicleActions";
 
-const VehiclePanel = () => {
+const VehiclePanel = (props) => {
   let [vehicleData, setVehicleData] = useState([]);
   const [visibility, setVisibility] = useState(false);
   const [vehicleContent, setVehicleContent] = useState({});
@@ -27,11 +29,19 @@ const VehiclePanel = () => {
   }
     
 
+  //const getVehicleData = async (model) => {
+  //  const getdata = await fetch(`http://localhost:3002/model?model=${model}`);
+   // let data = await getdata.json(); 
+   // return data;
+  //};
+
+
   const getVehicleData = async (model) => {
-    const getdata = await fetch(`http://localhost:3002/model?model=${model}`);
-    let data = await getdata.json(); 
-    return data;
-  };
+    props.getAllVehicles(model)
+    console.log('props --->')
+    console.log(props)
+    return props.vehicle
+  }
 
 
   return (
@@ -51,4 +61,11 @@ const VehiclePanel = () => {
   );
 };
 
-export default VehiclePanel;
+function mapStateToProps(state){
+  return {
+    error: state.vehiclesReducer.error,
+    vehicle: state.vehiclesReducer.vehicle
+  }
+}
+
+export default connect(mapStateToProps, {getAllVehicles})(VehiclePanel);
