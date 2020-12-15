@@ -1,5 +1,14 @@
 module.exports = {
+
   model3: {
+    paint_options: {
+      "Pearl White": {full_name: "Pearl White Multi-Coat", price: "included", image_paint: "_white"},
+      "Solid Black": {full_name: "Solid Black", price: 1000, image_paint: "_black"},
+      "Midnight Silver": {full_name: "Midnight Silver Metallic", price: 1000, image_paint: "_silver"},
+      "Deep Blue": {full_name: "Deep Blue Metallic", price: 1000, image_paint: "_blue"},
+      "Red Multicoat": {full_name: "Red Multi-Coat", price: 2000, image_paint: "_red"}
+    },
+
     partial_premium_interior:
       "12-way power adjustable heated front seats <br/> Premium seat material and trim <br/> Upgraded audio – immersive sound <br/> Premium Connectivity (30 days included) <br/> Tinted glass roof with ultraviolet and infrared protection <br/> Power folding, heated side mirrors <br/> Music and media over Bluetooth® <br/> Custom driver profiles <br/> Center console with storage, 4 USB ports and wireless charging for 2 smartphones",
 
@@ -9,6 +18,7 @@ module.exports = {
     model: "Model 3",
 
     standard_battery: {
+      default_optioned_vehicle: {vehicle: "standard_battery", paint: "Pearl White", wheel: "18 inches Aero Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },
       purchase_price: 37990,
       image_vehicle: "model3",
       image_trim: "_std",
@@ -18,10 +28,10 @@ module.exports = {
         Range: "263 miles",
         Drive: "Rear-Wheel Drive",
         Seating: "5 Adults",
-        Wheels: '18 inches or 19 inches',
+        Wheels: "18 inches or 19 inches",
         Weight: "3,582 lbs",
         Cargo: "15 cu ft",
-        Displays: '15 inches Center Touchscreen',
+        Displays: "15 inches Center Touchscreen",
         "Supercharger Max/Payment Type": "170 kW max; Pay Per Use",
         "Onboard Charger Max": "7.6 kW max (32A)",
         Warranty:
@@ -31,12 +41,12 @@ module.exports = {
       topspeed_mph: 140,
       zero_to_sixty: 5.3,
       wheel: {
-        '18 inches Aero Wheels': {
+        "18 inches Aero Wheels": {
           range: null,
           price: "included",
           image_wheel: "_18",
         },
-        '19 inches Sport Wheels': { range: null, price: 1500, image_wheel: "_19" },
+        "19 inches Sport Wheels": { range: null, price: 1500, image_wheel: "_19" },
       },
       interior: {
         "All Black": { price: "included", image: "black_interior" },
@@ -48,7 +58,7 @@ module.exports = {
     },
 
     off_menu: {
-      purchase_price: 35000,
+      default_optioned_vehicle: {vehicle: "standard_battery", paint: "Pearl White", wheel: "18 inches Aero Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },      purchase_price: 35000,
       image_vehicle: "model3",
       image_trim: "_std",
       specs: {
@@ -57,10 +67,10 @@ module.exports = {
         Range: "220 miles",
         Drive: "Rear-Wheel Drive",
         Seating: "5 Adults",
-        Wheels: '18 inches or 19 inches',
+        Wheels: "18 inches or 19 inches",
         Weight: "3,582 lbs",
         Cargo: "15 cu ft",
-        Displays: '15 inches Center Touchscreen',
+        Displays: "15 inches Center Touchscreen",
         "Supercharger Max/Payment Type": "170 kW max; Pay Per Use",
         "Onoard Charger Max": "7.6 kW max (32A)",
         Warranty:
@@ -70,12 +80,12 @@ module.exports = {
       topspeed_mph: 140,
       zero_to_sixty: 5.3,
       wheel: {
-        '18 inches Aero Wheels': {
+        "18 inches Aero Wheels": {
           range: null,
           price: "included",
           image_wheel: "_18",
         },
-        '19 inches Sport Wheels': { range: null, price: 1500, image_wheel: "_19" },
+        "19 inches Sport Wheels": { range: null, price: 1500, image_wheel: "_19" },
       },
       interior: {
         "All Black": { price: "included", image: "black_interior" },
@@ -91,7 +101,7 @@ module.exports = {
     },
 
     long_range: {
-      purchase_price: 46990,
+      default_optioned_vehicle: {vehicle: "standard_battery", paint: "Pearl White", wheel: "18 inches Aero Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },      purchase_price: 46990,
       image_vehicle: "model3",
       image_trim: "_std",
       specs: {
@@ -100,10 +110,10 @@ module.exports = {
         Range: "353 miles",
         Drive: "Dual Motor All-Wheel Drive",
         Seating: "5 Adults",
-        Wheels: '18 inches or 19 inches',
+        Wheels: "18 inches or 19 inches",
         Weight: "4,065 lbs",
         Cargo: "15 cu ft",
-        Displays: '15 inches Center Touchscreen',
+        Displays: "15 inches Center Touchscreen",
         "Supercharger Max/Payment Type": "250 kW max; Pay Per Use",
         "Onboard Charger Max": "11.5 kW max (48A)",
         Warranty:
@@ -113,12 +123,12 @@ module.exports = {
       topspeed_mph: 140,
       zero_to_sixty: 5.3,
       wheel: {
-        '18 inches Aero Wheels': {
+        "18 inches Aero Wheels": {
           range: null,
           price: "included",
           image_wheel: "_18",
         },
-        '19 inches Sport Wheels': { range: null, price: 1500, image_wheel: "_19" },
+        "19 inches Sport Wheels": { range: null, price: 1500, image_wheel: "_19" },
       },
       interior: {
         "All Black": { price: "included", image: "black_interior" },
@@ -130,7 +140,7 @@ module.exports = {
     },
 
     performance: {
-      purchase_price: 54990,
+      default_optioned_vehicle: {vehicle: "standard_battery", paint: "Pearl White", wheel: "18 inches Aero Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },      purchase_price: 54990,
       image_vehicle: "model3",
       image_trim: "_perf",
       specs: {
@@ -139,10 +149,10 @@ module.exports = {
         Range: "315 miles",
         Drive: "Dual Motor All-Wheel Drive",
         Seating: "5 Adults",
-        Wheels: '20 inches',
+        Wheels: "20 inches",
         Weight: "4,065 lbs",
         Cargo: "15 cu ft",
-        Displays: '15 inches Center Touchscreen',
+        Displays: "15 inches Center Touchscreen",
         "Supercharger Max/Payment Type": "250 kW max; Pay Per Use",
         "Onboard Charger Max": "11.5 kW max (48A)",
         Warranty:
@@ -152,7 +162,7 @@ module.exports = {
       topspeed_mph: 162,
       zero_to_sixty: 3.1,
       wheel: {
-        '20 inches Überturbine Wheels': {
+        "20 inches Überturbine Wheels": {
           range: null,
           price: "included",
           image_wheel: "_20",
@@ -171,6 +181,14 @@ module.exports = {
   },
 
   modelS: {
+    paint_options: {
+      "Pearl White": {full_name: "Pearl White Multi-Coat", price: "included", image_paint: "_white"},
+      "Solid Black": {full_name: "Solid Black", price: 1000, image_paint: "_black"},
+      "Midnight Silver": {full_name: "Midnight Silver Metallic", price: 1000, image_paint: "_silver"},
+      "Deep Blue": {full_name: "Deep Blue Metallic", price: 1000, image_paint: "_blue"},
+      "Red Multicoat": {full_name: "Red Multi-Coat", price: 2000, image_paint: "_red"}
+    },
+
     partial_premium_interior: null,
     premium_interior:
       "Premium audio system specifically tuned for a Tesla’s ultra-quiet cabin <br/> Cold weather features including heated seats for every passenger, heated steering wheel, wiper blade defrosters and washer nozzle heaters <br/> HEPA air filtration system prevents viruses, bacteria and offensive odors from entering the cabin <br/> Premium Connectivity (1 year included) <br/> Music and media over Bluetooth® <br/> Location-aware automatic garage door opener <br/> LED fog lamps <br/> Tinted glass roof with ultraviolet and infrared protection <br/> Auto dimming, power folding, heated side mirrors <br/> Custom driver profiles <br/> Wireless phone charging in center console",
@@ -180,7 +198,7 @@ module.exports = {
     off_menu: null,
 
     long_range: {
-      purchase_price: 69420,
+      default_optioned_vehicle: {vehicle: "standard_battery", paint: "Pearl White", wheel: "18 inches Aero Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },      purchase_price: 69420,
       image_vehicle: "modelS",
       image_trim: "_lr",
       specs: {
@@ -192,7 +210,7 @@ module.exports = {
         Wheels: "19” or 21”",
         Weight: "4,815 lbs",
         Cargo: "28 cu ft",
-        Displays: 'Driver Display + 17 inches Touchscreen',
+        Displays: "Driver Display + 17 inches Touchscreen",
         "Supercharger Max/Payment Type": "250 kW max; Pay Per Use",
         "Onboard Charger Max": "11.5 kW max (48A)",
         Warranty:
@@ -202,12 +220,12 @@ module.exports = {
       topspeed_mph: 155,
       zero_to_sixty: 3.7,
       wheel: {
-        '19 inches Tempest Wheels': {
+        "19 inches Tempest Wheels": {
           range: null,
           price: "included",
           image_wheel: "_19",
         },
-        '21 inches Sonic Carbon Twin Turbine Wheels': {
+        "21 inches Sonic Carbon Twin Turbine Wheels": {
           range: null,
           price: 4500,
           image_wheel: "_21",
@@ -224,7 +242,7 @@ module.exports = {
     },
 
     performance: {
-      purchase_price: 91990,
+      default_optioned_vehicle: {vehicle: "standard_battery", paint: "Pearl White", wheel: "18 inches Aero Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },      purchase_price: 91990,
       image_vehicle: "modelS",
       image_trim: "_perf",
       specs: {
@@ -236,7 +254,7 @@ module.exports = {
         Wheels: "19” or 21”",
         Weight: "4,929 lbs",
         Cargo: "28 cu ft",
-        Displays: 'Driver Display + 17 inches Touchscreen',
+        Displays: "Driver Display + 17 inches Touchscreen",
         "Supercharger Max/Payment Type": "250 kW max; Pay Per Use",
         "Onboard Charger Max": "11.5 kW max (48A)",
         Warranty:
@@ -246,12 +264,12 @@ module.exports = {
       topspeed_mph: 163,
       zero_to_sixty: 2.3,
       wheel: {
-        '19 inches Tempest Wheels': {
+        "19 inches Tempest Wheels": {
           range: "Est. Range 387mi",
           price: "included",
           image_wheel: "_19",
         },
-        '21 inches Sonic Carbon Twin Turbine Wheels': {
+        "21 inches Sonic Carbon Twin Turbine Wheels": {
           range: "Est. Range 334mi",
           price: 4500,
           image_wheel: "_21",
@@ -268,7 +286,7 @@ module.exports = {
     },
 
     plaid: {
-      purchase_price: 139990,
+      default_optioned_vehicle: {vehicle: "standard_battery", paint: "Pearl White", wheel: "18 inches Aero Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },      purchase_price: 139990,
       image_vehicle: "modelS",
       image_trim: "_perf",
       specs: null,
@@ -276,12 +294,12 @@ module.exports = {
       topspeed_mph: 200,
       zero_to_sixty: "<2.0",
       wheel: {
-        '19 inches Tempest Wheels': {
+        "19 inches Tempest Wheels": {
           range: null,
           price: "included",
           image_wheel: "_19",
         },
-        '21 inches Sonic Carbon Twin Turbine Wheels': {
+        "21 inches Sonic Carbon Twin Turbine Wheels": {
           range: null,
           price: 4500,
           image_wheel: "_21",
@@ -299,6 +317,14 @@ module.exports = {
   },
 
   modelX: {
+    paint_options: {
+      "Pearl White": {full_name: "Pearl White Multi-Coat", price: "included", image_paint: "_white"},
+      "Solid Black": {full_name: "Solid Black", price: 1000, image_paint: "_black"},
+      "Midnight Silver": {full_name: "Midnight Silver Metallic", price: 1000, image_paint: "_silver"},
+      "Deep Blue": {full_name: "Deep Blue Metallic", price: 1000, image_paint: "_blue"},
+      "Red Multicoat": {full_name: "Red Multi-Coat", price: 2000, image_paint: "_red"}
+    },
+
     partial_premium_interior: null,
     premium_interior:
       "Premium audio system specifically tuned for a Tesla’s ultra-quiet cabin <br/> Cold weather features including heated seats for every passenger, heated steering wheel, wiper blade defrosters and washer nozzle heaters <br/> HEPA air filtration system prevents viruses, bacteria and offensive odors from entering the cabin <br/> Premium Connectivity (1 year included) <br/> Music and media over Bluetooth® <br/> Location-aware automatic garage door opener <br/> LED fog lamps <br/> Tinted glass roof with ultraviolet and infrared protection <br/> Auto dimming, power folding, heated side mirrors <br/> Custom driver profiles <br/> Wireless phone charging in center console",
@@ -308,7 +334,7 @@ module.exports = {
     off_menu: null,
 
     long_range: {
-      purchase_price: 79990,
+      default_optioned_vehicle: {vehicle: "standard_battery", paint: "Pearl White", wheel: "18 inches Aero Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },      purchase_price: 79990,
       image_vehicle: "modelX",
       image_trim: "_lr",
       specs: {
@@ -320,7 +346,7 @@ module.exports = {
         Wheels: "20” or 22”",
         Weight: "5,437 lbs",
         Cargo: "88 cu ft",
-        Displays: 'Driver Display + 17 inches Touchscreen',
+        Displays: "Driver Display + 17 inches Touchscreen",
         "Supercharger Max/Payment Type": "250 kW max; Pay Per Use",
         "Onboard Charger Max": "11.5 kW max (48A)",
         Warranty:
@@ -330,12 +356,12 @@ module.exports = {
       topspeed_mph: 155,
       zero_to_sixty: 4.4,
       wheel: {
-        '20 inches Silver Wheels': {
+        "20 inches Silver Wheels": {
           range: null,
           price: "included",
           image_wheel: "_20",
         },
-        '22 inches Onyx Black Wheels': {
+        "22 inches Onyx Black Wheels": {
           range: null,
           price: 5500,
           image_wheel: "_22",
@@ -356,7 +382,7 @@ module.exports = {
     },
 
     performance: {
-      purchase_price: 99990,
+      default_optioned_vehicle: {vehicle: "standard_battery", paint: "Pearl White", wheel: "18 inches Aero Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },      purchase_price: 99990,
       image_vehicle: "modelX",
       image_trim: "_perf",
       specs: {
@@ -368,7 +394,7 @@ module.exports = {
         Wheels: "20” or 22”",
         Weight: "5,498 lbs",
         Cargo: "88 cu ft",
-        Displays: 'Driver Display + 17 inches Touchscreen',
+        Displays: "Driver Display + 17 inches Touchscreen",
         "Supercharger Max/Payment Type": "250 kW max; Pay Per Use",
         "Onboard Charger Max": "11.5 kW max (48A)",
         Warranty:
@@ -378,12 +404,12 @@ module.exports = {
       topspeed_mph: 163,
       zero_to_sixty: 2.6,
       wheel: {
-        '20 inches Silver Wheels': {
+        "20 inches Silver Wheels": {
           range: null,
           price: "included",
           image_wheel: "_20",
         },
-        '22 inches Onyx Black Wheels': {
+        "22 inches Onyx Black Wheels": {
           range: null,
           price: 5500,
           image_wheel: "_22",
@@ -407,6 +433,14 @@ module.exports = {
   },
 
   modelY: {
+    paint_options: {
+      "Pearl White": {full_name: "Pearl White Multi-Coat", price: "included", image_paint: "_white"},
+      "Solid Black": {full_name: "Solid Black", price: 1000, image_paint: "_black"},
+      "Midnight Silver": {full_name: "Midnight Silver Metallic", price: 1000, image_paint: "_silver"},
+      "Deep Blue": {full_name: "Deep Blue Metallic", price: 1000, image_paint: "_blue"},
+      "Red Multicoat": {full_name: "Red Multi-Coat", price: 2000, image_paint: "_red"}
+    },
+
     partial_premium_interior: null,
     premium_interior:
       "12-way power adjustable front and rear heated seats <br/> 2nd row seats that fold flat <br/> Premium audio – 14 speakers, 1 subwoofer, 2 amps, and immersive sound <br/> LED fog lamps <br/> Tinted glass roof with ultraviolet and infrared protection <br/> Power folding, heated side mirrors <br/> Music and media over Bluetooth® <br/> Custom driver profiles <br/> Center console with storage, 4 USB ports and docking for 2 smartphones",
@@ -416,7 +450,7 @@ module.exports = {
     off_menu: null,
 
     long_range: {
-      purchase_price: 49990,
+      default_optioned_vehicle: {vehicle: "standard_battery", paint: "Pearl White", wheel: "18 inches Aero Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },      purchase_price: 49990,
       image_vehicle: "modelY",
       image_trim: "_lr",
       specs: {
@@ -425,11 +459,11 @@ module.exports = {
         Range: "326 miles (EPA est.)",
         Drive: "Dual Motor All-Wheel Drive",
         Seating: "Up to 7 Adults",
-        Wheels: '19 inches or 20 inches',
+        Wheels: "19 inches or 20 inches",
         Weight: "4,416 lbs",
         "Max Cargo Volume": "68 cu ft",
         "Top Speed": "135 mph",
-        Displays: '15 inches Center Touchscreen',
+        Displays: "15 inches Center Touchscreen",
         Supercharging: "Pay Per Use",
         Warranty:
           "Basic Vehicle - 4 years or 50,000 mi, whichever comes first <br/> Battery & Drive Unit - 8 years or 120,000 mi, whichever comes first",
@@ -438,12 +472,12 @@ module.exports = {
       topspeed_mph: 135,
       zero_to_sixty: 4.8,
       wheel: {
-        '19 inches Gemini Wheels': {
+        "19 inches Gemini Wheels": {
           range: null,
           price: "included",
           image_wheel: "_19",
         },
-        '20 inches Onyx Black Wheels': {
+        "20 inches Onyx Black Wheels": {
           range: null,
           price: 2000,
           image_wheel: "_20",
@@ -459,7 +493,7 @@ module.exports = {
     },
 
     performance: {
-      purchase_price: 59990,
+      default_optioned_vehicle: {vehicle: "standard_battery", paint: "Pearl White", wheel: "18 inches Aero Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },      purchase_price: 59990,
       image_vehicle: "modelY",
       image_trim: "_perf",
       specs: {
@@ -468,11 +502,11 @@ module.exports = {
         Range: "303 miles (EPA est.)",
         Drive: "Dual Motor All-Wheel Drive",
         Seating: "Up to 7 Adults",
-        Wheels: '21 inches',
+        Wheels: "21 inches",
         Weight: "4,416 lbs",
         "Max Cargo Volume": "68 cu ft",
         "Top Speed": "155 mph",
-        Displays: '15 inches Center Touchscreen',
+        Displays: "15 inches Center Touchscreen",
         Supercharging: "Pay Per Use",
         Warranty:
           "Basic Vehicle - 4 years or 50,000 mi, whichever comes first <br/> Battery & Drive Unit - 8 years or 120,000 mi, whichever comes first",
@@ -481,7 +515,7 @@ module.exports = {
       topspeed_mph: 155,
       zero_to_sixty: 3.5,
       wheel: {
-        '21 inches Überturbine Wheels': {
+        "21 inches Überturbine Wheels": {
           range: null,
           price: "included",
           image_wheel: "_21",
