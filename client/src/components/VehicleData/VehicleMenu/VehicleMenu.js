@@ -2,7 +2,7 @@ import React, { Component, useState } from "react";
 import "./VehicleMenu.css";
 import ScrollUp from "../../ScrollUp/ScrollUp";
 
-const VehicleMenu = ({ vehicleData, vehicleChoice, getVehicleData, setVehicleContent, setVehicleData }) => {
+const VehicleMenu = ({ vehicleData, vehicleChoice, getVehicleData, setVehicleContent, setVehicleData , retrievedVehicleData}) => {
   const defaultVehicle = "";
   const [selectedVehicle, setVehicle] = useState(defaultVehicle);
 
@@ -17,17 +17,17 @@ const VehicleMenu = ({ vehicleData, vehicleChoice, getVehicleData, setVehicleCon
         let str = vehicle.replace(/ /g,'');
         str = str.toLowerCase();
         let data = await getVehicleData(str); 
-        setVehicleContent(data);
+        setVehicleContent(data); 
         vehicleChoice(vehicle);
         setVehicleData([...stateData]);
       }
     }
     // if vehicle is not in state we add model to state and render 
     if(!alreadyInState){
-      let str = vehicle.replace(/ /g,'');
-      str = str.toLowerCase();
-      let data = await getVehicleData(str); 
-      setVehicleContent(data);
+      let str = vehicle.replace(/ /g,''); 
+      str = str.replace('M','m');
+      let data = await getVehicleData(str);
+      setVehicleContent(data); 
       vehicleChoice(vehicle);
     }
 

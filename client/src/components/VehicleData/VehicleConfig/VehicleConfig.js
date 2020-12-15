@@ -7,7 +7,7 @@ import Vehicle_userEntry_financing from "../../VehicleData/Vehicle_userEntry/Veh
 import Vehicle_userEntry_leasing from "../../VehicleData/Vehicle_userEntry/Vehicle_userEntry_leasing/Vehicle_userEntry_leasing";
 import Vehicle_userEntry_cash from "../../VehicleData/Vehicle_userEntry/Vehicle_userEntry_cash/Vehicle_userEntry_cash";
 
-const VehicleConfig = ({ selectedVehicle, vehicleContent }) => {
+const VehicleConfig = ({ selectedVehicle, vehicleContent, removeModel }) => {
   const defaultColor = "white";
   const defaultWheel = "m3_aero_18";
   const defaultInterior = "black_interior";
@@ -23,14 +23,15 @@ const VehicleConfig = ({ selectedVehicle, vehicleContent }) => {
   const showComponent = (value) => {
     setVisibility({ [value]: true });
   };
+  
   const [visibility, setVisibility] = useState({
     Cash: true,
     Lease: false,
-    Loan: false,
+    Loan: false
   });
 
   
-  let jsonobj = JSON.parse(vehicleContent.long_range); 
+  let jsonobj = vehicleContent.long_range; 
 
   return (
     <div className="app_Config_container">
@@ -39,7 +40,7 @@ const VehicleConfig = ({ selectedVehicle, vehicleContent }) => {
         <div className="vehicleConfig_header_options_container app_displayFlex">
           <div className="app_options_btn">Inventory</div>
           <div className="app_options_btn">Specs</div>
-          <div className="vehicleConfig_close_container">
+          <div className="vehicleConfig_close_container" onClick={() => removeModel(selectedVehicle.name)}>
             <img
               className="vehicleConfig_close"
               src="../../../../images/Nav/close_2.png"
@@ -56,7 +57,7 @@ const VehicleConfig = ({ selectedVehicle, vehicleContent }) => {
                 {jsonobj.specs.Battery}
               </span>
               <span className="vehicleConfig_modelPrice">
-                Cash Price: ${jsonobj.purchase_price}
+                Cash Price: ${jsonobj.purchase_price} 
               </span>
             </div>
 
