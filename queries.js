@@ -193,27 +193,11 @@ let queries = {
     all_showrooms,
     all_service_centers,
     all_charging_locations,
-    tradein_value, 
-    tradein_payoff, 
-    tradein_equity, 
-    order_pymt, 
-    destination_and_doc_fee, 
-    state_tax_rate, 
-    state_taxes,
-    leasing,
-    financing,
-    registration,
-    solar_panel_subscription,
-    leasing_available,
-    financing_available,
-    region, 
-    default_zipcode
-  }) {
-    let strLeasing = JSON.stringify(leasing);
-    let strFinancing = JSON.stringify(financing);
+    vehicle_order
+  }) { 
 
     pool.query(
-      `INSERT INTO state_data (state_name,state_abbr,vehicle_incentives,solar_incentives,local_vehicle_incentives,local_solar_incentives,all_showrooms,all_service_centers,all_charging_locations,tradein_value,tradein_payoff,tradein_equity,order_pymt,destination_and_doc_fee,state_tax_rate, state_taxes,leasing,financing,registration,solar_panel_subscription,leasing_available,financing_available,region,default_zipcode) VALUES ('${state_name}','${state_abbr}', '${vehicle_incentives}','${solar_incentives}','${local_vehicle_incentives}','${local_solar_incentives}','${all_showrooms}','${all_service_centers}','${all_charging_locations}','${tradein_value}','${tradein_payoff}','${tradein_equity}','${order_pymt}','${destination_and_doc_fee}','${state_tax_rate}','${state_taxes}','${strLeasing}', '${strFinancing}', '${registration}','${solar_panel_subscription}','${leasing_available}','${financing_available}','${region}','${default_zipcode}')`,
+      `INSERT INTO state_data (state_name,state_abbr,vehicle_incentives,solar_incentives,local_vehicle_incentives,local_solar_incentives,all_showrooms,all_service_centers,all_charging_locations,vehicle_order) VALUES ('${state_name}','${state_abbr}', '${vehicle_incentives}','${solar_incentives}','${local_vehicle_incentives}','${local_solar_incentives}','${all_showrooms}','${all_service_centers}','${all_charging_locations}','${vehicle_order}')`,
       (err, rows) => {
         if (err) console.log("Got an error inserting row to state_data", err);
         else console.log(`Row was inserted in state_data: ${state_name}`);
@@ -233,21 +217,7 @@ let queries = {
         all_showrooms,
         all_service_centers,
         all_charging_locations,
-        tradein_value, 
-        tradein_payoff, 
-        tradein_equity, 
-        order_pymt, 
-        destination_and_doc_fee, 
-        state_tax_rate, 
-        state_taxes,
-        leasing,
-        financing,
-        registration,
-        solar_panel_subscription,
-        leasing_available,
-        financing_available,
-        region, 
-        default_zipcode, 
+        vehicle_order
       } = stateDataObj[state];
       return {
         state_name,
@@ -259,21 +229,7 @@ let queries = {
         all_showrooms,
         all_service_centers,
         all_charging_locations,
-        tradein_value, 
-        tradein_payoff, 
-        tradein_equity, 
-        order_pymt, 
-        destination_and_doc_fee, 
-        state_tax_rate, 
-        state_taxes,
-        leasing,
-        financing,
-        registration,
-        solar_panel_subscription,
-        leasing_available,
-        financing_available,
-        region, 
-        default_zipcode
+        vehicle_order
       };
     });
     statesToSeed.forEach((elem) => this.insertState(elem));
