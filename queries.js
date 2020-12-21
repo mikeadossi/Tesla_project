@@ -1,7 +1,9 @@
 require("dotenv").config();
 const pool = require("./utility/database");
 const zipCodes = require("./seed_folder/newestObject");
-const vehiclesObj = require("./seed_folder/vehicles_seedFile");
+const vehiclesObj = require("./seed_folder/vehicles_seedFile"); 
+const stateDataObj = require("./seed_folder/state_seedFile.js");
+const areaCodesObj = require("./seed_folder/area_codes");
 
 let queries = {
   getAll: function () {
@@ -29,9 +31,22 @@ let queries = {
       pool.query(
         `SELECT * from vehicles where model='${model}'`,
         (err, rows) => {
+          console.log('rows --------> ');
           console.log(rows);
           if (err) return reject(err);
           return resolve(rows[0]);
+        }
+      );
+    });
+  },
+
+  getAllVehicleData: function () {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `SELECT * from vehicles`,
+        (err, rows) => { 
+          if (err) return reject(err);
+          return resolve(rows);
         }
       );
     });
@@ -63,7 +78,7 @@ let queries = {
     );
   },
 
-  initializeDatabase: function () {
+  seedZipcodesDatabase: function () {
     const zipcodesToSeed = Object.keys(zipCodes).map((zipcode) => {
       const {
         state_abbr,
@@ -96,6 +111,8 @@ let queries = {
 
   insertVehicle: function ({
     model,
+    default_optioned_vehicle,
+    paint_options,
     partial_premium_interior,
     premium_interior,
     standard_battery,
@@ -104,7 +121,8 @@ let queries = {
     performance,
     plaid,
   }) {
-
+    let strDefaultOptionedVehicle = JSON.stringify(default_optioned_vehicle);
+    let strPaint = JSON.stringify(paint_options);
     let strStandard = JSON.stringify(standard_battery);
     let strOffMenu = JSON.stringify(off_menu);
     let strLongRange = JSON.stringify(long_range);
@@ -112,7 +130,7 @@ let queries = {
     let strPlaid = JSON.stringify(plaid);
 
     pool.query(
-      `INSERT INTO vehicles (model, partial_premium_interior, premium_interior, standard_battery, off_menu, long_range, performance, plaid) VALUES ('${model}', '${partial_premium_interior}', '${premium_interior}',  '${strStandard}', '${strOffMenu}', '${strLongRange}', '${strPerformance}', '${strPlaid}')`,
+      `INSERT INTO vehicles (model, default_optioned_vehicle, paint_options, partial_premium_interior, premium_interior, standard_battery, off_menu, long_range, performance, plaid) VALUES ('${model}', '${strDefaultOptionedVehicle}', '${strPaint}', '${partial_premium_interior}', '${premium_interior}', '${strStandard}', '${strOffMenu}', '${strLongRange}', '${strPerformance}', '${strPlaid}')`,
       (err, rows) => {
         if (err) console.log("Got an error inserting row to vehicles", err);
         else console.log(`Row was inserted in vehicles: ${model}`);
@@ -123,6 +141,8 @@ let queries = {
   seedVehiclesDatabase: function () {
     const vehiclesToSeed = Object.keys(vehiclesObj).map((vehicleModel) => {
       const {
+        default_optioned_vehicle,
+        paint_options,
         partial_premium_interior,
         premium_interior,
         standard_battery,
@@ -132,6 +152,8 @@ let queries = {
         plaid,
       } = vehiclesObj[vehicleModel];
       return {
+        default_optioned_vehicle,
+        paint_options,
         partial_premium_interior,
         premium_interior,
         standard_battery,
@@ -144,6 +166,118 @@ let queries = {
     });
     vehiclesToSeed.forEach((elem) => this.insertVehicle(elem));
   },
+
+  seedAreaCodeDatabase: function () {
+    const areaCodesObjKeys = Object.keys(areaCodesObj);
+    for(let i = 0; i < areaCodesObjKeys.length; i++){
+      let area_code = areaCodesObjKeys[i];
+      let state_abbr = areaCodesObj[area_code];
+      let strStateAbbr = JSON.stringify(state_abbr);
+      pool.query(
+        `INSERT INTO area_codes (id,state_abbr) VALUES ('${area_code}','${strStateAbbr}')`,
+        (err, rows) => {
+          if (err) console.log("Got an error inserting row to area_codes", err);
+          else console.log(`Row was inserted in area_codes: ${strStateAbbr}`);
+        }
+      );
+    }
+  },
+
+  insertState: function ({
+    state_name,
+    state_abbr,
+    vehicle_incentives,
+    solar_incentives, 
+    local_vehicle_incentives,
+    local_solar_incentives,
+    all_showrooms,
+    all_service_centers,
+    all_charging_locations,
+    tradein_value, 
+    tradein_payoff, 
+    tradein_equity, 
+    order_pymt, 
+    destination_and_doc_fee, 
+    state_tax_rate, 
+    state_taxes,
+    leasing,
+    financing,
+    registration,
+    solar_panel_subscription,
+    leasing_available,
+    financing_available,
+    region, 
+    default_zipcode
+  }) {
+    let strLeasing = JSON.stringify(leasing);
+    let strFinancing = JSON.stringify(financing);
+
+    pool.query(
+      `INSERT INTO state_data (state_name,state_abbr,vehicle_incentives,solar_incentives,local_vehicle_incentives,local_solar_incentives,all_showrooms,all_service_centers,all_charging_locations,tradein_value,tradein_payoff,tradein_equity,order_pymt,destination_and_doc_fee,state_tax_rate, state_taxes,leasing,financing,registration,solar_panel_subscription,leasing_available,financing_available,region,default_zipcode) VALUES ('${state_name}','${state_abbr}', '${vehicle_incentives}','${solar_incentives}','${local_vehicle_incentives}','${local_solar_incentives}','${all_showrooms}','${all_service_centers}','${all_charging_locations}','${tradein_value}','${tradein_payoff}','${tradein_equity}','${order_pymt}','${destination_and_doc_fee}','${state_tax_rate}','${state_taxes}','${strLeasing}', '${strFinancing}', '${registration}','${solar_panel_subscription}','${leasing_available}','${financing_available}','${region}','${default_zipcode}')`,
+      (err, rows) => {
+        if (err) console.log("Got an error inserting row to state_data", err);
+        else console.log(`Row was inserted in state_data: ${state_name}`);
+      }
+    );
+  },
+
+  seedStateDatabase: function () {
+    const statesToSeed = Object.keys(stateDataObj).map((state) => {
+      const {
+        state_name,
+        state_abbr,
+        vehicle_incentives,
+        solar_incentives, 
+        local_vehicle_incentives,
+        local_solar_incentives,
+        all_showrooms,
+        all_service_centers,
+        all_charging_locations,
+        tradein_value, 
+        tradein_payoff, 
+        tradein_equity, 
+        order_pymt, 
+        destination_and_doc_fee, 
+        state_tax_rate, 
+        state_taxes,
+        leasing,
+        financing,
+        registration,
+        solar_panel_subscription,
+        leasing_available,
+        financing_available,
+        region, 
+        default_zipcode, 
+      } = stateDataObj[state];
+      return {
+        state_name,
+        state_abbr,
+        vehicle_incentives,
+        solar_incentives, 
+        local_vehicle_incentives,
+        local_solar_incentives,
+        all_showrooms,
+        all_service_centers,
+        all_charging_locations,
+        tradein_value, 
+        tradein_payoff, 
+        tradein_equity, 
+        order_pymt, 
+        destination_and_doc_fee, 
+        state_tax_rate, 
+        state_taxes,
+        leasing,
+        financing,
+        registration,
+        solar_panel_subscription,
+        leasing_available,
+        financing_available,
+        region, 
+        default_zipcode
+      };
+    });
+    statesToSeed.forEach((elem) => this.insertState(elem));
+  }
 };
 
 module.exports = queries;
