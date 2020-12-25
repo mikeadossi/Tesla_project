@@ -1,37 +1,15 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import "./VehicleMenu.css";
 import ScrollUp from "../../ScrollUp/ScrollUp";
 
-const VehicleMenu = ({ vehicleData, vehicleChoice, getVehicleData, setVehicleContent, setVehicleData , retrievedVehicleData}) => {
+const VehicleMenu = ({ vehicleData, getVehicleData, setVehicleContent, setVehicleData , retrievedVehicleData, setSelectedVehicleName}) => {
   const defaultVehicle = "";
   const [selectedVehicle, setVehicle] = useState(defaultVehicle);
-
-
+  const [alreadyInState, setAlreadyInState] = useState(false);
+  
   const chooseAndSetVehice = async (vehicle) => {
-    let alreadyInState = false;
-    const stateData = vehicleData;
-    for(let i = 0; i < stateData.length; i++){
-      if(stateData[i].name === vehicle ){
-        // if vehicle is in state (visible in UI) we set model to top of page
-        stateData.splice(i,1);
-        let str = vehicle.replace(/ /g,'');
-        str = str.toLowerCase();
-        let data = await getVehicleData(str); 
-        setVehicleContent(data); 
-        vehicleChoice(vehicle);
-        setVehicleData([...stateData]);
-      }
-    }
-    // if vehicle is not in state we add model to state and render 
-    if(!alreadyInState){
-      let str = vehicle.replace(/ /g,''); 
-      str = str.replace('M','m');
-      let data = await getVehicleData(str);
-      setVehicleContent(data); 
-      vehicleChoice(vehicle);
-    }
-
-  };
+    setSelectedVehicleName(vehicle);
+  }; 
 
   return (
     <div className="app_Menu_container">

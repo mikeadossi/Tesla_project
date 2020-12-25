@@ -7,40 +7,62 @@ import Vehicle_userEntry_financing from "../../VehicleData/Vehicle_userEntry/Veh
 import Vehicle_userEntry_leasing from "../../VehicleData/Vehicle_userEntry/Vehicle_userEntry_leasing/Vehicle_userEntry_leasing";
 import Vehicle_userEntry_cash from "../../VehicleData/Vehicle_userEntry/Vehicle_userEntry_cash/Vehicle_userEntry_cash";
 
-const VehicleConfig = ({ selectedVehicle, vehicleContent, removeModel }) => {
-  const defaultColor = "white";
+const VehicleConfig = ({
+  selectedVehicle,
+  vehicleContent,
+  removeModel,
+  selectedColor,
+  changeVehicleColor,
+}) => {
+  // const defaultColor = "white";
   const defaultWheel = "m3_aero_18";
   const defaultInterior = "black_interior";
   const defaultBattery = "standard";
   const defaultLayout = "5 seater";
 
-  const [selectedColor, setColor] = React.useState(defaultColor);
-  const [selectedWheel, setWheel] = React.useState(defaultWheel);
-  const [selectedInterior, setInterior] = React.useState(defaultInterior);
-  const [selectedBattery, setBattery] = React.useState(defaultBattery);
-  const [selectedLayout, setLayout] = React.useState(defaultLayout);
+  // const [selectedColor, setColor] = useState(defaultColor);
+  const [selectedWheel, setWheel] = useState(defaultWheel);
+  const [selectedInterior, setInterior] = useState(defaultInterior);
+  const [selectedBattery, setBattery] = useState(defaultBattery);
+  const [selectedLayout, setLayout] = useState(defaultLayout);
 
   const showComponent = (value) => {
     setVisibility({ [value]: true });
   };
-  
+
   const [visibility, setVisibility] = useState({
     Cash: true,
     Lease: false,
-    Loan: false
+    Loan: false,
   });
 
-  
-  let jsonobj = vehicleContent.long_range; 
+  const name = `${selectedVehicle}`.split(' ').map((iv , i)=> {
+    if(i===0){
+      return iv.toLowerCase();
+    }
+    return iv
+  }).join('')
+
+  const jsonobj = vehicleContent[name];
+
+  if (!jsonobj) {
+    return null;
+  }
+  console.log("jsonobj ---> ", vehicleContent);
+  const jsonobj2 = jsonobj.vehicle_image;
+  const jsonobj3 = jsonobj.image_vehicle;
 
   return (
     <div className="app_Config_container">
-      <div className="app_configTitle app_displayFlex"> 
-        <div className="vehicleConfig_vehicleName">{selectedVehicle.name}</div>
+      <div className="app_configTitle app_displayFlex">
+        <div className="vehicleConfig_vehicleName">{selectedVehicle}</div>
         <div className="vehicleConfig_header_options_container app_displayFlex">
           <div className="app_options_btn">Inventory</div>
           <div className="app_options_btn">Specs</div>
-          <div className="vehicleConfig_close_container" onClick={() => removeModel(selectedVehicle.name)}>
+          <div
+            className="vehicleConfig_close_container"
+            onClick={() => removeModel(selectedVehicle.name)}
+          >
             <img
               className="vehicleConfig_close"
               src="../../../../images/Nav/close_2.png"
@@ -54,10 +76,10 @@ const VehicleConfig = ({ selectedVehicle, vehicleContent, removeModel }) => {
           <div className="vehicleConfig_columns_blockContent">
             <div className="vehicleConfig_modelName_container">
               <span className="vehicleConfig_modelName">
-                {jsonobj.specs.Battery}
+                {jsonobj.battery[0]}
               </span>
               <span className="vehicleConfig_modelPrice">
-                Cash Price: ${jsonobj.purchase_price} 
+                Cash Price: ${jsonobj.cash_price}
               </span>
             </div>
 
@@ -66,7 +88,9 @@ const VehicleConfig = ({ selectedVehicle, vehicleContent, removeModel }) => {
                 <div className="vehicleConfig_image_container">
                   <img
                     className="vehicleConfig_img"
-                    src="../../../../images/model3/model3_white_std_19.png"
+                    src={
+                      `../../../../images/` + jsonobj3 + `/` + jsonobj2 + `.png`
+                    }
                     alt="model 3 image"
                   ></img>
                 </div>
@@ -76,10 +100,10 @@ const VehicleConfig = ({ selectedVehicle, vehicleContent, removeModel }) => {
                     {jsonobj.miles_range} miles range
                   </div>
                   <div className="app_Config_spec vehicleConfig_topSpeed">
-                    {jsonobj.topspeed_mph} mph
+                    {jsonobj.mph} mph
                   </div>
                   <div className="app_Config_spec vehicleConfig_mph">
-                    {jsonobj.zero_to_sixty}sec 0-60
+                    {jsonobj.zero_to_sixty_seconds}sec 0-60
                   </div>
                 </div>
               </div>
@@ -156,8 +180,10 @@ const VehicleConfig = ({ selectedVehicle, vehicleContent, removeModel }) => {
               <div className="vehicleConfig_selectColor_container">
                 <div>Select Color: </div>
                 <div className="vehicleConfig_select_ul vehicleConfig_selectColor_ul">
-                  <div
-                    onClick={() => setColor("white")}
+                  <div 
+                    onClick={() =>
+                      changeVehicleColor("white","Pearl White", selectedVehicle)
+                    }
                     className={`app_noSelect app_inlineFlex color_select_container ${
                       selectedColor == "white" && "selected"
                     }`}
@@ -167,8 +193,10 @@ const VehicleConfig = ({ selectedVehicle, vehicleContent, removeModel }) => {
                       src="../../../../images/paint/white_paint.png"
                     />
                   </div>
-                  <div
-                    onClick={() => setColor("black")}
+                  <div 
+                    onClick={() =>
+                      changeVehicleColor("black","Solid Black", selectedVehicle)
+                    }
                     className={`app_noSelect app_inlineFlex color_select_container ${
                       selectedColor == "black" && "selected"
                     }`}
@@ -178,8 +206,10 @@ const VehicleConfig = ({ selectedVehicle, vehicleContent, removeModel }) => {
                       src="../../../../images/paint/black_paint.png"
                     />
                   </div>
-                  <div
-                    onClick={() => setColor("silver")}
+                  <div 
+                    onClick={() =>
+                      changeVehicleColor("silver","Midnight Silver", selectedVehicle)
+                    }
                     className={`app_noSelect app_inlineFlex color_select_container ${
                       selectedColor == "silver" && "selected"
                     }`}
@@ -189,8 +219,10 @@ const VehicleConfig = ({ selectedVehicle, vehicleContent, removeModel }) => {
                       src="../../../../images/paint/silver_paint.png"
                     />
                   </div>
-                  <div
-                    onClick={() => setColor("blue")}
+                  <div 
+                    onClick={() =>
+                      changeVehicleColor("blue","Deep Blue", selectedVehicle)
+                    }
                     className={`app_noSelect app_inlineFlex color_select_container ${
                       selectedColor == "blue" && "selected"
                     }`}
@@ -200,8 +232,10 @@ const VehicleConfig = ({ selectedVehicle, vehicleContent, removeModel }) => {
                       src="../../../../images/paint/blue_paint.png"
                     />
                   </div>
-                  <div
-                    onClick={() => setColor("red")}
+                  <div 
+                    onClick={() =>
+                      changeVehicleColor("red","Red Multicoat", selectedVehicle)
+                    }
                     className={`app_noSelect app_inlineFlex color_select_container ${
                       selectedColor == "red" && "selected"
                     }`}
@@ -214,7 +248,7 @@ const VehicleConfig = ({ selectedVehicle, vehicleContent, removeModel }) => {
                 </div>
                 <input
                   type="text"
-                  placeholder="Pearl white - included"
+                  placeholder={jsonobj.paint[0] +` - `+jsonobj.paint[1]} 
                   className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectColor_input"
                   readonly="readonly"
                 />
@@ -233,7 +267,7 @@ const VehicleConfig = ({ selectedVehicle, vehicleContent, removeModel }) => {
                   >
                     <img
                       className="app_noSelect vehicleConfig_wheel_select vehicleConfig_18_inch_aero_wheels"
-                      src="../../../../images/wheels/m3_aero_18.png"
+                      src="../../../../images/wheels/model3_aero_18.png"
                     />
                   </div>
                   <div
@@ -244,7 +278,7 @@ const VehicleConfig = ({ selectedVehicle, vehicleContent, removeModel }) => {
                   >
                     <img
                       className="app_noSelect vehicleConfig_wheel_select vehicleConfig_19_inch_sport_wheels"
-                      src="../../../../images/wheels/m3_sport_19.png"
+                      src="../../../../images/wheels/model3_sport_19.png"
                     />
                   </div>
                 </ul>
