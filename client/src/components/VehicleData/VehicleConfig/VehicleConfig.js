@@ -65,6 +65,8 @@ const VehicleConfig = ({
 
   const renderedTeslaImgFolder = renderedTesla.image_vehicle;
   const renderedTeslaImg = renderedTesla.vehicle_image;
+  const renderedTowHitch = renderedTesla.tow_hitch;
+  console.log("renderedTowHitch - ",renderedTowHitch)
 
 
   return (
@@ -364,14 +366,22 @@ const VehicleConfig = ({
               </div>
             </div>
 
-            <div className="vehicleConfig_selectTowHitch_container">
-              <ul className="vehicleConfig_select_ul vehicleConfig_selectTowHitch_ul">
-                <input
-                  type="checkbox"
-                  className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_towHitch_checkbox"
-                ></input>
-                <span>Tow Hitch - $1,000</span>
-              </ul>
+            <div>
+              {
+                (() => {
+                  if(renderedTowHitch){
+                    return  (<div className="vehicleConfig_selectTowHitch_container">
+                      <ul className="vehicleConfig_select_ul vehicleConfig_selectTowHitch_ul">
+                        <input
+                          type="checkbox"
+                          className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_towHitch_checkbox"
+                        ></input>
+                        <span>Tow Hitch - $1,000</span>
+                      </ul>
+                    </div>)
+                  }
+                })()
+              }
             </div>
 
             <div className="vehicleConfig_incentives">
