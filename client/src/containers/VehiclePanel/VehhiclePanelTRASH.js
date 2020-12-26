@@ -2,15 +2,25 @@ import React, { Component, useState, useEffect } from "react";
 import { createStore } from "redux";
 import "./VehiclePanel.css";
 import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
-import VehicleConfig from "../../components/VehicleData/VehicleConfig/VehicleConfig";
+import VehicleConfig from "../../components/VehicleData/VehicleConfig/VehicleConfigTRASH";
 import { connect } from "react-redux";
 import { getAllVehicles } from "../../config/actions/vehicleActions";
+import e from "cors";
 
 const VehiclePanel = (props) => {
+  const [selectedVehicle, setSelectedVehicle] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
   let [vehicleData, setVehicleData] = useState([]);
   const [vehicleContent, setVehicleContent] = useState({});
   const [teslaModels, setTeslaModels] = useState({});
   const [selectedVehicleName, setSelectedVehicleName] = useState("");
+  // const defaultColor = "Pearl White";
+  // const [selectedColor, setColor] = useState(defaultColor);
+
+  // const [selectedWheel, setWheel] = useState(defaultWheel);
+  // const [selectedInterior, setInterior] = useState(defaultInterior);
+  // const [selectedBattery, setBattery] = useState(defaultBattery);
+  // const [selectedLayout, setLayout] = useState(defaultLayout);
 
   useEffect(() => {
     setVehicleData((data) => {
@@ -84,6 +94,8 @@ const VehiclePanel = (props) => {
   };
 
   const changeVehicleColor = async (color, value) => {
+    setSelectedVehicle(value);
+    setSelectedColor(color);
     const model = `${value}`
       .split(" ")
       .map((iv, i) => {
@@ -94,8 +106,11 @@ const VehiclePanel = (props) => {
       })
       .join("");
 
+    // setColor(color);
+
     setTeslaModels((vehicles) => {
       let newTeslaModels = { ...vehicles };
+      // console.log('newTeslaModels: ',newTeslaModels)
       let renderedVehicle = vehicles.vehicle_render[model];
       let detailsObj = vehicles.vehicle_details[model];
 
@@ -117,11 +132,6 @@ const VehiclePanel = (props) => {
       newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
       newTeslaModels.vehicle_render[model]["paint"] = [color, newPrice];
       newTeslaModels.vehicle_render[model]["img_paint"] = img;
-      const currentImage = newTeslaModels.vehicle_render[model]["vehicle_image"];
-      const currentPaint = currentImage.split("_")[1];
-      const imgNoUnderscore = img.split("_")[1]; 
-      const newImage = currentImage.replace(currentPaint,imgNoUnderscore); 
-      newTeslaModels.vehicle_render[model]["vehicle_image"] = newImage; 
 
       return newTeslaModels;
     });
@@ -139,6 +149,8 @@ const VehiclePanel = (props) => {
 
       {vehicleData.map((ele) => (
         <VehicleConfig
+          selectedVehicleName={selectedVehicle}
+          selectedColorName={selectedColor}
           removeModel={removeModel}
           vehicleContent={teslaModels}
           selectedVehicle={ele}
