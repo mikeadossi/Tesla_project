@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import "./VehicleConfig.css";
 import VehicleCash from "../../VehicleData/Vehicle_pymt/VehicleCash/VehicleCash";
 import VehicleLeasing from "../../VehicleData/Vehicle_pymt/VehicleLeasing/VehicleLeasing";
@@ -10,21 +10,14 @@ import Vehicle_userEntry_cash from "../../VehicleData/Vehicle_userEntry/Vehicle_
 const VehicleConfig = ({
   selectedVehicle,
   vehicleContent,
-  removeModel,
-  selectedColor,
-  changeVehicleColor,
+  removeModel, 
+  changeVehicleColor
 }) => {
-  // const defaultColor = "Pearl White";
+
   const defaultWheel = "m3_aero_18";
   const defaultInterior = "black_interior";
   const defaultBattery = "standard";
   const defaultLayout = "5 seater";
-
-  // const [selectedColor, setColor] = useState(defaultColor);
-  const [selectedWheel, setWheel] = useState(defaultWheel);
-  const [selectedInterior, setInterior] = useState(defaultInterior);
-  const [selectedBattery, setBattery] = useState(defaultBattery);
-  const [selectedLayout, setLayout] = useState(defaultLayout);
 
   const showComponent = (value) => {
     setVisibility({ [value]: true });
@@ -35,6 +28,8 @@ const VehicleConfig = ({
     Lease: false,
     Loan: false,
   });
+  const [activeColor, setActiveColor] = useState('');
+
 
   const name = `${selectedVehicle}`.split(' ').map((iv , i)=> {
     if(i===0){
@@ -47,6 +42,22 @@ const VehicleConfig = ({
   const teslaDetails = vehicleContent.vehicle_details[name];
   const paintObject = teslaDetails["paint_options"];
   const paintObjectKeys = Object.keys(paintObject);
+  const defaultColor = renderedTesla["paint"][0];
+
+  const [selectedColor, setColor] = useState(defaultColor);
+  const [selectedWheel, setWheel] = useState(defaultWheel);
+  const [selectedInterior, setInterior] = useState(defaultInterior);
+  const [selectedBattery, setBattery] = useState(defaultBattery);
+  const [selectedLayout, setLayout] = useState(defaultLayout); 
+
+  let selectedVehicleCpy = selectedVehicle.replace(/ /g,'');
+  selectedVehicleCpy = selectedVehicleCpy.replace('M', 'm');
+   
+
+  useEffect(() => {
+    const c = vehicleContent.vehicle_render[selectedVehicleCpy]["paint"][0];
+    setActiveColor(c);
+  }, [vehicleContent, selectedVehicleCpy])
 
   if (!renderedTesla) {
     return null;
@@ -55,12 +66,6 @@ const VehicleConfig = ({
   const renderedTeslaImgFolder = renderedTesla.image_vehicle;
   const renderedTeslaImg = renderedTesla.vehicle_image;
 
-/*
-  const defaultWheel = "m3_aero_18";
-  const defaultInterior = "black_interior";
-  const defaultBattery = "standard";
-  const defaultLayout = "5 seater";
-*/
 
   return (
     <div className="app_Config_container">
@@ -192,11 +197,14 @@ const VehicleConfig = ({
                 <div className="vehicleConfig_select_ul vehicleConfig_selectColor_ul">
                 {paintObjectKeys.map((p) => ( 
                   <div 
-                    onClick={() =>
-                      changeVehicleColor(p, selectedVehicle)
+                    onClick={(event) =>
+                    {
+                      setActiveColor(p);
+                      changeVehicleColor(p, selectedVehicle) 
+                    }
                     }
                     className={`app_noSelect app_inlineFlex color_select_container ${
-                      selectedColor == p && "selected"
+                      (p === activeColor) && "selected"
                     }`}
                   >
                     <img
