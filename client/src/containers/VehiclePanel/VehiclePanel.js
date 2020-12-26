@@ -9,25 +9,26 @@ import e from "cors";
 
 const VehiclePanel = (props) => {
   let [vehicleData, setVehicleData] = useState([]);
-  const [visibility, setVisibility] = useState(false);
   const [vehicleContent, setVehicleContent] = useState({});
   const [teslaModels, setTeslaModels] = useState({});
   const [selectedVehicleName, setSelectedVehicleName] = useState("");
-  const defaultColor = "white";
+  const defaultColor = "Pearl White";
   const [selectedColor, setColor] = useState(defaultColor);
 
-  useEffect(() => {
-    setVehicleData((v) => { 
-      console.log('v is ', v, selectedVehicleName) 
-      if(!selectedVehicleName) return v;
-      let newVehiclenames = v.filter(vi => vi !== selectedVehicleName)
-    
-      newVehiclenames = [selectedVehicleName,...newVehiclenames];
-      console.log("new data is", newVehiclenames);
-      return newVehiclenames;
-    });
+  // const [selectedWheel, setWheel] = useState(defaultWheel);
+  // const [selectedInterior, setInterior] = useState(defaultInterior);
+  // const [selectedBattery, setBattery] = useState(defaultBattery);
+  // const [selectedLayout, setLayout] = useState(defaultLayout);
 
-    
+
+  useEffect(() => {
+    setVehicleData((data) => { 
+      if(!selectedVehicleName) return data; // ensures vehicleData array has no starting empty value
+
+      let newVehicleNames = data.filter(modelName => modelName !== selectedVehicleName) // checks for and removes vehicle from array
+      newVehicleNames = [selectedVehicleName,...newVehicleNames]; // sets selected vehicle atop vehicleData array
+      return newVehicleNames;
+    });
   }, [selectedVehicleName]);
 
   
@@ -90,11 +91,7 @@ const VehiclePanel = (props) => {
     setTeslaModels(vehicleObj);
   };
 
-  const getVehicleData = async (model) => {
-    return teslaModels.vehicle_render[model];
-  };
-
-  const changeVehicleColor = async (selectedColor, color, value) => { 
+  const changeVehicleColor = async (color, value) => { 
 
     const model = `${value}`.split(' ').map((iv , i)=> {
       if(i===0){
@@ -102,17 +99,18 @@ const VehiclePanel = (props) => {
       }
       return iv
     }).join('');
-    
-    setTeslaModels((v) => {
-      let newTeslaModels = { ...v };
-      let renderedVehicle = v.vehicle_render[model];
 
-      setColor(selectedColor); 
-      let detailsObj = v.vehicle_details[model];
+    setColor(color);
+    
+    setTeslaModels((vehicles) => {
+      let newTeslaModels = { ...vehicles };
+      // console.log('newTeslaModels: ',newTeslaModels)
+      let renderedVehicle = vehicles.vehicle_render[model];
+      let detailsObj = vehicles.vehicle_details[model];
+
       let colorObj = detailsObj["paint_options"][color]; // color should be "Pearl White" for example.
       let img = colorObj.image_paint; // store this in renderObj
-      let newPrice = colorObj.price; // store this in renderObj
-      let fullName = colorObj.full_name; // use in UI
+      let newPrice = colorObj.price; // store this in renderObj 
       let currentPaintPrice = renderedVehicle["paint"][1];
       
       let currentVehiclePrice = renderedVehicle["cash_price"];
@@ -136,20 +134,21 @@ const VehiclePanel = (props) => {
 
   };
 
+  // selectedWheel={selectedWheel}
+  // selectedInterior={selectedInterior}
+  // selectedBattery={selectedBattery}
+  // selectedLayout={selectedLayout}
+
   return (
     <div className="app_Panel_container">
       <VehicleMenu
-        vehicleData={vehicleData}
-        setSelectedVehicleName={setSelectedVehicleName}
-        getVehicleData={getVehicleData}
-        setVehicleContent={setVehicleContent}
-        setVehicleData={setVehicleData}
+        setSelectedVehicleName={setSelectedVehicleName} 
       />
 
       {vehicleData.map((ele) => (
         <VehicleConfig
           removeModel={removeModel}
-          vehicleContent={teslaModels.vehicle_render}
+          vehicleContent={teslaModels} 
           selectedVehicle={ele} 
           selectedColor={selectedColor}
           changeVehicleColor={changeVehicleColor}
