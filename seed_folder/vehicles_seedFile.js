@@ -1,7 +1,46 @@
 module.exports = {
 
+
   model3: {
-    default_optioned_vehicle: {vehicle: "standard_battery", paint: "Pearl White", wheel: "18 inch Aero Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },
+    default_optioned_vehicle: {
+  model: "Model 3",
+  battery: ["Standard Range","standard_battery",37990],
+  vehicle_image: "model3_white_std_18",
+  image_vehicle: "model3",
+  image_paint: "_white",
+  image_trim: "_std",
+  image_wheels: "_18",
+  paint: ["Pearl White","included"],
+  wheel: ["18 inch Aero Wheels","included"],
+  interior: ["All Black","included"],
+  layout: ["Five Seat Interior","included"],
+  autopilot: ["autopilot","included"],
+  cashdown_pymt: "",
+  tradein_value: "",
+  tradein_payoff: "",
+  tradein_equity: "",
+  adjustments: "",
+  finance_term: "36 months",
+  lease_term: "24 months",
+  lease_yearly_miles: "10000 miles",
+  tow_hitch: null,
+  order_payment: 100,
+  apr: 2.49,
+  lease_apr: "",
+  cash_price: 37990,
+  non_cash_credit: "",
+  upfront_sales_tax: "",
+  state_sales_tax: "",
+  state_total_fees: "",
+  money_factor: "", 
+  residual_value: "",
+  finance_monthly_payment: "",
+  lease_monthly_payment: "",
+  total_vehicle_price: "",
+  miles_range: 263,
+  mph: 140,
+  zero_to_sixty_seconds: 5.3
+}, 
     paint_options: {
       "Pearl White": {full_name: "Pearl White Multi-Coat", price: "included", image_paint: "_white"},
       "Solid Black": {full_name: "Solid Black", price: 1000, image_paint: "_black"},
@@ -23,7 +62,7 @@ module.exports = {
       image_vehicle: "model3",
       image_trim: "_std",
       specs: {
-        Battery: "Standard Range",
+        Battery: "Standard Range", 
         Acceleration: "5.3s 0-60 mph",
         Range: "263 miles",
         Drive: "Rear-Wheel Drive",
@@ -45,8 +84,10 @@ module.exports = {
           range: null,
           price: "included",
           image_wheel: "_18",
+          image_source: "model3_aero_18",
+          availableOnBattery: ["off_menu","standard_battery","long_range"]
         },
-        "19 inch Sport Wheels": { range: null, price: 1500, image_wheel: "_19" },
+        "19 inch Sport Wheels": { range: null, price: 1500, image_wheel: "_19", image_source: "model3_sport_19"}
       },
       interior: {
         "All Black": { price: "included", image: "black_interior" },
@@ -84,6 +125,7 @@ module.exports = {
           range: null,
           price: "included",
           image_wheel: "_18",
+          availableOnBattery: ["off_menu","standard_battery","long_range"]
         },
         "19 inch Sport Wheels": { range: null, price: 1500, image_wheel: "_19" },
       },
@@ -181,7 +223,45 @@ module.exports = {
   },
 
   modelS: {
-    default_optioned_vehicle: {vehicle: "long_range", paint: "Pearl White", wheel: "19 inch Tempest Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },
+    default_optioned_vehicle: {
+      model: "Model S",
+      battery: ["Long Range","long_range",69420],
+      vehicle_image: "modelS_white_lr_19",
+      image_vehicle: "modelS",
+      image_paint: "_white",
+      image_trim: "_lr",
+      image_wheels: "_19",
+      paint: ["Pearl White","included"],
+      wheel: ["19 inch Tempest Wheels","included"],
+      interior: ["All Black","included"],
+      layout: ["Five Seat Interior","included"],
+      autopilot: ["autopilot","included"],
+      cashdown_pymt: "",
+      tradein_value: "",
+      tradein_payoff: "",
+      tradein_equity: "",
+      adjustments: "",
+      finance_term: "36 months",
+      lease_term: "24 months",
+      lease_yearly_miles: "10000 miles",
+      tow_hitch: null,
+      order_payment: 100,
+      apr: 2.49,
+      lease_apr: "",
+      cash_price: 69420,
+      non_cash_credit: "",
+      upfront_sales_tax: "",
+      state_sales_tax: "",
+      state_total_fees: "",
+      money_factor: "", 
+      residual_value: "",
+      finance_monthly_payment: "",
+      lease_monthly_payment: "",
+      total_vehicle_price: "",
+      miles_range: 402,
+      mph: 155,
+      zero_to_sixty_seconds: 3.7
+}, 
     paint_options: {
       "Pearl White": {full_name: "Pearl White Multi-Coat", price: "included", image_paint: "_white"},
       "Solid Black": {full_name: "Solid Black", price: 1000, image_paint: "_black"},
@@ -225,11 +305,13 @@ module.exports = {
           range: null,
           price: "included",
           image_wheel: "_19",
+          image_source: "modelS_tempest_19"
         },
         "21 inch Sonic Carbon Twin Turbine Wheels": {
           range: null,
           price: 4500,
           image_wheel: "_21",
+          image_source: "modelS_sonic_21"
         },
       },
       interior: {
@@ -269,11 +351,13 @@ module.exports = {
           range: "Est. Range 387mi",
           price: "included",
           image_wheel: "_19",
+          image_source: "modelS_tempest_19"
         },
         "21 inch Sonic Carbon Twin Turbine Wheels": {
           range: "Est. Range 334mi",
           price: 4500,
           image_wheel: "_21",
+          image_source: "modelS_sonic_21"
         },
       },
       interior: {
@@ -299,11 +383,13 @@ module.exports = {
           range: null,
           price: "included",
           image_wheel: "_19",
+          image_source: "modelS_tempest_19"
         },
         "21 inch Sonic Carbon Twin Turbine Wheels": {
           range: null,
           price: 4500,
           image_wheel: "_21",
+          image_source: "modelS_sonic_21"
         },
       },
       interior: {
@@ -318,7 +404,45 @@ module.exports = {
   },
 
   modelX: {
-    default_optioned_vehicle: {vehicle: "long_range", paint: "Pearl White", wheel: "20 inch Silver Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },
+    default_optioned_vehicle: {
+      model: "Model X",
+      battery: ["Long Range","long_range",74690],
+      vehicle_image: "modelX_white_lr_20",
+      image_vehicle: "modelX",
+      image_paint: "_white",
+      image_trim: "_lr",
+      image_wheels: "_30",
+      paint: ["Pearl White","included"],
+      wheel: ["20 inch Silver Wheels","included"],
+      interior: ["All Black","included"],
+      layout: ["Five Seat Interior","included"],
+      autopilot: ["autopilot","included"],
+      cashdown_pymt: "",
+      tradein_value: "",
+      tradein_payoff: "",
+      tradein_equity: "",
+      adjustments: "",
+      finance_term: "36 months",
+      lease_term: "24 months",
+      lease_yearly_miles: "10000 miles",
+      tow_hitch: null,
+      order_payment: 100,
+      apr: 2.49,
+      lease_apr: "",
+      cash_price: 74690,
+      non_cash_credit: "",
+      upfront_sales_tax: "",
+      state_sales_tax: "",
+      state_total_fees: "",
+      money_factor: "", 
+      residual_value: "",
+      finance_monthly_payment: "",
+      lease_monthly_payment: "",
+      total_vehicle_price: "",
+      miles_range: 371,
+      mph: 155,
+      zero_to_sixty_seconds: 4.4
+}, 
     paint_options: {
       "Pearl White": {full_name: "Pearl White Multi-Coat", price: "included", image_paint: "_white"},
       "Solid Black": {full_name: "Solid Black", price: 1000, image_paint: "_black"},
@@ -362,11 +486,13 @@ module.exports = {
           range: null,
           price: "included",
           image_wheel: "_20",
+          image_source: "modelX_silver_20"
         },
         "22 inch Onyx Black Wheels": {
           range: null,
           price: 5500,
           image_wheel: "_22",
+          image_source: "modelX_onyx_22"
         },
       },
       interior: {
@@ -410,11 +536,13 @@ module.exports = {
           range: null,
           price: "included",
           image_wheel: "_20",
+          image_source: "modelX_silver_20"
         },
         "22 inch Onyx Black Wheels": {
           range: null,
           price: 5500,
           image_wheel: "_22",
+          image_source: "modelX_onyx_22"
         },
       },
       interior: {
@@ -435,7 +563,45 @@ module.exports = {
   },
 
   modelY: {
-    default_optioned_vehicle: {vehicle: "long_range", paint: "Pearl White", wheel: "19 inch Gemini Wheels", interior: "All Black", layout: "Five Seat Interior", autopilot: "autopilot" },
+    default_optioned_vehicle: {
+      model: "Model Y",
+      battery: ["Long Range","long_range",49990],
+      vehicle_image: "modelY_white_lr_19",
+      image_vehicle: "modelY",
+      image_paint: "_white",
+      image_trim: "_lr",
+      image_wheels: "_19",
+      paint: ["Pearl White","included"],
+      wheel: ["19 inch or 20 inch","included"],
+      interior: ["All Black","included"],
+      layout: ["Five Seat Interior","included"],
+      autopilot: ["autopilot","included"],
+      cashdown_pymt: "",
+      tradein_value: "",
+      tradein_payoff: "",
+      tradein_equity: "",
+      adjustments: "",
+      finance_term: "36 months",
+      lease_term: "24 months",
+      lease_yearly_miles: "10000 miles",
+      tow_hitch: 1000,
+      order_payment: 100,
+      apr: 2.49,
+      lease_apr: "",
+      cash_price: 49990,
+      non_cash_credit: "",
+      upfront_sales_tax: "",
+      state_sales_tax: "",
+      state_total_fees: "",
+      money_factor: "", 
+      residual_value: "",
+      finance_monthly_payment: "",
+      lease_monthly_payment: "",
+      total_vehicle_price: "",
+      miles_range: 326,
+      mph: 135,
+      zero_to_sixty_seconds: 4.8
+}, 
     paint_options: {
       "Pearl White": {full_name: "Pearl White Multi-Coat", price: "included", image_paint: "_white"},
       "Solid Black": {full_name: "Solid Black", price: 1000, image_paint: "_black"},
@@ -479,12 +645,14 @@ module.exports = {
           range: null,
           price: "included",
           image_wheel: "_19",
+          image_source: "modelY_gemini_19"
         },
-        "20 inch Onyx Black Wheels": {
+        "20 inch Induction Wheels": {
           range: null,
           price: 2000,
           image_wheel: "_20",
-        },
+          image_source: "modelY_induction_20"
+        }
       },
       interior: {
         "All Black": { price: "included", image: "black_interior" },
@@ -522,7 +690,8 @@ module.exports = {
           range: null,
           price: "included",
           image_wheel: "_21",
-        },
+          image_source: "modelY_uberturbine_21"
+        }
       },
       interior: {
         "All Black": { price: "included", image: "black_interior" },
