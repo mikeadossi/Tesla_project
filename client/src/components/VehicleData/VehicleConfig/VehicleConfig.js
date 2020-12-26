@@ -14,7 +14,7 @@ const VehicleConfig = ({
   selectedColor,
   changeVehicleColor,
 }) => {
-  // const defaultColor = "white";
+  // const defaultColor = "Pearl White";
   const defaultWheel = "m3_aero_18";
   const defaultInterior = "black_interior";
   const defaultBattery = "standard";
@@ -43,14 +43,24 @@ const VehicleConfig = ({
     return iv
   }).join('')
 
-  const jsonobj = vehicleContent[name];
+  const renderedTesla = vehicleContent.vehicle_render[name]; 
+  const teslaDetails = vehicleContent.vehicle_details[name];
+  const paintObject = teslaDetails["paint_options"];
+  const paintObjectKeys = Object.keys(paintObject);
 
-  if (!jsonobj) {
+  if (!renderedTesla) {
     return null;
   }
-  console.log("jsonobj ---> ", vehicleContent);
-  const jsonobj2 = jsonobj.vehicle_image;
-  const jsonobj3 = jsonobj.image_vehicle;
+
+  const renderedTeslaImgFolder = renderedTesla.image_vehicle;
+  const renderedTeslaImg = renderedTesla.vehicle_image;
+
+/*
+  const defaultWheel = "m3_aero_18";
+  const defaultInterior = "black_interior";
+  const defaultBattery = "standard";
+  const defaultLayout = "5 seater";
+*/
 
   return (
     <div className="app_Config_container">
@@ -76,10 +86,10 @@ const VehicleConfig = ({
           <div className="vehicleConfig_columns_blockContent">
             <div className="vehicleConfig_modelName_container">
               <span className="vehicleConfig_modelName">
-                {jsonobj.battery[0]}
+                {renderedTesla.battery[0]}
               </span>
               <span className="vehicleConfig_modelPrice">
-                Cash Price: ${jsonobj.cash_price}
+                Cash Price: ${renderedTesla.cash_price}
               </span>
             </div>
 
@@ -89,7 +99,7 @@ const VehicleConfig = ({
                   <img
                     className="vehicleConfig_img"
                     src={
-                      `../../../../images/` + jsonobj3 + `/` + jsonobj2 + `.png`
+                      `../../../../images/` + renderedTeslaImgFolder + `/` + renderedTeslaImg + `.png`
                     }
                     alt="model 3 image"
                   ></img>
@@ -97,13 +107,13 @@ const VehicleConfig = ({
 
                 <div className="app_Config_specs_container vehicleConfig_specs_container">
                   <div className="app_Config_spec vehicleConfig_range">
-                    {jsonobj.miles_range} miles range
+                    {renderedTesla.miles_range} miles range
                   </div>
                   <div className="app_Config_spec vehicleConfig_topSpeed">
-                    {jsonobj.mph} mph
+                    {renderedTesla.mph} mph
                   </div>
                   <div className="app_Config_spec vehicleConfig_mph">
-                    {jsonobj.zero_to_sixty_seconds}sec 0-60
+                    {renderedTesla.zero_to_sixty_seconds}sec 0-60
                   </div>
                 </div>
               </div>
@@ -180,75 +190,25 @@ const VehicleConfig = ({
               <div className="vehicleConfig_selectColor_container">
                 <div>Select Color: </div>
                 <div className="vehicleConfig_select_ul vehicleConfig_selectColor_ul">
+                {paintObjectKeys.map((p) => ( 
                   <div 
                     onClick={() =>
-                      changeVehicleColor("white","Pearl White", selectedVehicle)
+                      changeVehicleColor(p, selectedVehicle)
                     }
                     className={`app_noSelect app_inlineFlex color_select_container ${
-                      selectedColor == "white" && "selected"
+                      selectedColor == p && "selected"
                     }`}
                   >
                     <img
-                      className="color_select vehicleConfig_pearl_white_multicoat"
-                      src="../../../../images/paint/white_paint.png"
+                      className="color_select"
+                      src={`../../../../images/paint/`+paintObject[p]["image_paint"].substring(1)+`_paint.png`}
                     />
                   </div>
-                  <div 
-                    onClick={() =>
-                      changeVehicleColor("black","Solid Black", selectedVehicle)
-                    }
-                    className={`app_noSelect app_inlineFlex color_select_container ${
-                      selectedColor == "black" && "selected"
-                    }`}
-                  >
-                    <img
-                      className="color_select vehicleConfig_solid_black"
-                      src="../../../../images/paint/black_paint.png"
-                    />
-                  </div>
-                  <div 
-                    onClick={() =>
-                      changeVehicleColor("silver","Midnight Silver", selectedVehicle)
-                    }
-                    className={`app_noSelect app_inlineFlex color_select_container ${
-                      selectedColor == "silver" && "selected"
-                    }`}
-                  >
-                    <img
-                      className="color_select vehicleConfig_midnight_silver_metallic"
-                      src="../../../../images/paint/silver_paint.png"
-                    />
-                  </div>
-                  <div 
-                    onClick={() =>
-                      changeVehicleColor("blue","Deep Blue", selectedVehicle)
-                    }
-                    className={`app_noSelect app_inlineFlex color_select_container ${
-                      selectedColor == "blue" && "selected"
-                    }`}
-                  >
-                    <img
-                      className="color_select vehicleConfig_deep_blue_metallic"
-                      src="../../../../images/paint/blue_paint.png"
-                    />
-                  </div>
-                  <div 
-                    onClick={() =>
-                      changeVehicleColor("red","Red Multicoat", selectedVehicle)
-                    }
-                    className={`app_noSelect app_inlineFlex color_select_container ${
-                      selectedColor == "red" && "selected"
-                    }`}
-                  >
-                    <img
-                      className="color_select vehicleConfig_red_multicoat"
-                      src="../../../../images/paint/red_paint.png"
-                    />
-                  </div>
+                ))}
                 </div>
                 <input
                   type="text"
-                  placeholder={jsonobj.paint[0] +` - `+jsonobj.paint[1]} 
+                  placeholder={renderedTesla.paint[0] +` - `+renderedTesla.paint[1]} 
                   className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectColor_input"
                   readonly="readonly"
                 />
