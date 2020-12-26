@@ -91,6 +91,7 @@
 
 .vehicleConfig_selectWheel_input, .vehicleConfig_selectInteriorColor_input{
     border: none;
+    text-align: center;
 }
 
 .vehicleConfig_selectCarAndColor_container{
@@ -106,6 +107,7 @@
 
 .vehicleConfig_selectWheel_container, .vehicleConfig_selectInteriorColor_container{
     display: inline-block;
+    text-align: center;
 }
 
 .vehicleConfig_selectCar_container, .vehicleConfig_selectColor_container{

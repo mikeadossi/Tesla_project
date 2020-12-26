@@ -258,13 +258,22 @@ const VehicleConfig = ({
                     </div>
                   ))}
                 </ul>
-
-                <input
-                  type="text"
-                  placeholder={renderedTesla.wheel[0] +` - `+renderedTesla.wheel[1]}
-                  className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input"
-                  readonly="readonly"
-                />
+                <div className="yolo">
+                  <input
+                    type="text"
+                    placeholder={renderedTesla.wheel[0]}
+                    className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input"
+                    readonly="readonly"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    placeholder={renderedTesla.wheel[1]}
+                    className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input"
+                    readonly="readonly"
+                  />
+                </div>
               </div>
 
               <div className="vehicleConfig_selectInteriorColor_container">
