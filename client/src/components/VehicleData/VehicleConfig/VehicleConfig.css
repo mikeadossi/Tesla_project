@@ -204,10 +204,6 @@
     margin: 4px;
 }
 
-.vehicleConfig_incentives{
-    border-bottom: 1px solid gainsboro;
-}
-
 .vehicleConfig_selectLayout_container, .vehicleConfig_autopilot_container{
     display: inline-grid;
 }

@@ -83,6 +83,52 @@ const VehiclePanel = (props) => {
     setTeslaModels(vehicleObj);
   };
 
+  const changeVehicleWheel = async (trim, wheelSelected, value) => {
+    const model = `${value}`
+      .split(" ")
+      .map((iv, i) => {
+        if (i === 0) {
+          return iv.toLowerCase();
+        }
+        return iv;
+      })
+      .join("");
+
+    setTeslaModels((vehicles) => {
+      let newTeslaModels = { ...vehicles };
+      let renderedVehicle = vehicles.vehicle_render[model];
+      let detailsObj = vehicles.vehicle_details[model][trim];
+
+      // let colorObj = detailsObj["paint_options"][color]; 
+      let wheelObj = detailsObj["wheel"][wheelSelected]; // wheel should be "18 inch Aero Wheels" for example.
+      let img = wheelObj.image_wheel; // store this in renderObj 
+      let newPrice = wheelObj.price; // store this in renderObj
+      // let currentPaintPrice = renderedVehicle["paint"][1];
+      let currentWheelPrice = renderedVehicle["wheel"][1];
+
+      let currentVehiclePrice = renderedVehicle["cash_price"];
+
+      if (currentWheelPrice !== "included") {
+        currentVehiclePrice -= currentWheelPrice;
+      }
+
+      if (newPrice !== "included") {
+        currentVehiclePrice += newPrice;
+      }
+
+      newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
+      newTeslaModels.vehicle_render[model]["wheel"] = [wheelSelected, newPrice];
+      newTeslaModels.vehicle_render[model]["image_wheels"] = img;
+      const currentImage = newTeslaModels.vehicle_render[model]["vehicle_image"]; // ex: "model3_white_std_18"
+      const currentWheel = currentImage.split("_")[3]; // ex: "_19"
+      const imgNoUnderscore = img.split("_")[1]; // ex: "19"
+      const newImage = currentImage.replace(currentWheel,imgNoUnderscore); // ex: "model3_white_std_19"
+      newTeslaModels.vehicle_render[model]["vehicle_image"] = newImage;
+
+      return newTeslaModels;
+    });
+  };
+
   const changeVehicleColor = async (color, value) => {
     const model = `${value}`
       .split(" ")
@@ -116,8 +162,8 @@ const VehiclePanel = (props) => {
 
       newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
       newTeslaModels.vehicle_render[model]["paint"] = [color, newPrice];
-      newTeslaModels.vehicle_render[model]["img_paint"] = img;
-      const currentImage = newTeslaModels.vehicle_render[model]["vehicle_image"];
+      newTeslaModels.vehicle_render[model]["image_paint"] = img;
+      const currentImage = newTeslaModels.vehicle_render[model]["vehicle_image"]; // ex: "model3_white_std_18"
       const currentPaint = currentImage.split("_")[1];
       const imgNoUnderscore = img.split("_")[1]; 
       const newImage = currentImage.replace(currentPaint,imgNoUnderscore); 
@@ -143,6 +189,7 @@ const VehiclePanel = (props) => {
           vehicleContent={teslaModels}
           selectedVehicle={ele}
           changeVehicleColor={changeVehicleColor}
+          changeVehicleWheel={changeVehicleWheel}
         />
       ))}
     </div>

@@ -11,7 +11,8 @@ const VehicleConfig = ({
   selectedVehicle,
   vehicleContent,
   removeModel, 
-  changeVehicleColor
+  changeVehicleColor,
+  changeVehicleWheel
 }) => {
 
   const defaultWheel = "m3_aero_18";
@@ -28,7 +29,9 @@ const VehicleConfig = ({
     Lease: false,
     Loan: false,
   });
+
   const [activeColor, setActiveColor] = useState('');
+  const [activeWheel, setActiveWheel] = useState('');
 
 
   const name = `${selectedVehicle}`.split(' ').map((iv , i)=> {
@@ -44,6 +47,10 @@ const VehicleConfig = ({
   const paintObjectKeys = Object.keys(paintObject);
   const defaultColor = renderedTesla["paint"][0];
 
+  const vehicleBattery = renderedTesla["battery"][1]; // ex: "long_range"
+  const wheelObject = teslaDetails[vehicleBattery]["wheel"];
+  const wheelObjectKeys = Object.keys(wheelObject);
+
   const [selectedColor, setColor] = useState(defaultColor);
   const [selectedWheel, setWheel] = useState(defaultWheel);
   const [selectedInterior, setInterior] = useState(defaultInterior);
@@ -55,8 +62,10 @@ const VehicleConfig = ({
    
 
   useEffect(() => {
-    const c = vehicleContent.vehicle_render[selectedVehicleCpy]["paint"][0];
-    setActiveColor(c);
+    const color = vehicleContent.vehicle_render[selectedVehicleCpy]["paint"][0];
+    setActiveColor(color);
+    const wheel = vehicleContent.vehicle_render[selectedVehicleCpy]["wheel"][0];
+    setActiveWheel(wheel);
   }, [vehicleContent, selectedVehicleCpy])
 
   if (!renderedTesla) {
@@ -201,8 +210,8 @@ const VehicleConfig = ({
                   <div 
                     onClick={(event) =>
                     {
-                      setActiveColor(p);
-                      changeVehicleColor(p, selectedVehicle) 
+                      changeVehicleColor(p, selectedVehicle);
+                      setActiveColor(p)
                     }
                     }
                     className={`app_noSelect app_inlineFlex color_select_container ${
@@ -226,35 +235,33 @@ const VehicleConfig = ({
             </div>
 
             <div className="vehicleConfig_selectWheelAndInterior_container">
+
               <div className="vehicleConfig_selectWheel_container">
                 <div>Select Wheel: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectwheel_ul">
-                  <div
-                    onClick={() => setWheel("m3_aero_18")}
-                    className={`app_noSelect app_inlineFlex color_select_container ${
-                      selectedWheel == "m3_aero_18" && "selected"
-                    }`}
-                  >
-                    <img
-                      className="app_noSelect vehicleConfig_wheel_select vehicleConfig_18_inch_aero_wheels"
-                      src="../../../../images/wheels/model3_aero_18.png"
-                    />
-                  </div>
-                  <div
-                    onClick={() => setWheel("m3_sport_19")}
-                    className={`app_noSelect app_inlineFlex color_select_container ${
-                      selectedWheel == "m3_sport_19" && "selected"
-                    }`}
-                  >
-                    <img
-                      className="app_noSelect vehicleConfig_wheel_select vehicleConfig_19_inch_sport_wheels"
-                      src="../../../../images/wheels/model3_sport_19.png"
-                    />
-                  </div>
+                  {wheelObjectKeys.map((w) => (
+                    <div
+                      onClick={(event) =>
+                        { 
+                          changeVehicleWheel(vehicleBattery, w, selectedVehicle);
+                          setActiveWheel(w)
+                        }
+                      }
+                      className={`app_noSelect app_inlineFlex color_select_container ${
+                        (w === activeWheel) && "selected"
+                      }`}
+                    >
+                      <img
+                        className="app_noSelect vehicleConfig_wheel_select vehicleConfig_18_inch_aero_wheels" 
+                        src={`../../../../images/wheels/`+wheelObject[w]["image_source"]+`.png`}
+                      />
+                    </div>
+                  ))}
                 </ul>
+
                 <input
                   type="text"
-                  placeholder='18" Aero wheels - incl.'
+                  placeholder={renderedTesla.wheel[0] +` - `+renderedTesla.wheel[1]}
                   className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input"
                   readonly="readonly"
                 />
@@ -382,21 +389,6 @@ const VehicleConfig = ({
                   }
                 })()
               }
-            </div>
-
-            <div className="vehicleConfig_incentives">
-              <div>Incentives:</div>
-              <p className="vehicleConfig_incentives_text">
-                $2,000 or $4,500 rebate (based on income eligibility) for Model
-                3 and Model Y*
-                <br />
-                $5,000 grant (based on income eligibility)*
-                <br />
-                Review eligibility prior to applying
-                <br />
-                $1,500 California Clean Fuel Reward for all new electric
-                vehicles registered in California
-              </p>
             </div>
 
             <div className="veicleConfig_userEntry_container">
