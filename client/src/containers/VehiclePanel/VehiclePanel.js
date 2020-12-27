@@ -83,6 +83,44 @@ const VehiclePanel = (props) => {
     setTeslaModels(vehicleObj);
   };
 
+  const changeVehicleInterior = async (trim, interiorSelected, value) => {
+    const model = `${value}`
+      .split(" ")
+      .map((iv, i) => {
+        if (i === 0) {
+          return iv.toLowerCase();
+        }
+        return iv;
+      })
+      .join("");
+
+    setTeslaModels((vehicles) => {
+      let newTeslaModels = { ...vehicles };
+      let renderedVehicle = vehicles.vehicle_render[model];
+      let interiorOptionsObj = vehicles.vehicle_details[model][trim];
+ 
+      interiorOptionsObj = interiorOptionsObj["interior"][interiorSelected]; 
+      let newPrice = interiorOptionsObj.price;
+      let img = interiorOptionsObj.image; 
+      let currentInteriorPrice = renderedVehicle["interior"][2];
+
+      let currentVehiclePrice = renderedVehicle["cash_price"]; 
+
+      if (currentInteriorPrice !== "included") { 
+        currentVehiclePrice -= currentInteriorPrice;
+      }
+
+      if (newPrice !== "included") {
+        currentVehiclePrice += newPrice;
+      }
+
+      newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice; 
+      newTeslaModels.vehicle_render[model]["interior"] = [interiorSelected, img, newPrice];
+
+      return newTeslaModels;
+    });
+  };
+
   const changeVehicleWheel = async (trim, wheelSelected, value) => {
     const model = `${value}`
       .split(" ")
@@ -101,9 +139,10 @@ const VehiclePanel = (props) => {
 
       // let colorObj = detailsObj["paint_options"][color]; 
       let wheelObj = detailsObj["wheel"][wheelSelected]; // wheel should be "18 inch Aero Wheels" for example.
-      let img = wheelObj.image_wheel; // store this in renderObj 
-      let newPrice = wheelObj.price; // store this in renderObj
-      // let currentPaintPrice = renderedVehicle["paint"][1];
+      console.log("wheelObj: ",wheelObj);
+      let img = wheelObj.image_wheel; // store this in renderObj
+      console.log("img: ",img);
+      let newPrice = wheelObj.price; // store this in renderObj 
       let currentWheelPrice = renderedVehicle["wheel"][1];
 
       let currentVehiclePrice = renderedVehicle["cash_price"];
@@ -190,6 +229,7 @@ const VehiclePanel = (props) => {
           selectedVehicle={ele}
           changeVehicleColor={changeVehicleColor}
           changeVehicleWheel={changeVehicleWheel}
+          changeVehicleInterior={changeVehicleInterior}
         />
       ))}
     </div>

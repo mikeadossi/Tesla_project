@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./VehicleConfig.css";
 import VehicleCash from "../../VehicleData/Vehicle_pymt/VehicleCash/VehicleCash";
 import VehicleLeasing from "../../VehicleData/Vehicle_pymt/VehicleLeasing/VehicleLeasing";
@@ -12,11 +12,10 @@ const VehicleConfig = ({
   vehicleContent,
   removeModel, 
   changeVehicleColor,
-  changeVehicleWheel
+  changeVehicleWheel,
+  changeVehicleInterior
 }) => {
 
-  const defaultWheel = "m3_aero_18";
-  const defaultInterior = "black_interior";
   const defaultBattery = "standard";
   const defaultLayout = "5 seater";
 
@@ -32,6 +31,7 @@ const VehicleConfig = ({
 
   const [activeColor, setActiveColor] = useState('');
   const [activeWheel, setActiveWheel] = useState('');
+  const [activeInterior, setActiveInterior] = useState('');
 
 
   const name = `${selectedVehicle}`.split(' ').map((iv , i)=> {
@@ -44,18 +44,17 @@ const VehicleConfig = ({
   const renderedTesla = vehicleContent.vehicle_render[name]; 
   const teslaDetails = vehicleContent.vehicle_details[name];
   const paintObject = teslaDetails["paint_options"];
-  const paintObjectKeys = Object.keys(paintObject);
-  const defaultColor = renderedTesla["paint"][0];
+  const paintObjectKeys = Object.keys(paintObject); 
 
   const vehicleBattery = renderedTesla["battery"][1]; // ex: "long_range"
   const wheelObject = teslaDetails[vehicleBattery]["wheel"];
   const wheelObjectKeys = Object.keys(wheelObject);
 
-  const [selectedColor, setColor] = useState(defaultColor);
-  const [selectedWheel, setWheel] = useState(defaultWheel);
-  const [selectedInterior, setInterior] = useState(defaultInterior);
+  const interiorObject = teslaDetails[vehicleBattery]["interior"];
+  const interiorObjectKeys = Object.keys(interiorObject);
+
   const [selectedBattery, setBattery] = useState(defaultBattery);
-  const [selectedLayout, setLayout] = useState(defaultLayout); 
+  const [selectedLayout, setLayout] = useState(defaultLayout);
 
   let selectedVehicleCpy = selectedVehicle.replace(/ /g,'');
   selectedVehicleCpy = selectedVehicleCpy.replace('M', 'm');
@@ -66,6 +65,8 @@ const VehicleConfig = ({
     setActiveColor(color);
     const wheel = vehicleContent.vehicle_render[selectedVehicleCpy]["wheel"][0];
     setActiveWheel(wheel);
+    const interior = vehicleContent.vehicle_render[selectedVehicleCpy]["interior"][0];
+    setActiveInterior(interior);
   }, [vehicleContent, selectedVehicleCpy])
 
   if (!renderedTesla) {
@@ -75,7 +76,6 @@ const VehicleConfig = ({
   const renderedTeslaImgFolder = renderedTesla.image_vehicle;
   const renderedTeslaImg = renderedTesla.vehicle_image;
   const renderedTowHitch = renderedTesla.tow_hitch;
-  console.log("renderedTowHitch - ",renderedTowHitch)
 
 
   return (
@@ -279,32 +279,28 @@ const VehicleConfig = ({
               <div className="vehicleConfig_selectInteriorColor_container">
                 <div>Select Interior Color: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectInteriorColor_ul">
-                  <div
-                    onClick={() => setInterior("black_interior")}
-                    className={`app_noSelect app_inlineFlex color_select_container ${
-                      selectedInterior == "black_interior" && "selected"
-                    }`}
-                  >
-                    <img
-                      className="app_noSelect color_select vehicleConfig_black_interior"
-                      src="../../../../images/interior/black_interior.png"
-                    />
-                  </div>
-                  <div
-                    onClick={() => setInterior("white_interior")}
-                    className={`app_noSelect app_inlineFlex color_select_container ${
-                      selectedInterior == "white_interior" && "selected"
-                    }`}
-                  >
-                    <img
-                      className="app_noSelect color_select vehicleConfig_white_interior"
-                      src="../../../../images/interior/white_interior.png"
-                    />
-                  </div>
+                  {interiorObjectKeys.map((i) => (
+                    <div
+                      onClick={(event) =>
+                        { 
+                          changeVehicleInterior(vehicleBattery, i, selectedVehicle);
+                          setActiveInterior(i)
+                        }
+                      }
+                      className={`app_noSelect app_inlineFlex color_select_container ${
+                        (i === activeInterior) && "selected"
+                      }`}
+                    >
+                      <img
+                        className="app_noSelect color_select vehicleConfig_black_interior"
+                        src={`../../../../images/interior/`+interiorObject[i]["image"]+`.png`}
+                      />
+                    </div>
+                  ))}
                 </ul>
                 <input
                   type="text"
-                  placeholder="All black - included"
+                  placeholder={renderedTesla.interior[0] +` - `+renderedTesla.interior[2]}
                   className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectInteriorColor_input"
                   readonly="readonly"
                 />
