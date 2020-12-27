@@ -16,6 +16,7 @@ const VehicleConfig = ({
   changeVehicleInterior
 }) => {
 
+
   const defaultBattery = "standard";
   const defaultLayout = "5 seater";
 
@@ -32,6 +33,7 @@ const VehicleConfig = ({
   const [activeColor, setActiveColor] = useState('');
   const [activeWheel, setActiveWheel] = useState('');
   const [activeInterior, setActiveInterior] = useState('');
+  const [activePayment, setActivePayment] = useState('Cash');
 
 
   const name = `${selectedVehicle}`.split(' ').map((iv , i)=> {
@@ -138,20 +140,35 @@ const VehicleConfig = ({
             <div className="vehicleConfig_pricing_container">
               <div className="app_displayFlex app_Solar_selectPymt_div">
                 <div
-                  onClick={() => showComponent("Cash")}
-                  className="app_Solar_selectPymt_btn"
+                  onClick={() => {
+                    showComponent("Cash");
+                    setActivePayment("Cash")
+                }}
+                  className={`app_Solar_selectPymt_btn ${
+                    activePayment == "Cash" && "selected_payment"
+                  }`}
                 >
                   Cash
                 </div>
                 <div
-                  onClick={() => showComponent("Loan")}
-                  className="app_Solar_selectPymt_btn"
+                  onClick={() => {
+                    showComponent("Loan");
+                    setActivePayment("Loan")
+                }}
+                  className={`app_Solar_selectPymt_btn ${
+                    activePayment == "Loan" && "selected_payment"
+                  }`}
                 >
                   Loan
                 </div>
                 <div
-                  onClick={() => showComponent("Lease")}
-                  className="app_Solar_selectPymt_btn"
+                  onClick={() => {
+                    showComponent("Lease");
+                    setActivePayment("Lease")
+                }}
+                  className={`app_Solar_selectPymt_btn ${
+                    activePayment == "Lease" && "selected_payment"
+                  }`}
                 >
                   Lease
                 </div>
@@ -400,20 +417,35 @@ const VehicleConfig = ({
               <div className="veicleConfig_userEntry_subcontainer">
                 <div className="app_displayFlex app_Solar_selectPymt_div">
                   <div
-                    onClick={() => showComponent("Cash")}
-                    className="app_Solar_selectPymt_btn"
+                    onClick={() => {
+                      showComponent("Cash");
+                      setActivePayment("Cash")
+                  }}
+                    className={`app_Solar_selectPymt_btn ${
+                      activePayment == "Cash" && "selected_payment"
+                    }`}
                   >
                     Cash
                   </div>
                   <div
-                    onClick={() => showComponent("Loan")}
-                    className="app_Solar_selectPymt_btn"
+                    onClick={() => {
+                      showComponent("Loan");
+                      setActivePayment("Loan")
+                  }}
+                    className={`app_Solar_selectPymt_btn ${
+                      activePayment == "Loan" && "selected_payment"
+                    }`}
                   >
                     Loan
                   </div>
                   <div
-                    onClick={() => showComponent("Lease")}
-                    className="app_Solar_selectPymt_btn"
+                    onClick={() => {
+                      showComponent("Lease");
+                      setActivePayment("Lease")
+                  }}
+                    className={`app_Solar_selectPymt_btn ${
+                      activePayment == "Lease" && "selected_payment"
+                    }`}
                   >
                     Lease
                   </div>

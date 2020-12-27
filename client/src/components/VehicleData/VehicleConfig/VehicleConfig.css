@@ -136,6 +136,10 @@
     border: 2px solid rgb(22, 131, 252);
 }
 
+.selected_payment{
+    border-bottom: 3px solid rgb(22, 131, 252);
+}
+
 .color_select{
     height: 25px;
     width: 25px; 

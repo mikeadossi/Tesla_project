@@ -1,3 +1,7 @@
+.app_pageHeight{
+  min-height: 100vh;
+}
+
 .text{
   background-color:green;
   color:red;
@@ -43,6 +47,7 @@ div{
 
 .app_textdecorationNone{
   text-decoration: none;
+  color: inherit;
 }
 
 .app_source_footer{
@@ -51,26 +56,21 @@ div{
 
 .app_seeMore_btn{ 
   cursor: pointer;
-  border: 2px solid black;
+  border: 1px solid #ddd;
   width: 62px;
   padding: 10px;
   border-radius: 6px;
   text-align: center;
 }
 
-.app_seeMore_btn:hover{
+.app_seeMore_btn_selected{
   border: 2px solid rgb(22, 131, 252); 
-  background:
-  linear-gradient(
-    rgba(0, 0, 0, 0.05), 
-    rgba(0, 0, 0, 0.05)
-  )
 }
 
 .app_modalData_content{
   overflow: auto;
   width: 100%;
-  height: 360px; 
+  height: 390px; 
 }
 
 .app_Menu_btn{
@@ -79,11 +79,12 @@ div{
   border-radius: 6px;
   border: 2px solid black; 
   margin: 5px;
+  cursor: pointer;
 }
 
-.app_Menu_btn:hover{
-  cursor: pointer;
-  opacity: 0.6;
+.app_Menu_btn:hover{ 
+  color: white;
+  background-color: black; 
 }
 
 .app_Menu_btn:active{
@@ -134,15 +135,16 @@ div{
 
 .app_submit_btn{
   cursor: pointer;
-  background-color: steelblue;
+  background-color: #3e6ae1;
   color: white;
-  padding: 7px;
   border: none;
-  border-radius: 2px;
+  padding: 9px;
+  color: white;;
+  border-radius: 25px;
 }
 
 .app_submit_btn:hover{
-  background-color: rgb(60,120,200);
+  background-color: rgb(54, 90, 175);
 }
 
 .app_submit_btn:active{
@@ -172,7 +174,7 @@ div{
 .app_Config_specs_container{
   border: 1px solid gainsboro;
   display: inline-block;
-  margin-top: 5px;
+  margin-top: 5px; 
 }
 
 .app_marginTop{
@@ -210,9 +212,13 @@ div{
 
 .app_Solar_select{
   padding: 4px 20px 4px 20px;
-  border: 2px solid black;
+  border: 1px solid gainsboro;
   border-radius: 6px;
   cursor: pointer;
+}
+
+.app_Solar_select_selected{
+  border: 2px solid rgb(22, 131, 252);;
 }
 
 .app_Solar_selectPymt_btn{
@@ -225,17 +231,13 @@ div{
   cursor: pointer;
 }
 
-.app_Solar_selectPymt_btn:hover{
-  border-bottom: 3px solid rgb(22, 131, 252);
-}
-
 .app_Solar_selectPymt_div{
   margin-bottom: 10px;
 }
 
 .app_Solar_Img_container{
   border-bottom: 1px solid gainsboro;
-  padding-bottom: 35px;
+  padding-bottom: 10px;
 }
 
 .app_Solar_additions_select_div{
@@ -366,3 +368,55 @@ div{
   display: inline-block;
   border-right: 1px solid gainsboro;
 } 
+
+.app_config_border{
+  display: inline-block;
+  border-right: 1px solid black;
+} 
+
+.app_locationDetails_border{
+  display: inline-block;
+  border-right: 2px solid rgb(22,158,170);
+} 
+
+.app_search_icon{
+  height: 15px;
+  position: absolute;
+  cursor: pointer;
+  padding: 3px;
+}
+
+.app_search_icon:hover{
+  background: gainsboro !important;
+  border-radius: 5px;
+}
+
+.app_options_btn{
+  margin-right: 30px; 
+  cursor: pointer;
+  color: grey;
+}
+
+.app_options_btn:hover{
+  color: black;
+}
+
+.app_productName{
+  width: 84%;
+}
+
+.app_sticky_nav{
+  width: 100%;
+  position: fixed;
+  top: 0;
+}
+
+.app_sticky_panel{
+  position: fixed;
+  width: 28%;
+  top: 59px;
+}
+
+.app_font11{
+  font-size: 11px;
+}
