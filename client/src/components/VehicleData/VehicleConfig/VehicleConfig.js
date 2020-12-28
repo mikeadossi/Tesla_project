@@ -250,9 +250,14 @@ const VehicleConfig = ({
                 />
               </div>
             </div>
+          </div>
+        </div>
 
-            <div className="vehicleConfig_selectWheelAndInterior_container">
+        <div className="app_config_border"></div>
 
+        <div className="app_inlineFlex app_columns_width vehicleConfig_column2">
+          <div className="vehicleConfig_columns_blockContent">
+          <div className="vehicleConfig_selectWheelAndInterior_container">
               <div className="vehicleConfig_selectWheel_container">
                 <div>Select Wheel: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectwheel_ul">
@@ -275,22 +280,14 @@ const VehicleConfig = ({
                     </div>
                   ))}
                 </ul>
-                <div className="yolo">
-                  <input
-                    type="text"
-                    placeholder={renderedTesla.wheel[0]}
-                    className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input"
-                    readonly="readonly"
-                  />
-                </div>
                 <div>
                   <input
                     type="text"
-                    placeholder={renderedTesla.wheel[1]}
+                    placeholder={renderedTesla.wheel[0].replace(' inch','"')+` - `+renderedTesla.wheel[1]}
                     className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input"
                     readonly="readonly"
                   />
-                </div>
+                </div> 
               </div>
 
               <div className="vehicleConfig_selectInteriorColor_container">
@@ -323,13 +320,6 @@ const VehicleConfig = ({
                 />
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className="app_config_border"></div>
-
-        <div className="app_inlineFlex app_columns_width vehicleConfig_column2">
-          <div className="vehicleConfig_columns_blockContent">
             <div className="vehicleConfig_selectLayout_and_autopilot_container">
               <div className="vehicleConfig_selectLayout_container">
                 <div className="app_textalign">Select Layout: </div>
