@@ -1,10 +1,10 @@
 .footer_container{
-    background-color:grey;
+    background-color:rgb(57,60,65);
     padding: 20px;
+    color: white;
 }
 
-.footer_text{
-    color: white;
+.footer_text{ 
     padding: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -12,4 +12,13 @@
 
 .footer_container{
     text-align: center;
+}
+
+.footer_email{
+    color: orange;
+    display: none;
+}
+
+.footer_contact{
+    cursor: pointer;
 }

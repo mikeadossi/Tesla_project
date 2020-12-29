@@ -7,13 +7,14 @@ class Footer extends Component {
     return (
       <div>
         <div className="footer_container">
-          <span className="footer_contact">Contact: xxxx@email.com</span>
+          <span className="footer_text footer_email">xxxx@email.com - </span>
+          <span className="footer_text footer_contact">Contact</span>
           <span>
             <Link to="/" className="footer_text app_textdecorationNone">About</Link>
             <Link to="/vehicles" className="footer_text app_textdecorationNone">Vehicle</Link>
             <Link to="/solar" className="footer_text app_textdecorationNone">Solar</Link>
           </span> 
-          <span className="footer_project">© 2020 Sidekick</span>
+          <span className="footer_text footer_project">© 2020 Sidekick</span>
         </div> 
       </div>
     );
