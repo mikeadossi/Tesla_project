@@ -9,13 +9,15 @@
 .productMenu_btn{
     text-align: center;
     display: inline-block;
-    padding: 14px 60px 14px 60px;
-    background-color:rgb(240,240,240);
-    border-bottom: 3px solid rgb(240,240,240);
+    padding: 10px 60px 10px 60px; 
+    background-color: white;
+    border-bottom: 3px solid white; 
     cursor: pointer;
     color: black;
     margin-top: 0px;
     margin-bottom: 0px;
+    font-size: 13px;
+    font-weight: none;
 }
 
 .vehicle_menu_btn:hover{
@@ -47,8 +49,11 @@
 .productMenu_hamburger_container{ 
     width: 4.8%;
     margin: auto;
+    display: none;
 }
 
 .productMenu_btn_container{ 
     width: 99%;
+    background-color: white;
 }
+
