@@ -19,8 +19,6 @@ const VehicleConfig = ({
 }) => {
 
 
-  const defaultLayout = "5 seater";
-
   const showComponent = (value) => {
     setVisibility({ [value]: true });
   };
@@ -35,7 +33,8 @@ const VehicleConfig = ({
   const [activeWheel, setActiveWheel] = useState('');
   const [activeInterior, setActiveInterior] = useState('');
   const [activeBattery, setActiveBattery] = useState('');
-  const [activePayment, setActivePayment] = useState('Cash');
+  const [activeLayout, setActiveLayout] = useState('');
+  const [activePayment, setActivePayment] = useState('Cash'); 
 
 
   const name = `${selectedVehicle}`.split(' ').map((iv , i)=> {
@@ -74,7 +73,8 @@ const VehicleConfig = ({
   const interiorObject = teslaDetails[vehicleBattery]["interior"];
   const interiorObjectKeys = Object.keys(interiorObject);
 
-  const [selectedLayout, setLayout] = useState(defaultLayout);
+  const seatingObject = teslaDetails[vehicleBattery]["layout"];
+  const seatingObjectKeys = Object.keys(seatingObject);
 
   let selectedVehicleCpy = selectedVehicle.replace(/ /g,'');
   selectedVehicleCpy = selectedVehicleCpy.replace('M', 'm');
@@ -89,6 +89,8 @@ const VehicleConfig = ({
     setActiveInterior(interior);
     const battery = vehicleContent.vehicle_render[selectedVehicleCpy]["battery"][1]; 
     setActiveBattery(battery);
+    const layout = vehicleContent.vehicle_render[selectedVehicleCpy]["layout"][0]; 
+    setActiveLayout(layout);
   }, [vehicleContent, selectedVehicleCpy])
 
   if (!renderedTesla) {
@@ -356,32 +358,32 @@ const VehicleConfig = ({
             </div>
             <div className="vehicleConfig_selectLayout_and_autopilot_container">
               <div className="vehicleConfig_selectLayout_container">
-                <div className="app_textalign">Select Layout: </div>
+                {
+                  (() => {
+                    if(seatingObjectKeys.length > 1){
+                      return (<div className="app_textalign">Select Layout: </div>);
+                    }
+                  })()
+                }
+                
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectlayout_ul">
-                  <li
-                    onClick={() => setLayout("5 seater")}
-                    className={`app_noSelect vehicleConfig_select layout_select vehicleConfig_5_seater ${
-                      selectedLayout == "5 seater" && "selected_btn"
-                    }`}
-                  >
-                    5 Seater - Included
-                  </li>
-                  <li
-                    onClick={() => setLayout("6 seater")}
-                    className={`app_noSelect vehicleConfig_select layout_select vehicleConfig_6_seater ${
-                      selectedLayout == "6 seater" && "selected_btn"
-                    }`}
-                  >
-                    6 Seater - $1,500
-                  </li>
-                  <li
-                    onClick={() => setLayout("7 seater")}
-                    className={`app_noSelect vehicleConfig_select layout_select vehicleConfig_6_seater ${
-                      selectedLayout == "7 seater" && "selected_btn"
-                    }`}
-                  >
-                    7 Seater - $3,000
-                  </li>
+                   {seatingObjectKeys.map((s) => {
+                     if(seatingObjectKeys.length > 1){
+                      return <li 
+                        onClick={(event) =>
+                          { 
+                            changeVehicleLayout(vehicleBattery,s,selectedVehicle);
+                            setActiveLayout(s)
+                          }
+                        }
+                        className={`app_noSelect vehicleConfig_select layout_select vehicleConfig_5_seater ${
+                          activeLayout == s && "selected_btn"
+                        }`}
+                      >
+                        {seatingObject[s]["altName"]} - Included
+                      </li>
+                     }
+                    })}
                 </ul>
               </div>
 

@@ -83,7 +83,48 @@ const VehiclePanel = (props) => {
     setTeslaModels(vehicleObj);
   };
 
-  const changeVehicleLayout = async (trim, layoutSelected, value) => {};
+  const changeVehicleLayout = async (trim, layoutSelected, value) => { // ex: trim="long_range" layoutSelected="Five Seat Interior" value="modelX"
+    const model = `${value}`
+      .split(" ")
+      .map((iv, i) => {
+        if (i === 0) {
+          return iv.toLowerCase();
+        }
+        return iv;
+      })
+      .join("");
+
+    setTeslaModels((vehicles) => {
+      let newTeslaModels = { ...vehicles };
+      let renderedVehicle = vehicles.vehicle_render[model];
+      let layoutOptionsObj = vehicles.vehicle_details[model][trim]["layout"][layoutSelected]; // ex: { price: "included" }
+
+      let newPrice = layoutOptionsObj["price"]; 
+      let currentLayoutPrice = renderedVehicle["layout"][2];
+
+      let currentVehiclePrice = renderedVehicle["cash_price"];
+
+      if (currentLayoutPrice !== "included") {
+        currentVehiclePrice -= currentLayoutPrice;
+      }
+
+      if (newPrice !== "included") {
+        currentVehiclePrice += newPrice;
+      }
+
+      let altName = layoutOptionsObj["altName"];
+
+      newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
+      newTeslaModels.vehicle_render[model]["layout"] = [
+        layoutSelected,
+        altName, 
+        newPrice
+      ];
+
+      return newTeslaModels;
+    })
+  };
+   
 
   const changeVehicleBattery = async (batterySelected, value) => {
     const model = `${value}`
@@ -205,9 +246,8 @@ const VehiclePanel = (props) => {
     setTeslaModels((vehicles) => {
       let newTeslaModels = { ...vehicles };
       let renderedVehicle = vehicles.vehicle_render[model];
-      let interiorOptionsObj = vehicles.vehicle_details[model][trim];
+      let interiorOptionsObj = vehicles.vehicle_details[model][trim]["interior"][interiorSelected];
 
-      interiorOptionsObj = interiorOptionsObj["interior"][interiorSelected];
       let newPrice = interiorOptionsObj.price;
       let img = interiorOptionsObj.image;
       let currentInteriorPrice = renderedVehicle["interior"][2];
