@@ -125,9 +125,10 @@ module.exports = {
           range: null,
           price: "included",
           image_wheel: "_18",
+          image_source: "model3_aero_18",
           availableOnBattery: ["off_menu","standard_battery","long_range"]
         },
-        "19 inch Sport Wheels": { range: null, price: 1500, image_wheel: "_19" },
+        "19 inch Sport Wheels": { range: null, price: 1500, image_wheel: "_19", image_source: "model3_sport_19", availableOnBattery: ["off_menu","standard_battery","long_range"] },
       },
       interior: {
         "All Black": { price: "included", image: "black_interior" },
@@ -161,7 +162,7 @@ module.exports = {
         Warranty:
           "Basic Vehicle - 4 years or 50,000 mi, whichever comes first <br/> Battery & Drive Unit - 8 years or 120,000 mi, whichever comes first",
       },
-      miles_range: 263,
+      miles_range: 353,
       topspeed_mph: 140,
       zero_to_sixty: 5.3,
       wheel: {
@@ -169,8 +170,10 @@ module.exports = {
           range: null,
           price: "included",
           image_wheel: "_18",
+          image_source: "model3_aero_18",
+          availableOnBattery: ["off_menu","standard_battery","long_range"]
         },
-        "19 inch Sport Wheels": { range: null, price: 1500, image_wheel: "_19" },
+        "19 inch Sport Wheels": { range: null, price: 1500, image_wheel: "_19", image_source: "model3_sport_19", availableOnBattery: ["off_menu","standard_battery","long_range"] },
       },
       interior: {
         "All Black": { price: "included", image: "black_interior" },
@@ -186,7 +189,7 @@ module.exports = {
       image_vehicle: "model3",
       image_trim: "_perf",
       specs: {
-        Battery: "Long Range",
+        Battery: "Performance",
         Acceleration: "3.1s 0-60 mph",
         Range: "315 miles",
         Drive: "Dual Motor All-Wheel Drive",
@@ -204,10 +207,12 @@ module.exports = {
       topspeed_mph: 162,
       zero_to_sixty: 3.1,
       wheel: {
-        "20 inch Überturbine Wheels": {
+        "20 inch Überturbine Wheels": { 
           range: null,
           price: "included",
           image_wheel: "_20",
+          image_source: "model3_uberturbine_20",
+          availableOnBattery: ["performance"]
         },
       },
       interior: {
@@ -329,7 +334,7 @@ module.exports = {
       image_vehicle: "modelS",
       image_trim: "_perf",
       specs: {
-        Battery: "Long Range",
+        Battery: "Performance",
         Acceleration: "2.3 seconds 0-60 mph",
         Range: "387 miles (EPA est.)",
         Drive: "All-Wheel Drive",
@@ -374,7 +379,9 @@ module.exports = {
       purchase_price: 139990,
       image_vehicle: "modelS",
       image_trim: "_perf",
-      specs: null,
+      specs: {
+        Battery: "Plaid"
+      },
       miles_range: "520+",
       topspeed_mph: 200,
       zero_to_sixty: "<2.0",
@@ -414,7 +421,7 @@ module.exports = {
       image_wheels: "_30",
       paint: ["Pearl White","included"],
       wheel: ["20 inch Silver Wheels","included"],
-      interior: ["All Black","ui_bundle_black_cf","included"],
+      interior: ["All Black","ui_bundle_black","included"],
       layout: ["Five Seat Interior","included"],
       autopilot: ["autopilot","included"],
       cashdown_pymt: "",
@@ -496,8 +503,8 @@ module.exports = {
         },
       },
       interior: {
-        "All Black": { price: "included", image: "ui_bundle_black_cf" },
-        "Black and White": { price: 1500, image: "ui_bundle_white_cf" },
+        "All Black": { price: "included", image: "ui_bundle_black" },
+        "Black and White": { price: 1500, image: "ui_bundle_white" },
         Cream: { price: 1500, image: "ui_bundle_cream" },
       },
       layout: {
@@ -514,7 +521,7 @@ module.exports = {
       image_vehicle: "modelX",
       image_trim: "_perf",
       specs: {
-        Battery: "Long Range",
+        Battery: "Peformance",
         Acceleration: "2.6s 0-60 mph",
         Range: "341 miles (EPA est.)",
         Drive: "All-Wheel Drive",
@@ -572,7 +579,7 @@ module.exports = {
       image_trim: "_lr",
       image_wheels: "_19",
       paint: ["Pearl White","included"],
-      wheel: ["19 inch or 20 inch","included"],
+      wheel: ["19 inch Gemini Wheels","included"],
       interior: ["All Black","black_interior","included"],
       layout: ["Five Seat Interior","included"],
       autopilot: ["autopilot","included"],
@@ -668,7 +675,7 @@ module.exports = {
       image_vehicle: "modelY",
       image_trim: "_perf",
       specs: {
-        Battery: "Long Range",
+        Battery: "Performance",
         Acceleration: "3.5s 0-60 mph",
         Range: "303 miles (EPA est.)",
         Drive: "Dual Motor All-Wheel Drive",
