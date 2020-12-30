@@ -83,6 +83,114 @@ const VehiclePanel = (props) => {
     setTeslaModels(vehicleObj);
   };
 
+  const changeVehicleLayout = async (trim, layoutSelected, value) => {};
+
+  const changeVehicleBattery = async (batterySelected, value) => {
+    const model = `${value}`
+      .split(" ")
+      .map((iv, i) => {
+        if (i === 0) {
+          return iv.toLowerCase();
+        }
+        return iv;
+      })
+      .join("");
+
+    setTeslaModels((vehicles) => {
+      let newTeslaModels = { ...vehicles };
+      // we want to get and change the battery, and all other related render options
+      let renderedVehicle = vehicles.vehicle_render[model];
+      let batteryOptionsObj = vehicles.vehicle_details[model][batterySelected];
+      const wheelObject = batteryOptionsObj["wheel"];
+      const interiorObject = batteryOptionsObj["interior"];
+      let img = batteryOptionsObj["image_trim"]; // ex: "_std"
+
+      let newPrice = batteryOptionsObj.purchase_price;
+
+      let currentBatteryPrice = renderedVehicle["battery"][2];
+      let batteryName = batteryOptionsObj["specs"]["Battery"];
+
+      let currentVehiclePrice = renderedVehicle["cash_price"];
+      currentVehiclePrice -= currentBatteryPrice;
+      currentVehiclePrice += newPrice;
+
+      const currentWheelSelected = renderedVehicle["wheel"][0]; // ex: "18 inch Aero Wheels"
+      const currentWheelPrice = renderedVehicle["wheel"][1];
+      const wheelKeysArr = Object.keys(wheelObject);
+      const newBatteryStandardWheelSize =
+        wheelObject[wheelKeysArr[0]]["image_wheel"]; // ex: "_18"
+      const newBatteryStandardWheelName = wheelKeysArr[0]; // ex: "18 inch Aero Wheels"
+      const newBatteryStandardWheelPrice =
+        wheelObject[wheelKeysArr[0]]["price"]; // ex: "included"
+
+      // If user selected wheel needs to be replaced it is handled just below
+      if (!wheelKeysArr.includes(currentWheelSelected)) {
+        const newWheels = [
+          newBatteryStandardWheelName,
+          newBatteryStandardWheelPrice,
+        ]; // ex: ["18 inch Aero Wheels","included"]
+        newTeslaModels.vehicle_render[model]["wheel"] = newWheels;
+        newTeslaModels.vehicle_render[model][
+          "image_wheels"
+        ] = newBatteryStandardWheelSize;
+      }
+      // If both prices are the same (such as both return "included") make no price changes, otherwise make changes.
+
+
+      if (newBatteryStandardWheelPrice === "included" && currentWheelPrice !== "included") {
+        currentVehiclePrice -= currentWheelPrice;
+      } else if (
+        currentWheelPrice === "included" &&
+        newBatteryStandardWheelPrice !== "included"
+      ) {
+        currentVehiclePrice += newBatteryStandardWheelPrice;
+      } else if (currentWheelPrice !== newBatteryStandardWheelPrice){
+        currentVehiclePrice -= currentWheelPrice;
+        currentVehiclePrice += newBatteryStandardWheelPrice;
+      }
+
+      // set new vehicle_image in state
+      let vehicleImage = renderedVehicle["vehicle_image"]; // ex: "model3_white_std_18"
+      let wheelName = renderedVehicle["wheel"][0];
+      const newWheelSize = batteryOptionsObj["wheel"][wheelName]["image_wheel"];
+      vehicleImage = vehicleImage.split("_");
+      vehicleImage[2] = img.split("_")[1]; // ex: "perf"
+      if (model === "modelS" && vehicleImage[2] == "plaid") {
+        vehicleImage[2] = "lr";
+      }
+      vehicleImage[3] = newWheelSize.split("_")[1];
+      vehicleImage = vehicleImage.join("_"); // ex: "model3_white_perf_20"
+
+      // Handle interior state change
+      const currentInteriorName = renderedVehicle["interior"][0]; // ex: "All Black"
+      const currentInteriorImage = renderedVehicle["interior"][1]; // ex: "ui_bundle_black"
+      const newBatteryImage = interiorObject[currentInteriorName]["image"]; // ex: "ui_bundle_black_cf"
+
+      if (newBatteryImage !== currentInteriorImage) {
+        newTeslaModels.vehicle_render[model]["interior"][1] = newBatteryImage;
+      }
+
+      newTeslaModels.vehicle_render[model]["image_wheels"] =
+        wheelObject["image_wheel"]; // ex: "_18"
+      newTeslaModels.vehicle_render[model]["zero_to_sixty_seconds"] =
+        batteryOptionsObj["zero_to_sixty"];
+      newTeslaModels.vehicle_render[model]["mph"] =
+        batteryOptionsObj["topspeed_mph"];
+      newTeslaModels.vehicle_render[model]["miles_range"] =
+        batteryOptionsObj["miles_range"];
+      newTeslaModels.vehicle_render[model]["vehicle_image"] = vehicleImage;
+      newTeslaModels.vehicle_render[model]["image_trim"] = img;
+      newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
+      newTeslaModels.vehicle_render[model]["battery"] = [
+        batteryName,
+        batterySelected,
+        newPrice,
+      ];
+
+      return newTeslaModels;
+    });
+  };
+
   const changeVehicleInterior = async (trim, interiorSelected, value) => {
     const model = `${value}`
       .split(" ")
@@ -98,15 +206,15 @@ const VehiclePanel = (props) => {
       let newTeslaModels = { ...vehicles };
       let renderedVehicle = vehicles.vehicle_render[model];
       let interiorOptionsObj = vehicles.vehicle_details[model][trim];
- 
-      interiorOptionsObj = interiorOptionsObj["interior"][interiorSelected]; 
+
+      interiorOptionsObj = interiorOptionsObj["interior"][interiorSelected];
       let newPrice = interiorOptionsObj.price;
-      let img = interiorOptionsObj.image; 
+      let img = interiorOptionsObj.image;
       let currentInteriorPrice = renderedVehicle["interior"][2];
 
-      let currentVehiclePrice = renderedVehicle["cash_price"]; 
+      let currentVehiclePrice = renderedVehicle["cash_price"];
 
-      if (currentInteriorPrice !== "included") { 
+      if (currentInteriorPrice !== "included") {
         currentVehiclePrice -= currentInteriorPrice;
       }
 
@@ -114,8 +222,12 @@ const VehiclePanel = (props) => {
         currentVehiclePrice += newPrice;
       }
 
-      newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice; 
-      newTeslaModels.vehicle_render[model]["interior"] = [interiorSelected, img, newPrice];
+      newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
+      newTeslaModels.vehicle_render[model]["interior"] = [
+        interiorSelected,
+        img,
+        newPrice,
+      ];
 
       return newTeslaModels;
     });
@@ -137,12 +249,10 @@ const VehiclePanel = (props) => {
       let renderedVehicle = vehicles.vehicle_render[model];
       let detailsObj = vehicles.vehicle_details[model][trim];
 
-      // let colorObj = detailsObj["paint_options"][color]; 
-      let wheelObj = detailsObj["wheel"][wheelSelected]; // wheel should be "18 inch Aero Wheels" for example.
-      console.log("wheelObj: ",wheelObj);
-      let img = wheelObj.image_wheel; // store this in renderObj
-      console.log("img: ",img);
-      let newPrice = wheelObj.price; // store this in renderObj 
+      // let colorObj = detailsObj["paint_options"][color];
+      let wheelObj = detailsObj["wheel"][wheelSelected]; // wheel should be "18 inch Aero Wheels" for example. 
+      let img = wheelObj.image_wheel; // store this in renderObj 
+      let newPrice = wheelObj.price; // store this in renderObj
       let currentWheelPrice = renderedVehicle["wheel"][1];
 
       let currentVehiclePrice = renderedVehicle["cash_price"];
@@ -158,10 +268,11 @@ const VehiclePanel = (props) => {
       newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
       newTeslaModels.vehicle_render[model]["wheel"] = [wheelSelected, newPrice];
       newTeslaModels.vehicle_render[model]["image_wheels"] = img;
-      const currentImage = newTeslaModels.vehicle_render[model]["vehicle_image"]; // ex: "model3_white_std_18"
+      const currentImage =
+        newTeslaModels.vehicle_render[model]["vehicle_image"]; // ex: "model3_white_std_18"
       const currentWheel = currentImage.split("_")[3]; // ex: "_19"
       const imgNoUnderscore = img.split("_")[1]; // ex: "19"
-      const newImage = currentImage.replace(currentWheel,imgNoUnderscore); // ex: "model3_white_std_19"
+      const newImage = currentImage.replace(currentWheel, imgNoUnderscore); // ex: "model3_white_std_19"
       newTeslaModels.vehicle_render[model]["vehicle_image"] = newImage;
 
       return newTeslaModels;
@@ -202,11 +313,12 @@ const VehiclePanel = (props) => {
       newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
       newTeslaModels.vehicle_render[model]["paint"] = [color, newPrice];
       newTeslaModels.vehicle_render[model]["image_paint"] = img;
-      const currentImage = newTeslaModels.vehicle_render[model]["vehicle_image"]; // ex: "model3_white_std_18"
+      const currentImage =
+        newTeslaModels.vehicle_render[model]["vehicle_image"]; // ex: "model3_white_std_18"
       const currentPaint = currentImage.split("_")[1];
-      const imgNoUnderscore = img.split("_")[1]; 
-      const newImage = currentImage.replace(currentPaint,imgNoUnderscore); 
-      newTeslaModels.vehicle_render[model]["vehicle_image"] = newImage; 
+      const imgNoUnderscore = img.split("_")[1];
+      const newImage = currentImage.replace(currentPaint, imgNoUnderscore);
+      newTeslaModels.vehicle_render[model]["vehicle_image"] = newImage;
 
       return newTeslaModels;
     });
@@ -230,6 +342,8 @@ const VehiclePanel = (props) => {
           changeVehicleColor={changeVehicleColor}
           changeVehicleWheel={changeVehicleWheel}
           changeVehicleInterior={changeVehicleInterior}
+          changeVehicleLayout={changeVehicleLayout}
+          changeVehicleBattery={changeVehicleBattery}
         />
       ))}
     </div>

@@ -13,11 +13,12 @@ const VehicleConfig = ({
   removeModel, 
   changeVehicleColor,
   changeVehicleWheel,
-  changeVehicleInterior
+  changeVehicleInterior,
+  changeVehicleLayout,
+  changeVehicleBattery
 }) => {
 
 
-  const defaultBattery = "standard";
   const defaultLayout = "5 seater";
 
   const showComponent = (value) => {
@@ -33,6 +34,7 @@ const VehicleConfig = ({
   const [activeColor, setActiveColor] = useState('');
   const [activeWheel, setActiveWheel] = useState('');
   const [activeInterior, setActiveInterior] = useState('');
+  const [activeBattery, setActiveBattery] = useState('');
   const [activePayment, setActivePayment] = useState('Cash');
 
 
@@ -48,6 +50,23 @@ const VehicleConfig = ({
   const paintObject = teslaDetails["paint_options"];
   const paintObjectKeys = Object.keys(paintObject); 
 
+
+  const batteryObject = {
+    standard_battery: teslaDetails.standard_battery, 
+    off_menu: teslaDetails.off_menu, 
+    long_range: teslaDetails.long_range, 
+    performance: teslaDetails.performance, 
+    plaid: teslaDetails.plaid
+  };
+
+  const batteryObjectKeys = [
+    "standard_battery", 
+    "off_menu",
+    "long_range",
+    "performance",
+    "plaid",
+  ];
+
   const vehicleBattery = renderedTesla["battery"][1]; // ex: "long_range"
   const wheelObject = teslaDetails[vehicleBattery]["wheel"];
   const wheelObjectKeys = Object.keys(wheelObject);
@@ -55,7 +74,6 @@ const VehicleConfig = ({
   const interiorObject = teslaDetails[vehicleBattery]["interior"];
   const interiorObjectKeys = Object.keys(interiorObject);
 
-  const [selectedBattery, setBattery] = useState(defaultBattery);
   const [selectedLayout, setLayout] = useState(defaultLayout);
 
   let selectedVehicleCpy = selectedVehicle.replace(/ /g,'');
@@ -67,8 +85,10 @@ const VehicleConfig = ({
     setActiveColor(color);
     const wheel = vehicleContent.vehicle_render[selectedVehicleCpy]["wheel"][0];
     setActiveWheel(wheel);
-    const interior = vehicleContent.vehicle_render[selectedVehicleCpy]["interior"][0];
+    const interior = vehicleContent.vehicle_render[selectedVehicleCpy]["interior"][0]; 
     setActiveInterior(interior);
+    const battery = vehicleContent.vehicle_render[selectedVehicleCpy]["battery"][1]; 
+    setActiveBattery(battery);
   }, [vehicleContent, selectedVehicleCpy])
 
   if (!renderedTesla) {
@@ -185,38 +205,52 @@ const VehicleConfig = ({
                 <div>Select Battery: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectCar_ul">
                   <li className="vehicleConfig_select_srAndoff">
-                    <span
-                      onClick={() => setBattery("standard")}
-                      className={`app_noSelect vehicleConfig_select vehicleConfig_select_sr ${
-                        selectedBattery == "standard" && "selected_btn"
-                      }`}
-                    >
-                      Standard
-                    </span>
-                    <span
-                      onClick={() => setBattery("offmenu")}
-                      className={`app_noSelect vehicleConfig_select vehicleConfig_select_off ${
-                        selectedBattery == "offmenu" && "selected_btn_alt"
-                      }`}
-                    >
-                      Off
-                    </span>
-                  </li>
-                  <li
-                    onClick={() => setBattery("long_range")}
-                    className={`app_noSelect vehicleConfig_select ${
-                      selectedBattery == "long_range" && "selected_btn"
-                    }`}
-                  >
-                    Long Range
-                  </li>
-                  <li
-                    onClick={() => setBattery("performance")}
-                    className={`app_noSelect vehicleConfig_select ${
-                      selectedBattery == "performance" && "selected_btn"
-                    }`}
-                  >
-                    Performance
+                    {batteryObjectKeys.map((batt) => {
+                      if(batt === "off_menu" && batteryObject[batt] !== null){
+                        return <span
+                          onClick={(event) =>
+                            {
+                              changeVehicleBattery(batt, selectedVehicle);
+                              setActiveBattery(batt)
+                            }}
+                          className={`app_noSelect vehicleConfig_select vehicleConfig_select_off ${ 
+                            activeBattery == batt && "selected_btn_alt"
+                          }`}
+                        >
+                          Off
+                        </span>
+                      } else if (batt === "standard_battery" && batteryObject[batt] !== null && batteryObjectKeys.includes("off_menu")){
+                        return <span 
+                          onClick={(event) =>
+                            {
+                              changeVehicleBattery(batt, selectedVehicle);
+                              setActiveBattery(batt)
+                            }}
+                          className={`app_noSelect vehicleConfig_select vehicleConfig_select_sr ${
+                            activeBattery == batt && "selected_btn"
+                          }`}
+                        >
+                          Standard
+                        </span>
+                      } else if (batteryObject[batt] == null) {
+
+                        return;
+
+                      } else {
+                        return <li
+                          onClick={(event) =>
+                            {
+                              changeVehicleBattery(batt, selectedVehicle);
+                              setActiveBattery(batt)
+                            }}
+                          className={`app_noSelect vehicleConfig_select vehicleConfig_select ${
+                            activeBattery == batt && "selected_btn"
+                          }`}
+                        >
+                          {batteryObject[batt]["specs"]["Battery"]}
+                        </li>
+                      }
+})}
                   </li>
                 </ul>
               </div>
