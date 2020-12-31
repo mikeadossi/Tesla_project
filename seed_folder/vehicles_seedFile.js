@@ -591,7 +591,7 @@ module.exports = {
       finance_term: "36 months",
       lease_term: "24 months",
       lease_yearly_miles: "10000 miles",
-      tow_hitch: 1000,
+      tow_hitch: "optional",
       order_payment: 100,
       apr: 2.49,
       lease_apr: "",
