@@ -10,15 +10,14 @@ import Vehicle_userEntry_cash from "../../VehicleData/Vehicle_userEntry/Vehicle_
 const VehicleConfig = ({
   selectedVehicle,
   vehicleContent,
-  removeModel, 
+  removeModel,
   changeVehicleColor,
   changeVehicleWheel,
   changeVehicleInterior,
   changeVehicleLayout,
-  changeVehicleBattery
+  changeVehicleBattery,
+  addTowHitch,
 }) => {
-
-
   const showComponent = (value) => {
     setVisibility({ [value]: true });
   };
@@ -29,37 +28,39 @@ const VehicleConfig = ({
     Loan: false,
   });
 
-  const [activeColor, setActiveColor] = useState('');
-  const [activeWheel, setActiveWheel] = useState('');
-  const [activeInterior, setActiveInterior] = useState('');
-  const [activeBattery, setActiveBattery] = useState('');
-  const [activeLayout, setActiveLayout] = useState('');
-  const [activePayment, setActivePayment] = useState('Cash'); 
+  const [activeColor, setActiveColor] = useState("");
+  const [activeWheel, setActiveWheel] = useState("");
+  const [activeInterior, setActiveInterior] = useState("");
+  const [activeBattery, setActiveBattery] = useState("");
+  const [activeLayout, setActiveLayout] = useState("");
+  const [activeTowHitch, setActiveTowHitch] = useState("off");
+  const [activePayment, setActivePayment] = useState("Cash");
 
+  const name = `${selectedVehicle}`
+    .split(" ")
+    .map((iv, i) => {
+      if (i === 0) {
+        return iv.toLowerCase();
+      }
+      return iv;
+    })
+    .join("");
 
-  const name = `${selectedVehicle}`.split(' ').map((iv , i)=> {
-    if(i===0){
-      return iv.toLowerCase();
-    }
-    return iv
-  }).join('')
-
-  const renderedTesla = vehicleContent.vehicle_render[name]; 
+  const renderedTesla = vehicleContent.vehicle_render[name];
   const teslaDetails = vehicleContent.vehicle_details[name];
   const paintObject = teslaDetails["paint_options"];
-  const paintObjectKeys = Object.keys(paintObject); 
-
+  const paintObjectKeys = Object.keys(paintObject);
 
   const batteryObject = {
-    standard_battery: teslaDetails.standard_battery, 
-    off_menu: teslaDetails.off_menu, 
-    long_range: teslaDetails.long_range, 
-    performance: teslaDetails.performance, 
-    plaid: teslaDetails.plaid
+    standard_battery: teslaDetails.standard_battery,
+    off_menu: teslaDetails.off_menu,
+    long_range: teslaDetails.long_range,
+    performance: teslaDetails.performance,
+    plaid: teslaDetails.plaid,
   };
 
   const batteryObjectKeys = [
-    "standard_battery", 
+    "standard_battery",
     "off_menu",
     "long_range",
     "performance",
@@ -76,22 +77,24 @@ const VehicleConfig = ({
   const seatingObject = teslaDetails[vehicleBattery]["layout"];
   const seatingObjectKeys = Object.keys(seatingObject);
 
-  let selectedVehicleCpy = selectedVehicle.replace(/ /g,'');
-  selectedVehicleCpy = selectedVehicleCpy.replace('M', 'm');
-   
+  let selectedVehicleCpy = selectedVehicle.replace(/ /g, "");
+  selectedVehicleCpy = selectedVehicleCpy.replace("M", "m");
 
   useEffect(() => {
     const color = vehicleContent.vehicle_render[selectedVehicleCpy]["paint"][0];
     setActiveColor(color);
     const wheel = vehicleContent.vehicle_render[selectedVehicleCpy]["wheel"][0];
     setActiveWheel(wheel);
-    const interior = vehicleContent.vehicle_render[selectedVehicleCpy]["interior"][0]; 
+    const interior =
+      vehicleContent.vehicle_render[selectedVehicleCpy]["interior"][0];
     setActiveInterior(interior);
-    const battery = vehicleContent.vehicle_render[selectedVehicleCpy]["battery"][1]; 
+    const battery =
+      vehicleContent.vehicle_render[selectedVehicleCpy]["battery"][1];
     setActiveBattery(battery);
-    const layout = vehicleContent.vehicle_render[selectedVehicleCpy]["layout"][0]; 
+    const layout =
+      vehicleContent.vehicle_render[selectedVehicleCpy]["layout"][0];
     setActiveLayout(layout);
-  }, [vehicleContent, selectedVehicleCpy])
+  }, [vehicleContent, selectedVehicleCpy]);
 
   if (!renderedTesla) {
     return null;
@@ -100,7 +103,6 @@ const VehicleConfig = ({
   const renderedTeslaImgFolder = renderedTesla.image_vehicle;
   const renderedTeslaImg = renderedTesla.vehicle_image;
   const renderedTowHitch = renderedTesla.tow_hitch;
-
 
   return (
     <div className="app_Config_container">
@@ -139,7 +141,11 @@ const VehicleConfig = ({
                   <img
                     className="vehicleConfig_img"
                     src={
-                      `../../../../images/` + renderedTeslaImgFolder + `/` + renderedTeslaImg + `.png`
+                      `../../../../images/` +
+                      renderedTeslaImgFolder +
+                      `/` +
+                      renderedTeslaImg +
+                      `.png`
                     }
                     alt="model 3 image"
                   ></img>
@@ -164,8 +170,8 @@ const VehicleConfig = ({
                 <div
                   onClick={() => {
                     showComponent("Cash");
-                    setActivePayment("Cash")
-                }}
+                    setActivePayment("Cash");
+                  }}
                   className={`app_Solar_selectPymt_btn ${
                     activePayment == "Cash" && "selected_payment"
                   }`}
@@ -175,8 +181,8 @@ const VehicleConfig = ({
                 <div
                   onClick={() => {
                     showComponent("Loan");
-                    setActivePayment("Loan")
-                }}
+                    setActivePayment("Loan");
+                  }}
                   className={`app_Solar_selectPymt_btn ${
                     activePayment == "Loan" && "selected_payment"
                   }`}
@@ -186,8 +192,8 @@ const VehicleConfig = ({
                 <div
                   onClick={() => {
                     showComponent("Lease");
-                    setActivePayment("Lease")
-                }}
+                    setActivePayment("Lease");
+                  }}
                   className={`app_Solar_selectPymt_btn ${
                     activePayment == "Lease" && "selected_payment"
                   }`}
@@ -208,79 +214,88 @@ const VehicleConfig = ({
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectCar_ul">
                   <li className="vehicleConfig_select_srAndoff">
                     {batteryObjectKeys.map((batt) => {
-                      if(batt === "off_menu" && batteryObject[batt] !== null){
-                        return <span
-                          onClick={(event) =>
-                            {
+                      if (batt === "off_menu" && batteryObject[batt] !== null) {
+                        return (
+                          <span
+                            onClick={(event) => {
                               changeVehicleBattery(batt, selectedVehicle);
-                              setActiveBattery(batt)
+                              setActiveBattery(batt);
                             }}
-                          className={`app_noSelect vehicleConfig_select vehicleConfig_select_off ${ 
-                            activeBattery == batt && "selected_btn_alt"
-                          }`}
-                        >
-                          Off
-                        </span>
-                      } else if (batt === "standard_battery" && batteryObject[batt] !== null && batteryObjectKeys.includes("off_menu")){
-                        return <span 
-                          onClick={(event) =>
-                            {
+                            className={`app_noSelect vehicleConfig_select vehicleConfig_select_off ${
+                              activeBattery == batt && "selected_btn_alt"
+                            }`}
+                          >
+                            Off
+                          </span>
+                        );
+                      } else if (
+                        batt === "standard_battery" &&
+                        batteryObject[batt] !== null &&
+                        batteryObjectKeys.includes("off_menu")
+                      ) {
+                        return (
+                          <span
+                            onClick={(event) => {
                               changeVehicleBattery(batt, selectedVehicle);
-                              setActiveBattery(batt)
+                              setActiveBattery(batt);
                             }}
-                          className={`app_noSelect vehicleConfig_select vehicleConfig_select_sr ${
-                            activeBattery == batt && "selected_btn"
-                          }`}
-                        >
-                          Standard
-                        </span>
+                            className={`app_noSelect vehicleConfig_select vehicleConfig_select_sr ${
+                              activeBattery == batt && "selected_btn"
+                            }`}
+                          >
+                            Standard
+                          </span>
+                        );
                       } else if (batteryObject[batt] == null) {
-
                         return;
-
                       } else {
-                        return <li
-                          onClick={(event) =>
-                            {
+                        return (
+                          <li
+                            onClick={(event) => {
                               changeVehicleBattery(batt, selectedVehicle);
-                              setActiveBattery(batt)
+                              setActiveBattery(batt);
                             }}
-                          className={`app_noSelect vehicleConfig_select vehicleConfig_select ${
-                            activeBattery == batt && "selected_btn"
-                          }`}
-                        >
-                          {batteryObject[batt]["specs"]["Battery"]}
-                        </li>
+                            className={`app_noSelect vehicleConfig_select vehicleConfig_select ${
+                              activeBattery == batt && "selected_btn"
+                            }`}
+                          >
+                            {batteryObject[batt]["specs"]["Battery"]}
+                          </li>
+                        );
                       }
-})}
+                    })}
                   </li>
                 </ul>
               </div>
               <div className="vehicleConfig_selectColor_container">
                 <div>Select Color: </div>
                 <div className="vehicleConfig_select_ul vehicleConfig_selectColor_ul">
-                {paintObjectKeys.map((p) => ( 
-                  <div 
-                    onClick={(event) =>
-                    {
-                      changeVehicleColor(p, selectedVehicle);
-                      setActiveColor(p)
-                    }
-                    }
-                    className={`app_noSelect app_inlineFlex color_select_container ${
-                      (p === activeColor) && "selected"
-                    }`}
-                  >
-                    <img
-                      className="color_select"
-                      src={`../../../../images/paint/`+paintObject[p]["image_paint"].substring(1)+`_paint.png`}
-                    />
-                  </div>
-                ))}
+                  {paintObjectKeys.map((p) => (
+                    <div
+                      onClick={(event) => {
+                        changeVehicleColor(p, selectedVehicle);
+                        setActiveColor(p);
+                      }}
+                      className={`app_noSelect app_inlineFlex color_select_container ${
+                        p === activeColor && "selected"
+                      }`}
+                    >
+                      <img
+                        className="color_select"
+                        src={
+                          `../../../../images/paint/` +
+                          paintObject[p]["image_paint"].substring(1) +
+                          `_paint.png`
+                        }
+                      />
+                    </div>
+                  ))}
                 </div>
                 <input
                   type="text"
-                  placeholder={renderedTesla.paint[0] +` - `+renderedTesla.paint[1]} 
+                  placeholder={
+                    renderedTesla.paint[0] + ` - ` + renderedTesla.paint[1]
+                  }
                   className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectColor_input"
                   readonly="readonly"
                 />
@@ -293,25 +308,27 @@ const VehicleConfig = ({
 
         <div className="app_inlineFlex app_columns_width vehicleConfig_column2">
           <div className="vehicleConfig_columns_blockContent">
-          <div className="vehicleConfig_selectWheelAndInterior_container">
+            <div className="vehicleConfig_selectWheelAndInterior_container">
               <div className="vehicleConfig_selectWheel_container">
                 <div>Select Wheel: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectwheel_ul">
                   {wheelObjectKeys.map((w) => (
                     <div
-                      onClick={(event) =>
-                        { 
-                          changeVehicleWheel(vehicleBattery, w, selectedVehicle);
-                          setActiveWheel(w)
-                        }
-                      }
+                      onClick={(event) => {
+                        changeVehicleWheel(vehicleBattery, w, selectedVehicle);
+                        setActiveWheel(w);
+                      }}
                       className={`app_noSelect app_inlineFlex color_select_container ${
-                        (w === activeWheel) && "selected"
+                        w === activeWheel && "selected"
                       }`}
                     >
                       <img
-                        className="app_noSelect vehicleConfig_wheel_select vehicleConfig_18_inch_aero_wheels" 
-                        src={`../../../../images/wheels/`+wheelObject[w]["image_source"]+`.png`}
+                        className="app_noSelect vehicleConfig_wheel_select vehicleConfig_18_inch_aero_wheels"
+                        src={
+                          `../../../../images/wheels/` +
+                          wheelObject[w]["image_source"] +
+                          `.png`
+                        }
                       />
                     </div>
                   ))}
@@ -319,11 +336,15 @@ const VehicleConfig = ({
                 <div>
                   <input
                     type="text"
-                    placeholder={renderedTesla.wheel[0].replace(' inch','"')+` - `+renderedTesla.wheel[1]}
+                    placeholder={
+                      renderedTesla.wheel[0].replace(" inch", '"') +
+                      ` - ` +
+                      renderedTesla.wheel[1]
+                    }
                     className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input"
                     readonly="readonly"
                   />
-                </div> 
+                </div>
               </div>
 
               <div className="vehicleConfig_selectInteriorColor_container">
@@ -331,26 +352,36 @@ const VehicleConfig = ({
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectInteriorColor_ul">
                   {interiorObjectKeys.map((i) => (
                     <div
-                      onClick={(event) =>
-                        { 
-                          changeVehicleInterior(vehicleBattery, i, selectedVehicle);
-                          setActiveInterior(i)
-                        }
-                      }
+                      onClick={(event) => {
+                        changeVehicleInterior(
+                          vehicleBattery,
+                          i,
+                          selectedVehicle
+                        );
+                        setActiveInterior(i);
+                      }}
                       className={`app_noSelect app_inlineFlex color_select_container ${
-                        (i === activeInterior) && "selected"
+                        i === activeInterior && "selected"
                       }`}
                     >
                       <img
                         className="app_noSelect color_select vehicleConfig_black_interior"
-                        src={`../../../../images/interior/`+interiorObject[i]["image"]+`.png`}
+                        src={
+                          `../../../../images/interior/` +
+                          interiorObject[i]["image"] +
+                          `.png`
+                        }
                       />
                     </div>
                   ))}
                 </ul>
                 <input
                   type="text"
-                  placeholder={renderedTesla.interior[0] +` - `+renderedTesla.interior[2]}
+                  placeholder={
+                    renderedTesla.interior[0] +
+                    ` - ` +
+                    renderedTesla.interior[2]
+                  }
                   className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectInteriorColor_input"
                   readonly="readonly"
                 />
@@ -358,32 +389,35 @@ const VehicleConfig = ({
             </div>
             <div className="vehicleConfig_selectLayout_and_autopilot_container">
               <div className="vehicleConfig_selectLayout_container">
-                {
-                  (() => {
-                    if(seatingObjectKeys.length > 1){
-                      return (<div className="app_textalign">Select Layout: </div>);
-                    }
-                  })()
-                }
-                
+                {(() => {
+                  if (seatingObjectKeys.length > 1) {
+                    return <div className="app_textalign">Select Layout: </div>;
+                  }
+                })()}
+
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectlayout_ul">
-                   {seatingObjectKeys.map((s) => {
-                     if(seatingObjectKeys.length > 1){
-                      return <li 
-                        onClick={(event) =>
-                          { 
-                            changeVehicleLayout(vehicleBattery,s,selectedVehicle);
-                            setActiveLayout(s)
-                          }
-                        }
-                        className={`app_noSelect vehicleConfig_select layout_select vehicleConfig_5_seater ${
-                          activeLayout == s && "selected_btn"
-                        }`}
-                      >
-                        {seatingObject[s]["altName"]} - Included
-                      </li>
-                     }
-                    })}
+                  {seatingObjectKeys.map((s) => {
+                    if (seatingObjectKeys.length > 1) {
+                      return (
+                        <li
+                          onClick={(event) => {
+                            changeVehicleLayout(
+                              vehicleBattery,
+                              s,
+                              selectedVehicle
+                            );
+                            setActiveLayout(s);
+                          }}
+                          className={`app_noSelect vehicleConfig_select layout_select vehicleConfig_5_seater ${
+                            activeLayout == s && "selected_btn"
+                          }`}
+                        >
+                          {seatingObject[s]["altName"]} -{" "}
+                          {seatingObject[s]["price"]}
+                        </li>
+                      );
+                    }
+                  })}
                 </ul>
               </div>
 
@@ -422,21 +456,28 @@ const VehicleConfig = ({
             </div>
 
             <div>
-              {
-                (() => {
-                  if(renderedTowHitch){
-                    return  (<div className="vehicleConfig_selectTowHitch_container">
+              {(() => {
+                if (renderedTowHitch !== null) {
+                  return (
+                    <div className="vehicleConfig_selectTowHitch_container">
                       <ul className="vehicleConfig_select_ul vehicleConfig_selectTowHitch_ul">
                         <input
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            addTowHitch(vehicleBattery, selectedVehicle);
+                            setActiveTowHitch(value === "on" ? "off" : "on");
+                          }}
                           type="checkbox"
+                          checked={activeTowHitch === "on"}
+                          value={activeTowHitch}
                           className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_towHitch_checkbox"
                         ></input>
                         <span>Tow Hitch - $1,000</span>
                       </ul>
-                    </div>)
-                  }
-                })()
-              }
+                    </div>
+                  );
+                }
+              })()}
             </div>
 
             <div className="veicleConfig_userEntry_container">
@@ -445,8 +486,8 @@ const VehicleConfig = ({
                   <div
                     onClick={() => {
                       showComponent("Cash");
-                      setActivePayment("Cash")
-                  }}
+                      setActivePayment("Cash");
+                    }}
                     className={`app_Solar_selectPymt_btn ${
                       activePayment == "Cash" && "selected_payment"
                     }`}
@@ -456,8 +497,8 @@ const VehicleConfig = ({
                   <div
                     onClick={() => {
                       showComponent("Loan");
-                      setActivePayment("Loan")
-                  }}
+                      setActivePayment("Loan");
+                    }}
                     className={`app_Solar_selectPymt_btn ${
                       activePayment == "Loan" && "selected_payment"
                     }`}
@@ -467,8 +508,8 @@ const VehicleConfig = ({
                   <div
                     onClick={() => {
                       showComponent("Lease");
-                      setActivePayment("Lease")
-                  }}
+                      setActivePayment("Lease");
+                    }}
                     className={`app_Solar_selectPymt_btn ${
                       activePayment == "Lease" && "selected_payment"
                     }`}
