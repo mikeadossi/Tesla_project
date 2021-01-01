@@ -182,6 +182,15 @@
 .vehicleConfig_selectTowHitch_ul{
     display: inline-block;
     width: 98%;
+    border-top: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
+    margin-bottom: 6px;
+}
+
+.vehicleConfig_selectFSD_ul{
+    display: inline-block;
+    width: 98%;
+    border-top: 1px solid gainsboro;
     border-bottom: 1px solid gainsboro;
     margin-bottom: 6px;
 }
@@ -227,7 +236,6 @@
 }
 
 .vehicleConfig_selectLayout_and_autopilot_container{
-    border-bottom: 1px solid gainsboro; 
     padding-top: 5px;
     padding-bottom: 5px;
 }

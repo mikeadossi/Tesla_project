@@ -17,6 +17,8 @@ const VehicleConfig = ({
   changeVehicleLayout,
   changeVehicleBattery,
   addTowHitch,
+  addAutopilotSetting,
+  toggleFSD
 }) => {
   const showComponent = (value) => {
     setVisibility({ [value]: true });
@@ -33,8 +35,10 @@ const VehicleConfig = ({
   const [activeInterior, setActiveInterior] = useState("");
   const [activeBattery, setActiveBattery] = useState("");
   const [activeLayout, setActiveLayout] = useState("");
-  const [activeTowHitch, setActiveTowHitch] = useState("off");
+  const [activeTowHitch, setActiveTowHitch] = useState("null");
   const [activePayment, setActivePayment] = useState("Cash");
+  const [activeAutopilotSetting, setActiveAutopilotSetting] = useState("no_autopilot");
+  const [activeFSDSetting, setActiveFSDSetting] = useState("autopilot");
 
   const name = `${selectedVehicle}`
     .split(" ")
@@ -77,8 +81,12 @@ const VehicleConfig = ({
   const seatingObject = teslaDetails[vehicleBattery]["layout"];
   const seatingObjectKeys = Object.keys(seatingObject);
 
-  let selectedVehicleCpy = selectedVehicle.replace(/ /g, "");
-  selectedVehicleCpy = selectedVehicleCpy.replace("M", "m");
+  let towHitchPrice = teslaDetails[vehicleBattery]["tow_hitch"];
+  if(towHitchPrice !== null){
+    towHitchPrice = teslaDetails[vehicleBattery]["tow_hitch"]["price"];
+  }
+
+  let selectedVehicleCpy = name;
 
   useEffect(() => {
     const color = vehicleContent.vehicle_render[selectedVehicleCpy]["paint"][0];
@@ -94,6 +102,12 @@ const VehicleConfig = ({
     const layout =
       vehicleContent.vehicle_render[selectedVehicleCpy]["layout"][0];
     setActiveLayout(layout);
+    const autopilotSetting = vehicleContent.vehicle_render[selectedVehicleCpy]["autopilot"][0];
+    setActiveAutopilotSetting(autopilotSetting);
+    const activeFSDSetting = vehicleContent.vehicle_render[selectedVehicleCpy]["autopilot"][0];
+    setActiveFSDSetting(activeFSDSetting);
+    const activeTowHitch = vehicleContent.vehicle_render[selectedVehicleCpy]["tow_hitch"]; 
+    setActiveTowHitch(activeTowHitch);
   }, [vehicleContent, selectedVehicleCpy]);
 
   if (!renderedTesla) {
@@ -420,39 +434,66 @@ const VehicleConfig = ({
                   })}
                 </ul>
               </div>
+              
+              {
+                (() => {
+                  if (name === "modelY") {
+                     return <div className="vehicleConfig_autopilot_container">
+                        <div className="app_textalign">Select Autopilot: </div>
+                        <div>
+                          <input
+                            type="radio"
+                            name="autopilot_radio"
+                            value="No Autopilot"
+                            className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_noAutopilot_radio"
+                          ></input>
+                          <span className="vehicleConfig_autopilot">No autopilot</span>
+                        </div>
+                        <div>
+                          <input
+                            type="radio"
+                            name="autopilot_radio"
+                            value="Autopilot"
+                            className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_autopilot_radio"
+                          ></input>
+                          <span>Autopilot - $3,000</span>
+                        </div>
+                        <div>
+                          <input
+                            type="radio"
+                            name="autopilot_radio"
+                            value="Full Self Driving"
+                            className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_fsd_radio"
+                          ></input>
+                          <span className="app_font11">
+                            FSD &amp; Autopilot - $10,000
+                          </span>
+                        </div>
+                      </div>
+                  } else {
+                    return(
+                      <div className="vehicleConfig_selectFSD_container">
+                        <ul className="vehicleConfig_select_ul vehicleConfig_selectFSD_ul">
+                          <input
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              toggleFSD(vehicleBattery, selectedVehicle);
+                              setActiveFSDSetting(value === "fsd" ? "autopilot" : "fsd");
+                            }}
+                            type="checkbox"
+                            checked={activeFSDSetting === "fsd"}
+                            value={activeFSDSetting}
+                            className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_towHitch_checkbox"
+                          ></input>
+                          <span>Full Self Driving - $10,000</span>
+                        </ul>
+                      </div>
+                    )
+                  }
+                })()
+              }
 
-              <div className="vehicleConfig_autopilot_container">
-                <div className="app_textalign">Select Autopilot: </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="autopilot_radio"
-                    value="No Autopilot"
-                    className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_noAutopilot_radio"
-                  ></input>
-                  <span className="vehicleConfig_autopilot">No autopilot</span>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="autopilot_radio"
-                    value="Autopilot"
-                    className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_autopilot_radio"
-                  ></input>
-                  <span>Autopilot - $3,000</span>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    name="autopilot_radio"
-                    value="Full Self Driving"
-                    className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_fsd_radio"
-                  ></input>
-                  <span className="app_font11">
-                    FSD &amp; Autopilot - $10,000
-                  </span>
-                </div>
-              </div>
+
             </div>
 
             <div>
@@ -465,10 +506,10 @@ const VehicleConfig = ({
                           onChange={(e) => {
                             const value = e.target.value;
                             addTowHitch(vehicleBattery, selectedVehicle);
-                            setActiveTowHitch(value === "on" ? "off" : "on");
+                            setActiveTowHitch(value === towHitchPrice ? "null" : towHitchPrice);
                           }}
                           type="checkbox"
-                          checked={activeTowHitch === "on"}
+                          checked={activeTowHitch === towHitchPrice}
                           value={activeTowHitch}
                           className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_towHitch_checkbox"
                         ></input>
