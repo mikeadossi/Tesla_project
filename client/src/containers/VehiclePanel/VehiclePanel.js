@@ -83,7 +83,7 @@ const VehiclePanel = (props) => {
     setTeslaModels(vehicleObj);
   };
 
-  const addAutopilotSetting(selectedOption,trim,value){ // selectedOption should be no_autopilot/autopilot_charge/fsd, trim=long_range value=model3
+  const addAutopilotSetting = (selectedOption,trim,value) => { // selectedOption should be no_autopilot/autopilot_charge/fsd_and_autopilot, trim=long_range value=model3
       const model = `${value}`
       .split(" ")
       .map((iv, i) => {
@@ -316,6 +316,28 @@ const VehiclePanel = (props) => {
 
       if (newBatteryImage !== currentInteriorImage) {
         newTeslaModels.vehicle_render[model]["interior"][1] = newBatteryImage;
+      }
+
+      // Handle off menu Model 3 autopilot selection
+      const autopilotSetting = renderedVehicle["autopilot"][0]; 
+      const modelObject = vehicles.vehicle_details[model];
+      const autopilotChargePrice = modelObject["off_menu"]["autopilot"]["autopilot_charge"]["price"];
+
+      if(batterySelected === "off_menu" && autopilotSetting === "autopilot"){
+        const noAutopilotPrice = batteryOptionsObj["autopilot"]["no_autopilot"]["price"]; 
+        newTeslaModels.vehicle_render[model]["autopilot"] = ["no_autopilot",noAutopilotPrice];
+      } else if(batterySelected === "off_menu" && autopilotSetting === "fsd"){
+        const fsdAndAutopilotPrice = batteryOptionsObj["autopilot"]["fsd_and_autopilot"]["price"]; // ex: 13000
+        newTeslaModels.vehicle_render[model]["autopilot"] = ["fsd_and_autopilot",fsdAndAutopilotPrice];
+      } else if(batterySelected !== "off_menu" && autopilotSetting === "autopilot_charge"){
+        currentVehiclePrice -= autopilotChargePrice;
+        newTeslaModels.vehicle_render[model]["autopilot"] = ["autopilot","included"];
+      } else if(batterySelected !== "off_menu" && autopilotSetting === "fsd_and_autopilot"){
+        currentVehiclePrice -= autopilotChargePrice;
+        const fsdPrice = modelObject["off_menu"]["autopilot"]["fsd"]["price"];
+        newTeslaModels.vehicle_render[model]["fsd"] = ["fsd",fsdPrice];
+      } else if(batterySelected !== "off_menu" && autopilotSetting !== "fsd"){
+        newTeslaModels.vehicle_render[model]["autopilot"] = ["autopilot","included"];
       }
 
       newTeslaModels.vehicle_render[model]["image_wheels"] =
