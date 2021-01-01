@@ -83,6 +83,80 @@ const VehiclePanel = (props) => {
     setTeslaModels(vehicleObj);
   };
 
+  const addAutopilotSetting(selectedOption,trim,value){ // selectedOption should be no_autopilot/autopilot_charge/fsd, trim=long_range value=model3
+      const model = `${value}`
+      .split(" ")
+      .map((iv, i) => {
+        if (i === 0) {
+          return iv.toLowerCase();
+        }
+        return iv;
+      })
+      .join("");
+
+    setTeslaModels((vehicles) => {
+      let newTeslaModels = { ...vehicles };
+      const renderedVehicle = vehicles.vehicle_render[model]; 
+      
+      let selectedOptionPrice = vehicles.vehicle_details[model][trim]["autopilot"][selectedOption]["price"]; // ex: 'autopilot_charge' selectedOption has 3000 price
+
+      let currentSettingName = renderedVehicle["autopilot"][0];
+      let currentSettingPrice = renderedVehicle["autopilot"][1];
+      let currentVehiclePrice = renderedVehicle["cash_price"];
+
+      if(currentSettingName !== selectedOption && currentSettingName === "autopilot"){ 
+        currentVehiclePrice += selectedOptionPrice;
+        newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
+        newTeslaModels.vehicle_render[model]["autopilot"] = [selectedOption,selectedOptionPrice];
+      } else if(currentSettingName !== selectedOption && currentSettingName !== "autopilot"){
+        currentVehiclePrice -= currentSettingPrice;
+        currentVehiclePrice += selectedOptionPrice;
+        newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
+        newTeslaModels.vehicle_render[model]["autopilot"] = [selectedOption,selectedOptionPrice];
+      }
+
+      return newTeslaModels;
+    })
+  }
+
+    const toggleFSD = (trim,value) => { //trim=long_range value=model3
+      const model = `${value}`
+      .split(" ")
+      .map((iv, i) => {
+        if (i === 0) {
+          return iv.toLowerCase();
+        }
+        return iv;
+      })
+      .join("");
+
+    setTeslaModels((vehicles) => {
+      let newTeslaModels = { ...vehicles };
+      const renderedVehicle = vehicles.vehicle_render[model];
+      const autopilotOptions = vehicles.vehicle_details[model][trim]["autopilot"]
+      const autopilotPrice = autopilotOptions["autopilot"]["price"]; // ex: "included"
+      const fsdPrice = autopilotOptions["fsd"]["price"]; // ex: 10000
+      let currentSettingName = renderedVehicle["autopilot"][0];
+      let currentSettingPrice = renderedVehicle["autopilot"][1];
+      let currentVehiclePrice = renderedVehicle["cash_price"];
+
+      if(currentSettingName === "autopilot"){
+        currentVehiclePrice += fsdPrice;
+        currentSettingName = "fsd"
+        currentSettingPrice = fsdPrice;
+      } else {
+        currentVehiclePrice -= fsdPrice;
+        currentSettingName = "autopilot";
+        currentSettingPrice = autopilotPrice;
+      }
+
+      newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
+      newTeslaModels.vehicle_render[model]["autopilot"] = [currentSettingName,currentSettingPrice];
+
+      return newTeslaModels;
+    })
+  }
+
   const addTowHitch = (trim,value) => { //trim=long_range value=model3
       const model = `${value}`
       .split(" ")
@@ -397,12 +471,6 @@ const VehiclePanel = (props) => {
     });
   };
 
-  // selectedWheel={selectedWheel}
-  // selectedInterior={selectedInterior}
-  // selectedBattery={selectedBattery}
-  // selectedLayout={selectedLayout}
-  // selectedColor={selectedColor}
-
   return (
     <div className="app_Panel_container">
       <VehicleMenu setSelectedVehicleName={setSelectedVehicleName} />
@@ -418,6 +486,8 @@ const VehiclePanel = (props) => {
           changeVehicleLayout={changeVehicleLayout}
           changeVehicleBattery={changeVehicleBattery}
           addTowHitch={addTowHitch}
+          addAutopilotSetting={addAutopilotSetting}
+          toggleFSD={toggleFSD}
         />
       ))}
     </div>
