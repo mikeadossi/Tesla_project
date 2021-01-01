@@ -35,7 +35,7 @@ const VehicleConfig = ({
   const [activeInterior, setActiveInterior] = useState("");
   const [activeBattery, setActiveBattery] = useState("");
   const [activeLayout, setActiveLayout] = useState("");
-  const [activeTowHitch, setActiveTowHitch] = useState("null");
+  const [activeTowHitch, setActiveTowHitch] = useState(null);
   const [activePayment, setActivePayment] = useState("Cash");
   const [activeAutopilotSetting, setActiveAutopilotSetting] = useState("no_autopilot");
   const [activeFSDSetting, setActiveFSDSetting] = useState("autopilot");
@@ -358,7 +358,7 @@ const VehicleConfig = ({
                     className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input"
                     readonly="readonly"
                   />
-                </div>
+                </div> 
               </div>
 
               <div className="vehicleConfig_selectInteriorColor_container">
@@ -400,45 +400,53 @@ const VehicleConfig = ({
                   readonly="readonly"
                 />
               </div>
+              <div className="vehicleConfig_borderBottom"></div>
             </div>
-            <div className="vehicleConfig_selectLayout_and_autopilot_container">
-              <div className="vehicleConfig_selectLayout_container">
-                {(() => {
-                  if (seatingObjectKeys.length > 1) {
-                    return <div className="app_textalign">Select Layout: </div>;
-                  }
-                })()}
 
-                <ul className="vehicleConfig_select_ul vehicleConfig_selectlayout_ul">
-                  {seatingObjectKeys.map((s) => {
-                    if (seatingObjectKeys.length > 1) {
-                      return (
-                        <li
-                          onClick={(event) => {
-                            changeVehicleLayout(
-                              vehicleBattery,
-                              s,
-                              selectedVehicle
-                            );
-                            setActiveLayout(s);
-                          }}
-                          className={`app_noSelect vehicleConfig_select layout_select vehicleConfig_5_seater ${
-                            activeLayout == s && "selected_btn"
-                          }`}
-                        >
-                          {seatingObject[s]["altName"]} -{" "}
-                          {seatingObject[s]["price"]}
-                        </li>
-                      );
-                    }
-                  })}
-                </ul>
-              </div>
+            {(() => {
+                if (seatingObjectKeys.length > 1) {
+                  return (
+                    <div className="vehicleConfig_selectLayout_super">
+                      <div className="vehicleConfig_selectLayout_container">
+                        <div className="app_textalign">Select Layout: </div>
+                        <ul className="vehicleConfig_select_ul vehicleConfig_selectlayout_ul">
+                          {seatingObjectKeys.map((s) => {
+                            if (seatingObjectKeys.length > 1) {
+                              return (
+                                <li
+                                  onClick={(event) => {
+                                    changeVehicleLayout(
+                                      vehicleBattery,
+                                      s,
+                                      selectedVehicle
+                                    );
+                                    setActiveLayout(s);
+                                  }}
+                                  className={`app_noSelect vehicleConfig_select layout_select vehicleConfig_5_seater ${
+                                    activeLayout == s && "selected_btn"
+                                  }`}
+                                >
+                                  {seatingObject[s]["altName"]} -{" "}
+                                  {seatingObject[s]["price"]}
+                                </li>
+                              );
+                            }
+                          })}
+                        </ul>
+                      </div>
+                      <div className="vehicleConfig_borderBottom"></div>
+                    </div>
+                  )
+                }
+              })()}
+
+            <div className="vehicleConfig_selectLayout_and_autopilot_container">
               
               {
                 (() => {
-                  if (name === "modelY") {
-                     return <div className="vehicleConfig_autopilot_container">
+                  if (vehicleBattery === "off_menu") {
+                    return <div>
+                      <div className="vehicleConfig_autopilot_container">
                         <div className="app_textalign">Select Autopilot: </div>
                         <div>
                           <input
@@ -470,31 +478,36 @@ const VehicleConfig = ({
                           </span>
                         </div>
                       </div>
+                      <div className="vehicleConfig_borderBottom"></div>
+                    </div>
                   } else {
                     return(
-                      <div className="vehicleConfig_selectFSD_container">
-                        <ul className="vehicleConfig_select_ul vehicleConfig_selectFSD_ul">
-                          <input
-                            onChange={(e) => {
-                              const value = e.target.value;
-                              toggleFSD(vehicleBattery, selectedVehicle);
-                              setActiveFSDSetting(value === "fsd" ? "autopilot" : "fsd");
-                            }}
-                            type="checkbox"
-                            checked={activeFSDSetting === "fsd"}
-                            value={activeFSDSetting}
-                            className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_towHitch_checkbox"
-                          ></input>
-                          <span>Full Self Driving - $10,000</span>
-                        </ul>
+                      <div>
+                        <div className="vehicleConfig_selectFSD_container">
+                          <ul className="vehicleConfig_select_ul vehicleConfig_selectFSD_ul">
+                            <input
+                              onChange={(e) => {
+                                const value = e.target.value;
+                                toggleFSD(vehicleBattery, selectedVehicle);
+                                setActiveFSDSetting(value === "fsd" ? "autopilot" : "fsd");
+                              }}
+                              type="checkbox"
+                              checked={activeFSDSetting === "fsd"}
+                              value={activeFSDSetting}
+                              className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_towHitch_checkbox"
+                            ></input>
+                            <span>Full Self Driving - $10,000</span>
+                          </ul>
+                        </div>
+                        <div className="vehicleConfig_borderBottom"></div>
                       </div>
                     )
                   }
                 })()
-              }
-
-
+              } 
             </div>
+
+
 
             <div>
               {(() => {
