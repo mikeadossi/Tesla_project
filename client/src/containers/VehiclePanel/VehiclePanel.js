@@ -83,41 +83,27 @@ const VehiclePanel = (props) => {
     setTeslaModels(vehicleObj);
   };
 
-  const addAutopilotSetting = (selectedOption,trim,value) => { // selectedOption should be no_autopilot/autopilot_charge/fsd_and_autopilot, trim=long_range value=model3
-      const model = `${value}`
-      .split(" ")
-      .map((iv, i) => {
-        if (i === 0) {
-          return iv.toLowerCase();
-        }
-        return iv;
-      })
-      .join("");
+  const selectOffMenuAutopilot = (selectedOption) => { // ex: selectedOption = "no_autopilot"
 
     setTeslaModels((vehicles) => {
       let newTeslaModels = { ...vehicles };
-      const renderedVehicle = vehicles.vehicle_render[model]; 
-      
-      let selectedOptionPrice = vehicles.vehicle_details[model][trim]["autopilot"][selectedOption]["price"]; // ex: 'autopilot_charge' selectedOption has 3000 price
+      const renderedVehicle = vehicles.vehicle_render["model3"]; 
+      let selectedOptionPrice = vehicles.vehicle_details["model3"]["off_menu"]["autopilot"][selectedOption]["price"];
 
       let currentSettingName = renderedVehicle["autopilot"][0];
       let currentSettingPrice = renderedVehicle["autopilot"][1];
       let currentVehiclePrice = renderedVehicle["cash_price"];
 
-      if(currentSettingName !== selectedOption && currentSettingName === "autopilot"){ 
-        currentVehiclePrice += selectedOptionPrice;
-        newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
-        newTeslaModels.vehicle_render[model]["autopilot"] = [selectedOption,selectedOptionPrice];
-      } else if(currentSettingName !== selectedOption && currentSettingName !== "autopilot"){
+      if(currentSettingName !== selectedOption){
         currentVehiclePrice -= currentSettingPrice;
         currentVehiclePrice += selectedOptionPrice;
-        newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
-        newTeslaModels.vehicle_render[model]["autopilot"] = [selectedOption,selectedOptionPrice];
+        newTeslaModels.vehicle_render["model3"]["cash_price"] = currentVehiclePrice;
+        newTeslaModels.vehicle_render["model3"]["autopilot"] = [selectedOption,selectedOptionPrice];
       }
 
       return newTeslaModels;
     })
-  }
+  } 
 
     const toggleFSD = (trim,value) => { //trim=long_range value=model3
       const model = `${value}`
@@ -262,6 +248,7 @@ const VehiclePanel = (props) => {
       currentVehiclePrice -= currentBatteryPrice;
       currentVehiclePrice += newPrice;
 
+
       const currentWheelSelected = renderedVehicle["wheel"][0]; // ex: "18 inch Aero Wheels"
       const currentWheelPrice = renderedVehicle["wheel"][1];
       const wheelKeysArr = Object.keys(wheelObject);
@@ -269,9 +256,9 @@ const VehiclePanel = (props) => {
         wheelObject[wheelKeysArr[0]]["image_wheel"]; // ex: "_18"
       const newBatteryStandardWheelName = wheelKeysArr[0]; // ex: "18 inch Aero Wheels"
       const newBatteryStandardWheelPrice =
-        wheelObject[wheelKeysArr[0]]["price"]; // ex: "included"
+        wheelObject[wheelKeysArr[0]]["price"]; // ex: "included" 
 
-      // If user selected wheel needs to be replaced it is handled just below
+      // If previously selected wheel isn't optional with new battery trim give new wheel
       if (!wheelKeysArr.includes(currentWheelSelected)) {
         const newWheels = [
           newBatteryStandardWheelName,
@@ -281,23 +268,11 @@ const VehiclePanel = (props) => {
         newTeslaModels.vehicle_render[model][
           "image_wheels"
         ] = newBatteryStandardWheelSize;
-      }
-      // If both prices are the same (such as both return "included") make no price changes, otherwise make changes.
-
-
-      if (newBatteryStandardWheelPrice === "included" && currentWheelPrice !== "included") {
-        currentVehiclePrice -= currentWheelPrice;
-      } else if (
-        currentWheelPrice === "included" &&
-        newBatteryStandardWheelPrice !== "included"
-      ) {
-        currentVehiclePrice += newBatteryStandardWheelPrice;
-      } else if (currentWheelPrice !== newBatteryStandardWheelPrice){
-        currentVehiclePrice -= currentWheelPrice;
-        currentVehiclePrice += newBatteryStandardWheelPrice;
+        
+        if(currentWheelPrice !== "included"){ currentVehiclePrice -= currentWheelPrice; }
       }
 
-      // set new vehicle_image in state
+      // set new vehicle_image in state 
       let vehicleImage = renderedVehicle["vehicle_image"]; // ex: "model3_white_std_18"
       let wheelName = renderedVehicle["wheel"][0];
       const newWheelSize = batteryOptionsObj["wheel"][wheelName]["image_wheel"];
@@ -321,7 +296,7 @@ const VehiclePanel = (props) => {
       // Handle off menu Model 3 autopilot selection
       const autopilotSetting = renderedVehicle["autopilot"][0]; 
       const modelObject = vehicles.vehicle_details[model];
-      const autopilotChargePrice = modelObject["off_menu"]["autopilot"]["autopilot_charge"]["price"];
+      const autopilotChargePrice = vehicles.vehicle_details["model3"]["off_menu"]["autopilot"]["autopilot_charge"]["price"];
 
       if(batterySelected === "off_menu" && autopilotSetting === "autopilot"){
         const noAutopilotPrice = batteryOptionsObj["autopilot"]["no_autopilot"]["price"]; 
@@ -425,14 +400,17 @@ const VehiclePanel = (props) => {
       let currentWheelPrice = renderedVehicle["wheel"][1];
 
       let currentVehiclePrice = renderedVehicle["cash_price"];
+      console.log("currentVehiclePrice 1:",currentVehiclePrice)
 
       if (currentWheelPrice !== "included") {
         currentVehiclePrice -= currentWheelPrice;
       }
+      console.log("currentVehiclePrice 2:",currentVehiclePrice)
 
       if (newPrice !== "included") {
         currentVehiclePrice += newPrice;
-      }
+      } 
+      console.log("currentVehiclePrice 3:",currentVehiclePrice)
 
       newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
       newTeslaModels.vehicle_render[model]["wheel"] = [wheelSelected, newPrice];
@@ -507,9 +485,9 @@ const VehiclePanel = (props) => {
           changeVehicleInterior={changeVehicleInterior}
           changeVehicleLayout={changeVehicleLayout}
           changeVehicleBattery={changeVehicleBattery}
-          addTowHitch={addTowHitch}
-          addAutopilotSetting={addAutopilotSetting}
+          addTowHitch={addTowHitch} 
           toggleFSD={toggleFSD}
+          selectOffMenuAutopilot={selectOffMenuAutopilot}
         />
       ))}
     </div>

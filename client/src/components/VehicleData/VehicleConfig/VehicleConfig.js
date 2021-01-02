@@ -17,8 +17,8 @@ const VehicleConfig = ({
   changeVehicleLayout,
   changeVehicleBattery,
   addTowHitch,
-  addAutopilotSetting,
-  toggleFSD
+  toggleFSD,
+  selectOffMenuAutopilot
 }) => {
   const showComponent = (value) => {
     setVisibility({ [value]: true });
@@ -37,8 +37,8 @@ const VehicleConfig = ({
   const [activeLayout, setActiveLayout] = useState("");
   const [activeTowHitch, setActiveTowHitch] = useState(null);
   const [activePayment, setActivePayment] = useState("Cash");
-  const [activeAutopilotSetting, setActiveAutopilotSetting] = useState("no_autopilot");
   const [activeFSDSetting, setActiveFSDSetting] = useState("autopilot");
+  const [activeOffMenuAutopilot, setActiveOffMenuAutopilot] = useState("no_autopilot");
 
   const name = `${selectedVehicle}`
     .split(" ")
@@ -88,6 +88,8 @@ const VehicleConfig = ({
 
   let selectedVehicleCpy = name;
 
+  const offMenuObj = vehicleContent.vehicle_details["model3"]["off_menu"]["autopilot"];
+
   useEffect(() => {
     const color = vehicleContent.vehicle_render[selectedVehicleCpy]["paint"][0];
     setActiveColor(color);
@@ -103,7 +105,7 @@ const VehicleConfig = ({
       vehicleContent.vehicle_render[selectedVehicleCpy]["layout"][0];
     setActiveLayout(layout);
     const autopilotSetting = vehicleContent.vehicle_render[selectedVehicleCpy]["autopilot"][0];
-    setActiveAutopilotSetting(autopilotSetting);
+    setActiveOffMenuAutopilot(autopilotSetting);
     const activeFSDSetting = vehicleContent.vehicle_render[selectedVehicleCpy]["autopilot"][0];
     setActiveFSDSetting(activeFSDSetting);
     const activeTowHitch = vehicleContent.vehicle_render[selectedVehicleCpy]["tow_hitch"]; 
@@ -450,31 +452,49 @@ const VehicleConfig = ({
                         <div className="app_textalign">Select Autopilot: </div>
                         <div>
                           <input
+                            onChange={(e) => {
+                              const value = e.target.value; // ex: value = "no_autopilot"
+                              selectOffMenuAutopilot(value);
+                              setActiveOffMenuAutopilot(value);
+                            }}
                             type="radio"
                             name="autopilot_radio"
-                            value="No Autopilot"
+                            checked={activeOffMenuAutopilot === "no_autopilot"}
+                            value="no_autopilot"
                             className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_noAutopilot_radio"
                           ></input>
                           <span className="vehicleConfig_autopilot">No autopilot</span>
                         </div>
                         <div>
                           <input
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              selectOffMenuAutopilot(value);
+                              setActiveOffMenuAutopilot(value);
+                            }}
                             type="radio"
                             name="autopilot_radio"
-                            value="Autopilot"
+                            checked={activeOffMenuAutopilot === "autopilot_charge"}
+                            value="autopilot_charge"
                             className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_autopilot_radio"
                           ></input>
-                          <span>Autopilot - $3,000</span>
+                          <span>Autopilot - ${offMenuObj["autopilot_charge"]["price"]}</span>
                         </div>
                         <div>
                           <input
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              selectOffMenuAutopilot(value);
+                              setActiveOffMenuAutopilot(value);
+                            }}
                             type="radio"
                             name="autopilot_radio"
-                            value="Full Self Driving"
+                            checked={activeOffMenuAutopilot === "fsd_and_autopilot"}
+                            value="fsd_and_autopilot"
                             className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_fsd_radio"
                           ></input>
                           <span className="app_font11">
-                            FSD &amp; Autopilot - $10,000
+                            FSD &amp; Autopilot - ${offMenuObj["fsd_and_autopilot"]["price"]}
                           </span>
                         </div>
                       </div>
