@@ -1,7 +1,7 @@
 require("dotenv").config();
 const pool = require("./utility/database");
 const zipCodes = require("./seed_folder/newestObject");
-const vehiclesObj = require("./seed_folder/vehicles_seedFile"); 
+const vehiclesObj = require("./seed_folder/vehicles_seedFile");
 const stateDataObj = require("./seed_folder/state_seedFile.js");
 const areaCodesObj = require("./seed_folder/area_codes");
 
@@ -9,10 +9,37 @@ let queries = {
   getAll: function () {
     return new Promise((resolve, reject) => {
       pool.query("SELECT * from stateData", (err, rows) => {
-        console.log("rows: ", rows);
+        // console.log("rows: ", rows);
         if (err) return reject(err);
         return resolve(rows);
       });
+    });
+  },
+
+  getStateDataByStateAbbr: function (abbr) {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `SELECT * from state_data where state_abbr="${abbr}"`,
+        (err, rows) => {
+          // console.log("rows: ", rows);
+          if (err) return reject(err);
+          return resolve(rows);
+        }
+      );
+    });
+  },
+
+  getStateDataByStateName: function (stateName) {
+    console.log(`SELECT * from stateData where state_name=${stateName}`);
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `SELECT * from stateData where state_name=${stateName}`,
+        (err, rows) => {
+          // console.log("rows: ", rows);
+          if (err) return reject(err);
+          return resolve(rows);
+        }
+      );
     });
   },
 
@@ -31,7 +58,7 @@ let queries = {
       pool.query(
         `SELECT * from vehicles where model='${model}'`,
         (err, rows) => {
-          console.log('rows --------> ');
+          console.log("rows --------> ");
           console.log(rows);
           if (err) return reject(err);
           return resolve(rows[0]);
@@ -42,13 +69,10 @@ let queries = {
 
   getAllVehicleData: function () {
     return new Promise((resolve, reject) => {
-      pool.query(
-        `SELECT * from vehicles`,
-        (err, rows) => { 
-          if (err) return reject(err);
-          return resolve(rows);
-        }
-      );
+      pool.query(`SELECT * from vehicles`, (err, rows) => {
+        if (err) return reject(err);
+        return resolve(rows);
+      });
     });
   },
 
@@ -169,7 +193,7 @@ let queries = {
 
   seedAreaCodeDatabase: function () {
     const areaCodesObjKeys = Object.keys(areaCodesObj);
-    for(let i = 0; i < areaCodesObjKeys.length; i++){
+    for (let i = 0; i < areaCodesObjKeys.length; i++) {
       let area_code = areaCodesObjKeys[i];
       let state_abbr = areaCodesObj[area_code];
       let strStateAbbr = JSON.stringify(state_abbr);
@@ -187,17 +211,18 @@ let queries = {
     state_name,
     state_abbr,
     vehicle_incentives,
-    solar_incentives, 
+    solar_incentives,
     local_vehicle_incentives,
     local_solar_incentives,
     all_showrooms,
     all_service_centers,
     all_charging_locations,
-    vehicle_order
-  }) { 
-
+    vehicle_order,
+  }) {
+    let strVehicleOrder = JSON.stringify(vehicle_order);
     pool.query(
-      `INSERT INTO state_data (state_name,state_abbr,vehicle_incentives,solar_incentives,local_vehicle_incentives,local_solar_incentives,all_showrooms,all_service_centers,all_charging_locations,vehicle_order) VALUES ('${state_name}','${state_abbr}', '${vehicle_incentives}','${solar_incentives}','${local_vehicle_incentives}','${local_solar_incentives}','${all_showrooms}','${all_service_centers}','${all_charging_locations}','${vehicle_order}')`,
+      `INSERT INTO state_data (state_name,state_abbr,vehicle_incentives,solar_incentives,local_vehicle_incentives,local_solar_incentives,all_showrooms,all_service_centers,all_charging_locations,vehicle_order) VALUES ('${state_name}','${state_abbr}', '${vehicle_incentives}','${solar_incentives}','${local_vehicle_incentives}','${local_solar_incentives}','${all_showrooms}','${all_service_centers}','${all_charging_locations}',
+      '${strVehicleOrder}')`,
       (err, rows) => {
         if (err) console.log("Got an error inserting row to state_data", err);
         else console.log(`Row was inserted in state_data: ${state_name}`);
@@ -211,29 +236,29 @@ let queries = {
         state_name,
         state_abbr,
         vehicle_incentives,
-        solar_incentives, 
+        solar_incentives,
         local_vehicle_incentives,
         local_solar_incentives,
         all_showrooms,
         all_service_centers,
         all_charging_locations,
-        vehicle_order
+        vehicle_order,
       } = stateDataObj[state];
       return {
         state_name,
         state_abbr,
         vehicle_incentives,
-        solar_incentives, 
+        solar_incentives,
         local_vehicle_incentives,
         local_solar_incentives,
         all_showrooms,
         all_service_centers,
         all_charging_locations,
-        vehicle_order
+        vehicle_order,
       };
     });
     statesToSeed.forEach((elem) => this.insertState(elem));
-  }
+  },
 };
 
 module.exports = queries;

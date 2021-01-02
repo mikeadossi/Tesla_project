@@ -12,10 +12,12 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post("/statedata", async (req, res) => {
-  console.log("request received");
+  console.log("req received");
+  const { abbr } = req.body;
+  console.log("request received", abbr);
   try {
-    const rows = await queries.getAll();
-    return res.status(200).send(JSON.stringify(rows));
+    const rows = await queries.getStateDataByStateAbbr(abbr);
+    return res.status(200).send(rows);
   } catch (e) {
     return res.status(500);
   }
@@ -41,18 +43,18 @@ app.get("/model", async (req, res) => {
   console.log("request received for model: ", model);
   try {
     const rows = await queries.getVehicleData(model);
-    return res.status(200).send(JSON.stringify(rows)); 
+    return res.status(200).send(JSON.stringify(rows));
   } catch (e) {
     return res.status(500);
   }
 });
 
-app.get("/allModels", async (req, res) => { 
+app.get("/allModels", async (req, res) => {
   const {} = req;
   try {
     const rows = await queries.getAllVehicleData();
-    console.log(rows)
-    return res.status(200).send(JSON.stringify(rows)); 
+
+    return res.status(200).send(JSON.stringify(rows));
   } catch (e) {
     return res.status(500);
   }
@@ -60,5 +62,5 @@ app.get("/allModels", async (req, res) => {
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
-  // queries.seedVehiclesDatabase();
-});
+  // queries.seedStateDatabase();
+}); 

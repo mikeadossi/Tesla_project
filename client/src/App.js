@@ -12,49 +12,64 @@ import Vehicles from "./containers/Vehicles/Vehicles";
 import Solar from "./containers/Solar/Solar";
 import DynamicMenu from "./containers/DynamicMenu/DynamicMenu";
 
+import { Provider } from "react-redux";
+import { store } from "./store";
+
 function App() {
-  const [statedata, setStatedate] = useState([]);
+  const [statedata, setStatedata] = useState([]);
+  const [abbr, setAbbr] = useState("");
   const [zipcodeData, setZipcodeData] = useState();
+
   useEffect(() => {
-    fetch("http://localhost:3002/statedata", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setStatedate(res);
+    if (abbr) {
+      fetch("http://localhost:3002/statedata", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          abbr,
+        }),
       })
-      .catch((err) => console.log(err));
-  }, []);
+        .then((res) => res.json())
+        .then((res) => {
+          setStatedata(res);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [abbr]);
 
   const getZipcodeData = (zipcode) => {
     fetch(`http://localhost:3002/zipcode?zipcode=${zipcode}`)
       .then((res) => res.json())
-      .then((data) => setZipcodeData(data));
+      .then((data) => {
+        setZipcodeData(data); 
+        setAbbr(data.state_abbr);
+      });
   };
 
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Nav getZipcodeData={getZipcodeData} />
-        {zipcodeData && <LocationDetails zipcodeData={zipcodeData} />}
-        <ProductMenu />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/signUp" component={SignUp} />
-          <Route exact path="/logIn" component={LogIn} />
-          <Route
-            exact
-            path="/vehicles"
-            component={() => <Vehicles statedata={statedata} />}
-          />
-          <Route exact path="/solar" component={Solar} />
-          <Route exact path="/userLogin" component={LogIn} />
-          <Route exact path="/userSignup" component={SignUp} />
-        </Switch>
-        <Footer />
-      </BrowserRouter>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <BrowserRouter>
+          <Nav getZipcodeData={getZipcodeData} />
+          {zipcodeData && <LocationDetails zipcodeData={zipcodeData} />}
+          <ProductMenu />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/signUp" component={SignUp} />
+            <Route exact path="/logIn" component={LogIn} />
+            <Route
+              exact
+              path="/vehicles"
+              component={() => <Vehicles statedata={statedata} />}
+            />
+            <Route exact path="/solar" component={Solar} />
+            <Route exact path="/userLogin" component={LogIn} />
+            <Route exact path="/userSignup" component={SignUp} />
+          </Switch>
+          <Footer />
+        </BrowserRouter>
+      </div>
+    </Provider>
   );
 }
 
