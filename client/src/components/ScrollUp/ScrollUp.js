@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import './ScrollUp.css';
 
-const ScrollUp = () => { 
+const ScrollUp = ({vehicleData}) => { 
+
+    
+    const renderedVehiclesArr = vehicleData.length
+    ? vehicleData
+    : []; 
+    console.log("renderedVehiclesArr -> ",renderedVehiclesArr)
+
     return (
         <div className="scrollUp_container">
             <div className="scrollUp_top">Top</div>
             <div className="scrollUp_vehicle_container">
-                <div className="scrollUp_button">3</div>
-                <div className="scrollUp_button">X</div>
-                <div className="scrollUp_button">Y</div>
-                <div className="scrollUp_button">S</div>
-                <div className="scrollUp_button">C</div>
-                <div className="scrollUp_button">R</div>
+                {renderedVehiclesArr.map((option) => {
+                    return(<div className="scrollUp_button">{option.split(' ')[1]}</div>)
+                })} 
             </div> 
         </div>
     ); 

@@ -1,5 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
-import { createStore } from "redux";
+import React, { useState, useEffect } from "react"; 
 import "./VehiclePanel.css";
 import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfig from "../../components/VehicleData/VehicleConfig/VehicleConfig";
@@ -11,6 +10,7 @@ const VehiclePanel = (props) => {
   const [vehicleContent, setVehicleContent] = useState({});
   const [teslaModels, setTeslaModels] = useState({});
   const [selectedVehicleName, setSelectedVehicleName] = useState("");
+  const [menuOptions, setMenuOptions] = useState("");
 
   useEffect(() => {
     setVehicleData((data) => {
@@ -31,8 +31,10 @@ const VehiclePanel = (props) => {
   useEffect(() => {
     if (props.vehicle.length > 0) {
       getTeslaData();
+      populateMenu();
     }
   }, [props.vehicle]);
+
 
   const removeModel = (model) => {
     const stateData = vehicleData;
@@ -64,6 +66,7 @@ const VehiclePanel = (props) => {
   };
 
   const getTeslaData = () => {
+    // this function converts DB data into useable state data for app: a 'details' object and a 'rendering' object.
     const vehicle = props.vehicle;
     const vehicleObj = {
       // vehicle_details should never be user modified, vehicle_render can be.
@@ -82,6 +85,15 @@ const VehiclePanel = (props) => {
 
     setTeslaModels(vehicleObj);
   };
+
+  const populateMenu = () => {
+    const vehicle = props.vehicle;
+    let modelNames = [];
+    for (var i = 0; i < vehicle.length; i++) {
+      modelNames.push(vehicle[i]["default_optioned_vehicle"]["model"]);
+    }
+    setMenuOptions(modelNames);
+  }
 
   const selectOffMenuAutopilot = (selectedOption) => { // ex: selectedOption = "no_autopilot"
 
@@ -176,7 +188,7 @@ const VehiclePanel = (props) => {
     })
   }
 
-  const changeVehicleLayout = async (trim, layoutSelected, value) => { // ex: trim="long_range" layoutSelected="Five Seat Interior" value="modelX"
+  const changeVehicleLayout = (trim, layoutSelected, value) => { // ex: trim="long_range" layoutSelected="Five Seat Interior" value="modelX"
     const model = `${value}`
       .split(" ")
       .map((iv, i) => {
@@ -219,7 +231,7 @@ const VehiclePanel = (props) => {
   };
    
 
-  const changeVehicleBattery = async (batterySelected, value) => {
+  const changeVehicleBattery = (batterySelected, value) => {
     const model = `${value}`
       .split(" ")
       .map((iv, i) => {
@@ -336,7 +348,7 @@ const VehiclePanel = (props) => {
     });
   };
 
-  const changeVehicleInterior = async (trim, interiorSelected, value) => {
+  const changeVehicleInterior = (trim, interiorSelected, value) => {
     const model = `${value}`
       .split(" ")
       .map((iv, i) => {
@@ -377,7 +389,7 @@ const VehiclePanel = (props) => {
     });
   };
 
-  const changeVehicleWheel = async (trim, wheelSelected, value) => {
+  const changeVehicleWheel = (trim, wheelSelected, value) => {
     const model = `${value}`
       .split(" ")
       .map((iv, i) => {
@@ -426,7 +438,7 @@ const VehiclePanel = (props) => {
     });
   };
 
-  const changeVehicleColor = async (color, value) => {
+  const changeVehicleColor = (color, value) => {
     const model = `${value}`
       .split(" ")
       .map((iv, i) => {
@@ -473,7 +485,11 @@ const VehiclePanel = (props) => {
 
   return (
     <div className="app_Panel_container">
-      <VehicleMenu setSelectedVehicleName={setSelectedVehicleName} />
+      <VehicleMenu 
+        setSelectedVehicleName={setSelectedVehicleName} 
+        menuOptions={menuOptions} 
+        vehicleData={vehicleData}
+      />
 
       {vehicleData.map((ele) => (
         <VehicleConfig
