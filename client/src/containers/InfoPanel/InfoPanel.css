@@ -1,48 +1,53 @@
-.infoPanel{
-    background-color: white;
+.infoPanel {
+  background-color: white;
 }
 
-.infoPanel_container{
-    display: inline-block;
-    width: 35%; 
+.infoPanel_container {
+  display: inline-block;
+  width: 35%;
 }
 
-.infoPanel_subcontainer{ 
-    padding: 20px;
-    margin: 20px 0px 20px 0px;
-    background-color: white;
-    border-radius: 5px 5px 5px 5px;
-    border: 1px solid gainsboro;
-    max-height: 520px;
-    min-height: 300px;
+.infoPanel_subcontainer {
+  padding: 20px;
+  margin: 20px 0px 20px 0px;
+  background-color: white;
+  border-radius: 5px 5px 5px 5px;
+  border: 1px solid gainsboro;
+  max-height: 520px;
+  min-height: 300px;
 }
 
-.infoPanel_title{
-    font-weight: bold;
+.infoPanel_title {
+  font-weight: bold;
 }
 
-.infoPanel_section{
-    padding: 10px;
-    border-bottom: 1px solid gainsboro;
-    color: grey;
+.infoPanel_section {
+  padding: 10px;
+  border-bottom: 1px solid gainsboro;
+  color: grey;
 }
 
-.infoPanel_section:hover{
-    color: black;
-    color: black;
+.infoPanel_section:hover {
+  color: black;
+  color: black;
 }
 
-.infoPanel_section_data{
-    overflow: auto;
-    width: 94%;
-    padding: 10px;
-    border: 1px solid gainsboro;
-    border-top: 2px solid steelblue;
-    height: 160px; 
+.infoPanel_section_data {
+  overflow: auto;
+  width: 94%;
+  padding: 10px;
+  border: 1px solid gainsboro;
+  border-top: 2px solid steelblue;
+  height: 160px;
 }
 
-#infoPanel_loaded_title{
-    padding: 40px 15px 10px 15px;
-    font-weight: bold;
-    color: steelblue; 
+#infoPanel_loaded_title {
+  padding: 40px 15px 10px 15px;
+  font-weight: bold;
+  color: steelblue;
+}
+
+.sticky_infoPanel {
+  position: sticky;
+  top: 70px; 
 }

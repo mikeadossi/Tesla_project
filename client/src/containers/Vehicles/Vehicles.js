@@ -5,11 +5,11 @@ import InfoModal from "../InfoModal/InfoModal.js";
 import VehiclePanel from "../VehiclePanel/VehiclePanel.js";
 
 const Vehicles = (props) => {
-  const { statedata } = props; 
+  const { statedata } = props;
 
   return (
     <div className="vehicles_container app_pageHeight">
-      <div className="vehicles_info_panel app_displayFlex"> 
+      <div className="vehicles_info_panel app_displayFlex">
         <InfoPanel whichComponent={"vehicles"} stateData={statedata} />
         <VehiclePanel stateData={statedata} />
       </div>

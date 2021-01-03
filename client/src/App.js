@@ -41,7 +41,7 @@ function App() {
     fetch(`http://localhost:3002/zipcode?zipcode=${zipcode}`)
       .then((res) => res.json())
       .then((data) => {
-        setZipcodeData(data); 
+        setZipcodeData(data);
         setAbbr(data.state_abbr);
       });
   };
@@ -52,6 +52,7 @@ function App() {
         <BrowserRouter>
           <Nav getZipcodeData={getZipcodeData} />
           {zipcodeData && <LocationDetails zipcodeData={zipcodeData} />}
+          {zipcodeData && <DynamicMenu zipcodeData={zipcodeData} />}
           <ProductMenu />
           <Switch>
             <Route exact path="/" component={Home} />

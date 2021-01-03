@@ -1,59 +1,63 @@
-.productMenu_container{
-    background-color:rgb(240,240,240);
-    border-bottom: 1px solid gainsboro;
-    display: block; 
-    overflow: hidden;
-    text-align: center; 
+.productMenu_container {
+  background-color: white;
+  border-bottom: 1px solid gainsboro;
+  display: block;
+  overflow: hidden;
+  text-align: center;
 }
 
-.productMenu_btn{
-    text-align: center;
-    display: inline-block;
-    padding: 10px 60px 10px 60px; 
-    background-color: white;
-    border-bottom: 3px solid white; 
-    cursor: pointer;
-    color: black;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-size: 13px;
-    font-weight: none;
+.productMenu_btn {
+  text-align: center;
+  display: inline-block;
+  padding: 10px 60px 10px 60px;
+  background-color: white;
+  border-bottom: 3px solid white;
+  cursor: pointer;
+  color: black;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 13px;
+  font-weight: none;
 }
 
-.vehicle_menu_btn:hover{
-    border-bottom: 3px solid red;
+.vehicle_menu_btn:hover {
+  border-bottom: 3px solid red;
 }
 
-.solar_menu_btn:hover{
-    border-bottom: 3px solid red;
+.solar_menu_btn:hover {
+  border-bottom: 3px solid red;
 }
 
-.productMenu_loggedIn{
-    background-color: darkseagreen;
-    border: 1px solid seagreen;
-    padding: 10px;
-    width: 300px;
-    border-radius: 6px;
-    color: white; 
-    text-align: center; 
-    margin: auto; 
-    font-weight: bold;
-    display: none;
+.productMenu_loggedIn {
+  background-color: darkseagreen;
+  border: 1px solid seagreen;
+  padding: 10px;
+  width: 300px;
+  border-radius: 6px;
+  color: white;
+  text-align: center;
+  margin: auto;
+  font-weight: bold;
+  display: none;
 }
 
-.productMenu_hamburger_btn{
-    height: 22px;
-    cursor: pointer;
-} 
-
-.productMenu_hamburger_container{ 
-    width: 4.8%;
-    margin: auto;
-    display: none;
+.productMenu_hamburger_btn {
+  height: 22px;
+  cursor: pointer;
 }
 
-.productMenu_btn_container{ 
-    width: 99%;
-    background-color: white;
+.productMenu_hamburger_container {
+  width: 4.8%;
+  margin: auto;
+  display: none;
 }
 
+.productMenu_btn_container {
+  width: 99%;
+}
+
+.sticky_productMenu {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}

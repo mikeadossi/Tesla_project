@@ -1,16 +1,18 @@
-import React, { Component, useState, useEffect } from 'react';
-import './ProductMenu.css';
-import { Link }  from 'react-router-dom'; 
+import React, { Component, useState, useEffect, useRef } from "react";
+import "./ProductMenu.css";
+import { Link } from "react-router-dom";
 
 const ProductMenu = () => {
-
   return (
-    <div>
+    <div className="sticky_productMenu">
       <div className="productMenu_container">
         <div className="productMenu_subcontainer app_displayFlex">
           <div className="productMenu_hamburger_container">
-            <img className="productMenu_hamburger_btn" src="../../../../images/Nav/hamburger_grey.png" />
-          </div> 
+            <img
+              className="productMenu_hamburger_btn"
+              src="../../../../images/Nav/hamburger_grey.png"
+            />
+          </div>
           <div className="productMenu_btn_container">
             <Link to="/vehicles" className="">
               <div className="productMenu_btn vehicle_menu_btn">VEHICLE</div>
@@ -26,6 +28,6 @@ const ProductMenu = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ProductMenu;

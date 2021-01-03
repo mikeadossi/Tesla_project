@@ -1,149 +1,159 @@
-.dynamicMenu_container{
-    border-top: 4px solid black;
-    background-color: black;
+.hidden-menu {
+  display: none;
 }
 
-.dynamicMenu_containers{ 
-    display: inline-block;
-    padding-left: 10px;
-    padding-right: 10px; 
-    margin: auto;
+.dynamicMenu_container {
+  border-top: 4px solid black;
+  background-color: black;
+  z-index: 10;
 }
 
-.dynamicMenu_nav_section{
-    background-color: black;
-    padding: 2px 5px 5px 5px;
+.dynamicMenu_containers {
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: auto;
 }
 
-.dynamicMenu_locationDetails_section{
-    background-color: lightseagreen;
-    padding: 5px; 
-    color: white;
-    width: 68%;
-    border-bottom: 2px solid rgb(22,158,170);
-    border-radius: 0px 10px 0px 0px;
+.dynamicMenu_nav_section {
+  background-color: black;
+  padding: 2px 5px 5px 5px;
 }
 
-.dynamicMenu_productMenu_section{
-    background-color: rgb(240,240,240,240);
-    border-bottom: 1px solid gainsboro;
+.dynamicMenu_locationDetails_section {
+  background-color: lightseagreen;
+  padding: 5px;
+  color: white;
+  width: 68%;
+  border-bottom: 2px solid rgb(22, 158, 170);
+  border-radius: 0px 10px 0px 0px;
 }
 
-.dynamicMenu_input_container{
-    padding-left: 10px;
+.dynamicMenu_productMenu_section {
+  background-color: white;
+  border-bottom: 1px solid gainsboro;
 }
 
-.dynamicMenu_input{
-    width: 140px;
-    padding: 2px;
-    border-radius: 4px;
+.dynamicMenu_input_container {
+  padding-left: 10px;
 }
 
-.dynamicMenu_areacode_subtext{
-    font-size: x-small;
+.dynamicMenu_input {
+  width: 140px;
+  padding: 2px;
+  border-radius: 4px;
 }
 
-.dynamicMenu_select_btn{
-    font-weight: bold;
-    padding: 5px;
-    text-align: center;
-    cursor: pointer; 
-    border-bottom: 3px solid rgb(240,240,240,240);
-    color: black;
+.dynamicMenu_areacode_subtext {
+  font-size: x-small;
 }
 
-.dynamicMenu_select_btn:hover{
-    border-bottom: 3px solid red;
+.dynamicMenu_select_btn { 
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+  border-bottom: 3px solid white;
+  color: black;
+  font-size: 13px; 
 }
 
-.dynamicMenu_zipcode, .dynamicMenu_city{
-    font-size: 20px;
-    font-weight: bold;
+.dynamicMenu_select_btn:hover {
+  border-bottom: 3px solid red;
 }
 
-.dynamicMenu_extra_links{
-    display: inline-block;
-    width: 67px;
+.dynamicMenu_zipcode,
+.dynamicMenu_city {
+  font-size: 20px;
+  font-weight: bold;
 }
 
-.dynamicMenu_home_link{
-    width: 53%; 
-    text-align: center;
-    color: white;
+.dynamicMenu_extra_links {
+  display: inline-block;
+  width: 67px;
 }
 
-.dynamicMenu_projectSun, .dynamicMenu_weather{
-    text-align: center; 
-    padding-left: 10px;
-    cursor: pointer;
-    display: inline-block;
+.dynamicMenu_home_link {
+  width: 53%;
+  text-align: center;
+  color: white;
 }
 
-.dynamicMenu_projectSun:hover, .dynamicMenu_weather:hover{
-    color: orange;
+.dynamicMenu_projectSun,
+.dynamicMenu_weather {
+  text-align: center;
+  padding-left: 10px;
+  cursor: pointer;
+  display: inline-block;
 }
 
-.dynamicMenu_projectSun{
-    padding-bottom: 11px;
+.dynamicMenu_projectSun:hover,
+.dynamicMenu_weather:hover {
+  color: orange;
 }
 
-.dynamicMenu_timezone{
-    font-size: x-small;
+.dynamicMenu_projectSun {
+  padding-bottom: 11px;
 }
 
-.dynamicMenu_areacode{
-    font-size: 20px;
-    padding-right: 5px;
+.dynamicMenu_timezone {
+  font-size: x-small;
 }
 
-.dynamicMenu_region_tag{
-    font-size: x-small;
+.dynamicMenu_areacode {
+  font-size: 20px;
+  padding-right: 5px;
 }
 
-.dynamicMenu_subcontainer{
-    width: 32%;
+.dynamicMenu_region_tag {
+  font-size: x-small;
 }
 
-.dynamicMenu_areacode, .dynamicMenu_areacode_subcontainer{
-    display: inline-block;
+.dynamicMenu_subcontainer {
+  width: 32%;
 }
 
-.dynamicMenu_time_digital{
-    font-size: 17px;
-    font-weight: bold; 
-    color: orange;
+.dynamicMenu_areacode,
+.dynamicMenu_areacode_subcontainer {
+  display: inline-block;
 }
 
-.dynamicMenu_region_name{
-    font-size: 17px;
-    font-weight: bold;
+.dynamicMenu_time_digital {
+  font-size: 17px;
+  font-weight: bold;
+  color: orange;
 }
 
-.dynamicMenu_product_select{
-    width: 50%;
+.dynamicMenu_region_name {
+  font-size: 17px;
+  font-weight: bold;
 }
 
-.dynamicMenu_search_icon{
-    height: 11px;
-    margin-top: 3px;
-    margin-left: -24px;
+.dynamicMenu_product_select {
+  width: 50%;
 }
 
-.dynamicMenu_pin_icon{
-    height: 16px;
-    padding: 5px;
+.dynamicMenu_search_icon {
+  height: 11px;
+  margin-top: 3px;
+  margin-left: -24px;
 }
 
-.dynamicMenu_productMenu_subcontainer{
-    width: 92%;
+.dynamicMenu_pin_icon {
+  height: 16px;
+  padding: 5px;
 }
 
-.dynamicMenu_pin_container{
-    opacity: 0.3;
-    cursor: pointer;
+.dynamicMenu_productMenu_subcontainer {
+  width: 92%;
 }
 
-.dynamicMenu_pin_container:hover{
-    opacity: 1;
-    background-color: moccasin;
+.dynamicMenu_pin_container {
+  opacity: 0.1;
+  cursor: pointer;
+}
+
+.dynamicMenu_pin_container.active-pin,
+.dynamicMenu_pin_container:hover {
+  opacity: 1;
+  background-color: moccasin;
 }
