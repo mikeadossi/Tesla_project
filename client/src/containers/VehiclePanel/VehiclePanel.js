@@ -1,11 +1,20 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react";
 import "./VehiclePanel.css";
 import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfig from "../../components/VehicleData/VehicleConfig/VehicleConfig";
 import { connect } from "react-redux";
-import { getAllVehicles } from "../../config/actions/vehicleActions";
+import {
+  getAllVehicles,
+  getAllStateData,
+} from "../../config/actions/vehicleActions";
 
-const VehiclePanel = (props) => {
+const VehiclePanel = ({
+  getAllVehicles,
+  getAllStateData,
+  vehicle,
+  zipcode_data,
+  usStatesData,
+}) => {
   let [vehicleData, setVehicleData] = useState([]);
   const [vehicleContent, setVehicleContent] = useState({});
   const [teslaModels, setTeslaModels] = useState({});
@@ -25,16 +34,18 @@ const VehiclePanel = (props) => {
   }, [selectedVehicleName]);
 
   useEffect(() => {
-    props.getAllVehicles();
-  }, []);
+    if (zipcode_data.id) {
+      getAllVehicles();
+      getAllStateData(zipcode_data.state_abbr);
+    }
+  }, [zipcode_data]);
 
   useEffect(() => {
-    if (props.vehicle.length > 0) {
+    if (vehicle.length > 0) {
       getTeslaData();
       populateMenu();
     }
-  }, [props.vehicle]);
-
+  }, [vehicle]);
 
   const removeModel = (model) => {
     const stateData = vehicleData;
@@ -67,18 +78,18 @@ const VehiclePanel = (props) => {
 
   const getTeslaData = () => {
     // this function converts DB data into useable state data for app: a 'details' object and a 'rendering' object.
-    const vehicle = props.vehicle;
+    const vehicles = vehicle;
     const vehicleObj = {
       // vehicle_details should never be user modified, vehicle_render can be.
       vehicle_details: {},
       vehicle_render: {},
     };
 
-    if (vehicle.length > 0) {
-      for (var i = 0; i < vehicle.length; i++) {
-        let convertedValue = convertAllStringValues(vehicle[i]);
-        vehicleObj.vehicle_details[vehicle[i].model] = convertedValue;
-        vehicleObj.vehicle_render[vehicle[i].model] =
+    if (vehicles.length > 0) {
+      for (var i = 0; i < vehicles.length; i++) {
+        let convertedValue = convertAllStringValues(vehicles[i]);
+        vehicleObj.vehicle_details[vehicles[i].model] = convertedValue;
+        vehicleObj.vehicle_render[vehicles[i].model] =
           convertedValue.default_optioned_vehicle;
       }
     }
@@ -87,38 +98,48 @@ const VehiclePanel = (props) => {
   };
 
   const populateMenu = () => {
-    const vehicle = props.vehicle;
+    const vehiclez = vehicle;
     let modelNames = [];
-    for (var i = 0; i < vehicle.length; i++) {
-      modelNames.push(vehicle[i]["default_optioned_vehicle"]["model"]);
+    for (var i = 0; i < vehiclez.length; i++) {
+      modelNames.push(vehiclez[i]["default_optioned_vehicle"]["model"]);
     }
     setMenuOptions(modelNames);
-  }
+  };
 
-  const selectOffMenuAutopilot = (selectedOption) => { // ex: selectedOption = "no_autopilot"
+  const selectOffMenuAutopilot = (selectedOption) => {
+    // ex: selectedOption = "no_autopilot"
 
     setTeslaModels((vehicles) => {
       let newTeslaModels = { ...vehicles };
-      const renderedVehicle = vehicles.vehicle_render["model3"]; 
-      let selectedOptionPrice = vehicles.vehicle_details["model3"]["off_menu"]["autopilot"][selectedOption]["price"];
+      const renderedVehicle = vehicles.vehicle_render["model3"];
+      let selectedOptionPrice =
+        vehicles.vehicle_details["model3"]["off_menu"]["autopilot"][
+          selectedOption
+        ]["price"];
 
       let currentSettingName = renderedVehicle["autopilot"][0];
       let currentSettingPrice = renderedVehicle["autopilot"][1];
       let currentVehiclePrice = renderedVehicle["cash_price"];
 
-      if(currentSettingName !== selectedOption){
+      if (currentSettingName !== selectedOption) {
         currentVehiclePrice -= currentSettingPrice;
         currentVehiclePrice += selectedOptionPrice;
-        newTeslaModels.vehicle_render["model3"]["cash_price"] = currentVehiclePrice;
-        newTeslaModels.vehicle_render["model3"]["autopilot"] = [selectedOption,selectedOptionPrice];
+        newTeslaModels.vehicle_render["model3"][
+          "cash_price"
+        ] = currentVehiclePrice;
+        newTeslaModels.vehicle_render["model3"]["autopilot"] = [
+          selectedOption,
+          selectedOptionPrice,
+        ];
       }
 
       return newTeslaModels;
-    })
-  } 
+    });
+  };
 
-    const toggleFSD = (trim,value) => { //trim=long_range value=model3
-      const model = `${value}`
+  const toggleFSD = (trim, value) => {
+    //trim=long_range value=model3
+    const model = `${value}`
       .split(" ")
       .map((iv, i) => {
         if (i === 0) {
@@ -131,16 +152,17 @@ const VehiclePanel = (props) => {
     setTeslaModels((vehicles) => {
       let newTeslaModels = { ...vehicles };
       const renderedVehicle = vehicles.vehicle_render[model];
-      const autopilotOptions = vehicles.vehicle_details[model][trim]["autopilot"]
+      const autopilotOptions =
+        vehicles.vehicle_details[model][trim]["autopilot"];
       const autopilotPrice = autopilotOptions["autopilot"]["price"]; // ex: "included"
       const fsdPrice = autopilotOptions["fsd"]["price"]; // ex: 10000
       let currentSettingName = renderedVehicle["autopilot"][0];
       let currentSettingPrice = renderedVehicle["autopilot"][1];
       let currentVehiclePrice = renderedVehicle["cash_price"];
 
-      if(currentSettingName === "autopilot"){
+      if (currentSettingName === "autopilot") {
         currentVehiclePrice += fsdPrice;
-        currentSettingName = "fsd"
+        currentSettingName = "fsd";
         currentSettingPrice = fsdPrice;
       } else {
         currentVehiclePrice -= fsdPrice;
@@ -149,14 +171,18 @@ const VehiclePanel = (props) => {
       }
 
       newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
-      newTeslaModels.vehicle_render[model]["autopilot"] = [currentSettingName,currentSettingPrice];
+      newTeslaModels.vehicle_render[model]["autopilot"] = [
+        currentSettingName,
+        currentSettingPrice,
+      ];
 
       return newTeslaModels;
-    })
-  }
+    });
+  };
 
-  const addTowHitch = (trim,value) => { //trim=long_range value=model3
-      const model = `${value}`
+  const addTowHitch = (trim, value) => {
+    //trim=long_range value=model3
+    const model = `${value}`
       .split(" ")
       .map((iv, i) => {
         if (i === 0) {
@@ -169,14 +195,15 @@ const VehiclePanel = (props) => {
     setTeslaModels((vehicles) => {
       let newTeslaModels = { ...vehicles };
       const renderedVehicle = vehicles.vehicle_render[model];
-      const towHitchPrice = vehicles.vehicle_details[model][trim]["tow_hitch"]["price"]; // ex: 1000
+      const towHitchPrice =
+        vehicles.vehicle_details[model][trim]["tow_hitch"]["price"]; // ex: 1000
       let tow_hitch = renderedVehicle["tow_hitch"];
       let currentVehiclePrice = renderedVehicle["cash_price"];
 
-      if(tow_hitch !== null && tow_hitch === "optional"){ 
+      if (tow_hitch !== null && tow_hitch === "optional") {
         currentVehiclePrice += towHitchPrice;
         tow_hitch = towHitchPrice;
-      } else if(tow_hitch !== null && tow_hitch === towHitchPrice) {
+      } else if (tow_hitch !== null && tow_hitch === towHitchPrice) {
         currentVehiclePrice -= towHitchPrice;
         tow_hitch = "optional";
       }
@@ -185,10 +212,11 @@ const VehiclePanel = (props) => {
       newTeslaModels.vehicle_render[model]["tow_hitch"] = tow_hitch;
 
       return newTeslaModels;
-    })
-  }
+    });
+  };
 
-  const changeVehicleLayout = (trim, layoutSelected, value) => { // ex: trim="long_range" layoutSelected="Five Seat Interior" value="modelX"
+  const changeVehicleLayout = (trim, layoutSelected, value) => {
+    // ex: trim="long_range" layoutSelected="Five Seat Interior" value="modelX"
     const model = `${value}`
       .split(" ")
       .map((iv, i) => {
@@ -202,9 +230,10 @@ const VehiclePanel = (props) => {
     setTeslaModels((vehicles) => {
       let newTeslaModels = { ...vehicles };
       let renderedVehicle = vehicles.vehicle_render[model];
-      let layoutOptionsObj = vehicles.vehicle_details[model][trim]["layout"][layoutSelected]; // ex: { price: "included" }
+      let layoutOptionsObj =
+        vehicles.vehicle_details[model][trim]["layout"][layoutSelected]; // ex: { price: "included" }
 
-      let newPrice = layoutOptionsObj["price"]; 
+      let newPrice = layoutOptionsObj["price"];
       let currentLayoutPrice = renderedVehicle["layout"][2];
 
       let currentVehiclePrice = renderedVehicle["cash_price"];
@@ -222,14 +251,13 @@ const VehiclePanel = (props) => {
       newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
       newTeslaModels.vehicle_render[model]["layout"] = [
         layoutSelected,
-        altName, 
-        newPrice
+        altName,
+        newPrice,
       ];
 
       return newTeslaModels;
-    })
+    });
   };
-   
 
   const changeVehicleBattery = (batterySelected, value) => {
     const model = `${value}`
@@ -260,7 +288,6 @@ const VehiclePanel = (props) => {
       currentVehiclePrice -= currentBatteryPrice;
       currentVehiclePrice += newPrice;
 
-
       const currentWheelSelected = renderedVehicle["wheel"][0]; // ex: "18 inch Aero Wheels"
       const currentWheelPrice = renderedVehicle["wheel"][1];
       const wheelKeysArr = Object.keys(wheelObject);
@@ -268,7 +295,7 @@ const VehiclePanel = (props) => {
         wheelObject[wheelKeysArr[0]]["image_wheel"]; // ex: "_18"
       const newBatteryStandardWheelName = wheelKeysArr[0]; // ex: "18 inch Aero Wheels"
       const newBatteryStandardWheelPrice =
-        wheelObject[wheelKeysArr[0]]["price"]; // ex: "included" 
+        wheelObject[wheelKeysArr[0]]["price"]; // ex: "included"
 
       // If previously selected wheel isn't optional with new battery trim give new wheel
       if (!wheelKeysArr.includes(currentWheelSelected)) {
@@ -280,11 +307,13 @@ const VehiclePanel = (props) => {
         newTeslaModels.vehicle_render[model][
           "image_wheels"
         ] = newBatteryStandardWheelSize;
-        
-        if(currentWheelPrice !== "included"){ currentVehiclePrice -= currentWheelPrice; }
+
+        if (currentWheelPrice !== "included") {
+          currentVehiclePrice -= currentWheelPrice;
+        }
       }
 
-      // set new vehicle_image in state 
+      // set new vehicle_image in state
       let vehicleImage = renderedVehicle["vehicle_image"]; // ex: "model3_white_std_18"
       let wheelName = renderedVehicle["wheel"][0];
       const newWheelSize = batteryOptionsObj["wheel"][wheelName]["image_wheel"];
@@ -306,25 +335,48 @@ const VehiclePanel = (props) => {
       }
 
       // Handle off menu Model 3 autopilot selection
-      const autopilotSetting = renderedVehicle["autopilot"][0]; 
+      const autopilotSetting = renderedVehicle["autopilot"][0];
       const modelObject = vehicles.vehicle_details[model];
-      const autopilotChargePrice = vehicles.vehicle_details["model3"]["off_menu"]["autopilot"]["autopilot_charge"]["price"];
+      const autopilotChargePrice =
+        vehicles.vehicle_details["model3"]["off_menu"]["autopilot"][
+          "autopilot_charge"
+        ]["price"];
 
-      if(batterySelected === "off_menu" && autopilotSetting === "autopilot"){
-        const noAutopilotPrice = batteryOptionsObj["autopilot"]["no_autopilot"]["price"]; 
-        newTeslaModels.vehicle_render[model]["autopilot"] = ["no_autopilot",noAutopilotPrice];
-      } else if(batterySelected === "off_menu" && autopilotSetting === "fsd"){
-        const fsdAndAutopilotPrice = batteryOptionsObj["autopilot"]["fsd_and_autopilot"]["price"]; // ex: 13000
-        newTeslaModels.vehicle_render[model]["autopilot"] = ["fsd_and_autopilot",fsdAndAutopilotPrice];
-      } else if(batterySelected !== "off_menu" && autopilotSetting === "autopilot_charge"){
+      if (batterySelected === "off_menu" && autopilotSetting === "autopilot") {
+        const noAutopilotPrice =
+          batteryOptionsObj["autopilot"]["no_autopilot"]["price"];
+        newTeslaModels.vehicle_render[model]["autopilot"] = [
+          "no_autopilot",
+          noAutopilotPrice,
+        ];
+      } else if (batterySelected === "off_menu" && autopilotSetting === "fsd") {
+        const fsdAndAutopilotPrice =
+          batteryOptionsObj["autopilot"]["fsd_and_autopilot"]["price"]; // ex: 13000
+        newTeslaModels.vehicle_render[model]["autopilot"] = [
+          "fsd_and_autopilot",
+          fsdAndAutopilotPrice,
+        ];
+      } else if (
+        batterySelected !== "off_menu" &&
+        autopilotSetting === "autopilot_charge"
+      ) {
         currentVehiclePrice -= autopilotChargePrice;
-        newTeslaModels.vehicle_render[model]["autopilot"] = ["autopilot","included"];
-      } else if(batterySelected !== "off_menu" && autopilotSetting === "fsd_and_autopilot"){
+        newTeslaModels.vehicle_render[model]["autopilot"] = [
+          "autopilot",
+          "included",
+        ];
+      } else if (
+        batterySelected !== "off_menu" &&
+        autopilotSetting === "fsd_and_autopilot"
+      ) {
         currentVehiclePrice -= autopilotChargePrice;
         const fsdPrice = modelObject["off_menu"]["autopilot"]["fsd"]["price"];
-        newTeslaModels.vehicle_render[model]["fsd"] = ["fsd",fsdPrice];
-      } else if(batterySelected !== "off_menu" && autopilotSetting !== "fsd"){
-        newTeslaModels.vehicle_render[model]["autopilot"] = ["autopilot","included"];
+        newTeslaModels.vehicle_render[model]["fsd"] = ["fsd", fsdPrice];
+      } else if (batterySelected !== "off_menu" && autopilotSetting !== "fsd") {
+        newTeslaModels.vehicle_render[model]["autopilot"] = [
+          "autopilot",
+          "included",
+        ];
       }
 
       newTeslaModels.vehicle_render[model]["image_wheels"] =
@@ -362,7 +414,8 @@ const VehiclePanel = (props) => {
     setTeslaModels((vehicles) => {
       let newTeslaModels = { ...vehicles };
       let renderedVehicle = vehicles.vehicle_render[model];
-      let interiorOptionsObj = vehicles.vehicle_details[model][trim]["interior"][interiorSelected];
+      let interiorOptionsObj =
+        vehicles.vehicle_details[model][trim]["interior"][interiorSelected];
 
       let newPrice = interiorOptionsObj.price;
       let img = interiorOptionsObj.image;
@@ -406,23 +459,23 @@ const VehiclePanel = (props) => {
       let detailsObj = vehicles.vehicle_details[model][trim];
 
       // let colorObj = detailsObj["paint_options"][color];
-      let wheelObj = detailsObj["wheel"][wheelSelected]; // wheel should be "18 inch Aero Wheels" for example. 
-      let img = wheelObj.image_wheel; // store this in renderObj 
+      let wheelObj = detailsObj["wheel"][wheelSelected]; // wheel should be "18 inch Aero Wheels" for example.
+      let img = wheelObj.image_wheel; // store this in renderObj
       let newPrice = wheelObj.price; // store this in renderObj
       let currentWheelPrice = renderedVehicle["wheel"][1];
 
       let currentVehiclePrice = renderedVehicle["cash_price"];
-      console.log("currentVehiclePrice 1:",currentVehiclePrice)
+      console.log("currentVehiclePrice 1:", currentVehiclePrice);
 
       if (currentWheelPrice !== "included") {
         currentVehiclePrice -= currentWheelPrice;
       }
-      console.log("currentVehiclePrice 2:",currentVehiclePrice)
+      console.log("currentVehiclePrice 2:", currentVehiclePrice);
 
       if (newPrice !== "included") {
         currentVehiclePrice += newPrice;
-      } 
-      console.log("currentVehiclePrice 3:",currentVehiclePrice)
+      }
+      console.log("currentVehiclePrice 3:", currentVehiclePrice);
 
       newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
       newTeslaModels.vehicle_render[model]["wheel"] = [wheelSelected, newPrice];
@@ -485,9 +538,9 @@ const VehiclePanel = (props) => {
 
   return (
     <div className="app_Panel_container">
-      <VehicleMenu 
-        setSelectedVehicleName={setSelectedVehicleName} 
-        menuOptions={menuOptions} 
+      <VehicleMenu
+        setSelectedVehicleName={setSelectedVehicleName}
+        menuOptions={menuOptions}
         vehicleData={vehicleData}
       />
 
@@ -501,7 +554,7 @@ const VehiclePanel = (props) => {
           changeVehicleInterior={changeVehicleInterior}
           changeVehicleLayout={changeVehicleLayout}
           changeVehicleBattery={changeVehicleBattery}
-          addTowHitch={addTowHitch} 
+          addTowHitch={addTowHitch}
           toggleFSD={toggleFSD}
           selectOffMenuAutopilot={selectOffMenuAutopilot}
         />
@@ -514,7 +567,11 @@ function mapStateToProps(state) {
   return {
     error: state.vehiclesReducer.error,
     vehicle: state.vehiclesReducer.vehicle,
+    usStatesData: state.vehiclesReducer.usStatesData,
+    zipcode_data: state.navReducer.zipcode_data,
   };
 }
 
-export default connect(mapStateToProps, { getAllVehicles })(VehiclePanel);
+export default connect(mapStateToProps, { getAllVehicles, getAllStateData })(
+  VehiclePanel
+);

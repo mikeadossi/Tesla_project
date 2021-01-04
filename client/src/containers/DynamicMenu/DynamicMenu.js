@@ -1,8 +1,21 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./DynamicMenu.css";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-const DynamicMenu = () => {
+const DynamicMenu = ({
+  zipcodeData: {
+    id,
+    city,
+    state_abbr,
+    state_name,
+    state_data_id,
+    area_codes,
+    county,
+    longitude,
+    latitude,
+  },
+}) => {
   const [sticky, setSticky] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -32,7 +45,7 @@ const DynamicMenu = () => {
 
   console.log("updated sticky", show);
 
-  return (
+  return id ? (
     <div
       className={`app_displayFlex dynamicMenu_container app_sticky_nav ${
         !show ? "hidden-menu" : ""
@@ -152,7 +165,14 @@ const DynamicMenu = () => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
-export default DynamicMenu;
+function mapStateToProps(state) {
+  return {
+    error: state.navReducer.error,
+    zipcodeData: state.navReducer.zipcode_data,
+  };
+}
+
+export default connect(mapStateToProps)(DynamicMenu);

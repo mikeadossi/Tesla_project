@@ -8,13 +8,12 @@ import HeaderCookiePermission from "../../components/Header/HeaderCookiePermissi
 
 const defaultUsername = "Johnny Bravo";
 
-const Nav = ({ getZipcodeData }) => {
-  const [username, setUsername] = React.useState(defaultUsername);
+const Nav = () => { 
 
   return (
     <div className="nav_container">
-      <HeaderLeft />
-      <HeaderCenter getZipcodeData={getZipcodeData} />
+      <HeaderLeft /> 
+      <HeaderCenter />
       <HeaderRight />
       <HeaderMobileMenu username={username} />
       <HeaderCookiePermission />

@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from "react";
 import "./HeaderCenter.css";
+import { connect } from "react-redux";
+import { getMyZipcodeData } from "../../../config/actions/navActions";
 
-const HeaderCenter = ({ getZipcodeData }) => {
+const HeaderCenter = ({ getMyZipcodeData, zipcode_data }) => {
   const [zipcode, setZipcode] = useState();
 
   return (
-    <div className="headerCenter app_removeBlue">
+    <div className="headerCenter app_removeBlue"> 
       <input
         className="headerCenter_input app_main_submit_input"
         placeholder="Enter zipcode or area code"
         onChange={(e) => setZipcode(e.target.value)}
         onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            getZipcodeData(zipcode);
+          if (e.key === "Enter") { 
+            getMyZipcodeData(zipcode);
           }
         }}
       />
-      <img
-        onClick={() => getZipcodeData(zipcode)}
+      <img 
+        onClick={() => getMyZipcodeData(zipcode)}
         className="app_search_icon headerCenter_search_icon"
         src="../../../../images/Nav/search_icon.png"
         alt="search icon"
@@ -26,4 +28,11 @@ const HeaderCenter = ({ getZipcodeData }) => {
   );
 };
 
-export default HeaderCenter;
+function mapStateToProps(state) {
+  return {
+    error: state.navReducer.error,
+    zipcode_data: state.navReducer.zipcode_data,
+  };
+}
+
+export default connect(mapStateToProps, { getMyZipcodeData })(HeaderCenter); 
