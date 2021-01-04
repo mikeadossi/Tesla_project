@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import './HeaderMobileMenu.css';
 import { Link }  from 'react-router-dom';
 
-const HeaderMobileMenu  = ({username}) => { 
+const HeaderMobileMenu  = () => { 
   return (
     <div className="headerMobileMenu app_marginTop">
         <div className="headerMobileMenu_contents">
-            <div className="">Welcome {username}</div>
+            <div className="">Welcome username</div>
             <div className="headerMobileMenu_close">X</div>
             <Link to="/" className="headerMobileMenu_links app_textdecorationNone">
               <div className="headerMobileMenu_about headerMobileMenu_login_btn">About</div>

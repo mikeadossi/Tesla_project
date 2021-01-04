@@ -15,7 +15,7 @@ const Nav = () => {
       <HeaderLeft /> 
       <HeaderCenter />
       <HeaderRight />
-      <HeaderMobileMenu username={username} />
+      <HeaderMobileMenu />
       <HeaderCookiePermission />
     </div>
   );
