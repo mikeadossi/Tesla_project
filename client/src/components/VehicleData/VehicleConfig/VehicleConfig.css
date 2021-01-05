@@ -370,3 +370,15 @@
 .selected_pymt{
     border-bottom: 3px solid steelblue;
 }
+
+.vehicleConfig_saveBtn{
+    margin-left: 6px;
+    cursor: pointer;
+    font-size: 10px;
+}
+
+.vehicleConfig_clearBtn{
+    margin-left: 2px;
+    cursor: pointer;
+    font-size: 10px;
+}

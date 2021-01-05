@@ -8,8 +8,7 @@ const areaCodesObj = require("./seed_folder/area_codes");
 let queries = {
   getAll: function () {
     return new Promise((resolve, reject) => {
-      pool.query("SELECT * from stateData", (err, rows) => {
-        // console.log("rows: ", rows);
+      pool.query("SELECT * from stateData", (err, rows) => { 
         if (err) return reject(err);
         return resolve(rows);
       });
@@ -20,8 +19,7 @@ let queries = {
     return new Promise((resolve, reject) => {
       pool.query(
         `SELECT * from state_data where state_abbr="${abbr}"`,
-        (err, rows) => {
-          // console.log("rows: ", rows);
+        (err, rows) => { 
           if (err) return reject(err);
           return resolve(rows);
         }
@@ -46,7 +44,7 @@ let queries = {
   getZipcodeData: function (zipcode) {
     return new Promise((resolve, reject) => {
       pool.query(`SELECT * from zip_codes where id=${zipcode}`, (err, rows) => {
-        console.log("rows: ", rows);
+        // console.log("rows: ", rows);
         if (err) return reject(err);
         return resolve(rows[0]);
       });
@@ -57,9 +55,7 @@ let queries = {
     return new Promise((resolve, reject) => {
       pool.query(
         `SELECT * from vehicles where model='${model}'`,
-        (err, rows) => {
-          console.log("rows --------> ");
-          console.log(rows);
+        (err, rows) => { 
           if (err) return reject(err);
           return resolve(rows[0]);
         }

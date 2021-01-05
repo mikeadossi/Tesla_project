@@ -11,12 +11,16 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post("/statedata", async (req, res) => {
+app.get("/statedata", async (req, res) => {
   console.log("req received");
-  const { abbr } = req.body;
-  console.log("request received", abbr);
+  // const { abbr } = req.body;
+  const {
+    query: { abbr },
+  } = req;
+  console.log("request received for statedata", abbr);
   try {
     const rows = await queries.getStateDataByStateAbbr(abbr);
+    console.log('statedata rows ---> ',rows)
     return res.status(200).send(rows);
   } catch (e) {
     return res.status(500);
@@ -61,6 +65,5 @@ app.get("/allModels", async (req, res) => {
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server is running on port ${PORT}`);
-  // queries.seedStateDatabase();
+  console.log(`Server is running on port ${PORT}`); 
 }); 

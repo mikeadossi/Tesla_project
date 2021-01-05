@@ -20,6 +20,7 @@ const VehiclePanel = ({
   const [teslaModels, setTeslaModels] = useState({});
   const [selectedVehicleName, setSelectedVehicleName] = useState("");
   const [menuOptions, setMenuOptions] = useState("");
+  const [usStateVehicleOrder, setUsStateVehicleOrder] = useState("");
 
   useEffect(() => {
     setVehicleData((data) => {
@@ -35,10 +36,19 @@ const VehiclePanel = ({
 
   useEffect(() => {
     if (zipcode_data.id) {
-      getAllVehicles();
+      getAllVehicles(); 
       getAllStateData(zipcode_data.state_abbr);
     }
-  }, [zipcode_data]);
+  }, [zipcode_data]); 
+
+  useEffect(() => {
+    if (usStatesData[0]) {
+      setUsStateVehicleOrder(() => {
+        return usStatesData[0]["vehicle_order"]
+      })
+    }
+  }, [usStatesData]);
+
 
   useEffect(() => {
     if (vehicle.length > 0) {
@@ -78,7 +88,7 @@ const VehiclePanel = ({
 
   const getTeslaData = () => {
     // this function converts DB data into useable state data for app: a 'details' object and a 'rendering' object.
-    const vehicles = vehicle;
+    const vehicles = vehicle; 
     const vehicleObj = {
       // vehicle_details should never be user modified, vehicle_render can be.
       vehicle_details: {},
@@ -536,6 +546,7 @@ const VehiclePanel = ({
     });
   };
 
+
   return (
     <div className="app_Panel_container">
       <VehicleMenu
@@ -557,6 +568,7 @@ const VehiclePanel = ({
           addTowHitch={addTowHitch}
           toggleFSD={toggleFSD}
           selectOffMenuAutopilot={selectOffMenuAutopilot}
+          usStateVehicleOrder={usStateVehicleOrder}
         />
       ))}
     </div>

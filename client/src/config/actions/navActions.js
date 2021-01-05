@@ -4,8 +4,7 @@ import { hasAValue } from "../../helpers/helper";
 
 export const getMyZipcodeData = (zip) => async (dispatch) => {
   try {
-    const res = await axios.get(`http://localhost:3002/zipcode?zipcode=${zip}`);
-    console.log("res", res);
+    const res = await axios.get(`http://localhost:3002/zipcode?zipcode=${zip}`); 
     dispatch({
       type: types.GET_ALL_ZIPCODE_DATA,
       payload: res.data,

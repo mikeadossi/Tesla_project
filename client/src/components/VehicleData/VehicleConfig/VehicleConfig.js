@@ -18,7 +18,8 @@ const VehicleConfig = ({
   changeVehicleBattery,
   addTowHitch,
   toggleFSD,
-  selectOffMenuAutopilot
+  selectOffMenuAutopilot,
+  usStateVehicleOrder
 }) => {
   const showComponent = (value) => {
     setVisibility({ [value]: true });
@@ -39,6 +40,8 @@ const VehicleConfig = ({
   const [activePayment, setActivePayment] = useState("Cash");
   const [activeFSDSetting, setActiveFSDSetting] = useState("autopilot");
   const [activeOffMenuAutopilot, setActiveOffMenuAutopilot] = useState("no_autopilot");
+
+  console.log("usStateVehicleOrder -- ",usStateVehicleOrder)
 
   const name = `${selectedVehicle}`
     .split(" ")
@@ -88,7 +91,7 @@ const VehicleConfig = ({
 
   let selectedVehicleCpy = name;
 
-  const offMenuObj = vehicleContent.vehicle_details["model3"]["off_menu"]["autopilot"];
+  const offMenuObj = vehicleContent.vehicle_details["model3"]["off_menu"]["autopilot"]; 
 
   useEffect(() => {
     const color = vehicleContent.vehicle_render[selectedVehicleCpy]["paint"][0];
