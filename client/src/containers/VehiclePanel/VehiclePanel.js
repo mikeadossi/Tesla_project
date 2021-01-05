@@ -3,10 +3,8 @@ import "./VehiclePanel.css";
 import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfig from "../../components/VehicleData/VehicleConfig/VehicleConfig";
 import { connect } from "react-redux";
-import {
-  getAllVehicles,
-  getAllStateData,
-} from "../../config/actions/vehicleActions";
+import { getAllVehicles } from "../../config/actions/vehicleActions";
+import { getAllStateData } from "../../config/actions/usStateActions";
 
 const VehiclePanel = ({
   getAllVehicles,
@@ -579,7 +577,7 @@ function mapStateToProps(state) {
   return {
     error: state.vehiclesReducer.error,
     vehicle: state.vehiclesReducer.vehicle,
-    usStatesData: state.vehiclesReducer.usStatesData,
+    usStatesData: state.usStateReducer.usStatesData,
     zipcode_data: state.navReducer.zipcode_data,
   };
 }
