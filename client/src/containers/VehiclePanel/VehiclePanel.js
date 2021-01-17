@@ -14,7 +14,7 @@ const VehiclePanel = ({
   usStatesData,
 }) => {
   let [vehicleData, setVehicleData] = useState([]);
-  const [vehicleContent, setVehicleContent] = useState({});
+  // const [vehicleContent, setVehicleContent] = useState({});
   const [teslaModels, setTeslaModels] = useState({});
   const [selectedVehicleName, setSelectedVehicleName] = useState("");
   const [menuOptions, setMenuOptions] = useState("");
@@ -34,28 +34,32 @@ const VehiclePanel = ({
 
   useEffect(() => {
     if (zipcode_data.id) {
-      getAllVehicles(); 
+      getAllVehicles();
       getAllStateData(zipcode_data.state_abbr);
     }
-  }, [zipcode_data]); 
+  }, [zipcode_data]);
 
   useEffect(() => {
     if (usStatesData[0]) {
       setUsStateVehicleOrder(() => {
-        return usStatesData[0]["vehicle_order"]
-      })
+        return [
+          usStatesData[0]["state_abbr"],
+          JSON.parse(usStatesData[0]["vehicle_order"]),
+          JSON.parse(usStatesData[0]["payment_object"]),
+        ];
+      });
     }
   }, [usStatesData]);
 
-
   useEffect(() => {
     if (vehicle.length > 0) {
-      getTeslaData();
+      getTeslaData(usStateVehicleOrder[2]); 
       populateMenu();
     }
-  }, [vehicle]);
+  }, [vehicle, usStateVehicleOrder]);
 
   const removeModel = (model) => {
+    console.log("model to be removed: ", model);
     const stateData = vehicleData;
     for (let i = 0; i < stateData.length; i++) {
       if (stateData[i].name === model && i > -1) {
@@ -84,9 +88,19 @@ const VehiclePanel = ({
     return obj;
   };
 
-  const getTeslaData = () => {
+  const getLoanMonthlyPymt = (principal, annualInterestRate, numOfPymts) => {
+    // principal * ( effectiveInterestRate / (1 - (1 + effectiveInterestRate)^-numOfPymts))
+    const effectiveInterestRate = (annualInterestRate / 100) / 12;
+    const onePlusEIR = 1 + effectiveInterestRate;
+    const x = Math.pow(onePlusEIR, -numOfPymts);
+    const denominator = 1 - x;
+    const y = effectiveInterestRate / denominator;
+    return Math.round(principal * y);
+  }
+
+  const getTeslaData = (pymtObj) => {
     // this function converts DB data into useable state data for app: a 'details' object and a 'rendering' object.
-    const vehicles = vehicle; 
+    const vehicles = vehicle;
     const vehicleObj = {
       // vehicle_details should never be user modified, vehicle_render can be.
       vehicle_details: {},
@@ -94,16 +108,119 @@ const VehiclePanel = ({
     };
 
     if (vehicles.length > 0) {
-      for (var i = 0; i < vehicles.length; i++) {
+      for (let i = 0; i < vehicles.length; i++) {
         let convertedValue = convertAllStringValues(vehicles[i]);
-        vehicleObj.vehicle_details[vehicles[i].model] = convertedValue;
-        vehicleObj.vehicle_render[vehicles[i].model] =
+        let model = vehicles[i].model;
+        vehicleObj.vehicle_details[model] = convertedValue;
+        vehicleObj.vehicle_render[model] =
           convertedValue.default_optioned_vehicle;
-      }
+        if(pymtObj !== undefined){ 
+          let batteries = ["standard_battery","off_menu","long_range","performance","plaid"];
+          for(let y = 0; y < batteries.length; y++){ 
+            if(convertedValue[batteries[y]] !== null){ 
+              let defaultPaymentData = getPaymentData(convertedValue[batteries[y]], pymtObj);
+              vehicleObj.vehicle_details[model][batteries[y]]["payment_obj"] = defaultPaymentData;
+              vehicleObj.vehicle_details[model][batteries[y]]["payment_obj"] = defaultPaymentData; 
+            }
+          } 
+        }
+      } 
     }
 
     setTeslaModels(vehicleObj);
   };
+
+
+
+  const getPaymentData = (batteryObj, pymtObj) => {
+    let modelPaymentObj = pymtObj;
+    let vehicleObj = batteryObj; 
+
+    // get non cash credit sum
+    const nonCashCreditsArr = modelPaymentObj["nonCashCreditsArr"];
+    let credits = 0;
+
+    for(let i = 0; i < nonCashCreditsArr.length; i++){
+      credits += nonCashCreditsArr[i]["amt"];
+    }
+
+    modelPaymentObj["nonCashCredit"] = credits;
+
+    // get due at delivery for cash, and more
+    const configuredPrice = vehicleObj["purchase_price"];
+    const docFee = modelPaymentObj["docFee"];
+    const stateTotalFees = modelPaymentObj["stateTotalFees"]; // TODO: how do we get this #?
+    const stateTaxRate = modelPaymentObj["taxRate"];
+    const modelTax = stateTaxRate/100 * configuredPrice;
+    const orderPymt = modelPaymentObj["orderPymt"];
+    const orderFeeTax = stateTaxRate/100 * orderPymt;
+    const stateDestinationFee = modelPaymentObj["stateDestinationFee"];
+    const stateDocumentationFee = modelPaymentObj["stateDocumentationFee"];
+    const tradeInEquity = modelPaymentObj["tradeInEquity"];
+    const stateSalesTax = modelTax + orderFeeTax + stateDestinationFee + stateDocumentationFee;
+    let cashDueAtDelivery = configuredPrice + docFee + stateTotalFees;
+    cashDueAtDelivery = cashDueAtDelivery - credits - orderPymt - tradeInEquity;
+
+    modelPaymentObj["modelTax"] = modelTax;
+    modelPaymentObj["orderFeeTax"] = orderFeeTax;
+    modelPaymentObj["stateSalesTax"] = stateSalesTax;
+    modelPaymentObj["cashDueAtDelivery"] = cashDueAtDelivery;
+
+
+    // get loan monthly payment
+    const cashDownPymt = configuredPrice / 100;
+    let financeDueAtDelivery = stateTotalFees + stateSalesTax + cashDownPymt;
+    financeDueAtDelivery = financeDueAtDelivery - orderPymt - credits - tradeInEquity;
+    let equity = 0;
+
+    if(financeDueAtDelivery <= 0){
+      equity = financeDueAtDelivery; // this occurs if trade-in equity exceeds amt due
+      financeDueAtDelivery = 0;
+    }
+    
+    const amtFinanced = cashDueAtDelivery - financeDueAtDelivery - equity;
+    const loanApr = modelPaymentObj["finance"]["loanApr"];
+    const loanTerm = modelPaymentObj["finance"]["loanTerm"];
+
+    modelPaymentObj["finance"]["monthlyPymt"] = getLoanMonthlyPymt(amtFinanced, loanApr, loanTerm);
+    modelPaymentObj["finance"]["dueAtDelivery"] = financeDueAtDelivery;
+    modelPaymentObj["finance"]["amtFinanced"] = amtFinanced; 
+    modelPaymentObj["finance"]["cashDownPymt"] = cashDownPymt;
+    
+    // get lease cash down payment
+    modelPaymentObj["lease"]["cashDownPymt"] = cashDownPymt;
+
+    // get lease money factor
+    let leaseIntRate = modelPaymentObj["lease"]["leaseInterestRate"];
+    let leaseIntRatePercent = leaseIntRate / 100;
+    const moneyFactor = leaseIntRatePercent / 24;
+    modelPaymentObj["lease"]["moneyFactor"] = moneyFactor;
+    
+    // get lease monthly payment 
+    const leaseTerm = modelPaymentObj["lease"]["leaseTerm"]; // ex: 36 months
+    const acquisitionFee = modelPaymentObj["lease"]["acquisitionFee"];
+    const residualValue = cashDueAtDelivery * 0.64 // TODO: get correct residual value
+
+    let netCapitalizedCost = configuredPrice + docFee + acquisitionFee + stateTotalFees;
+    netCapitalizedCost = netCapitalizedCost - cashDownPymt - credits - orderPymt;
+    const depreciationFee = (netCapitalizedCost - residualValue) / leaseTerm;
+    const financeFee = (netCapitalizedCost + residualValue) * moneyFactor;
+    const salesTax = (depreciationFee + financeFee) * stateTaxRate;
+    const monthlyLeasePymt = depreciationFee + financeFee + salesTax;
+    modelPaymentObj["lease"]["monthlyPymt"] = monthlyLeasePymt;
+    
+    // get lease due at delivery 
+    const aquisitionFee = modelPaymentObj["lease"]["aquisitionFee"]; // TODO: Does this change?
+    const upfrontSalesTax = modelPaymentObj["lease"]["upfrontTaxAmt"];
+    let leaseDueAtDelivery = cashDownPymt + monthlyLeasePymt + aquisitionFee + upfrontSalesTax + stateTotalFees;
+    leaseDueAtDelivery = leaseDueAtDelivery - orderPymt - credits;
+    modelPaymentObj["lease"]["dueAtDelivery"] = leaseDueAtDelivery;
+    modelPaymentObj["lease"]["residualValue"] = residualValue;
+
+    return modelPaymentObj;
+    
+  }
+
 
   const populateMenu = () => {
     const vehiclez = vehicle;
@@ -473,17 +590,14 @@ const VehiclePanel = ({
       let currentWheelPrice = renderedVehicle["wheel"][1];
 
       let currentVehiclePrice = renderedVehicle["cash_price"];
-      console.log("currentVehiclePrice 1:", currentVehiclePrice);
 
       if (currentWheelPrice !== "included") {
         currentVehiclePrice -= currentWheelPrice;
       }
-      console.log("currentVehiclePrice 2:", currentVehiclePrice);
 
       if (newPrice !== "included") {
         currentVehiclePrice += newPrice;
       }
-      console.log("currentVehiclePrice 3:", currentVehiclePrice);
 
       newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
       newTeslaModels.vehicle_render[model]["wheel"] = [wheelSelected, newPrice];
