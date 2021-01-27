@@ -61,8 +61,8 @@
     display: inline;
 }
 
-.vehicleConfig_pricing{
-    padding: 5px;
+.vehicleConfig_pricing{ 
+    padding: 5px 0px 5px 5px;
 }
 
 .vehicleConfig_select_ul{

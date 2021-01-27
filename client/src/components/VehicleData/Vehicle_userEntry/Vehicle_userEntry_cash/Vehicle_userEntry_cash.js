@@ -1,36 +1,88 @@
 import React, { Component } from 'react';
 import './Vehicle_userEntry_cash.css';
 
-const VehicleUserEntry_cash = () => {
+
+const Vehicle_userEntry_cash = ({
+    activeFormVals,
+    handleFormChange,
+    usStateVehicleOrder,
+    error,
+    handleClearField
+}) => {
 
   return (
-    <div className="vehicleUserEntry_cash_container">
+    <div className="vehicle_userEntry_cash_container">
+        {error && <b>FORM ERROR</b>}
         <div className="vehicleConfig_userEntry_container1"> 
             <div className="vehicleConfig_pricing vehicleConfig_pricing_grey vehicleConfig_loanAmtDue">
-                <label>Order Payment </label>
+                <label>Order Payment: </label>
                 <span className="vehicleConfig_userInput_container">
-                <div className="vehicleConfig_userInput_subcontainer">$<input className="vehicleConfig_userInput app_removeBlue" /></div>
-                <img className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1" src="../../../../images/edit_icon.png" />
+                <div className="vehicleConfig_userInput_subcontainer">
+                    $
+                    <input 
+                      className="vehicleConfig_userInput app_removeBlue" 
+                      value={usStateVehicleOrder[1].order_pymt} 
+                    />
+                </div> 
                 </span>
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_loanAmtDue">
                 <label>Trade-in Value: </label>
                 <span className="vehicleConfig_userInput_container">
-                <div className="vehicleConfig_userInput_subcontainer">$<input className="vehicleConfig_userInput app_removeBlue"></input></div>
+                <div className="vehicleConfig_userInput_subcontainer">
+                    $
+                    <input 
+                      className="vehicleConfig_userInput app_removeBlue"
+                      value={activeFormVals["tradeInValue"]}
+                      onChange={(e) => handleFormChange("tradeInValue", e.target.value)}
+                    />
+                </div>
+                <button 
+                  className="vehicleConfig_clearBtn"
+                  onClick={() => handleClearField("tradeInValue")}
+                >
+                    Clear
+                </button>
                 <img className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1" src="../../../../images/edit_icon.png" />
                 </span>
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_pricing_grey vehicleConfig_customerCashDown">
                 <label>Trade-in Payoff: </label>
                 <span className="vehicleConfig_userInput_container">
-                <div className="vehicleConfig_userInput_subcontainer">$<input className="vehicleConfig_userInput app_removeBlue"></input></div>
+                <div className="vehicleConfig_userInput_subcontainer">
+                    $
+                    <input 
+                      className="vehicleConfig_userInput app_removeBlue"
+                      value={activeFormVals["tradeInPayoff"]}
+                      onChange={(e) => handleFormChange("tradeInPayoff", e.target.value)}
+                    />
+                </div>
+                <button 
+                  className="vehicleConfig_clearBtn"
+                  onClick={() => handleClearField("tradeInPayoff")}
+                >
+                    Clear
+                </button>
                 <img className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1" src="../../../../images/edit_icon.png" />
                 </span>
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_stateTax">
                 <label>Enter Adjustments: </label>
                 <span className="vehicleConfig_userInput_container">
-                <div className="vehicleConfig_userInput_subcontainer">$<input className="vehicleConfig_userInput app_removeBlue"></input></div>
+                <div className="vehicleConfig_userInput_subcontainer">
+                    $
+                    <input 
+                      className="vehicleConfig_userInput app_removeBlue"
+                      value={activeFormVals["adjustments"]}
+                      onChange={(e) => handleFormChange("adjustments", e.target.value)}
+                    />
+                </div>
+                <button 
+                  className="vehicleConfig_clearBtn"
+                  onClick={() => handleClearField("adjustments")}
+                >
+                    Clear
+                </button>
                 <img className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1" src="../../../../images/edit_icon.png" />
                 </span>
             </div>
@@ -39,4 +91,4 @@ const VehicleUserEntry_cash = () => {
   );
 }
 
-export default VehicleUserEntry_cash;
+export default Vehicle_userEntry_cash;

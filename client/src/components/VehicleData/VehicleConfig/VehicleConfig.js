@@ -19,7 +19,7 @@ const VehicleConfig = ({
   addTowHitch,
   toggleFSD,
   selectOffMenuAutopilot,
-  usStateVehicleOrder
+  usStateVehicleOrder,
 }) => {
   const showComponent = (value) => {
     setVisibility({ [value]: true });
@@ -39,9 +39,37 @@ const VehicleConfig = ({
   const [activeTowHitch, setActiveTowHitch] = useState(null);
   const [activePayment, setActivePayment] = useState("Cash");
   const [activeFSDSetting, setActiveFSDSetting] = useState("autopilot");
-  const [activeOffMenuAutopilot, setActiveOffMenuAutopilot] = useState("no_autopilot");
+  const [activeOffMenuAutopilot, setActiveOffMenuAutopilot] = useState(
+    "no_autopilot"
+  );
+  const [activeFormVals, setActiveFormVals] = useState({});
+  const [error, setFormError] = useState(false);
 
-  console.log("usStateVehicleOrder -- ",usStateVehicleOrder)
+  const handleClearField = (field) => {
+    setActiveFormVals({
+      ...activeFormVals,
+      [field]: "",
+    });
+  };
+
+  const handleFormChange = (field, value) => {
+    setActiveFormVals({
+      ...activeFormVals,
+      [field]: value,
+    });
+  };
+
+  const handlePaymentFormSubmit = () => {
+    console.log("activeFormVals", activeFormVals);
+
+    let formError = false;
+
+    if (!activeFormVals["leaseTermLength"]) {
+      formError = true;
+    }
+
+    setFormError(formError); 
+  };
 
   const name = `${selectedVehicle}`
     .split(" ")
@@ -84,14 +112,19 @@ const VehicleConfig = ({
   const seatingObject = teslaDetails[vehicleBattery]["layout"];
   const seatingObjectKeys = Object.keys(seatingObject);
 
+  // console.log('vehicleContent 1 -- ',vehicleContent);
+  // console.log('vehicleContent 2 -- ',vehicleContent["vehicle_render"]["model3"]["batteries_pymt_object"]["long_range"] );
+  // console.log('vehicleContent 2 -- ',vehicleContent["vehicle_render"]["model3"]["long_range"]["payment_obj"]);
+
   let towHitchPrice = teslaDetails[vehicleBattery]["tow_hitch"];
-  if(towHitchPrice !== null){
+  if (towHitchPrice !== null) {
     towHitchPrice = teslaDetails[vehicleBattery]["tow_hitch"]["price"];
   }
 
   let selectedVehicleCpy = name;
 
-  const offMenuObj = vehicleContent.vehicle_details["model3"]["off_menu"]["autopilot"]; 
+  const offMenuObj =
+    vehicleContent.vehicle_details["model3"]["off_menu"]["autopilot"];
 
   useEffect(() => {
     const color = vehicleContent.vehicle_render[selectedVehicleCpy]["paint"][0];
@@ -107,12 +140,20 @@ const VehicleConfig = ({
     const layout =
       vehicleContent.vehicle_render[selectedVehicleCpy]["layout"][0];
     setActiveLayout(layout);
-    const autopilotSetting = vehicleContent.vehicle_render[selectedVehicleCpy]["autopilot"][0];
+    const autopilotSetting =
+      vehicleContent.vehicle_render[selectedVehicleCpy]["autopilot"][0];
     setActiveOffMenuAutopilot(autopilotSetting);
-    const activeFSDSetting = vehicleContent.vehicle_render[selectedVehicleCpy]["autopilot"][0];
+    const activeFSDSetting =
+      vehicleContent.vehicle_render[selectedVehicleCpy]["autopilot"][0];
     setActiveFSDSetting(activeFSDSetting);
-    const activeTowHitch = vehicleContent.vehicle_render[selectedVehicleCpy]["tow_hitch"]; 
+    const activeTowHitch =
+      vehicleContent.vehicle_render[selectedVehicleCpy]["tow_hitch"];
     setActiveTowHitch(activeTowHitch);
+
+    setActiveFormVals({
+      ...activeFormVals,
+      leaseAPR: vehicleContent.vehicle_render[selectedVehicleCpy]["apr"],
+    });
   }, [vehicleContent, selectedVehicleCpy]);
 
   if (!renderedTesla) {
@@ -122,6 +163,21 @@ const VehicleConfig = ({
   const renderedTeslaImgFolder = renderedTesla.image_vehicle;
   const renderedTeslaImg = renderedTesla.vehicle_image;
   const renderedTowHitch = renderedTesla.tow_hitch;
+  // console.log('lookit here renderedTesla - ',Object.keys(renderedTesla) );
+  // console.log('lookit here renderedTesla - ',renderedTesla["model"] );
+  // console.log('lookit here teslaDetails - ',Object.keys(teslaDetails) );
+
+  const modelInfo = {
+    modelName: name,
+    modelBattery: vehicleBattery,
+    configuredPrice: renderedTesla["cash_price"],
+    pymtContent: renderedTesla["payment_object"],
+  };
+
+  // console.log('yolo: ',renderedTesla["batteries_pymt_object"])
+  // console.log('vehicle and battery :',name,' ',vehicleBattery);
+  // console.log('RT ----------=> ',renderedTesla["payment_object"]);
+  // console.log('RT ----------=> ',renderedTesla["payment_object"]["cashDueAtDelivery"]);
 
   return (
     <div className="app_Config_container">
@@ -221,9 +277,33 @@ const VehicleConfig = ({
                 </div>
               </div>
               <div className="vehicleConfig_pricing_subcontainers">
-                {visibility.Cash ? <VehicleCash /> : ""}
-                {visibility.Loan ? <VehicleFinance /> : ""}
-                {visibility.Lease ? <VehicleLeasing /> : ""}
+                {visibility.Cash ? (
+                  <VehicleCash
+                    usStateVehicleOrder={usStateVehicleOrder}
+                    vehicleContent={vehicleContent}
+                    modelInfo={modelInfo}
+                  />
+                ) : (
+                  ""
+                )}
+                {visibility.Loan ? (
+                  <VehicleFinance
+                    usStateVehicleOrder={usStateVehicleOrder}
+                    vehicleContent={vehicleContent}
+                    modelInfo={modelInfo}
+                  />
+                ) : (
+                  ""
+                )}
+                {visibility.Lease ? (
+                  <VehicleLeasing
+                    usStateVehicleOrder={usStateVehicleOrder}
+                    vehicleContent={vehicleContent}
+                    modelInfo={modelInfo}
+                  />
+                ) : (
+                  ""
+                )}
               </div>
             </div>
 
@@ -363,7 +443,7 @@ const VehicleConfig = ({
                     className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input"
                     readonly="readonly"
                   />
-                </div> 
+                </div>
               </div>
 
               <div className="vehicleConfig_selectInteriorColor_container">
@@ -409,48 +489,47 @@ const VehicleConfig = ({
             </div>
 
             {(() => {
-                if (seatingObjectKeys.length > 1) {
-                  return (
-                    <div className="vehicleConfig_selectLayout_super">
-                      <div className="vehicleConfig_selectLayout_container">
-                        <div className="app_textalign">Select Layout: </div>
-                        <ul className="vehicleConfig_select_ul vehicleConfig_selectlayout_ul">
-                          {seatingObjectKeys.map((s) => {
-                            if (seatingObjectKeys.length > 1) {
-                              return (
-                                <li
-                                  onClick={(event) => {
-                                    changeVehicleLayout(
-                                      vehicleBattery,
-                                      s,
-                                      selectedVehicle
-                                    );
-                                    setActiveLayout(s);
-                                  }}
-                                  className={`app_noSelect vehicleConfig_select layout_select vehicleConfig_5_seater ${
-                                    activeLayout == s && "selected_btn"
-                                  }`}
-                                >
-                                  {seatingObject[s]["altName"]} -{" "}
-                                  {seatingObject[s]["price"]}
-                                </li>
-                              );
-                            }
-                          })}
-                        </ul>
-                      </div>
-                      <div className="vehicleConfig_borderBottom"></div>
+              if (seatingObjectKeys.length > 1) {
+                return (
+                  <div className="vehicleConfig_selectLayout_super">
+                    <div className="vehicleConfig_selectLayout_container">
+                      <div className="app_textalign">Select Layout: </div>
+                      <ul className="vehicleConfig_select_ul vehicleConfig_selectlayout_ul">
+                        {seatingObjectKeys.map((s) => {
+                          if (seatingObjectKeys.length > 1) {
+                            return (
+                              <li
+                                onClick={(event) => {
+                                  changeVehicleLayout(
+                                    vehicleBattery,
+                                    s,
+                                    selectedVehicle
+                                  );
+                                  setActiveLayout(s);
+                                }}
+                                className={`app_noSelect vehicleConfig_select layout_select vehicleConfig_5_seater ${
+                                  activeLayout == s && "selected_btn"
+                                }`}
+                              >
+                                {seatingObject[s]["altName"]} -{" "}
+                                {seatingObject[s]["price"]}
+                              </li>
+                            );
+                          }
+                        })}
+                      </ul>
                     </div>
-                  )
-                }
-              })()}
+                    <div className="vehicleConfig_borderBottom"></div>
+                  </div>
+                );
+              }
+            })()}
 
             <div className="vehicleConfig_selectLayout_and_autopilot_container">
-              
-              {
-                (() => {
-                  if (vehicleBattery === "off_menu") {
-                    return <div>
+              {(() => {
+                if (vehicleBattery === "off_menu") {
+                  return (
+                    <div>
                       <div className="vehicleConfig_autopilot_container">
                         <div className="app_textalign">Select Autopilot: </div>
                         <div>
@@ -466,7 +545,9 @@ const VehicleConfig = ({
                             value="no_autopilot"
                             className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_noAutopilot_radio"
                           ></input>
-                          <span className="vehicleConfig_autopilot">No autopilot</span>
+                          <span className="vehicleConfig_autopilot">
+                            No autopilot
+                          </span>
                         </div>
                         <div>
                           <input
@@ -477,11 +558,16 @@ const VehicleConfig = ({
                             }}
                             type="radio"
                             name="autopilot_radio"
-                            checked={activeOffMenuAutopilot === "autopilot_charge"}
+                            checked={
+                              activeOffMenuAutopilot === "autopilot_charge"
+                            }
                             value="autopilot_charge"
                             className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_autopilot_radio"
                           ></input>
-                          <span>Autopilot - ${offMenuObj["autopilot_charge"]["price"]}</span>
+                          <span>
+                            Autopilot - $
+                            {offMenuObj["autopilot_charge"]["price"]}
+                          </span>
                         </div>
                         <div>
                           <input
@@ -492,45 +578,48 @@ const VehicleConfig = ({
                             }}
                             type="radio"
                             name="autopilot_radio"
-                            checked={activeOffMenuAutopilot === "fsd_and_autopilot"}
+                            checked={
+                              activeOffMenuAutopilot === "fsd_and_autopilot"
+                            }
                             value="fsd_and_autopilot"
                             className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_fsd_radio"
                           ></input>
                           <span className="app_font11">
-                            FSD &amp; Autopilot - ${offMenuObj["fsd_and_autopilot"]["price"]}
+                            FSD &amp; Autopilot - $
+                            {offMenuObj["fsd_and_autopilot"]["price"]}
                           </span>
                         </div>
                       </div>
                       <div className="vehicleConfig_borderBottom"></div>
                     </div>
-                  } else {
-                    return(
-                      <div>
-                        <div className="vehicleConfig_selectFSD_container">
-                          <ul className="vehicleConfig_select_ul vehicleConfig_selectFSD_ul">
-                            <input
-                              onChange={(e) => {
-                                const value = e.target.value;
-                                toggleFSD(vehicleBattery, selectedVehicle);
-                                setActiveFSDSetting(value === "fsd" ? "autopilot" : "fsd");
-                              }}
-                              type="checkbox"
-                              checked={activeFSDSetting === "fsd"}
-                              value={activeFSDSetting}
-                              className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_towHitch_checkbox"
-                            ></input>
-                            <span>Full Self Driving - $10,000</span>
-                          </ul>
-                        </div>
-                        <div className="vehicleConfig_borderBottom"></div>
+                  );
+                } else {
+                  return (
+                    <div>
+                      <div className="vehicleConfig_selectFSD_container">
+                        <ul className="vehicleConfig_select_ul vehicleConfig_selectFSD_ul">
+                          <input
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              toggleFSD(vehicleBattery, selectedVehicle);
+                              setActiveFSDSetting(
+                                value === "fsd" ? "autopilot" : "fsd"
+                              );
+                            }}
+                            type="checkbox"
+                            checked={activeFSDSetting === "fsd"}
+                            value={activeFSDSetting}
+                            className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_towHitch_checkbox"
+                          ></input>
+                          <span>Full Self Driving - $10,000</span>
+                        </ul>
                       </div>
-                    )
-                  }
-                })()
-              } 
+                      <div className="vehicleConfig_borderBottom"></div>
+                    </div>
+                  );
+                }
+              })()}
             </div>
-
-
 
             <div>
               {(() => {
@@ -542,7 +631,9 @@ const VehicleConfig = ({
                           onChange={(e) => {
                             const value = e.target.value;
                             addTowHitch(vehicleBattery, selectedVehicle);
-                            setActiveTowHitch(value === towHitchPrice ? "null" : towHitchPrice);
+                            setActiveTowHitch(
+                              value === towHitchPrice ? "null" : towHitchPrice
+                            );
                           }}
                           type="checkbox"
                           checked={activeTowHitch === towHitchPrice}
@@ -595,9 +686,42 @@ const VehicleConfig = ({
                   </div>
                 </div>
                 <div className="vehicleConfig_userEntry_containers">
-                  {visibility.Cash ? <Vehicle_userEntry_cash /> : ""}
-                  {visibility.Loan ? <Vehicle_userEntry_financing /> : ""}
-                  {visibility.Lease ? <Vehicle_userEntry_leasing /> : ""}
+                  {visibility.Cash ? (
+                    <Vehicle_userEntry_cash
+                      usStateVehicleOrder={usStateVehicleOrder}
+                      modelInfo={modelInfo}
+                      activeFormVals={activeFormVals}
+                      handleFormChange={handleFormChange}
+                      error={error}
+                      handleClearField={handleClearField}
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {visibility.Loan ? (
+                    <Vehicle_userEntry_financing
+                      usStateVehicleOrder={usStateVehicleOrder}
+                      modelInfo={modelInfo}
+                      activeFormVals={activeFormVals}
+                      handleFormChange={handleFormChange}
+                      error={error}
+                      handleClearField={handleClearField}
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {visibility.Lease ? (
+                    <Vehicle_userEntry_leasing
+                      usStateVehicleOrder={usStateVehicleOrder}
+                      modelInfo={modelInfo}
+                      activeFormVals={activeFormVals}
+                      handleFormChange={handleFormChange}
+                      error={error}
+                      handleClearField={handleClearField}
+                    />
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className="vehicleConfig_submit_btn_container">
@@ -607,7 +731,10 @@ const VehicleConfig = ({
                 <button className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_reset_btn app_cursorPointer">
                   RESET
                 </button>
-                <button className="app_removeBlue app_submit_btn app_noSelect vehicleConfig_control_btn vehicleConfig_submit_btn app_cursorPointer">
+                <button
+                  onClick={handlePaymentFormSubmit}
+                  className="app_removeBlue app_submit_btn app_noSelect vehicleConfig_control_btn vehicleConfig_submit_btn app_cursorPointer"
+                >
                   SUBMIT
                 </button>
               </div>
