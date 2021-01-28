@@ -20,6 +20,9 @@ const VehicleConfig = ({
   toggleFSD,
   selectOffMenuAutopilot,
   usStateVehicleOrder,
+  populatePaymentObject,
+  setUserPymtEntry,
+  setTeslaModels
 }) => {
   const showComponent = (value) => {
     setVisibility({ [value]: true });
@@ -45,6 +48,21 @@ const VehicleConfig = ({
   const [activeFormVals, setActiveFormVals] = useState({});
   const [error, setFormError] = useState(false);
 
+  const name = `${selectedVehicle}`
+  .split(" ")
+  .map((iv, i) => {
+    if (i === 0) {
+      return iv.toLowerCase();
+    }
+    return iv;
+  })
+  .join("");
+
+  const renderedTesla = vehicleContent.vehicle_render[name];
+  const teslaDetails = vehicleContent.vehicle_details[name];
+  const paintObject = teslaDetails["paint_options"];
+  const paintObjectKeys = Object.keys(paintObject);
+
   const handleClearField = (field) => {
     setActiveFormVals({
       ...activeFormVals,
@@ -60,7 +78,7 @@ const VehicleConfig = ({
   };
 
   const handlePaymentFormSubmit = () => {
-    console.log("activeFormVals", activeFormVals);
+    // write error handling code to review user entries! - TODO
 
     let formError = false;
 
@@ -68,23 +86,26 @@ const VehicleConfig = ({
       formError = true;
     }
 
-    setFormError(formError); 
+    setFormError(formError);
+
+    const modelName = name;
+    setUserPymtEntry(activeFormVals, modelName);
+
+
+    setTeslaModels((vehicleContent) => {
+      let newTeslaModels = { ...vehicleContent };
+
+      const configuredPrice = renderedTesla["cash_price"];
+      const paymentObj = renderedTesla["payment_object"];
+
+      newTeslaModels.vehicle_render[modelName][
+        "payment_object"
+      ] = populatePaymentObject( configuredPrice, paymentObj );
+
+      return newTeslaModels;
+    });
+
   };
-
-  const name = `${selectedVehicle}`
-    .split(" ")
-    .map((iv, i) => {
-      if (i === 0) {
-        return iv.toLowerCase();
-      }
-      return iv;
-    })
-    .join("");
-
-  const renderedTesla = vehicleContent.vehicle_render[name];
-  const teslaDetails = vehicleContent.vehicle_details[name];
-  const paintObject = teslaDetails["paint_options"];
-  const paintObjectKeys = Object.keys(paintObject);
 
   const batteryObject = {
     standard_battery: teslaDetails.standard_battery,
@@ -111,10 +132,6 @@ const VehicleConfig = ({
 
   const seatingObject = teslaDetails[vehicleBattery]["layout"];
   const seatingObjectKeys = Object.keys(seatingObject);
-
-  // console.log('vehicleContent 1 -- ',vehicleContent);
-  // console.log('vehicleContent 2 -- ',vehicleContent["vehicle_render"]["model3"]["batteries_pymt_object"]["long_range"] );
-  // console.log('vehicleContent 2 -- ',vehicleContent["vehicle_render"]["model3"]["long_range"]["payment_obj"]);
 
   let towHitchPrice = teslaDetails[vehicleBattery]["tow_hitch"];
   if (towHitchPrice !== null) {
@@ -152,7 +169,8 @@ const VehicleConfig = ({
 
     setActiveFormVals({
       ...activeFormVals,
-      leaseAPR: vehicleContent.vehicle_render[selectedVehicleCpy]["apr"],
+      leaseInterestRate: vehicleContent.vehicle_render[selectedVehicleCpy]["payment_object"]["lease"]["leaseInterestRate"],
+      loanApr: vehicleContent.vehicle_render[selectedVehicleCpy]["payment_object"]["finance"]["loanApr"]
     });
   }, [vehicleContent, selectedVehicleCpy]);
 
@@ -160,12 +178,10 @@ const VehicleConfig = ({
     return null;
   }
 
+
   const renderedTeslaImgFolder = renderedTesla.image_vehicle;
   const renderedTeslaImg = renderedTesla.vehicle_image;
-  const renderedTowHitch = renderedTesla.tow_hitch;
-  // console.log('lookit here renderedTesla - ',Object.keys(renderedTesla) );
-  // console.log('lookit here renderedTesla - ',renderedTesla["model"] );
-  // console.log('lookit here teslaDetails - ',Object.keys(teslaDetails) );
+  const renderedTowHitch = renderedTesla.tow_hitch; 
 
   const modelInfo = {
     modelName: name,
@@ -174,10 +190,6 @@ const VehicleConfig = ({
     pymtContent: renderedTesla["payment_object"],
   };
 
-  // console.log('yolo: ',renderedTesla["batteries_pymt_object"])
-  // console.log('vehicle and battery :',name,' ',vehicleBattery);
-  // console.log('RT ----------=> ',renderedTesla["payment_object"]);
-  // console.log('RT ----------=> ',renderedTesla["payment_object"]["cashDueAtDelivery"]);
 
   return (
     <div className="app_Config_container">
