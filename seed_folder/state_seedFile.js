@@ -14,7 +14,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -25,12 +25,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -39,9 +39,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -96,7 +95,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -107,12 +106,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -121,9 +120,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -178,7 +176,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -189,12 +187,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -203,9 +201,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -269,7 +266,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -280,12 +277,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -294,9 +291,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -351,7 +347,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -362,12 +358,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -376,9 +372,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -442,7 +437,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -453,12 +448,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -467,9 +462,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -533,7 +527,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -544,12 +538,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -558,9 +552,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -624,7 +617,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -635,12 +628,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -649,9 +642,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -706,7 +698,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -717,12 +709,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -731,9 +723,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -797,7 +788,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -808,12 +799,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -822,9 +813,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -888,7 +878,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -899,12 +889,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -913,9 +903,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -979,7 +968,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -990,12 +979,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -1004,9 +993,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -1061,7 +1049,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -1072,12 +1060,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -1086,9 +1074,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -1152,7 +1139,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -1163,12 +1150,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -1177,9 +1164,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -1233,7 +1219,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -1244,12 +1230,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -1258,9 +1244,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -1324,7 +1309,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -1335,12 +1320,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -1349,9 +1334,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -1405,7 +1389,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -1416,12 +1400,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -1430,9 +1414,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -1487,7 +1470,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -1498,12 +1481,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -1512,9 +1495,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -1569,7 +1551,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -1580,12 +1562,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -1594,9 +1576,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -1651,7 +1632,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -1662,12 +1643,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -1676,9 +1657,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -1742,7 +1722,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -1753,12 +1733,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -1767,9 +1747,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -1833,7 +1812,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -1844,12 +1823,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -1858,9 +1837,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -1924,7 +1902,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -1935,12 +1913,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -1949,9 +1927,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -2015,7 +1992,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -2026,12 +2003,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -2040,9 +2017,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -2097,7 +2073,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -2108,12 +2084,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -2122,9 +2098,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -2179,7 +2154,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -2190,12 +2165,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -2204,9 +2179,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -2261,7 +2235,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -2272,12 +2246,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -2286,9 +2260,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -2343,7 +2316,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -2354,12 +2327,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -2368,9 +2341,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -2434,7 +2406,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -2445,12 +2417,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -2459,9 +2431,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -2515,7 +2486,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -2526,12 +2497,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -2540,9 +2511,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -2597,7 +2567,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -2608,12 +2578,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -2622,9 +2592,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -2679,7 +2648,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -2690,12 +2659,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -2704,9 +2673,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -2770,7 +2738,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -2781,12 +2749,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -2795,9 +2763,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -2861,7 +2828,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -2872,12 +2839,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -2886,9 +2853,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -2943,7 +2909,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -2954,12 +2920,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -2968,9 +2934,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -3034,7 +2999,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -3045,12 +3010,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -3059,9 +3024,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -3116,7 +3080,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -3127,12 +3091,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -3141,9 +3105,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -3207,7 +3170,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -3218,12 +3181,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -3232,9 +3195,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -3298,7 +3260,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -3309,12 +3271,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -3323,9 +3285,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -3389,7 +3350,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -3400,12 +3361,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -3414,9 +3375,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -3471,7 +3431,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -3482,12 +3442,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -3496,9 +3456,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -3553,7 +3512,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -3564,12 +3523,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -3578,9 +3537,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -3644,7 +3602,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -3655,12 +3613,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -3669,9 +3627,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -3726,7 +3683,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -3737,12 +3694,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -3751,9 +3708,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -3817,7 +3773,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -3828,12 +3784,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -3842,9 +3798,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -3899,7 +3854,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -3910,12 +3865,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -3924,9 +3879,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -3990,7 +3944,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -4001,12 +3955,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -4015,9 +3969,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -4081,7 +4034,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -4092,12 +4045,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -4106,9 +4059,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -4163,7 +4115,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -4174,12 +4126,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -4188,9 +4140,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -4245,7 +4196,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -4256,12 +4207,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -4270,9 +4221,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
@@ -4327,7 +4277,7 @@ orderPymt: 100,
 adjustments: 0,
 nonCashCreditsArr: [{amt:1500, name:"CA Clean Fuel Rebate", source:""}],
 nonCashCredit: null,
-tradeinValue: 0,
+tradeInValue: 0,
 tradeInPayoff: 0,
 tradeInEquity: 0,
 taxRate: 9.75,
@@ -4338,12 +4288,12 @@ orderFeeTax: null, // 9.75 - taxRate/100 * orderPymt
 stateDestinationFee: 109.69,
 stateDocumentationFee: 7.31,
 cashDueAtDelivery: null,
+cashDownPymt: null,
 finance: {
 loanTerm: 72,
-LoanApr: 2.49,
+loanApr: 2.49,
 amtFinanced: null,
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null
 },
 lease: {
@@ -4352,9 +4302,8 @@ annualMiles: 10000,
 leaseInterestRate: 4.85,
 upfrontTaxAmt: 555, // capitalized cost reduction + acquisitionFee * taxRate/100
 monthlyPymt: null,
-cashDownPymt: null,
 dueAtDelivery: null,
-aquisitionFee: 695, // TODO: doesn't change?
+acquisitionFee: 695, // TODO: doesn't change?
 moneyFactor: null, // Interest rate (%) / 24
 residualValue: null // TODO: get from finance
 }
