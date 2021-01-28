@@ -147,7 +147,7 @@ const VehiclePanel = ({
     const tradeInEquity = modelPaymentObj["tradeInEquity"];
 
     // get non cash credit sum
-    const nonCashCreditsArr = modelPaymentObj["nonCashCreditsArr"]; // configuredPrice
+    const nonCashCreditsArr = modelPaymentObj["nonCashCreditsArr"];
     let credits = 0;
 
     for (let i = 0; i < nonCashCreditsArr.length; i++) {
@@ -175,6 +175,7 @@ const VehiclePanel = ({
     let financeDueAtDelivery = stateTotalFees + stateSalesTax + cashDownPymt;
     financeDueAtDelivery =
       financeDueAtDelivery - orderPymt - credits - tradeInEquity;
+    financeDueAtDelivery = Math.floor(financeDueAtDelivery);
     let equity = 0;
 
     if (financeDueAtDelivery <= 0) {
@@ -205,7 +206,7 @@ const VehiclePanel = ({
 
     // get lease monthly payment
     const leaseTerm = modelPaymentObj["lease"]["leaseTerm"]; // ex: 36 months
-    const acquisitionFee = modelPaymentObj["lease"]["acquisitionFee"];
+    const acquisitionFee = modelPaymentObj["lease"]["acquisitionFee"]; // TODO: Does this change?
     const residualValue = cashDueAtDelivery * 0.64; // TODO: get correct residual value
 
     let netCapitalizedCost =
@@ -216,18 +217,18 @@ const VehiclePanel = ({
     const financeFee = (netCapitalizedCost + residualValue) * moneyFactor;
     const salesTax = (depreciationFee + financeFee) * stateTaxRate;
     const monthlyLeasePymt = depreciationFee + financeFee + salesTax;
-    modelPaymentObj["lease"]["monthlyPymt"] = monthlyLeasePymt;
+    modelPaymentObj["lease"]["monthlyPymt"] = monthlyLeasePymt; 
 
-    // get lease due at delivery
-    const aquisitionFee = modelPaymentObj["lease"]["aquisitionFee"]; // TODO: Does this change?
+    // get lease due at delivery 
     const upfrontSalesTax = modelPaymentObj["lease"]["upfrontTaxAmt"];
     let leaseDueAtDelivery =
       cashDownPymt +
       monthlyLeasePymt +
-      aquisitionFee +
+      acquisitionFee +
       upfrontSalesTax +
       stateTotalFees;
-    leaseDueAtDelivery = leaseDueAtDelivery - orderPymt - credits;
+    leaseDueAtDelivery = leaseDueAtDelivery - orderPymt - credits; 
+
     modelPaymentObj["lease"]["dueAtDelivery"] = leaseDueAtDelivery;
     modelPaymentObj["lease"]["residualValue"] = residualValue; 
 
