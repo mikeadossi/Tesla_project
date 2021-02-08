@@ -42,8 +42,7 @@ const Vehicle_userEntry_cash = ({
                   onClick={() => handleClearField("tradeInValue")}
                 >
                     Clear
-                </button>
-                <img className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1" src="../../../../images/edit_icon.png" />
+                </button> 
                 </span>
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_pricing_grey vehicleConfig_customerCashDown">
@@ -62,8 +61,7 @@ const Vehicle_userEntry_cash = ({
                   onClick={() => handleClearField("tradeInPayoff")}
                 >
                     Clear
-                </button>
-                <img className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1" src="../../../../images/edit_icon.png" />
+                </button> 
                 </span>
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_stateTax">
@@ -82,8 +80,7 @@ const Vehicle_userEntry_cash = ({
                   onClick={() => handleClearField("adjustments")}
                 >
                     Clear
-                </button>
-                <img className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1" src="../../../../images/edit_icon.png" />
+                </button> 
                 </span>
             </div>
         </div>

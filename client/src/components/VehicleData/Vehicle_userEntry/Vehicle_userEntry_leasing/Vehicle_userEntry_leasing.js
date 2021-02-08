@@ -8,7 +8,6 @@ const Vehicle_userEntry_leasing = ({
   error,
   handleClearField
 }) => {
-  console.log("activeFormVals", activeFormVals["leaseAPR"]);
   return (
     <div className="vehicle_userEntry_leasing_container">
       {error && <b>FORM ERROR</b>}
@@ -30,9 +29,9 @@ const Vehicle_userEntry_leasing = ({
           <select
             className="vehicleConfig_userSelect vehicleConfig_userSelect_lease"
             onChange={(e) =>
-              handleFormChange("leaseTermLength", e.target.value)
+              handleFormChange("leaseTerm", e.target.value)
             }
-            value={activeFormVals["leaseTermLength"]}
+            value={activeFormVals["leaseTerm"]}
           >
             <option value="24">24 months</option>
             <option value="36">36 months</option>
@@ -42,8 +41,8 @@ const Vehicle_userEntry_leasing = ({
           <label>Yearly Miles: </label>
           <select
             className="vehicleConfig_userSelect vehicleConfig_userSelect_miles"
-            onChange={(e) => handleFormChange("yearlyMiles", e.target.value)}
-            value={activeFormVals["yearlyMiles"]}
+            onChange={(e) => handleFormChange("annualMiles", e.target.value)}
+            value={activeFormVals["annualMiles"]}
           >
             <option value="10000">10,000 miles</option>
             <option value="12000">12,000 miles</option>
@@ -57,20 +56,16 @@ const Vehicle_userEntry_leasing = ({
               %
               <input
                 className="vehicleConfig_userInput app_removeBlue"
-                value={activeFormVals["leaseAPR"]}
-                onChange={(e) => handleFormChange("leaseAPR", e.target.value)}
+                value={activeFormVals["leaseInterestRate"]}
+                onChange={(e) => handleFormChange("leaseInterestRate", e.target.value)}
               />
             </div>
             <button
               className="vehicleConfig_clearBtn"
-              onClick={() => handleClearField("leaseAPR")}
+              onClick={() => handleClearField("leaseInterestRate")}
             >
               Clear
-            </button>
-            <img
-              className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1"
-              src="../../../../images/edit_icon.png"
-            />
+            </button> 
           </span>
         </div>
         <div className="vehicleConfig_pricing vehicleConfig_pricing_grey vehicleConfig_customerCashDown">
@@ -80,22 +75,18 @@ const Vehicle_userEntry_leasing = ({
               $
               <input
                 className="vehicleConfig_userInput app_removeBlue"
-                value={activeFormVals["leaseCashDownPayment"]}
+                value={activeFormVals["cashDownPayment"]}
                 onChange={(e) =>
-                  handleFormChange("leaseCashDownPayment", e.target.value)
+                  handleFormChange("cashDownPayment", e.target.value)
                 }
               />
             </div>
             <button 
               className="vehicleConfig_clearBtn" 
-              onClick={() => handleClearField("leaseCashDownPayment")}
+              onClick={() => handleClearField("cashDownPayment")}
             >
                 Clear
-            </button>
-            <img
-              className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1"
-              src="../../../../images/edit_icon.png"
-            />
+            </button> 
           </span>
         </div>
         <div className="vehicleConfig_pricing vehicleConfig_stateFees">
@@ -116,11 +107,7 @@ const Vehicle_userEntry_leasing = ({
               onClick={() => handleClearField("tradeInValue")}
             >
                 Clear
-            </button>
-            <img
-              className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1"
-              src="../../../../images/edit_icon.png"
-            />
+            </button> 
           </span>
         </div>
         <div className="vehicleConfig_pricing vehicleConfig_pricing_grey vehicleConfig_cashAmtDue">
@@ -141,11 +128,7 @@ const Vehicle_userEntry_leasing = ({
               onClick={() => handleClearField("tradeInPayoff")}
             >
                 Clear
-            </button>
-            <img
-              className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1"
-              src="../../../../images/edit_icon.png"
-            />
+            </button> 
           </span>
         </div>
         <div className="vehicleConfig_pricing vehicleConfig_stateTax">
@@ -166,11 +149,7 @@ const Vehicle_userEntry_leasing = ({
               onClick={() => handleClearField("adjustments")}
             >
                 Clear
-            </button>
-            <img
-              className="vehicleConfig_edit_btn app_cursorPointer vehicleConfig_userEntry_1"
-              src="../../../../images/edit_icon.png"
-            />
+            </button> 
           </span>
         </div>
       </div>
