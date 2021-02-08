@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import "./InfoPanel.css";
 import InfoPanel_locations_nearby from "../../components/InfoPanelData/InfoPanel_locations_nearby/InfoPanel_locations_nearby";
 import InfoPanel_payments from "../../components/InfoPanelData/InfoPanel_payments/InfoPanel_payments";
 import InfoPanel_incentives from "../../components/InfoPanelData/InfoPanel_incentives/InfoPanel_incentives";
 import InfoPanel_warranty from "../../components/InfoPanelData/InfoPanel_warranty/InfoPanel_warranty";
-import InfoPanel_links from "../../components/InfoPanelData/InfoPanel_links/InfoPanel_links";
-import InfoPanel_charging from "../../components/InfoPanelData/InfoPanel_charging/InfoPanel_charging";
+import InfoPanel_links from "../../components/InfoPanelData/InfoPanel_links/InfoPanel_links"; 
 import InfoPanel_installation from "../../components/InfoPanelData/InfoPanel_installation/InfoPanel_installation";
 import InfoPanel_roofTypes from "../../components/InfoPanelData/InfoPanel_roofTypes/InfoPanel_roofTypes";
 import InfoPanel_solar_container from "../../components/InfoPanelData/InfoPanel_solar_container/InfoPanel_solar_container";
@@ -14,8 +13,7 @@ import InfoPanel_neutral_container from "../../components/InfoPanelData/InfoPane
 
 const InfoPanel = (props) => {
   const [visibility, setVisibility] = useState({
-    InfoPanel_locations_nearby: false,
-    InfoPanel_charging: false,
+    InfoPanel_locations_nearby: false, 
     InfoPanel_payments: false,
     InfoPanel_links: false,
     InfoPanel_incentives: false,
@@ -55,50 +53,51 @@ const InfoPanel = (props) => {
 
         <div>
           {visibility.InfoPanel_locations_nearby ? (
-            // <InfoPanel_locations_nearby vehicleOrder={vOrder} stateAbbr={stateAbbreviation} />
-            <InfoPanel_locations_nearby />
+          <>
+            <InfoPanel_locations_nearby vehicleOrder={vOrder} stateAbbr={stateAbbreviation} /> 
+          </>
           ) : (
             ""
-          )}
-          {visibility.InfoPanel_charging ? (
-            // <InfoPanel_charging vehicleOrder={vOrder} stateAbbr={stateAbbreviation} />
-            <InfoPanel_charging />
-          ) : (
-            ""
-          )}
+          )} 
           {visibility.InfoPanel_payments ? (
-            // <InfoPanel_payments vehicleOrder={vOrder} stateAbbr={stateAbbreviation} />
-            <InfoPanel_payments />
+          <>
+            <InfoPanel_payments vehicleOrder={vOrder} stateAbbr={stateAbbreviation} /> 
+          </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_links ? (
-            // <InfoPanel_links vehicleOrder={vOrder} stateAbbr={stateAbbreviation} />
-            <InfoPanel_links />
+          <>
+            <InfoPanel_links vehicleOrder={vOrder} stateAbbr={stateAbbreviation} /> 
+          </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_warranty ? (
-            // <InfoPanel_warranty vehicleOrder={vOrder} stateAbbr={stateAbbreviation} />
-            <InfoPanel_warranty />
+          <>
+            <InfoPanel_warranty vehicleOrder={vOrder} stateAbbr={stateAbbreviation} /> 
+          </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_incentives ? (
-            // <InfoPanel_incentives vehicleOrder={vOrder} stateAbbr={stateAbbreviation} />
-            <InfoPanel_incentives />
+          <>
+            <InfoPanel_incentives vehicleOrder={vOrder} stateAbbr={stateAbbreviation} /> 
+          </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_installation ? (
-            // <InfoPanel_installation vehicleOrder={vOrder} stateAbbr={stateAbbreviation} />
-            <InfoPanel_installation />
+          <>
+            <InfoPanel_installation vehicleOrder={vOrder} stateAbbr={stateAbbreviation} /> 
+          </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_roofTypes ? (
-            // <InfoPanel_roofTypes vehicleOrder={vOrder} stateAbbr={stateAbbreviation} />
-            <InfoPanel_roofTypes />
+          <>
+            <InfoPanel_roofTypes vehicleOrder={vOrder} stateAbbr={stateAbbreviation} /> 
+          </>
           ) : (
             ""
           )}
