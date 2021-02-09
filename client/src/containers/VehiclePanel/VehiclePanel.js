@@ -44,16 +44,17 @@ const VehiclePanel = ({
       setUsStateVehicleOrder(() => {
         return [
           usStatesData[0]["state_abbr"],
+          zipcode_data["id"],
           JSON.parse(usStatesData[0]["vehicle_order"]),
-          JSON.parse(usStatesData[0]["payment_object"]),
+          JSON.parse(usStatesData[0]["payment_object"])
         ];
       });
     }
-  }, [usStatesData]);
+  }, [usStatesData]); 
 
   useEffect(() => {
     if (vehicle.length > 0) {
-      getTeslaData(usStateVehicleOrder[2]);
+      getTeslaData(usStateVehicleOrder[3]);
       populateMenu();
     }
   }, [vehicle, usStateVehicleOrder]);
@@ -205,7 +206,8 @@ const VehiclePanel = ({
     modelPaymentObj["lease"]["moneyFactor"] = moneyFactor;
 
     // get lease monthly payment
-    const leaseTerm = modelPaymentObj["lease"]["leaseTerm"]; // ex: 36 months
+    const leaseTerm = modelPaymentObj["lease"]["leaseTerm"]; // ex: 36
+    const annualMiles = modelPaymentObj["lease"]["annualMiles"]; // ex: 10000 TODO: need to calculate this into price
     const acquisitionFee = modelPaymentObj["lease"]["acquisitionFee"]; // TODO: Does this change?
     const residualValue = cashDueAtDelivery * 0.64; // TODO: get correct residual value
 
@@ -230,7 +232,8 @@ const VehiclePanel = ({
     leaseDueAtDelivery = leaseDueAtDelivery - orderPymt - credits; 
 
     modelPaymentObj["lease"]["dueAtDelivery"] = leaseDueAtDelivery;
-    modelPaymentObj["lease"]["residualValue"] = residualValue; 
+    modelPaymentObj["lease"]["residualValue"] = residualValue;
+    modelPaymentObj["lease"]["annualMiles"] = annualMiles; 
 
     return modelPaymentObj;
   };
@@ -485,8 +488,8 @@ const VehiclePanel = ({
 
       // Handle interior state change
       const currentInteriorName = renderedVehicle["interior"][0]; // ex: "All Black"
-      const currentInteriorImage = renderedVehicle["interior"][1]; // ex: "ui_bundle_black"
-      const newBatteryImage = interiorObject[currentInteriorName]["image"]; // ex: "ui_bundle_black_cf"
+      const currentInteriorImage = renderedVehicle["interior"][1]; // ex: "black_interior"
+      const newBatteryImage = interiorObject[currentInteriorName]["image"]; // ex: "white_interior"
 
       if (newBatteryImage !== currentInteriorImage) {
         newTeslaModels.vehicle_render[model]["interior"][1] = newBatteryImage;
