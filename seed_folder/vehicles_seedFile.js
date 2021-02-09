@@ -377,11 +377,11 @@ module.exports = {
           image_wheel: "_19",
           image_source: "modelS_tempest_19",
         },
-        "21 inch Sonic Carbon Twin Turbine Wheels": {
+        "21 inch Arachnid Wheels": {
           range: null,
           price: 4500,
           image_wheel: "_21",
-          image_source: "modelS_sonic_21",
+          image_source: "modelS_arachnid_21",
         },
       },
       interior: {
