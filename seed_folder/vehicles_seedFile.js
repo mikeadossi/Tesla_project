@@ -581,17 +581,17 @@ module.exports = {
       topspeed_mph: 155,
       zero_to_sixty: 4.4,
       wheel: {
-        "20 inch Silver Wheels": {
+        "20 inch Cyberstream Wheels": {
           range: null,
           price: "included",
           image_wheel: "_20",
-          image_source: "modelX_silver_20",
+          image_source: "modelX_cyberstream_20",
         },
-        "22 inch Onyx Black Wheels": {
+        "22 inch Turbine Wheels": {
           range: null,
           price: 5500,
           image_wheel: "_22",
-          image_source: "modelX_onyx_22",
+          image_source: "modelX_turbine_22",
         },
       },
       interior: {
