@@ -189,15 +189,25 @@ const VehicleConfig = ({
     configuredPrice: renderedTesla["cash_price"],
     pymtContent: renderedTesla["payment_object"],
   };
+  
+  const modelSelectObj = {
+    model3: "m3",
+    modelS: "ms",
+    modelX: "mx",
+    modelY: "my"
+  }
 
+  const abbreviatedModel = modelSelectObj[modelInfo.modelName];
+  const inventoryUrl = "https://www.tesla.com/inventory/new/" + abbreviatedModel + "?arrangeby=relevance&zip=" + usStateVehicleOrder[1] + "&range=200";
+  console.log("inventoryUrl - ",inventoryUrl);
 
   return (
     <div className="app_Config_container">
       <div className="app_configTitle app_displayFlex">
         <div className="vehicleConfig_vehicleName">{selectedVehicle}</div>
         <div className="vehicleConfig_header_options_container app_displayFlex">
-          <div className="app_options_btn">Inventory</div>
-          <div className="app_options_btn">Specs</div>
+          <a className="app_options_btn app_textdecorationNone" target="_blank" href={inventoryUrl} >Inventory</a>
+          <div className="app_options_btn" >Specs</div>
           <div
             className="vehicleConfig_close_container"
             onClick={() => removeModel(selectedVehicle.name)}
@@ -210,6 +220,7 @@ const VehicleConfig = ({
           </div>
         </div>
       </div>
+      
       <div className="app_displayFlex">
         <div className="app_inlineFlex app_columns_width vehicleConfig_column1">
           <div className="vehicleConfig_columns_blockContent">
