@@ -1,384 +1,394 @@
-.vehicleConfig_modelName_container{
-    padding-bottom: 10px;
+.vehicleConfig_modelName_container {
+  padding-bottom: 10px;
 }
 
-.vehicleConfig_modelName{
-    padding-bottom: 10px; 
+.vehicleConfig_modelName {
+  padding-bottom: 10px;
 }
 
-.vehicleConfig_vehicleName{
-    width: 79%;
-    font-weight: bold;
+.vehicleConfig_vehicleName {
+  width: 79%;
+  font-weight: bold;
 }
 
-.vehicleConfig_modelPrice{
-    float: right; 
+.vehicleConfig_modelPrice {
+  float: right;
 }
 
-.vehicleConfig_image_container{
-    border: 1px solid gainsboro;
-    display: inline-block;
-    margin-right: 5px;
+.vehicleConfig_image_container {
+  border: 1px solid gainsboro;
+  display: inline-block;
+  margin-right: 5px;
 }
 
-.vehicleConfig_img{
-    height: 77px; 
-    padding: 7px 7px 4px 7px;
+.vehicleConfig_img {
+  height: 73px;
+  padding: 7px 7px 4px 7px;
 }
 
-.vehicleConfig_column1{
-    padding-right: 6px;
+.vehicleConfig_column1 {
+  padding-right: 6px;
 }
 
-.vehicleConfig_column2{
-    padding-left: 6px; 
+.vehicleConfig_column2 {
+  padding-left: 6px;
 }
 
-.vehicleConfig_vehicleImg_container{
-    border-bottom: 1px solid gainsboro;
-    padding-bottom: 10px;
+.vehicleConfig_vehicleImg_container {
+  border-bottom: 1px solid gainsboro;
+  padding-bottom: 10px;
 }
 
-.vehicleConfig_pricing_container{
-    border-bottom: 1px solid gainsboro;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.vehicleConfig_pricing_container {
+  border-bottom: 1px solid gainsboro;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-.vehicleConfig_pricing_grey{
-    background-color: rgb(240,240,240);
+.vehicleConfig_pricing_grey {
+  background-color: rgb(240, 240, 240);
 }
 
-.vehicleConfig_range, .vehicleConfig_topSpeed{
-    border-bottom: 1px solid gainsboro;
+.vehicleConfig_range,
+.vehicleConfig_topSpeed {
+  border-bottom: 1px solid gainsboro;
 }
 
-.vehicleConfig_columns_blockContent{
-    width: 100%;
+.vehicleConfig_columns_blockContent {
+  width: 100%;
 }
 
-.vehicleConfig_pricing div{
-    display: inline;
+.vehicleConfig_pricing div {
+  display: inline;
 }
 
-.vehicleConfig_pricing{ 
-    padding: 5px 0px 5px 5px;
+.vehicleConfig_pricing {
+  padding: 5px 0px 5px 5px;
 }
 
-.vehicleConfig_select_ul{
-    list-style-type: none;
-    padding: 2px;
-    margin: 2px;
+.vehicleConfig_select_ul {
+  list-style-type: none;
+  padding: 2px;
+  margin: 2px;
 }
 
-.vehicleConfig_selectColor_ul{
-    text-align: center;
-    flex-wrap: wrap;
-    width: 185px;
+.vehicleConfig_selectColor_ul {
+  text-align: center;
+  flex-wrap: wrap;
+  width: 185px;
 }
 
-.vehicleConfig_selectColor_input{
-    width: 100%;
-    text-align: center;
-    border: none;
+.vehicleConfig_selectColor_input {
+  width: 100%;
+  text-align: center;
+  border: none;
 }
 
-.vehicleConfig_selectWheel_input, .vehicleConfig_selectInteriorColor_input{
-    border: none;
-    text-align: center;
+.vehicleConfig_selectWheel_input,
+.vehicleConfig_selectInteriorColor_input {
+  border: none;
+  text-align: center;
 }
 
-.vehicleConfig_selectWheel_input{
-    width: 178px;
-    font-size: 12px;
+.vehicleConfig_selectWheel_input {
+  width: 178px;
+  font-size: 12px;
 }
 
-.vehicleConfig_selectCarAndColor_container{
-    padding-top: 10px;
-    border-bottom: 1px solid gainsboro;
+.vehicleConfig_selectCarAndColor_container {
+  padding-top: 10px;
+  border-bottom: 1px solid gainsboro;
 }
 
-.vehicleConfig_selectWheelAndInterior_container{
-    padding-top: 10px;
-    border-top: 1px solid gainsboro;
+.vehicleConfig_selectWheelAndInterior_container {
+  padding-top: 10px;
+  border-top: 1px solid gainsboro;
 }
 
-.vehicleConfig_selectWheel_container, .vehicleConfig_selectInteriorColor_container{
-    display: inline-block;
-    text-align: center;
-    margin-bottom: 10px;
+.vehicleConfig_selectWheel_container,
+.vehicleConfig_selectInteriorColor_container {
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
-.vehicleConfig_selectWheel_container{
-    width: 55%;
+.vehicleConfig_selectWheel_container {
+  width: 55%;
 }
 
-.vehicleConfig_selectCar_container, .vehicleConfig_selectColor_container{
-    display: inline-block;
+.vehicleConfig_selectCar_container,
+.vehicleConfig_selectColor_container {
+  display: inline-block;
 }
 
-.vehicleConfig_selectCar_container div, .vehicleConfig_selectColor_container div{
-    text-align: center;
+.vehicleConfig_selectCar_container div,
+.vehicleConfig_selectColor_container div {
+  text-align: center;
 }
 
-.vehicleConfig_select_sr{
-    margin: 2px !important;
-    padding: 2px 10px 2px 10px !important;
+.vehicleConfig_select_sr {
+  margin: 2px !important;
+  padding: 2px 10px 2px 10px !important;
 }
 
-.vehicleConfig_select{
-    border: 1px solid #ddd;
-    padding: 2px 10px 2px 10px;
-    margin: 7px;
-    border-radius: 25px;
-    cursor: pointer;
-    text-align: center;
+.vehicleConfig_select {
+  border: 1px solid #ddd;
+  padding: 2px 10px 2px 10px;
+  margin: 7px;
+  border-radius: 25px;
+  cursor: pointer;
+  text-align: center;
 }
 
-.vehicleConfig_selected{ 
-    border: 2px solid rgb(22, 131, 252);
+.vehicleConfig_selected {
+  border: 2px solid rgb(22, 131, 252);
 }
 
-.selected_payment{
-    border-bottom: 3px solid rgb(22, 131, 252);
+.selected_payment {
+  border-bottom: 3px solid rgb(22, 131, 252);
 }
 
-.color_select{
-    height: 25px;
-    width: 25px; 
-    border-radius: 50%;
-    display: inline-block;
-    padding: 0px !important;
-    margin: 0;
-    border: 2px solid white;
-    cursor: pointer;
-    padding: 2px;
+.color_select {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  padding: 0px !important;
+  margin: 0;
+  border: 2px solid white;
+  cursor: pointer;
+  padding: 2px;
 }
 
-.vehicleConfig_wheel_select{
-    height: 30px;
-    border: 1px solid white;
-    border-radius: 50%; 
-    cursor: pointer;
-    padding: 1px;
+.vehicleConfig_wheel_select {
+  height: 30px;
+  border: 1px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 1px;
 }
 
-.vehicleConfig_black_interior{
-    background-color: black;
-    border: 2px solid white;
-    padding: 2px;
+.vehicleConfig_black_interior {
+  background-color: black;
+  border: 2px solid white;
+  padding: 2px;
 }
 
-.vehicleConfig_white_interior{ 
-    border: 1px solid gainsboro;
-    padding: 2px;
+.vehicleConfig_white_interior {
+  border: 1px solid gainsboro;
+  padding: 2px;
 }
 
-.vehicleConfig_selectTowHitch_ul{
-    display: inline-block;
-    width: 98%;
-    /* border-top: 1px solid gainsboro; */
-    border-bottom: 1px solid gainsboro;
-    margin-bottom: 6px;
+.vehicleConfig_selectTowHitch_ul {
+  display: inline-block;
+  width: 98%;
+  /* border-top: 1px solid gainsboro; */
+  border-bottom: 1px solid gainsboro;
+  margin-bottom: 6px;
 }
 
-.vehicleConfig_selectFSD_ul{
-    display: inline-block;
-    width: 98%; 
-    /* border-bottom: 1px solid gainsboro; */
-    /* margin-bottom: 6px; */
+.vehicleConfig_selectFSD_ul {
+  display: inline-block;
+  width: 98%;
+  /* border-bottom: 1px solid gainsboro; */
+  /* margin-bottom: 6px; */
 }
 
-.vehicleConfig_accessory_select{
-    display: inline-block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+.vehicleConfig_accessory_select {
+  display: inline-block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.vehicleConfig_pricing_subcontainer1{
-    border-right: 1px solid gainsboro;
+.vehicleConfig_pricing_subcontainer1 {
+  border-right: 1px solid gainsboro;
 }
 
-.vehicleConfig_pricing_subcontainer3{
-    border-bottom: 1px solid gainsboro;
-    padding: 5px 0px 6px 0px;
-    text-align: center;
+.vehicleConfig_pricing_subcontainer3 {
+  border-bottom: 1px solid gainsboro;
+  padding: 5px 0px 6px 0px;
+  text-align: center;
 }
 
-.vehicleConfig_autopilot{
-    padding-right: 48px;
+.vehicleConfig_autopilot {
+  padding-right: 48px;
 }
 
-.vehicleConfig_autopilot_container{
-    padding-left: 0px;
-    margin: 4px;
-    margin-top: 10px;
+.vehicleConfig_autopilot_container {
+  padding-left: 0px;
+  margin: 4px;
+  margin-top: 10px;
 }
 
-.vehicleConfig_selectLayout_super{
-    margin-top: 10px;
+.vehicleConfig_selectLayout_super {
+  margin-top: 10px;
 }
 
-.vehicleConfig_selectLayout_container, .vehicleConfig_autopilot_container{
-    display: inline-grid;
+.vehicleConfig_selectLayout_container,
+.vehicleConfig_autopilot_container {
+  display: inline-grid;
 }
 
-.vehicleConfig_autopilot_container ul{
-    padding-left: 0px;
+.vehicleConfig_autopilot_container ul {
+  padding-left: 0px;
 }
 
-.vehicleConfig_borderBottom{
-    height: 1px;
-    background-color: gainsboro;
+.vehicleConfig_borderBottom {
+  height: 1px;
+  background-color: gainsboro;
 }
 
-.veicleConfig_userEntry_container{
-    padding: 10px 0px 10px 0px;
-    border-bottom: 1px solid gainsboro;
+.veicleConfig_userEntry_container {
+  padding: 10px 0px 10px 0px;
+  border-bottom: 1px solid gainsboro;
 }
-.vehicleConfig_select_off{
-    margin: 2px;
-    padding: 2px 8px 2px 8px;
+.vehicleConfig_select_off {
+  margin: 2px;
+  padding: 2px 8px 2px 8px;
 }
 
-.vehicleConfig_select_srAndoff{
-    margin-top: 10px;
+.vehicleConfig_select_srAndoff {
+  margin-top: 10px;
 }
 
-.vehicleConfig_userInput{
-    cursor: pointer; 
-} 
+.vehicleConfig_userInput {
+  cursor: pointer;
+}
 
-.vehicleConfig_submit_btn_container{
-    padding: 16px 0px 7px 0px;
-    margin: auto;
+.vehicleConfig_submit_btn_container {
+  padding: 16px 0px 7px 0px;
+  margin: auto;
 }
 
-.vehicleConfig_control_btn{
-    padding: 5px;
-    width: 31%;
-    font-size: 10px;
+.vehicleConfig_control_btn {
+  padding: 5px;
+  width: 31%;
+  font-size: 10px;
 }
 
-.vehicleConfig_reset_btn, .vehicleConfig_setAll_btn{
-    margin-right: 10px; 
+.vehicleConfig_reset_btn,
+.vehicleConfig_setAll_btn {
+  margin-right: 10px;
 }
 
-.selected{
-    border: 2px solid rgb(22, 131, 252) !important;
-    border-radius: 50%;
+.selected {
+  border: 2px solid rgb(22, 131, 252) !important;
+  border-radius: 50%;
 }
 
-.selected_btn{
-    border: 2px solid rgb(22, 131, 252);
-    padding: 2px 10px 2px 10px;
-    margin: 7px;
-    border-radius: 25px;
-    cursor: pointer;
-    text-align: center;
+.selected_btn {
+  border: 2px solid rgb(22, 131, 252);
+  padding: 2px 10px 2px 10px;
+  margin: 7px;
+  border-radius: 25px;
+  cursor: pointer;
+  text-align: center;
 }
 
-.selected_btn_alt{
-    border: 2px solid rgb(22, 131, 252);
-    padding: 2px 10px 2px 10px;
-    margin: 0px;
-    border-radius: 25px;
-    cursor: pointer;
-    text-align: center;
+.selected_btn_alt {
+  border: 2px solid rgb(22, 131, 252);
+  padding: 2px 10px 2px 10px;
+  margin: 0px;
+  border-radius: 25px;
+  cursor: pointer;
+  text-align: center;
 }
 
-.selected:hover{
-    border: 2px solid rgb(22, 131, 252);
+.selected:hover {
+  border: 2px solid rgb(22, 131, 252);
 }
 
-.color_select_container{
-    margin-left: 4px;
-    border: 2px solid white;
+.color_select_container {
+  margin-left: 4px;
+  border: 2px solid white;
 }
 
-.vehicleConfig_close_container{
-    padding: 4px 4px 2px 4px; 
-    cursor: pointer;
-    margin-left: 10px;
+.vehicleConfig_close_container {
+  padding: 4px 4px 2px 4px;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
-.vehicleConfig_close_container:hover{
-    background-color: gainsboro;
-    border-radius: 6px;
+.vehicleConfig_close_container:hover {
+  background-color: gainsboro;
+  border-radius: 6px;
 }
 
-.vehicleConfig_close{
-    height: 15px;
+.vehicleConfig_close {
+  height: 15px;
 }
 
-.vehicleConfig_edit_btn{
-    height: 10px;
-    padding: 3px;
-    opacity: 0.3;
-    cursor: pointer;
-    padding-right: 60px; 
+.vehicleConfig_edit_btn {
+  height: 10px;
+  padding: 3px;
+  opacity: 0.3;
+  cursor: pointer;
+  padding-right: 60px;
 }
 
-.vehicleConfig_edit_btn:hover{
-    opacity: 1;
+.vehicleConfig_edit_btn:hover {
+  opacity: 1;
 }
 
-.vehicleConfig_userInput_subcontainer{
-    border: 1px solid grey;
-    padding: 3px 8px 3px 8px;
-    border-radius: 25px;
-    background-color: white;
+.vehicleConfig_userInput_subcontainer {
+  border: 1px solid grey;
+  padding: 3px 8px 3px 8px;
+  border-radius: 25px;
+  background-color: white;
 }
 
-.vehicleConfig_userInput{
-    border: none;
-    width: 70px;
+.vehicleConfig_userInput {
+  border: none;
+  width: 70px;
 }
 
-.vehicleConfig_userSelect{
-    padding: 5px; 
+.vehicleConfig_userSelect {
+  padding: 5px;
 }
 
-.vehicleConfig_pricing_subcontainers, .vehicleConfig_userEntry_containers{
-    border: 1px solid gainsboro;
-    border-radius: 0px 0px 6px 6px;
-    border-top: 1px solid gainsboro;
-    margin-top: -5px;
+.vehicleConfig_pricing_subcontainers,
+.vehicleConfig_userEntry_containers {
+  border: 1px solid gainsboro;
+  border-radius: 0px 0px 6px 6px;
+  border-top: 1px solid gainsboro;
+  margin-top: -5px;
 }
 
-.vehicleConfig_setAll_btn, .vehicleConfig_reset_btn{
-    background-color: white;
-    border: 2px solid black;
-    cursor: pointer;  
-    padding: 4px; 
-    border-radius: 25px;
-    font-size: 10px;
+.vehicleConfig_setAll_btn,
+.vehicleConfig_reset_btn {
+  background-color: white;
+  border: 2px solid black;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 25px;
+  font-size: 10px;
 }
 
-.vehicleConfig_setAll_btn:hover, .vehicleConfig_reset_btn:hover{
-    background-color: black;
-    color: white;
+.vehicleConfig_setAll_btn:hover,
+.vehicleConfig_reset_btn:hover {
+  background-color: black;
+  color: white;
 }
 
-.selected_pymt{
-    border-bottom: 3px solid steelblue;
+.selected_pymt {
+  border-bottom: 3px solid steelblue;
 }
 
-.vehicleConfig_saveBtn{
-    margin-left: 6px;
-    cursor: pointer;
-    font-size: 10px;
+.vehicleConfig_saveBtn {
+  margin-left: 6px;
+  cursor: pointer;
+  font-size: 10px;
 }
 
-.vehicleConfig_clearBtn{
-    margin-left: 2px;
-    cursor: pointer;
-    font-size: 10px;
+.vehicleConfig_clearBtn {
+  margin-left: 2px;
+  cursor: pointer;
+  font-size: 10px;
 }
