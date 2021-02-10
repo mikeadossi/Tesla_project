@@ -28,6 +28,7 @@ const VehicleConfig = ({
   modelInfo,
   setTeslaModels
 }) => {
+  
   const showComponent = (value) => {
     setVisibility({ [value]: true });
   };
@@ -38,12 +39,6 @@ const VehicleConfig = ({
     Loan: false,
   });
 
-
-  // const [activeFSDSetting, setActiveFSDSetting] = useState("autopilot");
-  // const [activeOffMenuAutopilot, setActiveOffMenuAutopilot] = useState(
-  //   "no_autopilot"
-  // );
-  const [activeFormVals, setActiveFormVals] = useState({}); 
   const [activePayment, setActivePayment] = useState("Cash");
 
   const name = `${selectedVehicle}`
@@ -61,21 +56,6 @@ const VehicleConfig = ({
 
   const vehicleBattery = renderedTesla["battery"][1]; // ex: "long_range"
 
-
-  useEffect(() => { 
-    // const autopilotSetting =
-    //   vehicleContent.vehicle_render[name]["autopilot"][0];
-    // setActiveOffMenuAutopilot(autopilotSetting);
-    // const activeFSDSetting =
-    //   vehicleContent.vehicle_render[name]["autopilot"][0];
-    // setActiveFSDSetting(activeFSDSetting); 
-
-    setActiveFormVals({
-      ...activeFormVals,
-      leaseInterestRate: vehicleContent.vehicle_render[name]["payment_object"]["lease"]["leaseInterestRate"],
-      loanApr: vehicleContent.vehicle_render[name]["payment_object"]["finance"]["loanApr"]
-    });
-  }, [vehicleContent, name]);
 
   if (!renderedTesla) {
     return null;
@@ -102,6 +82,8 @@ const VehicleConfig = ({
           />
 
           <VehicleConfigPricing  
+              showComponent={showComponent}
+              visibility={visibility}
               setActivePayment={setActivePayment}
               activePayment={activePayment}
               vehicleContent={vehicleContent}
@@ -180,6 +162,8 @@ const VehicleConfig = ({
           />
 
           <VehicleConfigUserEntry
+              showComponent={showComponent}
+              visibility={visibility}
               setActivePayment={setActivePayment}
               activePayment={activePayment}
               renderedTesla={renderedTesla}
