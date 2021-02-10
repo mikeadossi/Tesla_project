@@ -3,6 +3,9 @@ import "./VehicleConfig.css";
 import VehicleConfigPricing from "../../VehicleData/VehicleConfigPricing/VehicleConfigPricing";
 import VehicleConfigUserEntry from "../../VehicleData/VehicleConfigUserEntry/VehicleConfigUserEntry";
 import VehicleBatteryAndPaint from "../../VehicleData/VehicleBatteryAndPaint/VehicleBatteryAndPaint";
+import VehicleConfigImgSection from "../../VehicleData/VehicleConfigImgSection/VehicleConfigImgSection";
+import VehicleConfigWheels from "../../VehicleData/VehicleConfigWheels/VehicleConfigWheels";
+import VehicleConfigInteriors from "../../VehicleData/VehicleConfigInteriors/VehicleConfigInteriors";
 import VehicleMenu from "../VehicleMenu/VehicleMenu";
 
 const VehicleConfig = ({
@@ -41,6 +44,7 @@ const VehicleConfig = ({
     "no_autopilot"
   );
   const [activeFormVals, setActiveFormVals] = useState({}); 
+  const [activePayment, setActivePayment] = useState("Cash");
 
   const name = `${selectedVehicle}`
   .split(" ")
@@ -117,6 +121,9 @@ const VehicleConfig = ({
     <div className="app_displayFlex">
       <div className="app_inlineFlex app_columns_width vehicleConfig_column1">
         <div className="vehicleConfig_columns_blockContent">
+
+
+
           <div className="vehicleConfig_modelName_container">
             <span className="vehicleConfig_modelName">
               {renderedTesla.battery[0]}
@@ -126,38 +133,15 @@ const VehicleConfig = ({
             </span>
           </div>
 
-          <div className="vehicleConfig_vehicleImg_container">
-            <div>
-              <div className="vehicleConfig_image_container">
-                <img
-                  className="vehicleConfig_img"
-                  src={
-                    `../../../../images/` +
-                    renderedTeslaImgFolder +
-                    `/` +
-                    renderedTeslaImg +
-                    `.png`
-                  }
-                  alt="model 3 image"
-                ></img>
-              </div>
-
-              <div className="app_Config_specs_container vehicleConfig_specs_container">
-                <div className="app_Config_spec vehicleConfig_range">
-                  {renderedTesla.miles_range} miles range
-                </div>
-                <div className="app_Config_spec vehicleConfig_topSpeed">
-                  {renderedTesla.mph} mph
-                </div>
-                <div className="app_Config_spec vehicleConfig_mph">
-                  {renderedTesla.zero_to_sixty_seconds}sec 0-60
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <VehicleConfigImgSection 
+              renderedTesla={renderedTesla}
+              renderedTeslaImg={renderedTeslaImg}
+              renderedTeslaImgFolder={renderedTeslaImgFolder}
+          />
 
           <VehicleConfigPricing  
+              setActivePayment={setActivePayment}
+              activePayment={activePayment}
               vehicleContent={vehicleContent}
               usStateVehicleOrder={usStateVehicleOrder}
               modelInfo={modelInfo}
@@ -176,6 +160,7 @@ const VehicleConfig = ({
         </div>
       </div>
 
+
       <div className="app_config_border"></div>
 
 
@@ -191,83 +176,30 @@ const VehicleConfig = ({
       <div className="app_inlineFlex app_columns_width vehicleConfig_column2">
         <div className="vehicleConfig_columns_blockContent">
           <div className="vehicleConfig_selectWheelAndInterior_container">
-            <div className="vehicleConfig_selectWheel_container">
-              <div>Select Wheel: </div>
-              <ul className="vehicleConfig_select_ul vehicleConfig_selectwheel_ul">
-                {wheelObjectKeys.map((w) => (
-                  <div
-                    onClick={(event) => {
-                      changeVehicleWheel(vehicleBattery, w, selectedVehicle);
-                      setActiveWheel(w);
-                    }}
-                    className={`app_noSelect app_inlineFlex color_select_container ${
-                      w === activeWheel && "selected"
-                    }`}
-                  >
-                    <img
-                      className="app_noSelect vehicleConfig_wheel_select vehicleConfig_18_inch_aero_wheels"
-                      src={
-                        `../../../../images/wheels/` +
-                        wheelObject[w]["image_source"] +
-                        `.png`
-                      }
-                    />
-                  </div>
-                ))}
-              </ul>
-              <div>
-                <input
-                  type="text"
-                  placeholder={
-                    renderedTesla.wheel[0].replace(" inch", '"') +
-                    ` - ` +
-                    renderedTesla.wheel[1]
-                  }
-                  className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input"
-                  readonly="readonly"
-                />
-              </div>
-            </div>
 
-            <div className="vehicleConfig_selectInteriorColor_container">
-              <div>Select Interior Color: </div>
-              <ul className="vehicleConfig_select_ul vehicleConfig_selectInteriorColor_ul">
-                {interiorObjectKeys.map((i) => (
-                  <div
-                    onClick={(event) => {
-                      changeVehicleInterior(
-                        vehicleBattery,
-                        i,
-                        selectedVehicle
-                      );
-                      setActiveInterior(i);
-                    }}
-                    className={`app_noSelect app_inlineFlex color_select_container ${
-                      i === activeInterior && "selected"
-                    }`}
-                  >
-                    <img
-                      className="app_noSelect color_select vehicleConfig_black_interior"
-                      src={
-                        `../../../../images/interior/` +
-                        interiorObject[i]["image"] +
-                        `.png`
-                      }
-                    />
-                  </div>
-                ))}
-              </ul>
-              <input
-                type="text"
-                placeholder={
-                  renderedTesla.interior[0] +
-                  ` - ` +
-                  renderedTesla.interior[2]
-                }
-                className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectInteriorColor_input"
-                readonly="readonly"
-              />
-            </div>
+            <VehicleConfigWheels 
+                wheelObjectKeys={wheelObjectKeys}
+                changeVehicleWheel={changeVehicleWheel}
+                vehicleBattery={vehicleBattery}
+                selectedVehicle={selectedVehicle}
+                setActiveWheel={setActiveWheel}
+                activeWheel={activeWheel}
+                wheelObject={wheelObject}
+                renderedTesla={renderedTesla}
+            />
+
+            <VehicleConfigInteriors 
+                interiorObjectKeys={interiorObjectKeys}
+                interiorObject={interiorObject}
+                changeVehicleInterior={changeVehicleInterior}
+                vehicleBattery={vehicleBattery}
+                selectedVehicle={selectedVehicle}
+                setActiveInterior={setActiveInterior}
+                activeInterior={activeInterior}
+                renderedTesla={renderedTesla}
+            />
+
+            
             <div className="vehicleConfig_borderBottom"></div>
           </div>
 
@@ -477,6 +409,8 @@ const VehicleConfig = ({
 
 
           <VehicleConfigUserEntry
+              setActivePayment={setActivePayment}
+              activePayment={activePayment}
               renderedTesla={renderedTesla}
               name={name}
               vehicleContent={vehicleContent}
