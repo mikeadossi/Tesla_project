@@ -14,6 +14,8 @@ const VehiclePanel = ({
   vehicle,
   zipcode_data,
   usStatesData,
+  modalVisibility,
+  closeModal
 }) => {
   let [vehicleData, setVehicleData] = useState([]);
   // const [vehicleContent, setVehicleContent] = useState({});
@@ -60,6 +62,8 @@ const VehiclePanel = ({
       populateMenu();
     }
   }, [vehicle, usStateVehicleOrder]);
+
+
 
   const removeModel = (model) => {
     console.log("model to be removed: ", model);
@@ -753,7 +757,14 @@ const VehiclePanel = ({
         vehicleData={vehicleData}
       />
 
-      <InfoModal />
+      {modalVisibility.locationsModal || modalVisibility.chargingModal ? ( 
+        <InfoModal 
+          closeModal={closeModal}
+        />
+        ) : (
+          ""
+      )}
+      
 
       {vehicleData.map((ele) => (
         <VehicleConfigContainer

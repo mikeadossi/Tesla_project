@@ -12,6 +12,7 @@ import InfoPanel_vehicle_container from "../../components/InfoPanelData/InfoPane
 import InfoPanel_neutral_container from "../../components/InfoPanelData/InfoPanel_neutral_container/InfoPanel_neutral_container";
 
 const InfoPanel = (props) => {
+  
   const [visibility, setVisibility] = useState({
     InfoPanel_locations_nearby: false, 
     InfoPanel_payments: false,
@@ -21,6 +22,7 @@ const InfoPanel = (props) => {
     InfoPanel_installation: false,
     InfoPanel_roofTypes: false,
   });
+
 
   const showComponent = (value) => {
     setVisibility({ [value]: true });
@@ -54,7 +56,11 @@ const InfoPanel = (props) => {
         <div>
           {visibility.InfoPanel_locations_nearby ? (
           <>
-            <InfoPanel_locations_nearby vehicleOrder={vOrder} stateAbbr={stateAbbreviation} /> 
+            <InfoPanel_locations_nearby 
+              vehicleOrder={vOrder} 
+              stateAbbr={stateAbbreviation} 
+              showInfoModal={props.showInfoModal}
+            /> 
           </>
           ) : (
             ""
