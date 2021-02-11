@@ -3,6 +3,7 @@ import "./VehiclePanel.css";
 import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfig from "../../components/VehicleData/VehicleConfig/VehicleConfig";
 import VehicleConfigContainer from "../../components/VehicleData/VehicleConfigContainer/VehicleConfigContainer";
+import InfoModal from "../InfoModal/InfoModal.js";
 import { connect } from "react-redux";
 import { getAllVehicles } from "../../config/actions/vehicleActions";
 import { getAllStateData } from "../../config/actions/usStateActions";
@@ -751,6 +752,8 @@ const VehiclePanel = ({
         menuOptions={menuOptions}
         vehicleData={vehicleData}
       />
+
+      <InfoModal />
 
       {vehicleData.map((ele) => (
         <VehicleConfigContainer

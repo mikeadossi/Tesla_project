@@ -6,8 +6,11 @@ import InfoModalData_charging from '../../components/InfoModalData/InfoModalData
 class InfoModal extends Component {
   render() {
     return ( 
-      <div className="infoModal_container">
-          <InfoModalData_charging />
+      <div className="infoModal_backing">
+        <div className="infoModal_container">
+          <div className="infoModal_close">Close</div>
+          <InfoModalData_locations />
+        </div>
       </div>
     );
   }
