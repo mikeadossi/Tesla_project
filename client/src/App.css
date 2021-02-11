@@ -108,6 +108,11 @@ div{
   margin-top: 20px; 
 }
 
+.app_Blur_component{
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+}
+
 .app_Panel_container{
   display: inline-block;
   width: 59%;
