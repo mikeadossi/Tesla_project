@@ -5,11 +5,10 @@ import { Link }  from 'react-router-dom';
 class HeaderLeft extends Component {
   render() {
     return (
-      <div className="headerLeft app_marginTop"> 
-          <img src="../../client/public/images/hamburger.png" alt=".." />
-          <i className="fas fa-bars" aria-hidden="true"></i> 
+      <div className="headerLeft app_marginTop">
+          <i className="fas fa-bars headerLeft_hamburger" aria-hidden="true"></i> 
           <Link to="/" className="headerLeft_link">
-            <div>SIDEKICK</div>
+            <div className="headerLeft_brandname">SIDEKICK <span className="headerLeft_brandname_beta">BETA</span></div>
           </Link> 
       </div>
     );

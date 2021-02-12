@@ -5,11 +5,12 @@ import { getMyZipcodeData } from "../../../config/actions/navActions";
 
 const HeaderCenter = ({ getMyZipcodeData, zipcode_data }) => {
   const [zipcode, setZipcode] = useState();
+  let ace = 8001
 
   return (
     <div className="headerCenter app_removeBlue"> 
       <input
-        className="headerCenter_input app_main_submit_input"
+        className="headerCenter_input app_main_submit_input" 
         placeholder="Enter zipcode or area code"
         onChange={(e) => setZipcode(e.target.value)}
         onKeyPress={(e) => {

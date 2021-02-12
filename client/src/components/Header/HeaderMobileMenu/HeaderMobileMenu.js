@@ -1,18 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './HeaderMobileMenu.css';
 import { Link }  from 'react-router-dom';
 
-const HeaderMobileMenu  = () => { 
+const HeaderMobileMenu  = ({ closeMobileMenu }) => { 
   return (
     <div className="headerMobileMenu app_marginTop">
-        <div className="headerMobileMenu_contents"> 
+        <div className="headerMobileMenu_contents">
             <div
-              className="vehicleConfig_close_container" 
+              className="vehicleConfig_close_container"
+              onClick={() => closeMobileMenu()} 
             >
               <img
                   className="vehicleConfig_close"
                   src="../../../../images/Nav/close_2.png"
-                  alt="close"
+                  alt="close" 
               ></img>
             </div>
             <Link to="/" className="headerMobileMenu_links app_textdecorationNone">

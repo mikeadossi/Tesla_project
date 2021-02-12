@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Nav.css";
 import HeaderLeft from "../../components/Header/HeaderLeft/HeaderLeft.js";
 import HeaderRight from "../../components/Header/HeaderRight/HeaderRight.js";
@@ -10,12 +10,28 @@ const defaultUsername = "Johnny Bravo";
 
 const Nav = () => { 
 
+  const [menuVisibility, setMenuVisibility] = useState(false);
+
+  const showMobileMenu = () => {
+    setMenuVisibility(true);
+  };
+
+  const closeMobileMenu = () => {
+    setMenuVisibility(false);
+  }
+
   return (
     <div className="nav_container">
       <HeaderLeft /> 
       <HeaderCenter />
-      <HeaderRight />
-      <HeaderMobileMenu />
+      <HeaderRight showMobileMenu={showMobileMenu} />
+
+      {menuVisibility ? ( 
+        <HeaderMobileMenu closeMobileMenu={closeMobileMenu} />
+        ) : (
+          ""
+      )}
+
       <HeaderCookiePermission />
     </div>
   );
