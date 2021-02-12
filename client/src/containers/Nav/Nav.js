@@ -1,23 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Nav.css";
 import HeaderLeft from "../../components/Header/HeaderLeft/HeaderLeft.js";
 import HeaderRight from "../../components/Header/HeaderRight/HeaderRight.js";
 import HeaderCenter from "../../components/Header/HeaderCenter/HeaderCenter.js";
-import HeaderMobileMenu from "../../components/Header/HeaderMobileMenu/HeaderMobileMenu.js";
+import GrayBackground from "../../components/GrayBackground/GrayBackground.js";
 import HeaderCookiePermission from "../../components/Header/HeaderCookiePermission/HeaderCookiePermission.js";
 
 const defaultUsername = "Johnny Bravo";
 
 const Nav = () => { 
 
-  const [menuVisibility, setMenuVisibility] = useState(false);
+  const [menuVisibility, setMenuVisibility] = useState({
+    mobileMenu: false,
+    applyAllWarning: false,
+    resetWarning: false
+  });
 
-  const showMobileMenu = () => {
-    setMenuVisibility(true);
+  const showMobileMenu = (value) => {
+    setMenuVisibility({ [value]: true });
   };
 
   const closeMobileMenu = () => {
-    setMenuVisibility(false);
+    setMenuVisibility({
+      mobileMenu: false,
+      applyAllWarning: false,
+      resetWarning: false
+    });
   }
 
   return (
@@ -26,8 +34,11 @@ const Nav = () => {
       <HeaderCenter />
       <HeaderRight showMobileMenu={showMobileMenu} />
 
-      {menuVisibility ? ( 
-        <HeaderMobileMenu closeMobileMenu={closeMobileMenu} />
+      {menuVisibility.mobileMenu ? ( 
+        <GrayBackground 
+          menuVisibility={menuVisibility} 
+          closeMobileMenu={closeMobileMenu} 
+        />
         ) : (
           ""
       )}
