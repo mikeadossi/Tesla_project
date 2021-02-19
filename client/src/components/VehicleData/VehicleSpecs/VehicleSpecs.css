@@ -1,0 +1,40 @@
+.batteryOptionsContainer{
+    display: flex;
+    margin-top: 15px;
+}
+
+.specsMainContainer{
+    display: flex;
+}
+
+.specsContainer{
+    padding: 10px;
+    width: 50%; 
+}
+
+.specContainer{
+    display: flex;
+}
+
+.specsBorder{
+    margin: 0px 20px 0px 20px;
+}
+
+.spec{
+    padding: 3px;
+    width: 190px;
+}
+
+.darkerBacking{
+    background-color: #f9f9f9;
+}
+
+.specsHeading{
+    padding-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.specSubContainer{
+    padding-top: 15px;
+}
