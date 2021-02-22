@@ -3,18 +3,18 @@ import "./HeaderCenter.css";
 import { connect } from "react-redux";
 import { getMyZipcodeData } from "../../../config/actions/navActions";
 
-const HeaderCenter = ({ getMyZipcodeData, zipcode_data }) => {
-  const [zipcode, setZipcode] = useState();
-  let ace = 8001
+const HeaderCenter = ({ getMyZipcodeData, zipcode_data, cashAmt }) => {
+  const [zipcode, setZipcode] = useState('90210');
 
   return (
     <div className="headerCenter app_removeBlue"> 
       <input
         className="headerCenter_input app_main_submit_input" 
         placeholder="Enter zipcode or area code"
+        input='90210'
         onChange={(e) => setZipcode(e.target.value)}
         onKeyPress={(e) => {
-          if (e.key === "Enter") { 
+          if (e.key === "Enter") {
             getMyZipcodeData(zipcode);
           }
         }}
