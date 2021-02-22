@@ -4,7 +4,7 @@ import { hasAValue } from "../../helpers/helper";
 
 export const getMyZipcodeData = (zip) => async (dispatch) => {
   try {
-    const res = await axios.get(`http://localhost:3002/zipcode?zipcode=${zip}`); 
+    const res = await axios.get(`http://localhost:3002/zipcode?zipcode=${zip}`);
     dispatch({
       type: types.GET_ALL_ZIPCODE_DATA,
       payload: res.data,
@@ -18,4 +18,19 @@ export const getMyZipcodeData = (zip) => async (dispatch) => {
       });
     }
   }
+};
+
+export const showApplyAllWarning = (dispatch) => () => {
+  dispatch({
+    type: types.TOGGLE_APPLY_ALL_WARNING,
+    payload: "",
+  });
+};
+
+export const showResetWarning = (dispatch) => () => {
+  console.log('============ coming here')
+  dispatch({
+    type: types.TOGGLE_RESET_WARNING,
+    payload: "",
+  });
 };
