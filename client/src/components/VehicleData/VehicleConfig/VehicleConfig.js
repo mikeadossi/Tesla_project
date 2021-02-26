@@ -27,7 +27,8 @@ const VehicleConfig = ({
   setUserPymtEntry,
   modelInfo,
   setTeslaModels,
-  showWarning
+  showWarning,
+  handleResetApplyAll
 }) => {
   
   const showComponent = (value) => {
@@ -176,6 +177,7 @@ const VehicleConfig = ({
               modelInfo={modelInfo}
               setTeslaModels={setTeslaModels}
               showWarning={showWarning}
+              handleResetApplyAll={handleResetApplyAll}
           />
 
         </div>

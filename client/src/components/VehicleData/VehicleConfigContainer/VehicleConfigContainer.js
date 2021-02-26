@@ -19,7 +19,8 @@ const VehicleConfigContainer = ({
   populatePaymentObject,
   setUserPymtEntry,
   setTeslaModels,
-  showWarning
+  showWarning,
+  handleResetApplyAll
 }) => {
 
   const name = `${selectedVehicle}`
@@ -86,6 +87,7 @@ const VehicleConfigContainer = ({
           modelInfo={modelInfo}
           setTeslaModels={setTeslaModels}
           showWarning={showWarning}
+          handleResetApplyAll={handleResetApplyAll}
         />
         ) : (
         ""

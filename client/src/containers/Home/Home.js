@@ -5,9 +5,7 @@ class Home extends Component {
   render() {
     return (
       <div className="home_container app_pageHeight"> 
-        <h1 className="home_title">SAIDOKIKKU 相棒</h1>
-        <h3 className="home_description">(A now unavailable domain name - also, japanese for Sidekick)</h3>
-        <h4 className="home_subtext">You don't need to read any more of this page to use this app.</h4>
+        <h1 className="home_title">SIDEKICK</h1> 
         <div className="home_section">
           <h2>What it is</h2>
           <p>Saidokikku is an efficiency tool that gives users instant access to relevant Tesla product and sales information.</p>

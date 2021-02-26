@@ -24,13 +24,23 @@ const VehicleConfigUserEntry = ({
   setTeslaModels,
   showApplyAllWarning,
   showResetWarning,
+  handleResetApplyAll
 }) => {
   const vehicleName = name;
 
-  const handleSuccess = () => {
+  const handleResetApplyAll = (value) => {
     // this function should take one of two arguments 'applyAll' or 'reset'
     // and run corresponding code
+    if(value === "applyAll"){
+      console.log('apply all ran!');
+    }
+
+    if(value === "reset"){
+      console.log('reset ran! - ',vehicleName);
+    }
   }
+
+  console.log('handleResetApplyAll ----> ',handleResetApplyAll('reset'))
 
   const [activeFormVals, setActiveFormVals] = useState({});
   const [error, setFormError] = useState(false);
@@ -93,7 +103,7 @@ const VehicleConfigUserEntry = ({
 
   return (
     <div className="veicleConfig_userEntry_container">
-      <GrayBackground handleSuccess={handleSuccess}/>
+      <GrayBackground handleResetApplyAll={handleResetApplyAll}/>
       <div className="veicleConfig_userEntry_subcontainer">
         <div className="app_displayFlex app_Solar_selectPymt_div">
           <div
