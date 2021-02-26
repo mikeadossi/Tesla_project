@@ -3,11 +3,9 @@ import './ScrollUp.css';
 
 const ScrollUp = ({vehicleData}) => { 
 
-    
     const renderedVehiclesArr = vehicleData.length
     ? vehicleData
-    : []; 
-    console.log("renderedVehiclesArr -> ",renderedVehiclesArr)
+    : [];
 
     return (
         <div className="scrollUp_container">

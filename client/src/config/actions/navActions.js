@@ -27,8 +27,7 @@ export const showApplyAllWarning = (dispatch) => () => {
   });
 };
 
-export const showResetWarning = (dispatch) => () => {
-  console.log('============ coming here')
+export const showResetWarning = (dispatch) => () => { 
   dispatch({
     type: types.TOGGLE_RESET_WARNING,
     payload: "",

@@ -7,6 +7,7 @@ import InfoModal from "../InfoModal/InfoModal.js";
 import { connect } from "react-redux";
 import { getAllVehicles } from "../../config/actions/vehicleActions";
 import { getAllStateData } from "../../config/actions/usStateActions";
+import { TOGGLE_MOBILE_MENU } from "../../config/actions/types";
 
 const VehiclePanel = ({
   getAllVehicles,
@@ -15,7 +16,8 @@ const VehiclePanel = ({
   zipcode_data,
   usStatesData,
   modalVisibility,
-  closeModal
+  closeModal,
+  showWarning,
 }) => {
   let [vehicleData, setVehicleData] = useState([]);
   // const [vehicleContent, setVehicleContent] = useState({});
@@ -50,11 +52,11 @@ const VehiclePanel = ({
           usStatesData[0]["state_abbr"],
           zipcode_data["id"],
           JSON.parse(usStatesData[0]["vehicle_order"]),
-          JSON.parse(usStatesData[0]["payment_object"])
+          JSON.parse(usStatesData[0]["payment_object"]),
         ];
       });
     }
-  }, [usStatesData]); 
+  }, [usStatesData]);
 
   useEffect(() => {
     if (vehicle.length > 0) {
@@ -62,7 +64,6 @@ const VehiclePanel = ({
       populateMenu();
     }
   }, [vehicle, usStateVehicleOrder]);
-
 
 
   const removeModel = (model) => {
@@ -142,7 +143,7 @@ const VehiclePanel = ({
   const populatePaymentObject = (configuredPrice, paymentObj) => {
     let modelPaymentObj = { ...paymentObj };
 
-    const docFee = modelPaymentObj["docFee"]; 
+    const docFee = modelPaymentObj["docFee"];
     const adjustments = modelPaymentObj["adjustments"];
     const stateTotalFees = modelPaymentObj["stateTotalFees"]; // TODO: how do we get this #?
     const stateTaxRate = modelPaymentObj["taxRate"];
@@ -168,8 +169,9 @@ const VehiclePanel = ({
       modelTax + orderFeeTax + stateDestinationFee + stateDocumentationFee;
     stateSalesTax = Math.floor(stateSalesTax * 100) / 100;
     let cashDueAtDelivery =
-      configuredPrice + docFee + stateTotalFees + stateSalesTax; 
-    cashDueAtDelivery = cashDueAtDelivery - credits - orderPymt - tradeInEquity - adjustments;
+      configuredPrice + docFee + stateTotalFees + stateSalesTax;
+    cashDueAtDelivery =
+      cashDueAtDelivery - credits - orderPymt - tradeInEquity - adjustments;
     cashDueAtDelivery = Math.floor(cashDueAtDelivery);
 
     modelPaymentObj["modelTax"] = modelTax;
@@ -225,9 +227,9 @@ const VehiclePanel = ({
     const financeFee = (netCapitalizedCost + residualValue) * moneyFactor;
     const salesTax = (depreciationFee + financeFee) * stateTaxRate;
     const monthlyLeasePymt = depreciationFee + financeFee + salesTax;
-    modelPaymentObj["lease"]["monthlyPymt"] = monthlyLeasePymt; 
+    modelPaymentObj["lease"]["monthlyPymt"] = monthlyLeasePymt;
 
-    // get lease due at delivery 
+    // get lease due at delivery
     const upfrontSalesTax = modelPaymentObj["lease"]["upfrontTaxAmt"];
     let leaseDueAtDelivery =
       cashDownPymt +
@@ -235,11 +237,11 @@ const VehiclePanel = ({
       acquisitionFee +
       upfrontSalesTax +
       stateTotalFees;
-    leaseDueAtDelivery = leaseDueAtDelivery - orderPymt - credits; 
+    leaseDueAtDelivery = leaseDueAtDelivery - orderPymt - credits;
 
     modelPaymentObj["lease"]["dueAtDelivery"] = leaseDueAtDelivery;
     modelPaymentObj["lease"]["residualValue"] = residualValue;
-    modelPaymentObj["lease"]["annualMiles"] = annualMiles; 
+    modelPaymentObj["lease"]["annualMiles"] = annualMiles;
 
     return modelPaymentObj;
   };
@@ -720,34 +722,41 @@ const VehiclePanel = ({
     });
   };
 
-
   const setUserPymtEntry = (activeFormValues, value) => {
     const model = value;
 
     setTeslaModels((vehicles) => {
       let newTeslaModels = { ...vehicles };
-      
-      let renderedVehicle = newTeslaModels["vehicle_render"][model]; 
+
+      let renderedVehicle = newTeslaModels["vehicle_render"][model];
       let pymtObj = renderedVehicle["payment_object"];
       const formValuesObj = { ...activeFormValues };
 
-      if(formValuesObj["tradeInValue"] || formValuesObj["tradeInPayoff"]){
-        newTeslaModels.vehicle_render[model]["payment_object"]["tradeInEquity"] = formValuesObj["tradeInValue"] - formValuesObj["tradeInPayoff"];
+      if (formValuesObj["tradeInValue"] || formValuesObj["tradeInPayoff"]) {
+        newTeslaModels.vehicle_render[model]["payment_object"][
+          "tradeInEquity"
+        ] = formValuesObj["tradeInValue"] - formValuesObj["tradeInPayoff"];
       }
 
       for (let i in formValuesObj) {
-        if(pymtObj[i] !== undefined ){
-          newTeslaModels.vehicle_render[model]["payment_object"][i] = JSON.parse(formValuesObj[i]);
-        } else if(pymtObj["lease"][i] !== undefined){
-          newTeslaModels.vehicle_render[model]["payment_object"]["lease"][i] = JSON.parse(formValuesObj[i]);
-        } else if(pymtObj["finance"][i]){
-          newTeslaModels.vehicle_render[model]["payment_object"]["finance"][i] = JSON.parse(formValuesObj[i]);
-        }; 
-      };
-      
+        if (pymtObj[i] !== undefined) {
+          newTeslaModels.vehicle_render[model]["payment_object"][
+            i
+          ] = JSON.parse(formValuesObj[i]);
+        } else if (pymtObj["lease"][i] !== undefined) {
+          newTeslaModels.vehicle_render[model]["payment_object"]["lease"][
+            i
+          ] = JSON.parse(formValuesObj[i]);
+        } else if (pymtObj["finance"][i]) {
+          newTeslaModels.vehicle_render[model]["payment_object"]["finance"][
+            i
+          ] = JSON.parse(formValuesObj[i]);
+        }
+      }
+
       return newTeslaModels;
-    }); 
-  }
+    });
+  };
 
   return (
     <div className="app_Panel_container">
@@ -757,14 +766,11 @@ const VehiclePanel = ({
         vehicleData={vehicleData}
       />
 
-      {modalVisibility.locationsModal || modalVisibility.chargingModal ? ( 
-        <InfoModal 
-          closeModal={closeModal}
-        />
-        ) : (
-          ""
+      {modalVisibility.locationsModal || modalVisibility.chargingModal ? (
+        <InfoModal closeModal={closeModal} modalVisibility={modalVisibility} />
+      ) : (
+        ""
       )}
-      
 
       {vehicleData.map((ele) => (
         <VehicleConfigContainer
@@ -783,6 +789,7 @@ const VehiclePanel = ({
           populatePaymentObject={populatePaymentObject}
           setUserPymtEntry={setUserPymtEntry}
           setTeslaModels={setTeslaModels}
+          showWarning={showWarning}
         />
       ))}
     </div>
@@ -798,6 +805,15 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getAllVehicles, getAllStateData })(
-  VehiclePanel
-);
+function mapDispatchToProps(dispatch) {
+  return {
+    getAllVehicles,
+    getAllStateData,
+    toggle: () => dispatch({ type: TOGGLE_MOBILE_MENU }),
+  };
+}
+
+export default connect(mapStateToProps, {
+  getAllVehicles,
+  getAllStateData,
+})(VehiclePanel);

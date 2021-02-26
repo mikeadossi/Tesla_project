@@ -5,24 +5,14 @@ import VehicleFinance from "../../VehicleData/Vehicle_pymt/VehicleFinance/Vehicl
 
 
 const VehicleConfigPricing = ({
+  showComponent,
+  visibility,
+  setActivePayment,
+  activePayment,
   vehicleContent,
   usStateVehicleOrder,
   modelInfo
 }) => {
-
-
-  const showComponent = (value) => {
-    setVisibility({ [value]: true });
-  };
-
-  const [visibility, setVisibility] = useState({
-    Cash: true,
-    Lease: false,
-    Loan: false,
-  });
-
-  const [activePayment, setActivePayment] = useState("Cash");
-
 
   return ( 
 

@@ -14,7 +14,13 @@ if (process.env.NODE_ENV === "production") {
   middleware.push(loggerMiddleware);
 }
 
-store = createStore(rootReducer, compose(applyMiddleware(...middleware)));
+store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(...middleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+);
 
 const persistor = persistStore(store);
 

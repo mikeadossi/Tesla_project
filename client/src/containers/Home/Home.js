@@ -5,13 +5,13 @@ class Home extends Component {
   render() {
     return (
       <div className="home_container app_pageHeight"> 
-        <h1>SAIDOKIKKU 相棒</h1>
+        <h1 className="home_title">SAIDOKIKKU 相棒</h1>
         <h3 className="home_description">(A now unavailable domain name - also, japanese for Sidekick)</h3>
         <h4 className="home_subtext">You don't need to read any more of this page to use this app.</h4>
         <div className="home_section">
           <h2>What it is</h2>
-          <p>Saidokikku is an efficiency tool that gives users instant access to relevant product and sales information.</p>
-          <p>It is a single page app that puts all your most needed sales tooling and data within easy reach.</p>
+          <p>Saidokikku is an efficiency tool that gives users instant access to relevant Tesla product and sales information.</p>
+          <p>It is a single page app that puts all your most needed (new car) sales tooling and data within easy reach.</p>
           <p>Other than regional data, all content collected on Sidekick can be found on freely accessible and public facing websites, or are open knowledge.</p>
           <p>Saidokikku does not allow for user entry of customer personal identifiable information, and sales related session data is never stored on a server.</p>
           <p>Sidekick is updated daily, and all information you see is easy to quickly validate, often including a link to the source webpage.</p>
@@ -26,7 +26,7 @@ class Home extends Component {
             </div>
             <div className="home_reasons app_displayFlex">
               <div className="home_reasons_number">2</div>
-              <p>Instant access to financing, leasing and cash payment information for almost all Tesla products</p>
+              <p>Instant access to financing, leasing and cash payment information for almost all Tesla products.</p>
             </div>
             <div className="home_reasons app_displayFlex">
               <div className="home_reasons_number">3</div>

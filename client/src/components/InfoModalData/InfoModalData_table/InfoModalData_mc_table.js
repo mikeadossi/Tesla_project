@@ -26,7 +26,7 @@ class InfoModalData_mc_table extends Component {
               <tbody>
                    <tr className="table-charging-details-th">
                       <td>
-                          <img className="infoModalData_table_mc_img"></img>
+                          <img className="infoModalData_table_mc_img" alt="nema 5-15 image" ></img>
                           NEMA 5-15 <br />
                           240 volt / 50 amp breaker <br/>
                           Common household outlet
@@ -37,7 +37,7 @@ class InfoModalData_mc_table extends Component {
                   </tr> 
                   <tr className="table-charging-details-th">
                   <td>
-                          <img className="infoModalData_table_mc_img"></img>
+                          <img className="infoModalData_table_mc_img" alt="nema 6-50 image" ></img>
                           NEMA 6-50 <br />
                           240 volt / 50 amp breaker <br/>
                           Maximum 32 amp output
@@ -48,7 +48,7 @@ class InfoModalData_mc_table extends Component {
                   </tr> 
                   <tr className="table-charging-details-th">
                       <td>
-                          <img className="infoModalData_table_mc_img"></img>
+                          <img className="infoModalData_table_mc_img" alt="nema 14-50 image" ></img>
                           NEMA 14-50 <br />
                           240 volt / 50 amp breaker <br/>
                           Maximum 32 amp output
@@ -59,7 +59,7 @@ class InfoModalData_mc_table extends Component {
                   </tr>
                   <tr className="table-charging-details-th">
                       <td>
-                          <img className="infoModalData_table_mc_img"></img>
+                          <img className="infoModalData_table_mc_img" alt="nema 14-30 image"></img>
                           NEMA 14-30 <br />
                           240 volt / 50 amp breaker
                       </td>
@@ -69,7 +69,7 @@ class InfoModalData_mc_table extends Component {
                   </tr>
                   <tr className="table-charging-details-th">
                       <td>
-                          <img className="infoModalData_table_mc_img"></img>
+                          <img className="infoModalData_table_mc_img" alt="nema 10-30 image"></img>
                           NEMA 10-30 <br />
                           240 volt / 50 amp breaker
                       </td>
@@ -79,7 +79,7 @@ class InfoModalData_mc_table extends Component {
                   </tr>
                   <tr className="table-charging-details-th">
                       <td>
-                          <img className="infoModalData_table_mc_img"></img>
+                          <img className="infoModalData_table_mc_img" alt="nema 6-20 image"></img>
                           NEMA 6-20 <br />
                           240 volt / 50 amp breaker
                       </td>
@@ -89,7 +89,7 @@ class InfoModalData_mc_table extends Component {
                   </tr>
                   <tr className="table-charging-details-th">
                       <td>
-                          <img className="infoModalData_table_mc_img"></img>
+                          <img className="infoModalData_table_mc_img" alt="nema 6-15 image"></img>
                           NEMA 6-15 <br />
                           240 volt / 50 amp breaker
                       </td>
@@ -99,7 +99,7 @@ class InfoModalData_mc_table extends Component {
                   </tr>
                   <tr className="table-charging-details-th">
                       <td>
-                          <img className="infoModalData_table_mc_img"></img>
+                          <img className="infoModalData_table_mc_img" alt="nema 5-20 image"></img>
                           NEMA 5-20 <br />
                           120 volt / 20 amp breaker <br/>
                           Common household outlet

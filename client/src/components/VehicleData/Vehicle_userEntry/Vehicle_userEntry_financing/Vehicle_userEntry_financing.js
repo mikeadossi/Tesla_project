@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./Vehicle_userEntry_financing.css";
 
 const Vehicle_userEntry_financing = ({
@@ -19,7 +19,7 @@ const Vehicle_userEntry_financing = ({
               $
               <input
                 className="vehicleConfig_userInput app_removeBlue"
-                value={usStateVehicleOrder[1].order_pymt}
+                value={usStateVehicleOrder[2].order_pymt}
                 onChange={(e) =>
                   handleFormChange("tradeInValue", e.target.value)
                 }

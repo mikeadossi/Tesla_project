@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Component, useState, useEffect } from "react";
 import "./DynamicMenu.css";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -27,13 +27,17 @@ const DynamicMenu = ({
       const scrollingUp = scroll < lastScroll;
       lastScroll = scroll;
 
-      console.log({ show });
-      console.log({ scroll, scrollingUp, show: scrollingUp && scroll > 139 });
+      // console.log({ show });
+      // console.log({ scroll, scrollingUp, show: scrollingUp && scroll > 139 });
 
-      const headerHeight =
-        document.querySelector(".sticky_productMenu").clientHeight +
-        document.querySelector(".locationDetails_container").clientHeight +
-        document.querySelector(".sticky_productMenu").clientHeight;
+      const element1 = document.querySelector(".sticky_productMenu").clientHeight;
+      let element2 = 0;
+
+      if(id){
+        element2 = document.querySelector(".locationDetails_container").clientHeight;
+      }
+
+      const headerHeight = element1 + element2; 
 
       setShow((sticky || scrollingUp) && scroll > headerHeight);
     };
@@ -41,9 +45,9 @@ const DynamicMenu = ({
     window.addEventListener("scroll", onScroll);
 
     return () => window.removeEventListener("scroll", onScroll);
-  }, [sticky]);
+  }, [sticky,id]);
 
-  console.log("updated sticky", show);
+  // console.log("updated sticky", show);
 
   return id ? (
     <div
@@ -125,7 +129,7 @@ const DynamicMenu = ({
               </div>
             </Link>
             <img
-              className="headerLeft_hamburger"
+              className="headerRight_hamburger"
               src="../../../../images/Nav/hamburger.png"
               alt="menu"
             />
@@ -165,7 +169,7 @@ const DynamicMenu = ({
         </div>
       </div>
     </div>
-  ) : null;
+  ): null;
 };
 
 function mapStateToProps(state) {

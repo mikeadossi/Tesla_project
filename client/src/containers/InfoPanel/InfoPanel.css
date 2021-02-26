@@ -32,7 +32,7 @@
   color: black;
 }
 
-.infoPanel_section_data {
+.infoPanel_section_data { 
   overflow: auto;
   width: 94%;
   padding: 10px;

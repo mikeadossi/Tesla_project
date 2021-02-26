@@ -19,6 +19,9 @@ const HeaderMobileMenu  = ({ closeMobileMenu }) => {
           <div className="headerMobileMenu_about headerMobileMenu_login_btn">SETTINGS</div>
         </Link>
         <Link to="/" className="headerMobileMenu_links app_textdecorationNone">
+          <div className="headerMobileMenu_about headerMobileMenu_login_btn">NOTIFICATIONS</div>
+        </Link>
+        <Link to="/" className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_about headerMobileMenu_login_btn">ABOUT</div>
         </Link> 
         <Link to="/" className="headerMobileMenu_links app_textdecorationNone">

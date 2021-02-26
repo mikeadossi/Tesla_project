@@ -19,8 +19,13 @@ const DisplayResetWarning  = ({ closeResetWarning }) => {
                     <div className="reminderText">Turn warning off</div>
                     <input className="resetReminderToggle" type="checkbox" />
                 </div>
-                <div className="app_inline-block warningBtnContainer">
-                    <div className="warningBtn cancelWarningModal">Cancel</div>
+                <div className="app_inline-block warningBtnContainer"> 
+                    <div
+                        className="warningBtn cancelWarningModal"
+                        onClick={() => closeResetWarning()}
+                    >
+                        Cancel
+                    </div>
                     <div className="warningBtn continueToApplyAll">Continue</div>
                 </div>
             </div>

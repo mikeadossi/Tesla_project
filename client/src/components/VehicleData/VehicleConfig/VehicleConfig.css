@@ -11,6 +11,11 @@
   font-weight: bold;
 }
 
+.vehicleConfig_vehicleName:hover{
+  cursor: pointer; 
+  color: grey;
+}
+
 .vehicleConfig_modelPrice {
   float: right;
 }
@@ -314,6 +319,7 @@
   padding: 4px 4px 2px 4px;
   cursor: pointer;
   margin-left: 10px;
+  text-align: center;
 }
 
 .vehicleConfig_close_container:hover {

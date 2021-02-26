@@ -1,15 +1,23 @@
-import React from "react";  
+import React, { useState, useEffect } from "react"; 
 
-const VehicleConfigInteriors = ({ 
-    interiorObjectKeys,
-    interiorObject,
+const VehicleConfigInteriors = ({
+    teslaDetails,
+    name,
     changeVehicleInterior,
     vehicleBattery,
     selectedVehicle,
-    setActiveInterior,
-    activeInterior,
+    vehicleContent,
     renderedTesla 
 }) => {
+    const [activeInterior, setActiveInterior] = useState("");
+
+    const interiorObject = teslaDetails[vehicleBattery]["interior"];
+    const interiorObjectKeys = Object.keys(interiorObject);
+
+    useEffect(() => {
+      const interior = vehicleContent.vehicle_render[name]["interior"][0];
+      setActiveInterior(interior); 
+    })
 
   return (
     <div className="vehicleConfig_selectInteriorColor_container">

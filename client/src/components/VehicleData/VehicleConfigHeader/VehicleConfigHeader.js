@@ -4,7 +4,8 @@ const VehicleConfigHeader = ({
   selectedVehicle, 
   removeModel, 
   modelInfo,
-  usStateVehicleOrder
+  usStateVehicleOrder,
+  makeVisible
 }) => {
   
   const modelSelectObj = {
@@ -19,19 +20,29 @@ const VehicleConfigHeader = ({
 
   return ( 
     <div className="app_configTitle app_displayFlex">
-        <div className="vehicleConfig_vehicleName">{selectedVehicle}</div>
-        <div className="vehicleConfig_header_options_container app_displayFlex">
-            <a className="app_options_btn app_textdecorationNone" target="_blank" href={inventoryUrl} >Inventory</a>
-            <div className="app_options_btn" >Specs</div>
-            <div
-            className="vehicleConfig_close_container"
-            onClick={() => removeModel(selectedVehicle.name)}
+        <div 
+          className="vehicleConfig_vehicleName"
+          onClick={() => makeVisible("ConfigPage")}
+        >
+          {selectedVehicle}
+        </div>
+        <div className="vehicleConfig_header_options_container app_displayFlex"> 
+            <div 
+              className="app_options_btn" 
+              onClick={() => makeVisible("SpecsPage")}
             >
-            <img
-                className="vehicleConfig_close"
-                src="../../../../images/Nav/close_2.png"
-                alt="close"
-            ></img>
+              Specs
+            </div> 
+            <a className="app_options_btn app_textdecorationNone" target="_blank" href={inventoryUrl} >Inventory</a>
+            <div
+              className="vehicleConfig_close_container"
+              onClick={() => removeModel(selectedVehicle.name)}
+            >
+              <img
+                  className="vehicleConfig_close"
+                  src="../../../../images/Nav/close_2.png"
+                  alt="close"
+              ></img>
             </div>
         </div>
     </div> 

@@ -3,6 +3,18 @@
     padding: 8px 20px 7px 20px;
     overflow: hidden;
     color:white;
+    z-index: 3;
+}
+
+.locationDetails_content{
+    background-color:lightseagreen;
+    overflow: hidden;
+    color:white;
+    border: none;
+}
+
+.locationDetails_content_areacode{
+    font-size: 25px;
 }
 
 .LocationDetails_element{
@@ -66,7 +78,7 @@
 }
 
 .locationDetails_projectSun, .locationDetails_weather{
-    height: 40px;
+    height: 26px;
 }
 
 .locationDetails_subcontainers{

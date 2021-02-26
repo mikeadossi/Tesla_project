@@ -1,15 +1,25 @@
-import React from "react";  
+import React, { useState, useEffect } from "react"; 
 
-const VehicleConfigWheels = ({ 
-    wheelObjectKeys,
+const VehicleConfigWheels = ({
+    teslaDetails,
     changeVehicleWheel,
+    name,
+    vehicleContent,
     vehicleBattery,
     selectedVehicle,
-    setActiveWheel,
-    activeWheel,
-    wheelObject,
     renderedTesla 
 }) => {
+
+  const [activeWheel, setActiveWheel] = useState("");
+
+  const wheelObject = teslaDetails[vehicleBattery]["wheel"];
+  const wheelObjectKeys = Object.keys(wheelObject);
+
+
+  useEffect(() => {
+    const wheel = vehicleContent.vehicle_render[name]["wheel"][0];
+    setActiveWheel(wheel);
+  })
 
   return (
     <div className="vehicleConfig_selectWheel_container">

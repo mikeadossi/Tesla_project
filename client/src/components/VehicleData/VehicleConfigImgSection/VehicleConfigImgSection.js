@@ -1,10 +1,11 @@
 import React from "react";  
 
 const VehicleConfigImgSection = ({ 
-  renderedTesla,
-  renderedTeslaImg,
-  renderedTeslaImgFolder 
+  renderedTesla
 }) => {
+
+    const renderedTeslaImgFolder = renderedTesla.image_vehicle;
+    const renderedTeslaImg = renderedTesla.vehicle_image;
 
   return (
     <div className="vehicleConfig_vehicleImg_container">

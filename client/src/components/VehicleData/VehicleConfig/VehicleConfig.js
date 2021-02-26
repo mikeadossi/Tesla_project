@@ -26,7 +26,8 @@ const VehicleConfig = ({
   populatePaymentObject,
   setUserPymtEntry,
   modelInfo,
-  setTeslaModels
+  setTeslaModels,
+  showWarning
 }) => {
   
   const showComponent = (value) => {
@@ -174,6 +175,7 @@ const VehicleConfig = ({
               setUserPymtEntry={setUserPymtEntry}
               modelInfo={modelInfo}
               setTeslaModels={setTeslaModels}
+              showWarning={showWarning}
           />
 
         </div>

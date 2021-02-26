@@ -24,7 +24,6 @@ const GrayBackground = ({
     return null;
   }
 
-
   const closeMobileMenu = () => toggleMobileMenu();
   const closeResetWarning = () => toggleResetWarning();
   const closeApplyAllWarning = () => toggleApplyAllWarning();

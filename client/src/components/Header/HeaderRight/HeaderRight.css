@@ -23,3 +23,26 @@
     padding-right: 10px;
     cursor: pointer;
 }
+
+.notification_bell{
+    height: 20px;
+    border-radius: 50%;
+    padding: 3px;
+}
+
+.notification_bell:hover{
+    background-color: grey;
+}
+
+.notifications_number{
+    color: white;
+    background-color: red;
+    border-radius: 5px;
+    padding: 3px;
+    font-size: 10px;
+    margin-right: 0 !important;
+}
+
+.notification_bell_container{
+    display: none !important;
+}

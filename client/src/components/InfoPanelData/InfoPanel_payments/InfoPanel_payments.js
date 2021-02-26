@@ -4,10 +4,12 @@ import "./InfoPanel_payments.css";
 const InfoPanel_payments = (props) => {
   const vehicleOrder = props.vehicleOrder;
   const stateAbbr = props.stateAbbr;
+  console.log('vehicleOrder- ',vehicleOrder)
+  console.log('stateAbbr- ',stateAbbr)
 
   return (
     <div className="InfoPanel_charging_container">
-      <div id="infoPanel_loaded_title">PAYMENTS</div>
+      {/* <div id="infoPanel_loaded_title">PAYMENTS</div>
       <div className="infoPanel_section_data infoPanel_payments_container">
         <div className="content_vehicle">
         {stateAbbr} Tesla Leasing:{" "}
@@ -35,33 +37,46 @@ const InfoPanel_payments = (props) => {
             </span>
           )}
         </div>
-        <div className="content_neutral">{stateAbbr} State Tax: 7.5%</div>
-        <div className="content_neutral">{stateAbbr} Local gov. Tax: ~2.5%</div>
-        <div className="content_vehicle">{stateAbbr} Registration fees: $15-500</div>
-        <div className="content_vehicle">{stateAbbr} Plate transfer fees: $65</div>
-        <div className="content_vehicle">{stateAbbr} Title Fees: $0</div>
-        <div className="content_solar">
-          Notice: There may be additional upgrades required, e.g., electric main
-          panel, or hidden conduit.
+        <div className="content_neutral">{stateAbbr} State Tax: {vehicleOrder.state_tax_rate}%</div>
+        <div className="content_vehicle">
+          <h4>Registration</h4>
+          <div>{vehicleOrder.registration.details}</div>
+          <h4>Next Steps</h4>
+          <div>{vehicleOrder.registration.next_steps}</div>
+          <div className="app_source_footer">
+            <a href={vehicleOrder.registration.source} target="_blank" rel="noopener noreferrer">Source</a>
+          </div>
         </div>
-        <div className="content_solar">
-          A Federal Investment Tax Credit (ITC) is generally available to anyone
-          who purchases solar panels. Powerwall paired with solar, including
-          existing solar PV systems, is a qualified expenditure. To be eligible
-          for tax credits, you must have tax liability at least equal to the
-          credit. Tesla does not guarantee incentive amounts or your
-          eligibility. Please consult with a tax advisor.
+        <div className="content_solar"> 
+          <div>
+            {stateAbbr} Solar Panel Subscription:{" "}
+            {vehicleOrder.solar_panel_subscription && (
+              <span className="infoPanel_solar_availability app_available">
+                Available
+              </span>
+            )}
+            {!vehicleOrder.solar_panel_subscription && (
+              <span className="infoPanel_solar_availability app_unavailable">
+                Unavailable
+              </span>
+            )}
+          </div>
+          <div>{stateAbbr} State Tax: {vehicleOrder.state_tax_rate}%</div>
+          <h4>Upgrades and ITC</h4>
+          <div>
+            Notice: There may be additional upgrades required, e.g., electric main
+            panel, or hidden conduit.
+          </div>
+          <div>
+            A Federal Investment Tax Credit (ITC) is generally available to anyone
+            who purchases solar panels. Powerwall paired with solar, including
+            existing solar PV systems, is a qualified expenditure. To be eligible
+            for tax credits, you must have tax liability at least equal to the
+            credit. Tesla does not guarantee incentive amounts or your
+            eligibility. Please consult with a tax advisor.
+          </div>
         </div>
-        <div className="app_source_footer">
-          <a
-            href="https://www.dmv.ca.gov/portal/vehicle-registration/registration-fees/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Source
-          </a>
-        </div>
-      </div>
+      </div> */}
     </div>
   );
 };

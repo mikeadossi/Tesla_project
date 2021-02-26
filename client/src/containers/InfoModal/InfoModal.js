@@ -3,7 +3,7 @@ import './InfoModal.css';
 import InfoModalData_locations from '../../components/InfoModalData/InfoModalData_locations/InfoModalData_locations';
 import InfoModalData_charging from '../../components/InfoModalData/InfoModalData_charging/InfoModalData_charging';
 
-const InfoModal = ({ closeModal }) => { 
+const InfoModal = ({ closeModal, modalVisibility }) => {
   return ( 
     <div className="infoModal_backing">
       <div className="infoModal_container"> 
@@ -17,7 +17,19 @@ const InfoModal = ({ closeModal }) => {
               alt="close"
           ></img>
         </div>
-        <InfoModalData_locations />
+
+        {modalVisibility.chargingModal ? ( 
+          <InfoModalData_charging />
+          ) : (
+            ""
+        )}
+
+        {modalVisibility.locationsModal ? ( 
+          <InfoModalData_locations />
+          ) : (
+            ""
+        )}
+        
       </div>
     </div>
   ); 
