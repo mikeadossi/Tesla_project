@@ -11,6 +11,9 @@ import Home from "./containers/Home/Home";
 import Vehicles from "./containers/Vehicles/Vehicles";
 import Solar from "./containers/Solar/Solar";
 import DynamicMenu from "./containers/DynamicMenu/DynamicMenu";
+import Notifications from "./containers/Notifications/Notifications";
+import Settings from "./containers/Settings/Settings";
+import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
 import { connect } from "react-redux";
 import { getMyZipcodeData } from "./config/actions/navActions";
 
@@ -52,6 +55,9 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/signUp" component={SignUp} />
             <Route exact path="/logIn" component={LogIn} />
+            <Route exact path="/notifications" component={Notifications} />
+            <Route exact path="/settings" component={Settings} />
+            <Route exact path="/forgotPassword" component={ForgotPassword} />
             <Route
               exact
               path="/vehicles"

@@ -9,11 +9,11 @@ const Settings = () => {
         <div className="settings_section">
             <h3 className="">SHOW/HIDE WARNINGS</h3>
             <div className="settings_subsection app_displayFlex">
-                <div className="settings_text">Show warning</div>
+                <div className="settings_text">Show Apply All warning</div>
                 <button className="settings_close">Turn Off</button>
             </div>
             <div className="settings_subsection app_displayFlex">
-                <div className="settings_text">Show warning</div>
+                <div className="settings_text">Show Reset warning</div>
                 <button className="settings_close">Turn Off</button>
             </div>
             <div className="settings_subsection app_displayFlex">
