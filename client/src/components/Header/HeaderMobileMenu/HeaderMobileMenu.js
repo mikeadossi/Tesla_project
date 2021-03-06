@@ -15,19 +15,19 @@ const HeaderMobileMenu  = ({ closeMobileMenu }) => {
               alt="close" 
           ></img>
         </div>
-        <Link to="/" className="headerMobileMenu_links app_textdecorationNone">
+        <Link to="/Settings" className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_about headerMobileMenu_login_btn">SETTINGS</div>
         </Link>
-        <Link to="/" className="headerMobileMenu_links app_textdecorationNone">
+        <Link to="/Notifications" className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_about headerMobileMenu_login_btn">NOTIFICATIONS</div>
         </Link>
         <Link to="/" className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_about headerMobileMenu_login_btn">ABOUT</div>
         </Link> 
-        <Link to="/" className="headerMobileMenu_links app_textdecorationNone">
+        <Link to="/vehicles" className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_about headerMobileMenu_login_btn">VEHICLE</div>
         </Link>
-        <Link to="/" className="headerMobileMenu_links app_textdecorationNone">
+        <Link to="/solar" className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_about headerMobileMenu_login_btn">SOLAR</div>
         </Link>
         <Link to="/userSignup" className="headerMobileMenu_links app_textdecorationNone">
