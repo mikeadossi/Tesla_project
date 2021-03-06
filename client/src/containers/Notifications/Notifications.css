@@ -1,0 +1,43 @@
+.notifications_container {
+    text-align: center;
+    width: 1000px;
+    margin: auto;
+}
+
+.notifications_title{
+    margin: 40px 0px 40px 0px;
+}
+
+.notitifcation_date{
+    background-color: #FFD480;
+    padding-right: 20px;
+    padding: 10px;
+}
+
+.notifications_text{
+    padding: 10px;
+}
+
+.notifications_content{
+    border: 1px solid orange;
+    background-color: rgb(244, 244, 244);
+    border-radius: 4px;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.more_notifications:hover{
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.more_notifications{
+    padding-bottom: 5px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    border: 1px solid white;
+}
+
+.open_notifications{
+    font-size: 20px;
+}
