@@ -23,7 +23,8 @@ class LogIn extends Component {
               <div className="logIn_password"><input className="app_register_input_box" placeholder="enter password" /></div>
             </div>
             <div className="register_alert register_alert_3">Password and/or email not found</div>
-            <div className="app_register_submit_btn logIn_submit_btn">SIGN UP</div>
+            <div className="app_register_submit_btn logIn_submit_btn">SIGN UP</div> 
+            <Link to="/forgotPassword" className="logIn_forgot_password app_textdecorationNone">Forgot Password</Link>
           </form>
         </div>
       </div>

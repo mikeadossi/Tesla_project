@@ -1,0 +1,8 @@
+.logIn_forgot_password:hover{
+    color: steelblue;
+    cursor: pointer;
+}
+
+.logIn_submit_btn{
+    margin-bottom: 10px;
+}
