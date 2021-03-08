@@ -13,6 +13,7 @@ import Solar from "./containers/Solar/Solar";
 import DynamicMenu from "./containers/DynamicMenu/DynamicMenu";
 import Notifications from "./containers/Notifications/Notifications";
 import Settings from "./containers/Settings/Settings";
+import Lost from "./containers/Lost/Lost";
 import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
 import { connect } from "react-redux";
 import { getMyZipcodeData } from "./config/actions/navActions";
@@ -57,6 +58,7 @@ function App() {
             <Route exact path="/logIn" component={LogIn} />
             <Route exact path="/notifications" component={Notifications} />
             <Route exact path="/settings" component={Settings} />
+            <Route exact path="/lost" component={Lost} />
             <Route exact path="/forgotPassword" component={ForgotPassword} />
             <Route
               exact
