@@ -4,10 +4,11 @@ import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfig from "../../components/VehicleData/VehicleConfig/VehicleConfig";
 import VehicleConfigContainer from "../../components/VehicleData/VehicleConfigContainer/VehicleConfigContainer";
 import InfoModal from "../InfoModal/InfoModal.js";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+
 import { getAllVehicles } from "../../config/actions/vehicleActions";
 import { getAllStateData } from "../../config/actions/usStateActions";
-import { TOGGLE_MOBILE_MENU } from "../../config/actions/types";
+import { TOGGLE_MOBILE_MENU, SAVE_VEHICLE_RENDER_DATA } from "../../config/actions/types";
 
 const VehiclePanel = ({
   getAllVehicles,
@@ -18,13 +19,19 @@ const VehiclePanel = ({
   modalVisibility,
   closeModal,
   showWarning,
+  saveVehicleRenderData
 }) => {
+  const dispatch = useDispatch();
   let [vehicleData, setVehicleData] = useState([]);
   // const [vehicleContent, setVehicleContent] = useState({});
   const [teslaModels, setTeslaModels] = useState({});
   const [selectedVehicleName, setSelectedVehicleName] = useState("");
   const [menuOptions, setMenuOptions] = useState("");
   const [usStateVehicleOrder, setUsStateVehicleOrder] = useState("");
+
+  useEffect(() => {
+    dispatch({ type: SAVE_VEHICLE_RENDER_DATA, payload: teslaModels.vehicle_render });
+  }, [teslaModels]);
 
   useEffect(() => {
     setVehicleData((data) => {
@@ -64,7 +71,6 @@ const VehiclePanel = ({
       populateMenu();
     }
   }, [vehicle, usStateVehicleOrder]);
-
 
   const removeModel = (model) => {
     console.log("model to be removed: ", model);
@@ -136,7 +142,7 @@ const VehiclePanel = ({
         vehicleObj.vehicle_render[model] = parsedValue.default_optioned_vehicle;
       }
     }
-
+    console.log("vehicleObj ---> ", vehicleObj);
     setTeslaModels(vehicleObj);
   };
 
@@ -758,6 +764,20 @@ const VehiclePanel = ({
     });
   };
 
+  const handleResetApplyAll = (value) => {
+    // this function should take one of two arguments 'applyAll' or 'reset'
+    // and run corresponding code
+    if (value === "applyAll") {
+      console.log("apply all ran!");
+    }
+
+    if (value === "reset") {
+      console.log("reset ran!");
+    }
+  };
+
+  console.log("handleResetApplyAll ----> ", handleResetApplyAll("reset"));
+
   return (
     <div className="app_Panel_container">
       <VehicleMenu
@@ -790,7 +810,7 @@ const VehiclePanel = ({
           setUserPymtEntry={setUserPymtEntry}
           setTeslaModels={setTeslaModels}
           showWarning={showWarning}
-          
+          handleResetApplyAll={handleResetApplyAll}
         />
       ))}
     </div>
@@ -805,12 +825,14 @@ function mapStateToProps(state) {
     zipcode_data: state.navReducer.zipcode_data,
   };
 }
+// teslaModels.vehicle_render
 
 function mapDispatchToProps(dispatch) {
   return {
     getAllVehicles,
     getAllStateData,
     toggle: () => dispatch({ type: TOGGLE_MOBILE_MENU }),
+    // saveVehicleRenderData: (teslaModels) => dispatch({ type: SAVE_VEHICLE_RENDER_DATA, payload: teslaModels}),
   };
 }
 

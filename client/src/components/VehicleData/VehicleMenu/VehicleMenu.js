@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React from "react";
 import "./VehicleMenu.css";
 import ScrollUp from "../../ScrollUp/ScrollUp";
 

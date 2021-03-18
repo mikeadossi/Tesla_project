@@ -13,8 +13,8 @@ const DynamicMenu = ({
     area_codes,
     county,
     longitude,
-    latitude,
-  },
+    latitude
+  }
 }) => {
   const [sticky, setSticky] = useState(false);
   const [show, setShow] = useState(false);
@@ -102,8 +102,22 @@ const DynamicMenu = ({
         <div className="app_locationDetails_border"></div>
 
         <div className="dynamicMenu_extra_links">
-          <a className="dynamicMenu_projectSun">Proj. Sun</a>
-          <a className="dynamicMenu_weather">Weather</a>
+          <a 
+            className="dynamicMenu_projectSun app_textdecorationNone"
+            href="https://www.google.com/get/sunroof/building/42.399692/-71.128802/#?f=buy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Proj. Sun
+          </a>
+          <a 
+            className="dynamicMenu_weather app_textdecorationNone"
+            href="https://www.wunderground.com/weather/us/ca/fremont/94555"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Weather
+          </a>
         </div>
       </div>
       <div className="dynamicMenu_subcontainer">
@@ -131,7 +145,7 @@ const DynamicMenu = ({
             <img
               className="headerRight_hamburger"
               src="../../../../images/Nav/hamburger.png"
-              alt="menu"
+              alt="menu" 
             />
           </div>
         </div>
@@ -177,6 +191,6 @@ function mapStateToProps(state) {
     error: state.navReducer.error,
     zipcodeData: state.navReducer.zipcode_data,
   };
-}
+} 
 
 export default connect(mapStateToProps)(DynamicMenu);

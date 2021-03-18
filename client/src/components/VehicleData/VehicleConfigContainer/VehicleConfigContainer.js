@@ -87,7 +87,7 @@ const VehicleConfigContainer = ({
           modelInfo={modelInfo}
           setTeslaModels={setTeslaModels}
           showWarning={showWarning}
-          handleResetApplyAll={handleResetApplyAll}
+          handleResetApplyAll={handleResetApplyAll} 
         />
         ) : (
         ""

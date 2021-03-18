@@ -1,7 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import "./DisplayApplyAllWarning.css";
 
 const DisplayApplyAllWarning = ({ closeApplyAllWarning, handleSuccess }) => {
+  const vehicleRenderData = useSelector(
+    (state) => state.vehiclesReducer.vehicleRenderData
+  );
+  const currentModelName = useSelector(
+    (state) => state.navReducer.currentModelName
+  );
+  console.log("vehicleRenderData >>", vehicleRenderData[currentModelName]);
   return (
     <div className="displayApplyAllWarning">
       <div className="warningContainer">
@@ -19,17 +27,20 @@ const DisplayApplyAllWarning = ({ closeApplyAllWarning, handleSuccess }) => {
           models.
         </div>
         <div className="reminderContainer">
-          <div className="reminderText">Turn warning off</div>
+          <div className="reminderText">Don't show this again</div>
           <input className="applyAllReminderToggle" type="checkbox" />
         </div>
         <div className="app_inline-block warningBtnContainer">
-          <div 
+          <div
             className="warningBtn cancelWarningModal"
             onClick={() => closeApplyAllWarning()}
           >
             Cancel
           </div>
-          <div onClick={() => handleSuccess('applyAll')} className="warningBtn continueToApplyAll">
+          <div
+            onClick={() => handleSuccess("applyAll")}
+            className="warningBtn continueToApplyAll"
+          >
             Continue
           </div>
         </div>

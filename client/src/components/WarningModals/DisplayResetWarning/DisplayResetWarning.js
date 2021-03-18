@@ -16,7 +16,7 @@ const DisplayResetWarning  = ({ closeResetWarning }) => {
                 </div> 
                 <div className="warningApplyAllText">This action will return all selected vehicle options to base options.</div>
                 <div className="reminderContainer">
-                    <div className="reminderText">Turn warning off</div>
+                    <div className="reminderText">Don't show this again</div>
                     <input className="resetReminderToggle" type="checkbox" />
                 </div>
                 <div className="app_inline-block warningBtnContainer"> 

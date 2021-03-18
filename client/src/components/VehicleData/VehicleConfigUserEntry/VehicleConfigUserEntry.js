@@ -3,7 +3,7 @@ import Vehicle_userEntry_financing from "../../VehicleData/Vehicle_userEntry/Veh
 import Vehicle_userEntry_leasing from "../../VehicleData/Vehicle_userEntry/Vehicle_userEntry_leasing/Vehicle_userEntry_leasing";
 import Vehicle_userEntry_cash from "../../VehicleData/Vehicle_userEntry/Vehicle_userEntry_cash/Vehicle_userEntry_cash";
 import GrayBackground from "../../GrayBackground/GrayBackground";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import {
   showApplyAllWarning,
   showResetWarning,
@@ -22,25 +22,12 @@ const VehicleConfigUserEntry = ({
   setUserPymtEntry,
   modelInfo,
   setTeslaModels,
-  showApplyAllWarning,
+  // showApplyAllWarning,
   showResetWarning,
-  handleResetApplyAll
+  handleResetApplyAll,
 }) => {
+  const dispatch = useDispatch();
   const vehicleName = name;
-
-  const handleResetApplyAll = (value) => {
-    // this function should take one of two arguments 'applyAll' or 'reset'
-    // and run corresponding code
-    if(value === "applyAll"){
-      console.log('apply all ran!');
-    }
-
-    if(value === "reset"){
-      console.log('reset ran! - ',vehicleName);
-    }
-  }
-
-  console.log('handleResetApplyAll ----> ',handleResetApplyAll('reset'))
 
   const [activeFormVals, setActiveFormVals] = useState({});
   const [error, setFormError] = useState(false);
@@ -101,9 +88,15 @@ const VehicleConfigUserEntry = ({
     });
   };
 
+  // const showApplyAllWarning = () => {
+  //   dispatch({
+
+  //   });
+  // };
+
   return (
     <div className="veicleConfig_userEntry_container">
-      <GrayBackground handleResetApplyAll={handleResetApplyAll}/>
+      <GrayBackground handleResetApplyAll={handleResetApplyAll} />
       <div className="veicleConfig_userEntry_subcontainer">
         <div className="app_displayFlex app_Solar_selectPymt_div">
           <div
@@ -182,17 +175,21 @@ const VehicleConfigUserEntry = ({
       </div>
 
       <div className="vehicleConfig_submit_btn_container">
+        {/* <button
+          onClick={showApplyAllWarning}
+          className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_setAll_btn app_cursorPointer"
+        >
+          APPLY ALL
+        </button> */}
         <button
-          onClick={() => {
-            showApplyAllWarning();
-          }}
+          onClick={showApplyAllWarning(dispatch, vehicleName)}
           className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_setAll_btn app_cursorPointer"
         >
           APPLY ALL
         </button>
         <button
           onClick={() => {
-            showResetWarning();
+            showResetWarning(vehicleName);
           }}
           className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_reset_btn app_cursorPointer"
         >
@@ -210,7 +207,7 @@ const VehicleConfigUserEntry = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  showApplyAllWarning: showApplyAllWarning(dispatch),
+  // showApplyAllWarning: showApplyAllWarning(dispatch),
   showResetWarning: showResetWarning(dispatch),
 });
 export default connect(null, mapDispatchToProps)(VehicleConfigUserEntry);

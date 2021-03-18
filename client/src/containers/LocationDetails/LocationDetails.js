@@ -86,11 +86,11 @@ const LocationDetails = ({
       <div className="locationDetails_subcontainers locationDetails_subcontainer_5">
         <a
           className="app_textdecorationNone locationDetails_icons locationDetails_projectSun_container"
-          href=""
+          href="https://www.google.com/get/sunroof/building/42.399692/-71.128802/#?f=buy"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <div className="app_textdecorationNone">Project Sun</div>
+          <div>Project Sun</div>
           <img
             className="locationDetails_projectSun"
             src="../../../../images/Nav/project_sunroof_icon.png"
@@ -99,7 +99,7 @@ const LocationDetails = ({
         </a>
         <a
           className="app_textdecorationNone locationDetails_icons"
-          href=""
+          href="https://www.wunderground.com/weather/us/ca/fremont/94555"
           target="_blank"
           rel="noopener noreferrer"
         >

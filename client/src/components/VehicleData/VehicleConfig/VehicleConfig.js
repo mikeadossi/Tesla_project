@@ -161,10 +161,10 @@ const VehicleConfig = ({
               selectedVehicle={selectedVehicle}
               teslaDetails={teslaDetails}
               renderedTesla={renderedTesla}
-          />
+              />
 
           <VehicleConfigUserEntry
-              showComponent={showComponent}
+              showComponent={showComponent} 
               visibility={visibility}
               setActivePayment={setActivePayment}
               activePayment={activePayment}
