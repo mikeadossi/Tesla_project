@@ -20,16 +20,18 @@ export const getMyZipcodeData = (zip) => async (dispatch) => {
   }
 };
 
-export const showApplyAllWarning = (dispatch) => () => {
+export const showApplyAllWarning = (dispatch, modelName) => () => {
+  console.log('hey')
+  debugger
   dispatch({
     type: types.TOGGLE_APPLY_ALL_WARNING,
-    payload: "",
+    payload: modelName,
   });
 };
 
-export const showResetWarning = (dispatch) => () => { 
+export const showResetWarning = (dispatch, modelName) => () => { 
   dispatch({
     type: types.TOGGLE_RESET_WARNING,
-    payload: "",
+    payload: modelName,
   });
 };

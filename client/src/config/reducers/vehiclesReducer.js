@@ -4,6 +4,7 @@ const initialState = {
   vehicle: {},
   error: "",
   usStatesData: {},
+  vehicleRenderData: {},
 };
 
 export default function (state = initialState, action) {
@@ -24,6 +25,11 @@ export default function (state = initialState, action) {
         ...state,
         error: action.payload,
         vehicle: {},
+      };
+    case types.SAVE_VEHICLE_RENDER_DATA:
+      return {
+        ...state,
+        vehicleRenderData: action.payload,
       };
     default:
       return state;

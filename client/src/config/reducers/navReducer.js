@@ -38,7 +38,8 @@ export default function (state = initialState, action) {
       const { displayApplyAllWarning } = state;
       return {
         ...state,
-        displayApplyAllWarning: !displayApplyAllWarning
+        displayApplyAllWarning: !displayApplyAllWarning,
+        currentModelName: action.payload
       };
     default:
       return state;
