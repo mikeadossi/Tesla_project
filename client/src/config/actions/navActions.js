@@ -19,11 +19,11 @@ export const getMyZipcodeData = (zip) => async (dispatch) => {
     }
   }
 };
-
-export const showApplyAllWarning = (dispatch, modelName) => () => {
-  console.log('hey')
+// REDUX EXPLAINED: [2] these actions/functions dispatch our reducer functions
+export const showApplyAllWarning = (dispatch, modelName) => () => { // action creator - creates and returns action object
+  console.log('hey - ',modelName["name"])
   debugger
-  dispatch({
+  dispatch({ // action - plain JavaScript object that has a type field.
     type: types.TOGGLE_APPLY_ALL_WARNING,
     payload: modelName,
   });

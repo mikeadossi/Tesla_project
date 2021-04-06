@@ -7,8 +7,8 @@ const initialState = {
   displayResetWarning: false,
   displayApplyAllWarning: false
 };
-
-export default function (state = initialState, action) {
+// REDUX EXPLAINED: [1] our reducers call a function w/ 2 args: state & action
+export default function (state = initialState, action) { // reducers are similar to reduce callback and must not cause side effects
   switch (action.type) {
     case types.GET_ALL_ZIPCODE_DATA:
       return {
@@ -32,7 +32,8 @@ export default function (state = initialState, action) {
       const { displayResetWarning } = state;
       return {
         ...state,
-        displayResetWarning: !displayResetWarning
+        displayResetWarning: !displayResetWarning,
+        currentModelName: action.payload
       };
     case types.TOGGLE_APPLY_ALL_WARNING:
       const { displayApplyAllWarning } = state;

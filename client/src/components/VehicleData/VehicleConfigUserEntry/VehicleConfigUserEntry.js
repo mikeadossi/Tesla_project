@@ -22,7 +22,7 @@ const VehicleConfigUserEntry = ({
   setUserPymtEntry,
   modelInfo,
   setTeslaModels,
-  // showApplyAllWarning,
+  showApplyAllWarning,
   showResetWarning,
   handleResetApplyAll,
 }) => {
@@ -88,11 +88,6 @@ const VehicleConfigUserEntry = ({
     });
   };
 
-  // const showApplyAllWarning = () => {
-  //   dispatch({
-
-  //   });
-  // };
 
   return (
     <div className="veicleConfig_userEntry_container">
@@ -174,22 +169,19 @@ const VehicleConfigUserEntry = ({
         </div>
       </div>
 
-      <div className="vehicleConfig_submit_btn_container">
-        {/* <button
-          onClick={showApplyAllWarning}
-          className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_setAll_btn app_cursorPointer"
-        >
-          APPLY ALL
-        </button> */}
+      <div className="vehicleConfig_submit_btn_container"> 
         <button
-          onClick={showApplyAllWarning(dispatch, vehicleName)}
+          onClick={() => {
+            console.log('vehicleName - ',vehicleName)
+            showApplyAllWarning(dispatch, vehicleName); 
+          }}
           className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_setAll_btn app_cursorPointer"
         >
           APPLY ALL
         </button>
         <button
-          onClick={() => {
-            showResetWarning(vehicleName);
+          onClick={() => { 
+            showResetWarning(dispatch, vehicleName);
           }}
           className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_reset_btn app_cursorPointer"
         >
@@ -206,8 +198,10 @@ const VehicleConfigUserEntry = ({
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  // showApplyAllWarning: showApplyAllWarning(dispatch),
-  showResetWarning: showResetWarning(dispatch),
+// REDUX EXPLAINED: [3] here we connect to redux and call our action
+const mapDispatchToProps = (dispatch, modelName) => ({
+  showApplyAllWarning: showApplyAllWarning(dispatch, modelName),
+  showResetWarning: showResetWarning(dispatch, modelName),
 });
+
 export default connect(null, mapDispatchToProps)(VehicleConfigUserEntry);
