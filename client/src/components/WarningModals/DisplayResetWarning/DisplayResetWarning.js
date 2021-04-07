@@ -1,7 +1,15 @@
 import React from 'react';
+import { useSelector } from "react-redux";
 import './DisplayResetWarning.css';
 
 const DisplayResetWarning  = ({ closeResetWarning }) => { 
+    const currentModelName = useSelector(
+        (state) => state.navReducer.currentModelName
+    );
+    const getAllVehicles = useSelector(
+        (state) => state.vehiclesReducer.vehicle
+    );
+
     return (
         <div className="displayApplyAllWarning">
             <div className="warningContainer">
@@ -33,3 +41,4 @@ const DisplayResetWarning  = ({ closeResetWarning }) => {
       ); 
     }
 export default DisplayResetWarning;
+// display render data
