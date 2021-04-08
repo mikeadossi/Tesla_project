@@ -23,8 +23,7 @@ const VehicleConfigUserEntry = ({
   modelInfo,
   setTeslaModels,
   showApplyAllWarning,
-  showResetWarning,
-  handleResetApplyAll,
+  showResetWarning, 
 }) => {
   const dispatch = useDispatch();
   const vehicleName = name;
@@ -88,10 +87,45 @@ const VehicleConfigUserEntry = ({
     });
   };
 
+  const showWarningModal = (value,vehicleName,object) => {
+    if(3 > 5){// if settings has warnings turned off call function
+      handleResetApply(value,vehicleName,object);
+      return;
+    };
+
+    if (value === "applyAll") { 
+      showApplyAllWarning(dispatch, vehicleName, object);
+    } else if (value === "reset") { 
+      showResetWarning(dispatch, vehicleName, object);
+    };
+  }
+
+  const handleResetApply = (value,vehicleName,object) => {
+    if (value === "applyAll") { 
+      runApplyAll(vehicleName,object);
+    } else if (value === "reset") { 
+      runReset(vehicleName,object);
+    };
+  }
+
+  const runApplyAll = (vehicleName,renderObject) => {
+    // write function that applies vehicle data to all other vehicles
+    console.log('vehicleName: ',vehicleName["name"],'\n object: ',renderObject);
+  }
+
+  const runReset = (vehicleName,defaultAndRenderObj) => {
+    // write function that resets vehicle to default
+    console.log('vehicleName: ',vehicleName["name"],'\n object: ',defaultAndRenderObj);
+  }
+
 
   return (
     <div className="veicleConfig_userEntry_container">
-      <GrayBackground handleResetApplyAll={handleResetApplyAll} />
+      <GrayBackground 
+        handleResetApply={handleResetApply} 
+        runReset={runReset} 
+        runApplyAll={runApplyAll}
+      />
       <div className="veicleConfig_userEntry_subcontainer">
         <div className="app_displayFlex app_Solar_selectPymt_div">
           <div
@@ -171,9 +205,8 @@ const VehicleConfigUserEntry = ({
 
       <div className="vehicleConfig_submit_btn_container"> 
         <button
-          onClick={() => {
-            console.log('vehicleName - ',vehicleName)
-            showApplyAllWarning(dispatch, vehicleName); 
+          onClick={() => { 
+            showWarningModal('applyAll',vehicleName,{}); 
           }}
           className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_setAll_btn app_cursorPointer"
         >
@@ -181,7 +214,7 @@ const VehicleConfigUserEntry = ({
         </button>
         <button
           onClick={() => { 
-            showResetWarning(dispatch, vehicleName);
+            showWarningModal('reset',vehicleName,{}); 
           }}
           className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_reset_btn app_cursorPointer"
         >

@@ -10,6 +10,7 @@ import {
   TOGGLE_APPLY_ALL_WARNING,
 } from "../../config/actions/types";
 
+
 const GrayBackground = ({
   menuVisibility,
   toggleMobileMenu,
@@ -18,7 +19,9 @@ const GrayBackground = ({
   displayMobileMenu,
   displayResetWarning,
   displayApplyAllWarning,
-  handleSuccess
+  handleResetApply,
+  runReset,
+  runApplyAll,
 }) => {
   if (!displayMobileMenu && !displayResetWarning && !displayApplyAllWarning) {
     return null;
@@ -28,21 +31,30 @@ const GrayBackground = ({
   const closeResetWarning = () => toggleResetWarning();
   const closeApplyAllWarning = () => toggleApplyAllWarning();
 
+
   return (
     <div className="grayBackground app_marginTop">
       {displayMobileMenu && (
         <HeaderMobileMenu closeMobileMenu={closeMobileMenu} />
       )}
       {displayResetWarning && (
-        <DisplayResetWarning closeResetWarning={closeResetWarning} handleSuccess={handleSuccess} /> 
+        <DisplayResetWarning 
+          closeResetWarning={closeResetWarning} 
+          handleResetApply={handleResetApply} 
+          runReset={runReset} 
+        /> 
       )}
       {displayApplyAllWarning && (
-        <DisplayApplyAllWarning closeApplyAllWarning={closeApplyAllWarning} handleSuccess={handleSuccess} />
+        <DisplayApplyAllWarning 
+          closeApplyAllWarning={closeApplyAllWarning} 
+          handleResetApply={handleResetApply}
+          runApplyAll={runApplyAll}
+        />
       )}
     </div>
   );
 };
-
+// REDUX TODO - how does mapStat work here? It seems to be assigning values, but how does it toggle?
 const mapStateToProps = (state) => {
   return {
     displayMobileMenu: state.navReducer.displayMobileMenu,
@@ -54,8 +66,8 @@ const mapStateToProps = (state) => {
 function mapDispatchToProps(dispatch) {
   return {
     toggleMobileMenu: () => dispatch({ type: TOGGLE_MOBILE_MENU }),
-    toggleResetWarning: () => dispatch({ type: TOGGLE_RESET_WARNING }),
-    toggleApplyAllWarning: () => dispatch({ type: TOGGLE_APPLY_ALL_WARNING }),
+    toggleResetWarning: () => dispatch({ type: TOGGLE_RESET_WARNING}),
+    toggleApplyAllWarning: () => dispatch({ type: TOGGLE_APPLY_ALL_WARNING}), 
   };
 }
 

@@ -2,14 +2,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import "./DisplayApplyAllWarning.css";
 
-const DisplayApplyAllWarning = ({ closeApplyAllWarning, handleSuccess }) => {
+const DisplayApplyAllWarning = ({ closeApplyAllWarning, runApplyAll }) => {
   const vehicleRenderData = useSelector(
     (state) => state.vehiclesReducer.vehicleRenderData
   );
   const currentModelName = useSelector(
     (state) => state.navReducer.currentModelName
   );
-  console.log("vehicleRenderData >>", vehicleRenderData[currentModelName]);
+ 
   return (
     <div className="displayApplyAllWarning">
       <div className="warningContainer">
@@ -38,7 +38,7 @@ const DisplayApplyAllWarning = ({ closeApplyAllWarning, handleSuccess }) => {
             Cancel
           </div>
           <div
-            onClick={() => handleSuccess("applyAll")}
+            onClick={() => runApplyAll(currentModelName,vehicleRenderData)}
             className="warningBtn continueToApplyAll"
           >
             Continue

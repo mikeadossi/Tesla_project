@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from "react-redux";
 import './DisplayResetWarning.css';
 
-const DisplayResetWarning  = ({ closeResetWarning }) => { 
+const DisplayResetWarning  = ({ closeResetWarning, runReset }) => { 
     const currentModelName = useSelector(
         (state) => state.navReducer.currentModelName
     );
@@ -34,7 +34,12 @@ const DisplayResetWarning  = ({ closeResetWarning }) => {
                     >
                         Cancel
                     </div>
-                    <div className="warningBtn continueToApplyAll">Continue</div>
+                    <div 
+                        onClick={() => runReset(currentModelName,getAllVehicles) }
+                        className="warningBtn continueToApplyAll"
+                    >
+                        Continue
+                    </div>
                 </div>
             </div>
         </div>
