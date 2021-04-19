@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import "./LocationDetails.css";
+import moment from "moment-timezone";
 
 const LocationDetails = ({
   zipcodeData: {
@@ -15,8 +16,16 @@ const LocationDetails = ({
     latitude,
   },
 }) => {
+  const [currentTIme, setTime] = useState(
+    moment().tz("America/Los_Angeles").format("h:MM:ss A z")
+  );
+
   const areaCodes = area_codes && area_codes.split(" / ");
   const counties = county && county.split(",");
+
+  setInterval(() => {
+    setTime(moment().tz("America/Los_Angeles").format("h:MM:ss A z"));
+  }, 1000);
 
   return id ? (
     <div className="locationDetails_container app_displayFlex">
@@ -63,7 +72,7 @@ const LocationDetails = ({
       <div className="app_locationDetails_border"></div>
 
       <div className="locationDetails_subcontainers locationDetails_subcontainer_3">
-        <div className="locationDetails_time_digital">12:39 PM</div>
+        <div className="locationDetails_time_digital">{currentTIme}</div>
         <div className="locationDetails_timezone">Pacific Time</div>
       </div>
 

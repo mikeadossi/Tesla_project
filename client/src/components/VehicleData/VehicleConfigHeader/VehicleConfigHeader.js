@@ -23,6 +23,7 @@ const VehicleConfigHeader = ({
         <div 
           className="vehicleConfig_vehicleName"
           onClick={() => makeVisible("ConfigPage")}
+          id={selectedVehicle}
         >
           {selectedVehicle}
         </div>
