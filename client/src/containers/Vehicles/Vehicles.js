@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useSelector } from "react";
 import "./Vehicles.css";
 import InfoPanel from "../InfoPanel/InfoPanel.js";
 import VehiclePanel from "../VehiclePanel/VehiclePanel.js";
+import { connect } from "react-redux";
 
 const Vehicles = (props) => {
   const { statedata } = props;
-  console.log('props0- ',statedata)
 
   const [modalVisibility, setModalVisibility] = useState({
     locationsModal: false,
@@ -32,11 +32,13 @@ const Vehicles = (props) => {
         <VehiclePanel
           modalVisibility={modalVisibility}
           closeModal={closeModal}
-          showWarning={props.showWarning}
         />
       </div>
     </div>
   );
 };
 
-export default Vehicles;
+const mapStateToProps = (state) => ({
+  statedata: state.usStateReducer.usStatesData,
+});
+export default connect(mapStateToProps)(Vehicles);
