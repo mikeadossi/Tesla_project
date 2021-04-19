@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Link, Route, BrowserRouter, Switch } from "react-router-dom";
+import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Nav from "./containers/Nav/Nav";
 import LogIn from "./containers/LogIn/LogIn";
 import SignUp from "./containers/SignUp/SignUp";
@@ -22,7 +22,6 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 
 function App() {
-  const [statedata, setStatedata] = useState([]); // will need to be handled with redux
 
   const [menuVisibility, setMenuVisibility] = useState({
     mobileMenu: false,
@@ -38,8 +37,6 @@ function App() {
       resetWarning: false,
     });
   };
-
-
 
   return (
     <Provider store={store}>
@@ -64,7 +61,7 @@ function App() {
               exact
               path="/vehicles"
               component={() => (
-                <Vehicles statedata={statedata} />
+                <Vehicles />
               )}
             />
             <Route exact path="/solar" component={Solar} />
@@ -78,13 +75,12 @@ function App() {
   );
 }
 
-// export default App;
-
 function mapStateToProps(state) {
   return {
     error: state.navReducer.error,
     zipcode_data: state.navReducer.zipcode_data,
+    // state_data: state.usStateReducer.usStatesData,
   };
 }
 
-export default connect(mapStateToProps, { getMyZipcodeData })(App); 
+export default connect(mapStateToProps, { getMyZipcodeData })(App);
