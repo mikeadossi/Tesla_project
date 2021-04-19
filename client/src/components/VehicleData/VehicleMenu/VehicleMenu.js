@@ -2,9 +2,9 @@ import React from "react";
 import "./VehicleMenu.css";
 import ScrollUp from "../../ScrollUp/ScrollUp";
 
-const VehicleMenu = ({setSelectedVehicleName, menuOptions, vehicleData}) => {
+const VehicleMenu = ({setSelectedVehicleName, menuOptions, vehicleContainerRef, vehicleData}) => {
   
-  const chooseAndSetVehice = async (vehicle) => {
+  const chooseAndSetVehice = (vehicle) => {
     setSelectedVehicleName(vehicle);
   };
 
@@ -20,7 +20,7 @@ const VehicleMenu = ({setSelectedVehicleName, menuOptions, vehicleData}) => {
           return(<div className="app_Menu_btn app_noSelect select_Model_3" onClick={() => chooseAndSetVehice(option)}>{option}</div>)
         })}
       </div>
-      <ScrollUp vehicleData={vehicleData}/>
+      <ScrollUp vehicleContainerRef={vehicleContainerRef} vehicleData={vehicleData}/>
     </div>
   );
 };
