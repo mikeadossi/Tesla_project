@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./VehiclePanel.css";
 import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfig from "../../components/VehicleData/VehicleConfig/VehicleConfig";
@@ -8,7 +8,10 @@ import { connect, useDispatch } from "react-redux";
 
 import { getAllVehicles } from "../../config/actions/vehicleActions";
 import { getAllStateData } from "../../config/actions/usStateActions";
-import { TOGGLE_MOBILE_MENU, SAVE_VEHICLE_RENDER_DATA } from "../../config/actions/types";
+import {
+  TOGGLE_MOBILE_MENU,
+  UPDATE_VEHICLE_RENDER_DATA,
+} from "../../config/actions/types";
 
 const VehiclePanel = ({
   getAllVehicles,
@@ -18,8 +21,7 @@ const VehiclePanel = ({
   usStatesData,
   modalVisibility,
   closeModal,
-  showWarning,
-  saveVehicleRenderData
+  saveVehicleRenderData,
 }) => {
   const dispatch = useDispatch();
   let [vehicleData, setVehicleData] = useState([]);
@@ -28,9 +30,15 @@ const VehiclePanel = ({
   const [selectedVehicleName, setSelectedVehicleName] = useState("");
   const [menuOptions, setMenuOptions] = useState("");
   const [usStateVehicleOrder, setUsStateVehicleOrder] = useState("");
+  const vehicleContainerRef = useRef();
+  console.log("teslaModels ------> ", teslaModels);
 
   useEffect(() => {
-    dispatch({ type: SAVE_VEHICLE_RENDER_DATA, payload: teslaModels.vehicle_render });
+    dispatch({
+      type: UPDATE_VEHICLE_RENDER_DATA,
+      payload: teslaModels.vehicle_render,
+    });
+    // dispatch(updateRenderData(teslaModels.vehicle_render))
   }, [teslaModels]);
 
   useEffect(() => {
@@ -65,12 +73,17 @@ const VehiclePanel = ({
     }
   }, [usStatesData]);
 
+  const [loadTeslaData, setLoadTeslaData] = useState(false);
+
   useEffect(() => {
-    if (vehicle.length > 0) {
-      getTeslaData(usStateVehicleOrder[3]);
+    const payload = usStateVehicleOrder && usStateVehicleOrder[3];
+    if (!loadTeslaData && vehicle.length > 0 && payload) {
+      console.log("call get modal with ", payload);
+      getTeslaData({ ...payload });
+      setLoadTeslaData(true);
       populateMenu();
     }
-  }, [vehicle, usStateVehicleOrder]);
+  }, [vehicle, usStateVehicleOrder, loadTeslaData]);
 
   const removeModel = (model) => {
     console.log("model to be removed: ", model);
@@ -80,6 +93,7 @@ const VehiclePanel = ({
         stateData.splice(i, 1);
       }
     }
+    // TODO: consider implementing filter here
 
     setVehicleData([...stateData]);
   };
@@ -114,7 +128,8 @@ const VehiclePanel = ({
 
   const getTeslaData = async (statePymtObj) => {
     // this function converts DB data into useable state data for app: a 'details' object and a 'rendering' object.
-    const vehicles = vehicle;
+    const vehicles = [...vehicle];
+    console.log("vehicles ----------> ", vehicles, vehicle);
     const vehicleObj = {
       // vehicle_details should never be user modified, vehicle_render can be.
       vehicle_details: {},
@@ -124,7 +139,8 @@ const VehiclePanel = ({
     if (vehicles.length > 0) {
       for (let i = 0; i < vehicles.length; i++) {
         let model = vehicles[i].model;
-        let parsedValue = parseAllStringValues(vehicles[i]);
+        let parsedValue = { ...parseAllStringValues(vehicles[i]) };
+        // parsedValue["default_optioned_vehicle"]["image_paint"] = "_white1"
 
         if (statePymtObj !== undefined) {
           let purchasePrice =
@@ -133,16 +149,16 @@ const VehiclePanel = ({
             purchasePrice,
             statePymtObj
           );
-          parsedValue["default_optioned_vehicle"][
-            "payment_object"
-          ] = paymentObject;
+          parsedValue["default_optioned_vehicle"]["payment_object"] = {
+            ...paymentObject,
+          };
         }
 
         vehicleObj.vehicle_details[model] = parsedValue;
         vehicleObj.vehicle_render[model] = parsedValue.default_optioned_vehicle;
       }
     }
-    console.log("vehicleObj ---> ", vehicleObj);
+
     setTeslaModels(vehicleObj);
   };
 
@@ -690,11 +706,21 @@ const VehiclePanel = ({
       .join("");
 
     setTeslaModels((vehicles) => {
-      let newTeslaModels = { ...vehicles };
-      let renderedVehicle = newTeslaModels.vehicle_render[model];
-      let detailsObj = newTeslaModels.vehicle_details[model];
+      let newTeslaModels = { ...teslaModels };
+      console.log(
+        "newTeslaModels ==== ",
+        newTeslaModels["vehicle_details"][model]["default_optioned_vehicle"][
+          "image_paint"
+        ]
+      );
+      let renderedVehicle = { ...teslaModels.vehicle_render[model] };
+      let detailsObj = { ...teslaModels.vehicle_details[model] };
 
-      let colorObj = detailsObj["paint_options"][color]; // color should be "Pearl White" for example.
+      let colorObj = { ...detailsObj["paint_options"][color] }; // color should be "Pearl White" for example.
+      // let defaultColor = detailsObj["default_optioned_vehicle"].paint[0];
+
+      console.log("A. colorObj - ", colorObj);
+
       let img = colorObj.image_paint; // store this in renderObj
       let newPrice = colorObj.price; // store this in renderObj
       let currentPaintPrice = renderedVehicle["paint"][1];
@@ -708,9 +734,24 @@ const VehiclePanel = ({
       if (newPrice !== "included") {
         currentVehiclePrice += newPrice;
       }
+      console.info("before new model is", newTeslaModels, teslaModels);
+      newTeslaModels = {
+        ...teslaModels,
+        "vehicle_render": {
+          ...teslaModels["vehicle_render"],
 
+          [model]: {
+          ...teslaModels.vehicle_render[model],
+          "cash_price": currentVehiclePrice,
+          "paint": [color, newPrice],
+          "image_paint": img
+        }}
+
+      }
+      
       newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
       newTeslaModels.vehicle_render[model]["paint"] = [color, newPrice];
+      console.log("paint is", img);
       newTeslaModels.vehicle_render[model]["image_paint"] = img;
       const currentImage =
         newTeslaModels.vehicle_render[model]["vehicle_image"]; // ex: "model3_white_std_18"
@@ -723,6 +764,10 @@ const VehiclePanel = ({
       newTeslaModels.vehicle_render[model][
         "payment_object"
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
+      console.log('B. colorObj - ',colorObj)
+
+      console.info("new model is", newTeslaModels, teslaModels);
+      newTeslaModels.vehicle_details  = teslaModels.vehicle_details;
 
       return newTeslaModels;
     });
@@ -764,26 +809,13 @@ const VehiclePanel = ({
     });
   };
 
-  const handleResetApplyAll = (value) => {
-    // this function should take one of two arguments 'applyAll' or 'reset'
-    // and run corresponding code
-    if (value === "applyAll") {
-      console.log("apply all ran!");
-    }
-
-    if (value === "reset") {
-      console.log("reset ran!");
-    }
-  };
-
-  console.log("handleResetApplyAll ----> ", handleResetApplyAll("reset"));
-
   return (
     <div className="app_Panel_container">
       <VehicleMenu
         setSelectedVehicleName={setSelectedVehicleName}
         menuOptions={menuOptions}
         vehicleData={vehicleData}
+        vehicleContainerRef={vehicleContainerRef}
       />
 
       {modalVisibility.locationsModal || modalVisibility.chargingModal ? (
@@ -797,6 +829,7 @@ const VehiclePanel = ({
           removeModel={removeModel}
           vehicleContent={teslaModels}
           selectedVehicle={ele}
+          vehicleContainerRef={vehicleContainerRef}
           changeVehicleColor={changeVehicleColor}
           changeVehicleWheel={changeVehicleWheel}
           changeVehicleInterior={changeVehicleInterior}
@@ -809,8 +842,6 @@ const VehiclePanel = ({
           populatePaymentObject={populatePaymentObject}
           setUserPymtEntry={setUserPymtEntry}
           setTeslaModels={setTeslaModels}
-          showWarning={showWarning}
-          handleResetApplyAll={handleResetApplyAll}
         />
       ))}
     </div>
@@ -832,7 +863,7 @@ function mapDispatchToProps(dispatch) {
     getAllVehicles,
     getAllStateData,
     toggle: () => dispatch({ type: TOGGLE_MOBILE_MENU }),
-    // saveVehicleRenderData: (teslaModels) => dispatch({ type: SAVE_VEHICLE_RENDER_DATA, payload: teslaModels}),
+    // saveVehicleRenderData: (teslaModels) => dispatch({ type: UPDATE_VEHICLE_RENDER_DATA, payload: teslaModels}),
   };
 }
 
