@@ -30,8 +30,8 @@ const VehiclePanel = ({
   const [selectedVehicleName, setSelectedVehicleName] = useState("");
   const [menuOptions, setMenuOptions] = useState("");
   const [usStateVehicleOrder, setUsStateVehicleOrder] = useState("");
-  const vehicleContainerRef = useRef();
-  console.log("teslaModels ------> ", teslaModels);
+  const vehicleContainerRef = useRef(); 
+
 
   useEffect(() => {
     dispatch({
@@ -705,24 +705,15 @@ const VehiclePanel = ({
       })
       .join("");
 
-    setTeslaModels((vehicles) => {
-      let newTeslaModels = { ...teslaModels };
-      console.log(
-        "newTeslaModels ==== ",
-        newTeslaModels["vehicle_details"][model]["default_optioned_vehicle"][
-          "image_paint"
-        ]
-      );
-      let renderedVehicle = { ...teslaModels.vehicle_render[model] };
+    setTeslaModels(() => {
+      let renderedVehicle = { ...teslaModels.vehicle_render[model] }; 
+      // Notice (above): we omitted the spread operation on certain renderedVehicle nested objects, but those objects aren't used. See a proper deep copy with var newTeslaModels below.
+      
       let detailsObj = { ...teslaModels.vehicle_details[model] };
+      let colorObj = { ...detailsObj["paint_options"][color] }; // color could be "Pearl White" for example. 
 
-      let colorObj = { ...detailsObj["paint_options"][color] }; // color should be "Pearl White" for example.
-      // let defaultColor = detailsObj["default_optioned_vehicle"].paint[0];
-
-      console.log("A. colorObj - ", colorObj);
-
-      let img = colorObj.image_paint; // store this in renderObj
-      let newPrice = colorObj.price; // store this in renderObj
+      let img = colorObj.image_paint; // our new image to be stored in renderObj
+      let newPrice = colorObj.price; // our new price to be stored in renderObj
       let currentPaintPrice = renderedVehicle["paint"][1];
 
       let currentVehiclePrice = renderedVehicle["cash_price"];
@@ -734,25 +725,23 @@ const VehiclePanel = ({
       if (newPrice !== "included") {
         currentVehiclePrice += newPrice;
       }
-      console.info("before new model is", newTeslaModels, teslaModels);
-      newTeslaModels = {
+
+      // handle deep copy on all (relevant) nested objects w/ spread operator
+      let newTeslaModels = {
         ...teslaModels,
         "vehicle_render": {
           ...teslaModels["vehicle_render"],
 
           [model]: {
-          ...teslaModels.vehicle_render[model],
-          "cash_price": currentVehiclePrice,
-          "paint": [color, newPrice],
-          "image_paint": img
-        }}
-
+            ...teslaModels.vehicle_render[model]
+          }
+        }
       }
-      
+
       newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
-      newTeslaModels.vehicle_render[model]["paint"] = [color, newPrice];
-      console.log("paint is", img);
+      newTeslaModels.vehicle_render[model]["paint"] = [color, newPrice]; 
       newTeslaModels.vehicle_render[model]["image_paint"] = img;
+
       const currentImage =
         newTeslaModels.vehicle_render[model]["vehicle_image"]; // ex: "model3_white_std_18"
       const currentPaint = currentImage.split("_")[1];
@@ -764,10 +753,6 @@ const VehiclePanel = ({
       newTeslaModels.vehicle_render[model][
         "payment_object"
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
-      console.log('B. colorObj - ',colorObj)
-
-      console.info("new model is", newTeslaModels, teslaModels);
-      newTeslaModels.vehicle_details  = teslaModels.vehicle_details;
 
       return newTeslaModels;
     });
