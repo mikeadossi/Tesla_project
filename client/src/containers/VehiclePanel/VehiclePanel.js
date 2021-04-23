@@ -30,8 +30,7 @@ const VehiclePanel = ({
   const [selectedVehicleName, setSelectedVehicleName] = useState("");
   const [menuOptions, setMenuOptions] = useState("");
   const [usStateVehicleOrder, setUsStateVehicleOrder] = useState("");
-  const vehicleContainerRef = useRef(); 
-
+  const vehicleContainerRef = useRef();
 
   useEffect(() => {
     dispatch({
@@ -128,8 +127,7 @@ const VehiclePanel = ({
 
   const getTeslaData = async (statePymtObj) => {
     // this function converts DB data into useable state data for app: a 'details' object and a 'rendering' object.
-    const vehicles = [...vehicle];
-    console.log("vehicles ----------> ", vehicles, vehicle);
+    const vehicles = [...vehicle]; 
     const vehicleObj = {
       // vehicle_details should never be user modified, vehicle_render can be.
       vehicle_details: {},
@@ -162,21 +160,18 @@ const VehiclePanel = ({
     setTeslaModels(vehicleObj);
   };
 
-  const populatePaymentObject = (configuredPrice, paymentObj) => { 
-
+  const populatePaymentObject = (configuredPrice, paymentObj) => {
     // handle deep copy on all (relevant) nested objects w/ spread operator
     let modelPaymentObj = {
       ...paymentObj,
-      "finance": {
-        ...paymentObj["finance"]
+      finance: {
+        ...paymentObj["finance"],
       },
-      "lease": {
-        ...paymentObj["lease"]
+      lease: {
+        ...paymentObj["lease"],
       },
-      "nonCashCreditsArr": [
-        ...paymentObj["nonCashCreditsArr"]
-      ]
-    }
+      nonCashCreditsArr: [...paymentObj["nonCashCreditsArr"]],
+    };
 
     const docFee = modelPaymentObj["docFee"];
     const adjustments = modelPaymentObj["adjustments"];
@@ -276,7 +271,7 @@ const VehiclePanel = ({
 
     modelPaymentObj["lease"]["dueAtDelivery"] = leaseDueAtDelivery;
     modelPaymentObj["lease"]["residualValue"] = residualValue;
-    modelPaymentObj["lease"]["annualMiles"] = annualMiles; 
+    modelPaymentObj["lease"]["annualMiles"] = annualMiles;
 
     return modelPaymentObj;
   }; // handled deep cpy!
@@ -294,7 +289,17 @@ const VehiclePanel = ({
     // ex: selectedOption = "no_autopilot"
 
     setTeslaModels((vehicles) => {
-      let newTeslaModels = { ...vehicles };
+      let newTeslaModels = {
+        ...vehicles,
+        vehicle_render: {
+          ...vehicles["vehicle_render"],
+
+          ["model3"]: {
+            ...vehicles.vehicle_render["model3"],
+            ["autopilot"]: [...vehicles.vehicle_render["model3"]["autopilot"]],
+          },
+        },
+      };
       const renderedVehicle = vehicles.vehicle_render["model3"];
       let selectedOptionPrice =
         vehicles.vehicle_details["model3"]["off_menu"]["autopilot"][
@@ -322,9 +327,14 @@ const VehiclePanel = ({
         "payment_object"
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
+      // details should remain unchanged, with render changing (also vehicles should remain unchanged)
+      // console.log('Veh - ',newTeslaModels,'\n selectedOption - ',selectedOption)
+      // console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"]["model3"]["default_optioned_vehicle"]["autopilot"][1])
+      // console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"]["model3"]["autopilot"][1])
+
       return newTeslaModels;
     });
-  };
+  }; // handled deep cpy!
 
   const toggleFSD = (trim, value) => {
     //trim=long_range value=model3
@@ -339,7 +349,18 @@ const VehiclePanel = ({
       .join("");
 
     setTeslaModels((vehicles) => {
-      let newTeslaModels = { ...vehicles };
+      let newTeslaModels = {
+        ...vehicles,
+        vehicle_render: {
+          ...vehicles["vehicle_render"],
+
+          [model]: {
+            ...vehicles.vehicle_render[model],
+            ["autopilot"]: [...vehicles.vehicle_render[model]["autopilot"]],
+          },
+        },
+      };
+
       const renderedVehicle = vehicles.vehicle_render[model];
       const autopilotOptions =
         vehicles.vehicle_details[model][trim]["autopilot"];
@@ -370,9 +391,14 @@ const VehiclePanel = ({
         "payment_object"
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
+      // details should remain unchanged, with render changing (also vehicles should remain unchanged)
+      // console.log('Veh - ',newTeslaModels,'\n trim - ',trim,'\n model - ',model)
+      // console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"][model]["default_optioned_vehicle"]["autopilot"][1])
+      // console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"][model]["autopilot"][1])
+
       return newTeslaModels;
     });
-  };
+  }; // handled deep cpy!
 
   const addTowHitch = (trim, value) => {
     //trim=long_range value=model3
@@ -387,7 +413,17 @@ const VehiclePanel = ({
       .join("");
 
     setTeslaModels((vehicles) => {
-      let newTeslaModels = { ...vehicles };
+      let newTeslaModels = {
+        ...vehicles,
+        vehicle_render: {
+          ...vehicles["vehicle_render"],
+
+          [model]: {
+            ...vehicles.vehicle_render[model],
+          },
+        },
+      };
+
       const renderedVehicle = vehicles.vehicle_render[model];
       const towHitchPrice =
         vehicles.vehicle_details[model][trim]["tow_hitch"]["price"]; // ex: 1000
@@ -410,9 +446,14 @@ const VehiclePanel = ({
         "payment_object"
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
+      // details should remain unchanged, with render changing (also vehicles should remain unchanged)
+      // console.log('Veh - ',newTeslaModels,'\n trim - ',trim,'\n model - ',model)
+      // console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"][model]["default_optioned_vehicle"]["tow_hitch"])
+      // console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"][model]["tow_hitch"])
+
       return newTeslaModels;
     });
-  };
+  }; // handled deep cpy!
 
   const changeVehicleLayout = (trim, layoutSelected, value) => {
     // ex: trim="long_range" layoutSelected="Five Seat Interior" value="modelX"
@@ -427,10 +468,35 @@ const VehiclePanel = ({
       .join("");
 
     setTeslaModels((vehicles) => {
-      let newTeslaModels = { ...vehicles };
-      let renderedVehicle = vehicles.vehicle_render[model];
+      let newTeslaModels = {
+        ...vehicles,
+        vehicle_render: {
+          ...vehicles["vehicle_render"],
+
+          [model]: {
+            ...vehicles.vehicle_render[model],
+            ["layout"]: [...vehicles.vehicle_render[model]["layout"]],
+            ["payment_object"]: {
+              ...vehicles.vehicle_render[model]["payment_object"],
+              ["finance"]: {
+                ...vehicles.vehicle_render[model]["payment_object"]["finance"],
+              },
+              ["lease"]: {
+                ...vehicles.vehicle_render[model]["payment_object"]["lease"],
+              },
+              ["nonCashCreditsArr"]: [
+                ...vehicles.vehicle_render[model]["payment_object"][
+                  "nonCashCreditsArr"
+                ],
+              ],
+            },
+          },
+        },
+      };
+
+      let renderedVehicle = newTeslaModels.vehicle_render[model];
       let layoutOptionsObj =
-        vehicles.vehicle_details[model][trim]["layout"][layoutSelected]; // ex: { price: "included" }
+        newTeslaModels.vehicle_details[model][trim]["layout"][layoutSelected]; // ex: { price: "included" }
 
       let newPrice = layoutOptionsObj["price"];
       let currentLayoutPrice = renderedVehicle["layout"][2];
@@ -459,9 +525,14 @@ const VehiclePanel = ({
         "payment_object"
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
+      // details should remain unchanged, with render changing (also vehicles should remain unchanged)
+      // console.log('Veh - ',newTeslaModels,'\n trim - ',trim,'\n layoutSelected - ',layoutSelected)
+      // console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"][model]["default_optioned_vehicle"]["layout"][0])
+      // console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"][model]["layout"][0])
+
       return newTeslaModels;
     });
-  };
+  }; // handled deep cpy!
 
   const changeVehicleBattery = (batterySelected, value) => {
     const model = `${value}`
@@ -475,10 +546,87 @@ const VehiclePanel = ({
       .join("");
 
     setTeslaModels((vehicles) => {
-      let newTeslaModels = { ...vehicles };
+      // handle deep copy on all (relevant) nested objects w/ spread operator
+      let newTeslaModels = {
+        ...vehicles,
+        vehicle_details: {
+          ...vehicles["vehicle_details"],
+
+          [model]: {
+            ...vehicles.vehicle_details[model],
+            [batterySelected]: {
+              ...vehicles.vehicle_details[model][batterySelected],
+              ["autopilot"]: {
+                ...vehicles.vehicle_details[model][batterySelected][
+                  "autopilot"
+                ],
+                ["autopilot"]: {
+                  ...vehicles.vehicle_details[model][batterySelected][
+                    "interior"
+                  ]["autopilot"],
+                },
+                ["fsd"]: {
+                  ...vehicles.vehicle_details[model][batterySelected][
+                    "interior"
+                  ]["fsd"],
+                },
+              },
+              ["interior"]: {
+                ...vehicles.vehicle_details[model][batterySelected]["interior"],
+                ["All Black"]: {
+                  ...vehicles.vehicle_details[model][batterySelected][
+                    "interior"
+                  ]["All Black"],
+                },
+                ["Black and White"]: {
+                  ...vehicles.vehicle_details[model][batterySelected][
+                    "interior"
+                  ]["Black and White"],
+                },
+              },
+              ["layout"]: {
+                ...vehicles.vehicle_details[model][batterySelected]["layout"],
+                ["Five Seat Interior"]: {
+                  ...vehicles.vehicle_details[model][batterySelected]["layout"][
+                    "Five Seat Interior"
+                  ],
+                },
+              },
+              ["specs"]: {
+                ...vehicles.vehicle_details[model][batterySelected]["specs"],
+              },
+              ["wheel"]: {
+                ...vehicles.vehicle_details[model][batterySelected]["wheel"],
+                // ["18 inch Aero Wheels"]: {
+                //   ...vehicles.vehicle_details[model][batterySelected]["wheel"]["18 inch Aero Wheels"],
+                // },
+                // ["19 inch Sport Wheels"]: {
+                //   ...vehicles.vehicle_details[model][batterySelected]["wheel"]["19 inch Sport Wheels"],
+                // },
+                // ["20 inch Überturbine Wheels"]: {
+                //   ...vehicles.vehicle_details[model][batterySelected]["wheel"]["20 inch Überturbine Wheels"],
+                // },
+              },
+            },
+          },
+        },
+        vehicle_render: {
+          ...vehicles["vehicle_render"],
+
+          [model]: {
+            ...vehicles.vehicle_render[model],
+            ["interior"]: [...vehicles.vehicle_render[model]["interior"]],
+            ["payment_object"]: {
+              ...vehicles.vehicle_render[model]["payment_object"],
+            },
+          },
+        },
+      };
+
       // we want to get and change the battery, and all other related render options
-      let renderedVehicle = vehicles.vehicle_render[model];
-      let batteryOptionsObj = vehicles.vehicle_details[model][batterySelected];
+      let renderedVehicle = newTeslaModels.vehicle_render[model];
+      let batteryOptionsObj =
+        newTeslaModels.vehicle_details[model][batterySelected];
       const wheelObject = batteryOptionsObj["wheel"];
       const interiorObject = batteryOptionsObj["interior"];
       let img = batteryOptionsObj["image_trim"]; // ex: "_std"
@@ -518,8 +666,9 @@ const VehiclePanel = ({
       }
 
       // set new vehicle_image in state
-      let vehicleImage = renderedVehicle["vehicle_image"]; // ex: "model3_white_std_18"
+      let vehicleImage = renderedVehicle["vehicle_image"]; // ex: "model3_white_std_18" newWheelSize
       let wheelName = renderedVehicle["wheel"][0];
+      console.log("wheelName - ", wheelName);
       const newWheelSize = batteryOptionsObj["wheel"][wheelName]["image_wheel"];
       vehicleImage = vehicleImage.split("_");
       vehicleImage[2] = img.split("_")[1]; // ex: "perf"
@@ -540,9 +689,9 @@ const VehiclePanel = ({
 
       // Handle off menu Model 3 autopilot selection
       const autopilotSetting = renderedVehicle["autopilot"][0];
-      const modelObject = vehicles.vehicle_details[model];
+      const modelObject = newTeslaModels.vehicle_details[model];
       const autopilotChargePrice =
-        vehicles.vehicle_details["model3"]["off_menu"]["autopilot"][
+        newTeslaModels.vehicle_details["model3"]["off_menu"]["autopilot"][
           "autopilot_charge"
         ]["price"];
 
@@ -605,9 +754,14 @@ const VehiclePanel = ({
         "payment_object"
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
+      // details should remain unchanged, with render changing (also vehicles should remain unchanged)
+      // console.log('Veh - ',newTeslaModels,'\n batterySelected - ',batterySelected)
+      // console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"]["model3"]["default_optioned_vehicle"]["battery"][1])
+      // console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"][model]["battery"][1])
+
       return newTeslaModels;
     });
-  };
+  }; // handled deep cpy!
 
   const changeVehicleInterior = (trim, interiorSelected, value) => {
     const model = `${value}`
@@ -620,11 +774,11 @@ const VehiclePanel = ({
       })
       .join("");
 
-    setTeslaModels((vehicles) => { 
+    setTeslaModels((vehicles) => {
       // handle deep copy on all (relevant) nested objects w/ spread operator
       let newTeslaModels = {
         ...vehicles,
-        "vehicle_details": {
+        vehicle_details: {
           ...vehicles["vehicle_details"],
 
           [model]: {
@@ -634,31 +788,32 @@ const VehiclePanel = ({
               ["interior"]: {
                 ...vehicles.vehicle_details[model][trim]["interior"],
                 [interiorSelected]: {
-                  ...vehicles.vehicle_details[model][trim]["interior"][interiorSelected],
-                }
-              }
-            }
-          }
+                  ...vehicles.vehicle_details[model][trim]["interior"][
+                    interiorSelected
+                  ],
+                },
+              },
+            },
+          },
         },
-        "vehicle_render": {
+        vehicle_render: {
           ...vehicles["vehicle_render"],
 
           [model]: {
             ...vehicles.vehicle_render[model],
-            ["interior"]: [
-              ...vehicles.vehicle_render[model]["interior"] 
-            ],
+            ["interior"]: [...vehicles.vehicle_render[model]["interior"]],
             ["payment_object"]: {
-              ...vehicles.vehicle_render[model]["payment_object"]
-            }
-          }
-        }
-      }
-
+              ...vehicles.vehicle_render[model]["payment_object"],
+            },
+          },
+        },
+      };
 
       let renderedVehicle = newTeslaModels.vehicle_render[model];
       let interiorOptionsObj =
-        newTeslaModels.vehicle_details[model][trim]["interior"][interiorSelected];
+        newTeslaModels.vehicle_details[model][trim]["interior"][
+          interiorSelected
+        ];
 
       let newPrice = interiorOptionsObj.price;
       let img = interiorOptionsObj.image;
@@ -686,10 +841,10 @@ const VehiclePanel = ({
         "payment_object"
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
-      // details should remain unchanged, with render changing (also vehicles should remain unchanged) 
-      console.log('Veh - ',newTeslaModels,'\n trim - ',trim,'\n interiorSelected - ',interiorSelected)
-      console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"]["model3"]["default_optioned_vehicle"]["interior"][1])
-      console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"][model]["interior"][1])
+      // details should remain unchanged, with render changing (also vehicles should remain unchanged)
+      // console.log('Veh - ',newTeslaModels,'\n trim - ',trim,'\n interiorSelected - ',interiorSelected)
+      // console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"]["model3"]["default_optioned_vehicle"]["interior"][1])
+      // console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"][model]["interior"][1])
 
       return newTeslaModels;
     });
@@ -710,7 +865,7 @@ const VehiclePanel = ({
       // handle deep copy on all (relevant) nested objects w/ spread operator
       let newTeslaModels = {
         ...vehicles,
-        "vehicle_details": {
+        vehicle_details: {
           ...vehicles["vehicle_details"],
 
           [model]: {
@@ -720,29 +875,30 @@ const VehiclePanel = ({
               ["wheel"]: {
                 ...vehicles.vehicle_details[model][trim]["wheel"],
                 [wheelSelected]: {
-                  ...vehicles.vehicle_details[model][trim]["wheel"][wheelSelected],
-                }
-              }
-            }
-          }
+                  ...vehicles.vehicle_details[model][trim]["wheel"][
+                    wheelSelected
+                  ],
+                },
+              },
+            },
+          },
         },
-        "vehicle_render": {
+        vehicle_render: {
           ...vehicles["vehicle_render"],
 
           [model]: {
             ...vehicles.vehicle_render[model],
-            ["wheel"]: [
-              ...vehicles.vehicle_render[model]["wheel"] 
-            ],
+            ["wheel"]: [...vehicles.vehicle_render[model]["wheel"]],
             ["payment_object"]: {
-              ...vehicles.vehicle_render[model]["payment_object"]
-            }
-          }
-        }
-      }
+              ...vehicles.vehicle_render[model]["payment_object"],
+            },
+          },
+        },
+      };
 
       let renderedVehicle = newTeslaModels.vehicle_render[model];
-      let wheelObj = newTeslaModels.vehicle_details[model][trim]["wheel"][wheelSelected]; 
+      let wheelObj =
+        newTeslaModels.vehicle_details[model][trim]["wheel"][wheelSelected];
 
       let img = wheelObj.image_wheel; // store this in renderObj
       let newPrice = wheelObj.price; // store this in renderObj
@@ -774,11 +930,11 @@ const VehiclePanel = ({
         "payment_object"
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
-      // details should remain unchanged, with render changing (also vehicles should remain unchanged) 
+      // details should remain unchanged, with render changing (also vehicles should remain unchanged)
       // console.log('Veh - ',newTeslaModels,'\n trim - ',trim,'\n wheelSelected - ',wheelSelected)
       // console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"]["model3"]["default_optioned_vehicle"]["wheel"][1])
       // console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"][model]["wheel"][1])
-      
+
       return newTeslaModels;
     });
   }; // handled deep cpy!
@@ -795,11 +951,11 @@ const VehiclePanel = ({
       .join("");
 
     setTeslaModels(() => {
-      let renderedVehicle = { ...teslaModels.vehicle_render[model] }; 
+      let renderedVehicle = { ...teslaModels.vehicle_render[model] };
       // Notice (above): we omitted the spread operation on certain renderedVehicle nested objects, but those objects aren't used. See a proper deep copy with var newTeslaModels below.
-      
+
       let detailsObj = { ...teslaModels.vehicle_details[model] };
-      let colorObj = { ...detailsObj["paint_options"][color] }; // color could be "Pearl White" for example. 
+      let colorObj = { ...detailsObj["paint_options"][color] }; // color could be "Pearl White" for example.
 
       let img = colorObj.image_paint; // our new image to be stored in renderObj
       let newPrice = colorObj.price; // our new price to be stored in renderObj
@@ -818,17 +974,17 @@ const VehiclePanel = ({
       // handle deep copy on all (relevant) nested objects w/ spread operator
       let newTeslaModels = {
         ...teslaModels,
-        "vehicle_render": {
+        vehicle_render: {
           ...teslaModels["vehicle_render"],
 
           [model]: {
-            ...teslaModels.vehicle_render[model]
-          }
-        }
-      }
+            ...teslaModels.vehicle_render[model],
+          },
+        },
+      };
 
       newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
-      newTeslaModels.vehicle_render[model]["paint"] = [color, newPrice]; 
+      newTeslaModels.vehicle_render[model]["paint"] = [color, newPrice];
       newTeslaModels.vehicle_render[model]["image_paint"] = img;
 
       const currentImage =
@@ -850,25 +1006,26 @@ const VehiclePanel = ({
   const setUserPymtEntry = (activeFormValues, value) => {
     const model = value;
 
-    setTeslaModels((vehicles) => { 
-
+    setTeslaModels((vehicles) => {
       // handle deep copy on all (relevant) nested objects w/ spread operator
       let newTeslaModels = {
         ...vehicles,
-        "vehicle_render": {
+        vehicle_render: {
           ...vehicles["vehicle_render"],
 
           [model]: {
             ...vehicles.vehicle_render[model],
             ["payment_object"]: {
               ...vehicles.vehicle_render[model]["payment_object"],
-                 ["tradeInEquity"]: {
-                   ...vehicles.vehicle_render[model]["payment_object"]["tradeInEquity"],
-                  }
-             }
-          }
-        }
-      }; 
+              ["tradeInEquity"]: {
+                ...vehicles.vehicle_render[model]["payment_object"][
+                  "tradeInEquity"
+                ],
+              },
+            },
+          },
+        },
+      };
 
       let renderedVehicle = newTeslaModels["vehicle_render"][model];
       let pymtObj = renderedVehicle["payment_object"];
@@ -896,7 +1053,7 @@ const VehiclePanel = ({
         }
       }
 
-      // details should remain unchanged, with render changing (also vehicles should remain unchanged) 
+      // details should remain unchanged, with render changing (also vehicles should remain unchanged)
       /*
       console.log('Veh - ',newTeslaModels)
       console.log('vehicle details -- ',newTeslaModels["vehicle_details"][model]["default_optioned_vehicle"]["payment_object"]["tradeInEquity"])
