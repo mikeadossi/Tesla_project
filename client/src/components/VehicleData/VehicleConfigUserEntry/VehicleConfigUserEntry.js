@@ -8,6 +8,14 @@ import {
   showApplyAllWarning,
   showResetWarning,
 } from "../../../config/actions/navActions";
+import { 
+  TOGGLE_RESET_WARNING,
+  TOGGLE_APPLY_ALL_WARNING,
+} from "../../../config/actions/types";
+
+import {
+  updateRenderData
+} from "../../../config/actions/vehicleActions";
 
 const VehicleConfigUserEntry = ({
   showComponent,
@@ -24,6 +32,8 @@ const VehicleConfigUserEntry = ({
   setTeslaModels,
   showApplyAllWarning,
   showResetWarning, 
+  toggleResetWarning,
+  toggleApplyAllWarning,
 }) => {
   const dispatch = useDispatch();
   const vehicleName = name;
@@ -64,7 +74,7 @@ const VehicleConfigUserEntry = ({
 
     let formError = false;
 
-    if (!activeFormVals["leaseTermLength"]) {
+    if (!activeFormVals["leaseTermLength"]) { console.log('here -> ')
       formError = true;
     }
 
@@ -94,9 +104,9 @@ const VehicleConfigUserEntry = ({
     };
 
     if (value === "applyAll") { 
-      showApplyAllWarning(dispatch, vehicleName, object);
+      showApplyAllWarning(dispatch, vehicleName);
     } else if (value === "reset") { 
-      showResetWarning(dispatch, vehicleName, object);
+      showResetWarning(dispatch, vehicleName);
     };
   }
 
@@ -110,12 +120,54 @@ const VehicleConfigUserEntry = ({
 
   const runApplyAll = (vehicleName,renderObject) => {
     // write function that applies vehicle data to all other vehicles
-    console.log('vehicleName: ',vehicleName["name"],'\n object: ',renderObject);
+    console.log('vehicleName: ',vehicleName,'\n object: ',renderObject);
+    console.log('renderObject[model3] - ',renderObject["vehicle_render"]["model3"]["image_vehicle"])
   }
 
-  const runReset = (vehicleName,defaultAndRenderObj) => {
-    // write function that resets vehicle to default
-    console.log('vehicleName: ',vehicleName["name"],'\n object: ',defaultAndRenderObj);
+  const runReset = (vehicleName, detailsAndRender) => {
+    let selectedModelRenderObj = detailsAndRender["vehicle_details"][vehicleName] 
+
+    let selectedModel = {
+      ...selectedModelRenderObj,
+      default_optioned_vehicle: {
+        ...selectedModelRenderObj["default_optioned_vehicle"],
+
+        ["autopilot"]: [
+          ...selectedModelRenderObj.["default_optioned_vehicle"]["autopilot"],
+        ],
+        ["battery"]: [
+          ...selectedModelRenderObj.["default_optioned_vehicle"]["battery"],
+        ],
+        ["interior"]: [
+          ...selectedModelRenderObj.["default_optioned_vehicle"]["interior"],
+        ],
+        ["layout"]: [
+          ...selectedModelRenderObj.["default_optioned_vehicle"]["layout"],
+        ],
+        ["paint"]: [
+          ...selectedModelRenderObj.["default_optioned_vehicle"]["paint"],
+        ],
+        ["payment_object"]: {
+          ...selectedModelRenderObj.["default_optioned_vehicle"]["payment_object"],
+          ["finance"]: {
+            ...selectedModelRenderObj.["default_optioned_vehicle"]["payment_object"]["finance"],
+          },
+          ["lease"]: {
+            ...selectedModelRenderObj.["default_optioned_vehicle"]["payment_object"]["lease"],
+          },
+          ["nonCashCreditsArr"]: [
+            ...selectedModelRenderObj.["default_optioned_vehicle"]["payment_object"]["nonCashCreditsArr"],
+          ],
+        },
+        ["wheel"]: [
+          ...selectedModelRenderObj.["default_optioned_vehicle"]["wheel"],
+        ],
+      },
+    };
+
+    detailsAndRender[vehicleName] = selectedModel["default_optioned_vehicle"];
+    dispatch(updateRenderData(detailsAndRender));
+    toggleResetWarning();
   }
 
 
@@ -235,6 +287,8 @@ const VehicleConfigUserEntry = ({
 const mapDispatchToProps = (dispatch, modelName) => ({
   showApplyAllWarning: showApplyAllWarning(dispatch, modelName),
   showResetWarning: showResetWarning(dispatch, modelName),
+  toggleResetWarning: () => dispatch({ type: TOGGLE_RESET_WARNING}),
+  toggleApplyAllWarning: () => dispatch({ type: TOGGLE_APPLY_ALL_WARNING}), 
 });
 
 export default connect(null, mapDispatchToProps)(VehicleConfigUserEntry);
