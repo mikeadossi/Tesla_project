@@ -12,11 +12,12 @@ import {
   TOGGLE_MOBILE_MENU,
   UPDATE_VEHICLE_RENDER_DATA,
 } from "../../config/actions/types";
+// this is a cpy!
 
 const VehiclePanel = ({
   getAllVehicles,
   getAllStateData,
-  vehicle,
+  metaVehicleObj,
   zipcode_data,
   usStatesData,
   modalVisibility,
@@ -35,7 +36,8 @@ const VehiclePanel = ({
   useEffect(() => {
     dispatch({
       type: UPDATE_VEHICLE_RENDER_DATA,
-      payload: teslaModels.vehicle_render,
+      // payload: teslaModels.vehicle_render,
+      payload: teslaModels,
     });
     // dispatch(updateRenderData(teslaModels.vehicle_render))
   }, [teslaModels]);
@@ -76,13 +78,13 @@ const VehiclePanel = ({
 
   useEffect(() => {
     const payload = usStateVehicleOrder && usStateVehicleOrder[3];
-    if (!loadTeslaData && vehicle.length > 0 && payload) {
+    if (!loadTeslaData && metaVehicleObj.length > 0 && payload) {
       console.log("call get modal with ", payload);
       getTeslaData({ ...payload });
       setLoadTeslaData(true);
       populateMenu();
     }
-  }, [vehicle, usStateVehicleOrder, loadTeslaData]);
+  }, [metaVehicleObj, usStateVehicleOrder, loadTeslaData]); 
 
   const removeModel = (model) => {
     console.log("model to be removed: ", model);
@@ -92,6 +94,7 @@ const VehiclePanel = ({
         stateData.splice(i, 1);
       }
     }
+    // TODO: call runReset on the vehicle you close!
     // TODO: consider implementing filter here
 
     setVehicleData([...stateData]);
@@ -127,17 +130,17 @@ const VehiclePanel = ({
 
   const getTeslaData = async (statePymtObj) => {
     // this function converts DB data into useable state data for app: a 'details' object and a 'rendering' object.
-    const vehicles = [...vehicle]; 
+    const metaVehicles = [...metaVehicleObj]; 
     const vehicleObj = {
       // vehicle_details should never be user modified, vehicle_render can be.
       vehicle_details: {},
       vehicle_render: {},
     };
 
-    if (vehicles.length > 0) {
-      for (let i = 0; i < vehicles.length; i++) {
-        let model = vehicles[i].model;
-        let parsedValue = { ...parseAllStringValues(vehicles[i]) };
+    if (metaVehicles.length > 0) {
+      for (let i = 0; i < metaVehicles.length; i++) {
+        let model = metaVehicles[i].model;
+        let parsedValue = { ...parseAllStringValues(metaVehicles[i]) };
         // parsedValue["default_optioned_vehicle"]["image_paint"] = "_white1"
 
         if (statePymtObj !== undefined) {
@@ -277,10 +280,9 @@ const VehiclePanel = ({
   }; // handled deep cpy!
 
   const populateMenu = () => {
-    const vehiclez = vehicle;
     let modelNames = [];
-    for (var i = 0; i < vehiclez.length; i++) {
-      modelNames.push(vehiclez[i]["default_optioned_vehicle"]["model"]);
+    for (var i = 0; i < metaVehicleObj.length; i++) {
+      modelNames.push(metaVehicleObj[i]["default_optioned_vehicle"]["model"]);
     }
     setMenuOptions(modelNames);
   };
@@ -288,21 +290,21 @@ const VehiclePanel = ({
   const selectOffMenuAutopilot = (selectedOption) => {
     // ex: selectedOption = "no_autopilot"
 
-    setTeslaModels((vehicles) => {
+    setTeslaModels((metaVehicles) => {
       let newTeslaModels = {
-        ...vehicles,
+        ...metaVehicles,
         vehicle_render: {
-          ...vehicles["vehicle_render"],
+          ...metaVehicles["vehicle_render"],
 
           ["model3"]: {
-            ...vehicles.vehicle_render["model3"],
-            ["autopilot"]: [...vehicles.vehicle_render["model3"]["autopilot"]],
+            ...metaVehicles.vehicle_render["model3"],
+            ["autopilot"]: [...metaVehicles.vehicle_render["model3"]["autopilot"]],
           },
         },
       };
-      const renderedVehicle = vehicles.vehicle_render["model3"];
+      const renderedVehicle = newTeslaModels.vehicle_render["model3"];
       let selectedOptionPrice =
-        vehicles.vehicle_details["model3"]["off_menu"]["autopilot"][
+        newTeslaModels.vehicle_details["model3"]["off_menu"]["autopilot"][
           selectedOption
         ]["price"];
 
@@ -348,22 +350,22 @@ const VehiclePanel = ({
       })
       .join("");
 
-    setTeslaModels((vehicles) => {
+    setTeslaModels((metaVehicles) => {
       let newTeslaModels = {
-        ...vehicles,
+        ...metaVehicles,
         vehicle_render: {
-          ...vehicles["vehicle_render"],
+          ...metaVehicles["vehicle_render"],
 
           [model]: {
-            ...vehicles.vehicle_render[model],
-            ["autopilot"]: [...vehicles.vehicle_render[model]["autopilot"]],
+            ...metaVehicles.vehicle_render[model],
+            ["autopilot"]: [...metaVehicles.vehicle_render[model]["autopilot"]],
           },
         },
       };
 
-      const renderedVehicle = vehicles.vehicle_render[model];
+      const renderedVehicle = newTeslaModels.vehicle_render[model];
       const autopilotOptions =
-        vehicles.vehicle_details[model][trim]["autopilot"];
+        newTeslaModels.vehicle_details[model][trim]["autopilot"];
       const autopilotPrice = autopilotOptions["autopilot"]["price"]; // ex: "included"
       const fsdPrice = autopilotOptions["fsd"]["price"]; // ex: 10000
       let currentSettingName = renderedVehicle["autopilot"][0];
@@ -412,21 +414,21 @@ const VehiclePanel = ({
       })
       .join("");
 
-    setTeslaModels((vehicles) => {
+    setTeslaModels((metaVehicles) => {
       let newTeslaModels = {
-        ...vehicles,
+        ...metaVehicles,
         vehicle_render: {
-          ...vehicles["vehicle_render"],
+          ...metaVehicles["vehicle_render"],
 
           [model]: {
-            ...vehicles.vehicle_render[model],
+            ...metaVehicles.vehicle_render[model],
           },
         },
       };
 
-      const renderedVehicle = vehicles.vehicle_render[model];
+      const renderedVehicle = newTeslaModels.vehicle_render[model];
       const towHitchPrice =
-        vehicles.vehicle_details[model][trim]["tow_hitch"]["price"]; // ex: 1000
+        newTeslaModels.vehicle_details[model][trim]["tow_hitch"]["price"]; // ex: 1000
       let tow_hitch = renderedVehicle["tow_hitch"];
       let currentVehiclePrice = renderedVehicle["cash_price"];
 
@@ -467,25 +469,25 @@ const VehiclePanel = ({
       })
       .join("");
 
-    setTeslaModels((vehicles) => {
+    setTeslaModels((metaVehicles) => {
       let newTeslaModels = {
-        ...vehicles,
+        ...metaVehicles,
         vehicle_render: {
-          ...vehicles["vehicle_render"],
+          ...metaVehicles["vehicle_render"],
 
           [model]: {
-            ...vehicles.vehicle_render[model],
-            ["layout"]: [...vehicles.vehicle_render[model]["layout"]],
+            ...metaVehicles.vehicle_render[model],
+            ["layout"]: [...metaVehicles.vehicle_render[model]["layout"]],
             ["payment_object"]: {
-              ...vehicles.vehicle_render[model]["payment_object"],
+              ...metaVehicles.vehicle_render[model]["payment_object"],
               ["finance"]: {
-                ...vehicles.vehicle_render[model]["payment_object"]["finance"],
+                ...metaVehicles.vehicle_render[model]["payment_object"]["finance"],
               },
               ["lease"]: {
-                ...vehicles.vehicle_render[model]["payment_object"]["lease"],
+                ...metaVehicles.vehicle_render[model]["payment_object"]["lease"],
               },
               ["nonCashCreditsArr"]: [
-                ...vehicles.vehicle_render[model]["payment_object"][
+                ...metaVehicles.vehicle_render[model]["payment_object"][
                   "nonCashCreditsArr"
                 ],
               ],
@@ -545,79 +547,79 @@ const VehiclePanel = ({
       })
       .join("");
 
-    setTeslaModels((vehicles) => {
+    setTeslaModels((metaVehicles) => {
       // handle deep copy on all (relevant) nested objects w/ spread operator
       let newTeslaModels = {
-        ...vehicles,
+        ...metaVehicles,
         vehicle_details: {
-          ...vehicles["vehicle_details"],
+          ...metaVehicles["vehicle_details"],
 
           [model]: {
-            ...vehicles.vehicle_details[model],
+            ...metaVehicles.vehicle_details[model],
             [batterySelected]: {
-              ...vehicles.vehicle_details[model][batterySelected],
+              ...metaVehicles.vehicle_details[model][batterySelected],
               ["autopilot"]: {
-                ...vehicles.vehicle_details[model][batterySelected][
+                ...metaVehicles.vehicle_details[model][batterySelected][
                   "autopilot"
                 ],
                 ["autopilot"]: {
-                  ...vehicles.vehicle_details[model][batterySelected][
+                  ...metaVehicles.vehicle_details[model][batterySelected][
                     "interior"
                   ]["autopilot"],
                 },
                 ["fsd"]: {
-                  ...vehicles.vehicle_details[model][batterySelected][
+                  ...metaVehicles.vehicle_details[model][batterySelected][
                     "interior"
                   ]["fsd"],
                 },
               },
               ["interior"]: {
-                ...vehicles.vehicle_details[model][batterySelected]["interior"],
+                ...metaVehicles.vehicle_details[model][batterySelected]["interior"],
                 ["All Black"]: {
-                  ...vehicles.vehicle_details[model][batterySelected][
+                  ...metaVehicles.vehicle_details[model][batterySelected][
                     "interior"
                   ]["All Black"],
                 },
                 ["Black and White"]: {
-                  ...vehicles.vehicle_details[model][batterySelected][
+                  ...metaVehicles.vehicle_details[model][batterySelected][
                     "interior"
                   ]["Black and White"],
                 },
               },
               ["layout"]: {
-                ...vehicles.vehicle_details[model][batterySelected]["layout"],
+                ...metaVehicles.vehicle_details[model][batterySelected]["layout"],
                 ["Five Seat Interior"]: {
-                  ...vehicles.vehicle_details[model][batterySelected]["layout"][
+                  ...metaVehicles.vehicle_details[model][batterySelected]["layout"][
                     "Five Seat Interior"
                   ],
                 },
               },
               ["specs"]: {
-                ...vehicles.vehicle_details[model][batterySelected]["specs"],
+                ...metaVehicles.vehicle_details[model][batterySelected]["specs"],
               },
               ["wheel"]: {
-                ...vehicles.vehicle_details[model][batterySelected]["wheel"],
+                ...metaVehicles.vehicle_details[model][batterySelected]["wheel"],
                 // ["18 inch Aero Wheels"]: {
-                //   ...vehicles.vehicle_details[model][batterySelected]["wheel"]["18 inch Aero Wheels"],
+                //   ...metaVehicles.vehicle_details[model][batterySelected]["wheel"]["18 inch Aero Wheels"],
                 // },
                 // ["19 inch Sport Wheels"]: {
-                //   ...vehicles.vehicle_details[model][batterySelected]["wheel"]["19 inch Sport Wheels"],
+                //   ...metaVehicles.vehicle_details[model][batterySelected]["wheel"]["19 inch Sport Wheels"],
                 // },
                 // ["20 inch Überturbine Wheels"]: {
-                //   ...vehicles.vehicle_details[model][batterySelected]["wheel"]["20 inch Überturbine Wheels"],
+                //   ...metaVehicles.vehicle_details[model][batterySelected]["wheel"]["20 inch Überturbine Wheels"],
                 // },
               },
             },
           },
         },
         vehicle_render: {
-          ...vehicles["vehicle_render"],
+          ...metaVehicles["vehicle_render"],
 
           [model]: {
-            ...vehicles.vehicle_render[model],
-            ["interior"]: [...vehicles.vehicle_render[model]["interior"]],
+            ...metaVehicles.vehicle_render[model],
+            ["interior"]: [...metaVehicles.vehicle_render[model]["interior"]],
             ["payment_object"]: {
-              ...vehicles.vehicle_render[model]["payment_object"],
+              ...metaVehicles.vehicle_render[model]["payment_object"],
             },
           },
         },
@@ -774,21 +776,21 @@ const VehiclePanel = ({
       })
       .join("");
 
-    setTeslaModels((vehicles) => {
+    setTeslaModels((metaVehicles) => {
       // handle deep copy on all (relevant) nested objects w/ spread operator
       let newTeslaModels = {
-        ...vehicles,
+        ...metaVehicles,
         vehicle_details: {
-          ...vehicles["vehicle_details"],
+          ...metaVehicles["vehicle_details"],
 
           [model]: {
-            ...vehicles.vehicle_details[model],
+            ...metaVehicles.vehicle_details[model],
             [trim]: {
-              ...vehicles.vehicle_details[model][trim],
+              ...metaVehicles.vehicle_details[model][trim],
               ["interior"]: {
-                ...vehicles.vehicle_details[model][trim]["interior"],
+                ...metaVehicles.vehicle_details[model][trim]["interior"],
                 [interiorSelected]: {
-                  ...vehicles.vehicle_details[model][trim]["interior"][
+                  ...metaVehicles.vehicle_details[model][trim]["interior"][
                     interiorSelected
                   ],
                 },
@@ -797,13 +799,13 @@ const VehiclePanel = ({
           },
         },
         vehicle_render: {
-          ...vehicles["vehicle_render"],
+          ...metaVehicles["vehicle_render"],
 
           [model]: {
-            ...vehicles.vehicle_render[model],
-            ["interior"]: [...vehicles.vehicle_render[model]["interior"]],
+            ...metaVehicles.vehicle_render[model],
+            ["interior"]: [...metaVehicles.vehicle_render[model]["interior"]],
             ["payment_object"]: {
-              ...vehicles.vehicle_render[model]["payment_object"],
+              ...metaVehicles.vehicle_render[model]["payment_object"],
             },
           },
         },
@@ -861,21 +863,21 @@ const VehiclePanel = ({
       })
       .join("");
 
-    setTeslaModels((vehicles) => {
+    setTeslaModels((metaVehicles) => {
       // handle deep copy on all (relevant) nested objects w/ spread operator
       let newTeslaModels = {
-        ...vehicles,
+        ...metaVehicles,
         vehicle_details: {
-          ...vehicles["vehicle_details"],
+          ...metaVehicles["vehicle_details"],
 
           [model]: {
-            ...vehicles.vehicle_details[model],
+            ...metaVehicles.vehicle_details[model],
             [trim]: {
-              ...vehicles.vehicle_details[model][trim],
+              ...metaVehicles.vehicle_details[model][trim],
               ["wheel"]: {
-                ...vehicles.vehicle_details[model][trim]["wheel"],
+                ...metaVehicles.vehicle_details[model][trim]["wheel"],
                 [wheelSelected]: {
-                  ...vehicles.vehicle_details[model][trim]["wheel"][
+                  ...metaVehicles.vehicle_details[model][trim]["wheel"][
                     wheelSelected
                   ],
                 },
@@ -884,13 +886,13 @@ const VehiclePanel = ({
           },
         },
         vehicle_render: {
-          ...vehicles["vehicle_render"],
+          ...metaVehicles["vehicle_render"],
 
           [model]: {
-            ...vehicles.vehicle_render[model],
-            ["wheel"]: [...vehicles.vehicle_render[model]["wheel"]],
+            ...metaVehicles.vehicle_render[model],
+            ["wheel"]: [...metaVehicles.vehicle_render[model]["wheel"]],
             ["payment_object"]: {
-              ...vehicles.vehicle_render[model]["payment_object"],
+              ...metaVehicles.vehicle_render[model]["payment_object"],
             },
           },
         },
@@ -1006,19 +1008,19 @@ const VehiclePanel = ({
   const setUserPymtEntry = (activeFormValues, value) => {
     const model = value;
 
-    setTeslaModels((vehicles) => {
+    setTeslaModels((metaVehicles) => {
       // handle deep copy on all (relevant) nested objects w/ spread operator
       let newTeslaModels = {
-        ...vehicles,
+        ...metaVehicles,
         vehicle_render: {
-          ...vehicles["vehicle_render"],
+          ...metaVehicles["vehicle_render"],
 
           [model]: {
-            ...vehicles.vehicle_render[model],
+            ...metaVehicles.vehicle_render[model],
             ["payment_object"]: {
-              ...vehicles.vehicle_render[model]["payment_object"],
+              ...metaVehicles.vehicle_render[model]["payment_object"],
               ["tradeInEquity"]: {
-                ...vehicles.vehicle_render[model]["payment_object"][
+                ...metaVehicles.vehicle_render[model]["payment_object"][
                   "tradeInEquity"
                 ],
               },
@@ -1106,7 +1108,7 @@ const VehiclePanel = ({
 function mapStateToProps(state) {
   return {
     error: state.vehiclesReducer.error,
-    vehicle: state.vehiclesReducer.vehicle,
+    metaVehicleObj: state.vehiclesReducer.vehicle,
     usStatesData: state.usStateReducer.usStatesData,
     zipcode_data: state.navReducer.zipcode_data,
   };
