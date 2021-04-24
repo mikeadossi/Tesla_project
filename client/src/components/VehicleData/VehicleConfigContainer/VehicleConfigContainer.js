@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React, { useState } from "react";
 import VehicleConfig from "../../VehicleData/VehicleConfig/VehicleConfig";
 import VehicleSpecs from "../../VehicleData/VehicleSpecs/VehicleSpecs";
 import VehicleConfigHeader from "../../VehicleData/VehicleConfigHeader/VehicleConfigHeader";
@@ -18,21 +18,23 @@ const VehicleConfigContainer = ({
   usStateVehicleOrder,
   populatePaymentObject,
   setUserPymtEntry,
+  vehicleContainerRef,
   setTeslaModels,
-  showWarning,
-  handleResetApplyAll
+  runReset,
+  runApplyAll,
 }) => {
-
   const name = `${selectedVehicle}`
-  .split(" ")
-  .map((iv, i) => {
-    if (i === 0) {
-      return iv.toLowerCase();
-    }
-    return iv;
-  })
-  .join("");
+    .split(" ")
+    .map((iv, i) => {
+      if (i === 0) {
+        return iv.toLowerCase();
+      }
+      return iv;
+    })
+    .join("");
 
+  console.log({ vehicleContent, name });
+  
   const renderedTesla = vehicleContent.vehicle_render[name];
   const vehicleBattery = renderedTesla["battery"][1]; // ex: "long_range"
 
@@ -44,35 +46,34 @@ const VehicleConfigContainer = ({
   };
 
   const makeVisible = (value) => {
-    if(value === "ConfigPage"){
-      setConfigVisibility({ "SpecsPage": false });
-      setConfigVisibility({ "ConfigPage": true });
-    } else if(value === "SpecsPage") {
-      setConfigVisibility({ "ConfigPage": false });
-      setConfigVisibility({ "SpecsPage": true });
-    } 
+    if (value === "ConfigPage") {
+      setConfigVisibility({ SpecsPage: false });
+      setConfigVisibility({ ConfigPage: true });
+    } else if (value === "SpecsPage") {
+      setConfigVisibility({ ConfigPage: false });
+      setConfigVisibility({ SpecsPage: true });
+    }
   };
 
   const [configVisibility, setConfigVisibility] = useState({
     ConfigPage: true,
-    SpecsPage: false
+    SpecsPage: false,
   });
-  
-  return (
-    <div className="app_Config_container">
 
-      <VehicleConfigHeader 
-          selectedVehicle={selectedVehicle}
-          removeModel={removeModel} 
-          modelInfo={modelInfo}
-          usStateVehicleOrder={usStateVehicleOrder}
-          makeVisible={makeVisible}
-       />
+  return (
+    <div className="app_Config_container" ref={vehicleContainerRef}>
+      <VehicleConfigHeader
+        selectedVehicle={selectedVehicle}
+        removeModel={removeModel}
+        modelInfo={modelInfo}
+        usStateVehicleOrder={usStateVehicleOrder}
+        makeVisible={makeVisible}
+      />
 
       {configVisibility.ConfigPage ? (
         <VehicleConfig
           selectedVehicle={selectedVehicle}
-          vehicleContent={vehicleContent} 
+          vehicleContent={vehicleContent}
           changeVehicleColor={changeVehicleColor}
           changeVehicleWheel={changeVehicleWheel}
           changeVehicleInterior={changeVehicleInterior}
@@ -86,19 +87,14 @@ const VehicleConfigContainer = ({
           setUserPymtEntry={setUserPymtEntry}
           modelInfo={modelInfo}
           setTeslaModels={setTeslaModels}
-          showWarning={showWarning}
-          handleResetApplyAll={handleResetApplyAll} 
+          runReset={runReset}
+          runApplyAll={runApplyAll}
         />
-        ) : (
+      ) : (
         ""
       )}
 
-      {configVisibility.SpecsPage ? ( 
-        <VehicleSpecs />
-        ) : (
-        ""
-      )}
-
+      {configVisibility.SpecsPage ? <VehicleSpecs /> : ""}
     </div>
   );
 };
