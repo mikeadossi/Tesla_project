@@ -19,7 +19,7 @@ export const getMyZipcodeData = (zip) => async (dispatch) => {
     }
   }
 };
-// REDUX EXPLAINED: [2] these actions/functions dispatch our reducer functions
+
 export const showApplyAllWarning = (dispatch, modelName) => () => { // action creator - creates and returns action object
   console.log('hey - ',modelName["name"])
   debugger
