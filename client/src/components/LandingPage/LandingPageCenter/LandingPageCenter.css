@@ -1,0 +1,17 @@
+.LandingPageCenter_link{
+    text-align: center;
+    color: white;
+}
+
+.LandingPageCenter_brandname{
+    font-size: 17px;
+    font-weight: bold;
+    padding-top: 15px; 
+    text-align: center;
+}
+
+.landingPageCenter_container{
+    width: 96%;
+    float: right; 
+    text-align: right;
+}
