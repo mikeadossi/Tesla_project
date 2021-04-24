@@ -4,16 +4,20 @@ import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfig from "../../components/VehicleData/VehicleConfig/VehicleConfig";
 import VehicleConfigContainer from "../../components/VehicleData/VehicleConfigContainer/VehicleConfigContainer";
 import InfoModal from "../InfoModal/InfoModal.js";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 
 import { getAllVehicles } from "../../config/actions/vehicleActions";
 import { getAllStateData } from "../../config/actions/usStateActions";
+
 import {
   TOGGLE_MOBILE_MENU,
   UPDATE_VEHICLE_RENDER_DATA,
   VIEW_RENDERED_OPTIONS,
+  TOGGLE_RESET_WARNING,
+  TOGGLE_APPLY_ALL_WARNING,
 } from "../../config/actions/types";
-// this is a cpy!
+
+import { updateRenderData } from "../../config/actions/vehicleActions";
 
 const VehiclePanel = ({
   getAllVehicles,
@@ -25,10 +29,11 @@ const VehiclePanel = ({
   closeModal,
   saveVehicleRenderData,
   teslaModels,
+  toggleResetWarning,
+  toggleApplyAllWarning,
 }) => {
   const dispatch = useDispatch();
-  let [vehicleData, setVehicleData] = useState([]); 
-  const [selectedVehicleName, setSelectedVehicleName] = useState("");
+  let [vehicleData, setVehicleData] = useState([]);
   const [menuOptions, setMenuOptions] = useState("");
   const [usStateVehicleOrder, setUsStateVehicleOrder] = useState("");
   const vehicleContainerRef = useRef();
@@ -38,19 +43,20 @@ const VehiclePanel = ({
       value = value(teslaModels);
     }
     dispatch({
-      type: UPDATE_VEHICLE_RENDER_DATA, 
+      type: UPDATE_VEHICLE_RENDER_DATA,
       payload: value,
     });
   }
 
   useEffect(() => {
+    console.log({ vehicleData });
     dispatch({
       type: VIEW_RENDERED_OPTIONS,
       payload: vehicleData,
     });
   }, [vehicleData]);
 
-  useEffect(() => {
+  const setSelectedVehicleName = (selectedVehicleName) => {
     setVehicleData((data) => {
       if (!selectedVehicleName) return data; // ensures vehicleData array has no starting empty value
 
@@ -60,7 +66,7 @@ const VehiclePanel = ({
       newVehicleNames = [selectedVehicleName, ...newVehicleNames]; // sets selected vehicle atop vehicleData array
       return newVehicleNames;
     });
-  }, [selectedVehicleName]);
+  }
 
   useEffect(() => {
     if (zipcode_data.id) {
@@ -96,14 +102,19 @@ const VehiclePanel = ({
 
   const removeModel = (model) => {
     console.log("model to be removed: ", model);
-    const stateData = vehicleData;
-    for (let i = 0; i < stateData.length; i++) {
-      if (stateData[i].name === model && i > -1) {
-        stateData.splice(i, 1);
-      }
-    }
-    // TODO: call runReset on the vehicle you close!
-    // TODO: consider implementing filter here
+    const stateData = vehicleData.filter(name => name !== model);
+    
+    const modelName = model
+      .split(" ")
+      .map((iv, i) => {
+        if (i === 0) {
+          return iv.toLowerCase();
+        }
+        return iv;
+      })
+      .join("");
+
+    runReset(modelName, teslaModels); 
 
     setVehicleData([...stateData]);
   };
@@ -293,6 +304,96 @@ const VehiclePanel = ({
       modelNames.push(metaVehicleObj[i]["default_optioned_vehicle"]["model"]);
     }
     setMenuOptions(modelNames);
+  };
+
+  const runApplyAll = (vehicleName, detailsAndRender, vehiclesRendered) => {
+    // write function that applies vehicle data to all other vehicles
+    console.log(
+      "vehicleName: ",
+      vehicleName,
+      "\n object: ",
+      detailsAndRender,
+      "\n vehiclesRendered: ",
+      vehiclesRendered
+    );
+    console.log(
+      'detailsAndRender["vehicle_render"][model3]["image_vehicle"] - ',
+      detailsAndRender["vehicle_render"]["model3"]["image_vehicle"]
+    );
+
+    let selectedModelRenderObj =
+      detailsAndRender["vehicle_render"][vehicleName];
+
+    let selectedModel = {
+      ...selectedModelRenderObj,
+    };
+    // TODO: get list of open vehicles.
+    // TODO: save data inside open vehicles
+    // TODO: close modal
+  };
+
+  const runReset = (vehicleName, detailsAndRender) => {
+    console.log("detailsAndRender - ", detailsAndRender);
+    let selectedModelDetailsObj =
+      detailsAndRender["vehicle_details"][vehicleName];
+
+    let selectedModel = {
+      ...selectedModelDetailsObj,
+      default_optioned_vehicle: {
+        ...selectedModelDetailsObj["default_optioned_vehicle"],
+
+        ["autopilot"]: [
+          ...selectedModelDetailsObj["default_optioned_vehicle"]["autopilot"],
+        ],
+        ["battery"]: [
+          ...selectedModelDetailsObj["default_optioned_vehicle"]["battery"],
+        ],
+        ["interior"]: [
+          ...selectedModelDetailsObj["default_optioned_vehicle"]["interior"],
+        ],
+        ["layout"]: [
+          ...selectedModelDetailsObj["default_optioned_vehicle"]["layout"],
+        ],
+        ["paint"]: [
+          ...selectedModelDetailsObj["default_optioned_vehicle"]["paint"],
+        ],
+        ["payment_object"]: {
+          ...selectedModelDetailsObj["default_optioned_vehicle"][
+            "payment_object"
+          ],
+          ["finance"]: {
+            ...selectedModelDetailsObj["default_optioned_vehicle"][
+              "payment_object"
+            ]["finance"],
+          },
+          ["lease"]: {
+            ...selectedModelDetailsObj["default_optioned_vehicle"][
+              "payment_object"
+            ]["lease"],
+          },
+          ["nonCashCreditsArr"]: [
+            ...selectedModelDetailsObj["default_optioned_vehicle"][
+              "payment_object"
+            ]["nonCashCreditsArr"],
+          ],
+        },
+        ["wheel"]: [
+          ...selectedModelDetailsObj["default_optioned_vehicle"]["wheel"],
+        ],
+      },
+    };
+
+    let newDetailsAndRender = {
+      ...detailsAndRender,
+      vehicle_render: {
+        ...detailsAndRender.vehicle_render,
+        [vehicleName]: selectedModel["default_optioned_vehicle"],
+      },
+    };
+
+    dispatch(updateRenderData(newDetailsAndRender));
+
+    // toggleResetWarning(vehicleName);
   };
 
   const selectOffMenuAutopilot = (selectedOption) => {
@@ -1121,33 +1222,30 @@ const VehiclePanel = ({
           populatePaymentObject={populatePaymentObject}
           setUserPymtEntry={setUserPymtEntry}
           setTeslaModels={setTeslaModels}
+          runReset={runReset}
+          runApplyAll={runApplyAll}
         />
       ))}
     </div>
   );
 };
 
-function mapStateToProps(state) { 
+function mapStateToProps(state) {
   return {
     error: state.vehiclesReducer.error,
     metaVehicleObj: state.vehiclesReducer.vehicle,
     usStatesData: state.usStateReducer.usStatesData,
     zipcode_data: state.navReducer.zipcode_data,
-    teslaModels: state.vehiclesReducer.vehicleRenderData
-  };
-}
-// teslaModels.vehicle_render
-
-function mapDispatchToProps(dispatch) {
-  return {
-    getAllVehicles,
-    getAllStateData,
-    toggle: () => dispatch({ type: TOGGLE_MOBILE_MENU }),
-    // saveVehicleRenderData: (teslaModels) => dispatch({ type: UPDATE_VEHICLE_RENDER_DATA, payload: teslaModels}),
+    teslaModels: state.vehiclesReducer.vehicleRenderData,
   };
 }
 
 export default connect(mapStateToProps, {
   getAllVehicles,
   getAllStateData,
+  toggl: () => (dispatch) => dispatch({ type: TOGGLE_MOBILE_MENU }),
+  toggleResetWarning: (modelName) => (dispatch) =>
+    dispatch({ type: TOGGLE_RESET_WARNING, payload: modelName }),
+  toggleApplyAllWarning: () => (dispatch) =>
+    dispatch({ type: TOGGLE_APPLY_ALL_WARNING }),
 })(VehiclePanel);
