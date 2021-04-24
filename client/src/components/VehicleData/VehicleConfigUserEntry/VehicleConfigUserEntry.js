@@ -118,56 +118,65 @@ const VehicleConfigUserEntry = ({
     };
   }
 
-  const runApplyAll = (vehicleName,renderObject) => {
-    // write function that applies vehicle data to all other vehicles
-    console.log('vehicleName: ',vehicleName,'\n object: ',renderObject);
-    console.log('renderObject[model3] - ',renderObject["vehicle_render"]["model3"]["image_vehicle"])
-  }
-
-  const runReset = (vehicleName, detailsAndRender) => {
-    let selectedModelRenderObj = detailsAndRender["vehicle_details"][vehicleName] 
+  const runApplyAll = (vehicleName,detailsAndRender,vehiclesRendered) => { 
+    let selectedModelRenderObj = detailsAndRender["vehicle_render"][vehicleName];
 
     let selectedModel = {
-      ...selectedModelRenderObj,
+      ...selectedModelRenderObj
+    }
+  }
+
+  const runReset = (vehicleName, detailsAndRender) => { 
+    let selectedModelDetailsObj = detailsAndRender["vehicle_details"][vehicleName];
+
+    let selectedModel = {
+      ...selectedModelDetailsObj,
       default_optioned_vehicle: {
-        ...selectedModelRenderObj["default_optioned_vehicle"],
+        ...selectedModelDetailsObj["default_optioned_vehicle"],
 
         ["autopilot"]: [
-          ...selectedModelRenderObj.["default_optioned_vehicle"]["autopilot"],
+          ...selectedModelDetailsObj.["default_optioned_vehicle"]["autopilot"],
         ],
         ["battery"]: [
-          ...selectedModelRenderObj.["default_optioned_vehicle"]["battery"],
+          ...selectedModelDetailsObj.["default_optioned_vehicle"]["battery"],
         ],
         ["interior"]: [
-          ...selectedModelRenderObj.["default_optioned_vehicle"]["interior"],
+          ...selectedModelDetailsObj.["default_optioned_vehicle"]["interior"],
         ],
         ["layout"]: [
-          ...selectedModelRenderObj.["default_optioned_vehicle"]["layout"],
+          ...selectedModelDetailsObj.["default_optioned_vehicle"]["layout"],
         ],
         ["paint"]: [
-          ...selectedModelRenderObj.["default_optioned_vehicle"]["paint"],
+          ...selectedModelDetailsObj.["default_optioned_vehicle"]["paint"],
         ],
         ["payment_object"]: {
-          ...selectedModelRenderObj.["default_optioned_vehicle"]["payment_object"],
+          ...selectedModelDetailsObj.["default_optioned_vehicle"]["payment_object"],
           ["finance"]: {
-            ...selectedModelRenderObj.["default_optioned_vehicle"]["payment_object"]["finance"],
+            ...selectedModelDetailsObj.["default_optioned_vehicle"]["payment_object"]["finance"],
           },
           ["lease"]: {
-            ...selectedModelRenderObj.["default_optioned_vehicle"]["payment_object"]["lease"],
+            ...selectedModelDetailsObj.["default_optioned_vehicle"]["payment_object"]["lease"],
           },
           ["nonCashCreditsArr"]: [
-            ...selectedModelRenderObj.["default_optioned_vehicle"]["payment_object"]["nonCashCreditsArr"],
+            ...selectedModelDetailsObj.["default_optioned_vehicle"]["payment_object"]["nonCashCreditsArr"],
           ],
         },
         ["wheel"]: [
-          ...selectedModelRenderObj.["default_optioned_vehicle"]["wheel"],
+          ...selectedModelDetailsObj.["default_optioned_vehicle"]["wheel"],
         ],
       },
     };
 
-    detailsAndRender[vehicleName] = selectedModel["default_optioned_vehicle"];
-    dispatch(updateRenderData(detailsAndRender));
-    toggleResetWarning();
+    let newDetailsAndRender = {
+      ...detailsAndRender,
+      vehicle_render: {
+        ...detailsAndRender.vehicle_render,
+        [vehicleName]: selectedModel["default_optioned_vehicle"],
+      },
+    };
+
+    dispatch(updateRenderData(newDetailsAndRender));
+    toggleResetWarning(); 
   }
 
 

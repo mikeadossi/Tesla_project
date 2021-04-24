@@ -6,5 +6,5 @@ import usStateReducer from './usStateReducer'
 export default combineReducers({
     vehiclesReducer,
     navReducer,
-    usStateReducer
+    usStateReducer,
 });

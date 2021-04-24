@@ -20,6 +20,17 @@ export const getAllVehicles = () => async (dispatch) => {
   }
 };
 
+export const updateRenderData = (newData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.UPDATE_VEHICLE_RENDER_DATA,
+      payload: newData,
+    });
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 export const addCurrentPrice = (newPrice) => async (dispatch) => {
   try {
     dispatch({
@@ -28,3 +39,14 @@ export const addCurrentPrice = (newPrice) => async (dispatch) => {
     });
   } catch (e) {}
 };
+
+export const viewRenderedOptions = (vehicleData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.VIEW_RENDERED_OPTIONS,
+      payload: vehicleData,
+    });
+  } catch (e) {
+    console.log(e)
+  }
+}

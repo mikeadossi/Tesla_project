@@ -2,9 +2,9 @@ import * as types from "../actions/types";
 
 const initialState = {
   vehicle: {},
-  error: "",
-  usStatesData: {},
+  error: "", 
   vehicleRenderData: {},
+  vehiclesRendered: [],
 };
 
 export default function (state = initialState, action) {
@@ -26,12 +26,19 @@ export default function (state = initialState, action) {
         error: action.payload,
         vehicle: {},
       };
-    case types.SAVE_VEHICLE_RENDER_DATA:
+    case types.UPDATE_VEHICLE_RENDER_DATA: 
+      initialState.vehicleRenderData = {}
       return {
         ...state,
         vehicleRenderData: action.payload,
       };
+    case types.VIEW_RENDERED_OPTIONS:
+      initialState.vehiclesRendered = []
+      return {
+        ...state,
+        vehiclesRendered: action.payload,
+      };
     default:
-      return state;
+      return state; 
   }
 }

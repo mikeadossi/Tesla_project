@@ -4,10 +4,13 @@ import './DisplayResetWarning.css';
 
 const DisplayResetWarning  = ({ closeResetWarning, runReset }) => { 
     const currentModelName = useSelector(
-        (state) => state.navReducer.currentModelName
+        (state) => state.navReducer.currentModelName["name"]
     );
     const getAllVehicles = useSelector(
         (state) => state.vehiclesReducer.vehicle
+    );
+    const vehicleRenderData = useSelector(
+        (state) => state.vehiclesReducer.vehicleRenderData
     );
 
     return (
@@ -35,7 +38,7 @@ const DisplayResetWarning  = ({ closeResetWarning, runReset }) => {
                         Cancel
                     </div>
                     <div 
-                        onClick={() => runReset(currentModelName,getAllVehicles) }
+                        onClick={() => runReset(currentModelName, vehicleRenderData) }
                         className="warningBtn continueToApplyAll"
                     >
                         Continue
