@@ -38,7 +38,10 @@ const DisplayResetWarning  = ({ closeResetWarning, runReset }) => {
                         Cancel
                     </div>
                     <div 
-                        onClick={() => runReset(currentModelName, vehicleRenderData) }
+                        onClick={() => { 
+                            runReset(currentModelName, vehicleRenderData);
+                            closeResetWarning();
+                         }} 
                         className="warningBtn continueToApplyAll"
                     >
                         Continue

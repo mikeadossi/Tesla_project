@@ -4,7 +4,7 @@ import ScrollUp from "../../ScrollUp/ScrollUp";
 
 const VehicleMenu = ({setSelectedVehicleName, menuOptions, vehicleContainerRef, vehicleData}) => {
   
-  const chooseAndSetVehice = (vehicle) => {
+  const chooseAndSetVehice = (vehicle) => { 
     setSelectedVehicleName(vehicle);
   };
 

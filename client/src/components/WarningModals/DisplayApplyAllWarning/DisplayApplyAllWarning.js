@@ -9,6 +9,9 @@ const DisplayApplyAllWarning = ({ closeApplyAllWarning, runApplyAll }) => {
   const currentModelName = useSelector(
     (state) => state.navReducer.currentModelName
   );
+  const vehiclesRendered = useSelector(
+    (state) => state.vehiclesReducer.vehiclesRendered
+  );
  
   return (
     <div className="displayApplyAllWarning">
@@ -38,7 +41,7 @@ const DisplayApplyAllWarning = ({ closeApplyAllWarning, runApplyAll }) => {
             Cancel
           </div>
           <div
-            onClick={() => runApplyAll(currentModelName,vehicleRenderData)}
+            onClick={() => runApplyAll(currentModelName,vehicleRenderData,vehiclesRendered)}
             className="warningBtn continueToApplyAll"
           >
             Continue

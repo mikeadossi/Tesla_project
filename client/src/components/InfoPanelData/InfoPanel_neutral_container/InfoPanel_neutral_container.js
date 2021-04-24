@@ -1,15 +1,15 @@
 import React from "react";
 import "./InfoPanel_neutral_container.css";
 
-const InfoPanel_neutral_container = (props) => {
-  console.log('props1- ',props)
+const InfoPanel_neutral_container = ({ showComponent }) => {
+  
   return (
     <div className="InfoPanel_neutral_container_div">
       <div className="infoPanel_payments_div">
         <div
           className="infoPanel_section app_cursorPointer"
           onClick={() =>
-            props.showComponent("InfoPanel_payments")
+            showComponent("InfoPanel_payments")
           }
         >
           PAYMENT
@@ -18,7 +18,7 @@ const InfoPanel_neutral_container = (props) => {
       <div className="infoPanel_incentives_div">
         <div
           className="infoPanel_section app_cursorPointer"
-          onClick={() => props.showComponent("InfoPanel_incentives")}
+          onClick={() => showComponent("InfoPanel_incentives")}
         >
           INCENTIVES
         </div>
@@ -26,7 +26,7 @@ const InfoPanel_neutral_container = (props) => {
       <div className="infoPanel_warranty_div">
         <div
           className="infoPanel_section app_cursorPointer"
-          onClick={() => props.showComponent("InfoPanel_warranty")}
+          onClick={() => showComponent("InfoPanel_warranty")}
         >
           WARRANTY
         </div>
@@ -34,7 +34,7 @@ const InfoPanel_neutral_container = (props) => {
       <div className="infoPanel_links_div">
         <div
           className="infoPanel_section app_cursorPointer"
-          onClick={() => props.showComponent("InfoPanel_links")}
+          onClick={() => showComponent("InfoPanel_links")}
         >
           LINKS
         </div>

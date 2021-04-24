@@ -1,17 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import "./InfoPanel_payments.css";
 
 const InfoPanel_payments = (props) => {
   const vehicleOrder = props.vehicleOrder;
-  const stateAbbr = props.stateAbbr;
-  console.log("vehicleOrder- ", vehicleOrder);
-  console.log("stateAbbr- ", stateAbbr);
+  const stateAbbr = props.stateAbbr; 
 
   // make sure to include whether this state allows for net trade0in tax credit - www.realcartips.com/selling/010-states-that-allow-trade-in-tax-credit.shtml
 
   return (
     <div className="InfoPanel_charging_container">
-      {/* <div id="infoPanel_loaded_title">PAYMENTS</div>
+      <div id="infoPanel_loaded_title">PAYMENTS</div>
       <div className="infoPanel_section_data infoPanel_payments_container">
         <div className="content_vehicle">
         {stateAbbr} Tesla Leasing:{" "}
@@ -78,7 +76,7 @@ const InfoPanel_payments = (props) => {
             eligibility. Please consult with a tax advisor.
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

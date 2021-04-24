@@ -4,8 +4,7 @@ import { connect } from "react-redux";
 import { getMyZipcodeData } from "../../../config/actions/navActions";
 
 const HeaderCenter = ({ getMyZipcodeData, zipcode_data, cashAmt }) => {
-  const [zipcode, setZipcode] = useState('90210');
-  console.log('zip- ',zipcode_data)
+  const [zipcode, setZipcode] = useState('90210'); 
 
   return (
     <div className="headerCenter app_removeBlue"> 

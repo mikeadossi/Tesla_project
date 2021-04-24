@@ -18,6 +18,7 @@ const VehicleConfigHeader = ({
   const abbreviatedModel = modelSelectObj[modelInfo.modelName];
   const inventoryUrl = "https://www.tesla.com/inventory/new/" + abbreviatedModel + "?arrangeby=relevance&zip=" + usStateVehicleOrder[1] + "&range=200";
 
+
   return ( 
     <div className="app_configTitle app_displayFlex">
         <div 
@@ -37,7 +38,7 @@ const VehicleConfigHeader = ({
             <a className="app_options_btn app_textdecorationNone" target="_blank" href={inventoryUrl} >Inventory</a>
             <div
               className="vehicleConfig_close_container"
-              onClick={() => removeModel(selectedVehicle.name)}
+              onClick={() => removeModel(selectedVehicle)}
             >
               <img
                   className="vehicleConfig_close"
