@@ -38,3 +38,15 @@
 .solarMenu_utiltiy_select{
     padding: 5px;
 }
+
+.select_unavailable{
+    opacity: 0.2;
+}
+
+.select_unavailable:hover{
+    cursor: default !important;
+    opacity: 0.2;
+    cursor: default;
+    background-color: gainsboro;
+    color: black;
+}
