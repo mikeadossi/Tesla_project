@@ -4,13 +4,14 @@ import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfig from "../../components/VehicleData/VehicleConfig/VehicleConfig";
 import VehicleConfigContainer from "../../components/VehicleData/VehicleConfigContainer/VehicleConfigContainer";
 import InfoModal from "../InfoModal/InfoModal.js";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 
 import { getAllVehicles } from "../../config/actions/vehicleActions";
 import { getAllStateData } from "../../config/actions/usStateActions";
 import {
   TOGGLE_MOBILE_MENU,
   UPDATE_VEHICLE_RENDER_DATA,
+  VIEW_RENDERED_OPTIONS,
 } from "../../config/actions/types";
 // this is a cpy!
 
@@ -23,24 +24,31 @@ const VehiclePanel = ({
   modalVisibility,
   closeModal,
   saveVehicleRenderData,
+  teslaModels,
 }) => {
   const dispatch = useDispatch();
-  let [vehicleData, setVehicleData] = useState([]);
-  // const [vehicleContent, setVehicleContent] = useState({});
-  const [teslaModels, setTeslaModels] = useState({});
+  let [vehicleData, setVehicleData] = useState([]); 
   const [selectedVehicleName, setSelectedVehicleName] = useState("");
   const [menuOptions, setMenuOptions] = useState("");
   const [usStateVehicleOrder, setUsStateVehicleOrder] = useState("");
   const vehicleContainerRef = useRef();
 
+  function setTeslaModels(value) {
+    if (typeof value === "function") {
+      value = value(teslaModels);
+    }
+    dispatch({
+      type: UPDATE_VEHICLE_RENDER_DATA, 
+      payload: value,
+    });
+  }
+
   useEffect(() => {
     dispatch({
-      type: UPDATE_VEHICLE_RENDER_DATA,
-      // payload: teslaModels.vehicle_render,
-      payload: teslaModels,
+      type: VIEW_RENDERED_OPTIONS,
+      payload: vehicleData,
     });
-    // dispatch(updateRenderData(teslaModels.vehicle_render))
-  }, [teslaModels]);
+  }, [vehicleData]);
 
   useEffect(() => {
     setVehicleData((data) => {
@@ -84,7 +92,7 @@ const VehiclePanel = ({
       setLoadTeslaData(true);
       populateMenu();
     }
-  }, [metaVehicleObj, usStateVehicleOrder, loadTeslaData]); 
+  }, [metaVehicleObj, usStateVehicleOrder, loadTeslaData]);
 
   const removeModel = (model) => {
     console.log("model to be removed: ", model);
@@ -130,7 +138,7 @@ const VehiclePanel = ({
 
   const getTeslaData = async (statePymtObj) => {
     // this function converts DB data into useable state data for app: a 'details' object and a 'rendering' object.
-    const metaVehicles = [...metaVehicleObj]; 
+    const metaVehicles = [...metaVehicleObj];
     const vehicleObj = {
       // vehicle_details should never be user modified, vehicle_render can be.
       vehicle_details: {},
@@ -298,7 +306,9 @@ const VehiclePanel = ({
 
           ["model3"]: {
             ...metaVehicles.vehicle_render["model3"],
-            ["autopilot"]: [...metaVehicles.vehicle_render["model3"]["autopilot"]],
+            ["autopilot"]: [
+              ...metaVehicles.vehicle_render["model3"]["autopilot"],
+            ],
           },
         },
       };
@@ -481,10 +491,14 @@ const VehiclePanel = ({
             ["payment_object"]: {
               ...metaVehicles.vehicle_render[model]["payment_object"],
               ["finance"]: {
-                ...metaVehicles.vehicle_render[model]["payment_object"]["finance"],
+                ...metaVehicles.vehicle_render[model]["payment_object"][
+                  "finance"
+                ],
               },
               ["lease"]: {
-                ...metaVehicles.vehicle_render[model]["payment_object"]["lease"],
+                ...metaVehicles.vehicle_render[model]["payment_object"][
+                  "lease"
+                ],
               },
               ["nonCashCreditsArr"]: [
                 ...metaVehicles.vehicle_render[model]["payment_object"][
@@ -574,7 +588,9 @@ const VehiclePanel = ({
                 },
               },
               ["interior"]: {
-                ...metaVehicles.vehicle_details[model][batterySelected]["interior"],
+                ...metaVehicles.vehicle_details[model][batterySelected][
+                  "interior"
+                ],
                 ["All Black"]: {
                   ...metaVehicles.vehicle_details[model][batterySelected][
                     "interior"
@@ -587,18 +603,24 @@ const VehiclePanel = ({
                 },
               },
               ["layout"]: {
-                ...metaVehicles.vehicle_details[model][batterySelected]["layout"],
+                ...metaVehicles.vehicle_details[model][batterySelected][
+                  "layout"
+                ],
                 ["Five Seat Interior"]: {
-                  ...metaVehicles.vehicle_details[model][batterySelected]["layout"][
-                    "Five Seat Interior"
-                  ],
+                  ...metaVehicles.vehicle_details[model][batterySelected][
+                    "layout"
+                  ]["Five Seat Interior"],
                 },
               },
               ["specs"]: {
-                ...metaVehicles.vehicle_details[model][batterySelected]["specs"],
+                ...metaVehicles.vehicle_details[model][batterySelected][
+                  "specs"
+                ],
               },
               ["wheel"]: {
-                ...metaVehicles.vehicle_details[model][batterySelected]["wheel"],
+                ...metaVehicles.vehicle_details[model][batterySelected][
+                  "wheel"
+                ],
                 // ["18 inch Aero Wheels"]: {
                 //   ...metaVehicles.vehicle_details[model][batterySelected]["wheel"]["18 inch Aero Wheels"],
                 // },
@@ -1105,12 +1127,13 @@ const VehiclePanel = ({
   );
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state) { 
   return {
     error: state.vehiclesReducer.error,
     metaVehicleObj: state.vehiclesReducer.vehicle,
     usStatesData: state.usStateReducer.usStatesData,
     zipcode_data: state.navReducer.zipcode_data,
+    teslaModels: state.vehiclesReducer.vehicleRenderData
   };
 }
 // teslaModels.vehicle_render
