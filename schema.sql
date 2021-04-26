@@ -24,10 +24,15 @@ CREATE TABLE zip_codes (
 
 CREATE TABLE user (
   id SERIAL PRIMARY KEY,
-  username VARCHAR(255) DEFAULT NULL,
+  user_email VARCHAR(255) DEFAULT NULL,
   user_password VARCHAR(255) DEFAULT NULL,
-  dark_mode VARCHAR(255) DEFAULT NULL,
-  gave_cookie_permission VARCHAR(255) DEFAULT NULL
+  dark_theme_off VARCHAR(255) DEFAULT NULL,
+  gave_cookie_permission VARCHAR(255) DEFAULT NULL,
+  notifications_on VARCHAR(255) DEFAULT NULL,
+  apply_all_warning_on VARCHAR(255) DEFAULT NULL,
+  reset_warning_on VARCHAR(255) DEFAULT NULL,
+  account_active VARCHAR(255) DEFAULT NULL,
+  date_joined VARCHAR(255) DEFAULT NULL
 )
 
 CREATE TABLE showrooms (
@@ -57,37 +62,29 @@ CREATE TABLE superchargers (
 CREATE TABLE state_data (
   id SERIAL PRIMARY KEY,
   state_name VARCHAR(255) DEFAULT NULL,
-  state_abbr VARCHAR(255) DEFAULT NULL, 
+  state_abbr VARCHAR(2) DEFAULT NULL,
   vehicle_incentives VARCHAR(255) DEFAULT NULL,
-  solar_incentives VARCHAR(255) DEFAULT NULL,
+  solar_incentives VARCHAR(255) DEFAULT NULL, 
   local_vehicle_incentives VARCHAR(255) DEFAULT NULL,
   local_solar_incentives VARCHAR(255) DEFAULT NULL,
   all_showrooms VARCHAR(255) DEFAULT NULL,
   all_service_centers VARCHAR(255) DEFAULT NULL,
   all_charging_locations VARCHAR(255) DEFAULT NULL,
-  state_tax_summary VARCHAR(255) DEFAULT NULL,
-  state_tax VARCHAR(255) DEFAULT NULL,
-  state_tax_with_price_condition VARCHAR(255) DEFAULT NULL,
-  motor_vehicle_doc_fee VARCHAR(255) DEFAULT NULL,
-  motor_vehicle_excise VARCHAR(255) DEFAULT NULL,
-  titling_tax VARCHAR(255) DEFAULT NULL,
-  title_fee VARCHAR(255) DEFAULT NULL,
-  maximum_tax_cash_amt VARCHAR(255) DEFAULT NULL,
-  minimum_tax_cash_amt VARCHAR(255) DEFAULT NULL,
-  lease_tax VARCHAR(255) DEFAULT NULL,
-  highway_use VARCHAR(255) DEFAULT NULL,
-  local_surtax VARCHAR(255) DEFAULT NULL,
-  additional_municipality_cost VARCHAR(255) DEFAULT NULL,
-  additional_county_cost VARCHAR(255) DEFAULT NULL,
-  average_district_tax VARCHAR(255) DEFAULT NULL,
-  registration_fee VARCHAR(255) DEFAULT NULL,
+  tradein_value VARCHAR(255) DEFAULT NULL, 
+  tradein_payoff VARCHAR(255) DEFAULT NULL, 
+  tradein_equity VARCHAR(255) DEFAULT NULL, 
+  order_pymt INTEGER, 
+  destination_and_doc_fee VARCHAR(255) DEFAULT NULL, 
+  state_tax_rate INTEGER, 
+  state_taxes VARCHAR(255) DEFAULT NULL,
+  leasing VARCHAR(255) DEFAULT NULL,
+  financing VARCHAR(255) DEFAULT NULL,
   registration VARCHAR(255) DEFAULT NULL,
   solar_panel_subscription VARCHAR(255) DEFAULT NULL,
   leasing_available VARCHAR(255) DEFAULT NULL,
   financing_available VARCHAR(255) DEFAULT NULL,
-  taxes_rebate_bool VARCHAR(255) DEFAULT NULL,
-  region VARCHAR(255) DEFAULT NULL,
-  default_zipcode VARCHAR(255) DEFAULT NULL
+  region VARCHAR(255) DEFAULT NULL, 
+  default_zipcode INTEGER, 
 )
 
 CREATE TABLE vehicles (

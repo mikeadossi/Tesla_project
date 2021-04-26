@@ -15,28 +15,28 @@ const HeaderMobileMenu  = ({ closeMobileMenu }) => {
               alt="close" 
           ></img>
         </div>
-        <Link to="/Settings" className="headerMobileMenu_links app_textdecorationNone">
+        <Link to="/Settings" onClick={() => closeMobileMenu()} className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_about headerMobileMenu_login_btn">SETTINGS</div>
         </Link>
-        <Link to="/Notifications" className="headerMobileMenu_links app_textdecorationNone">
+        <Link to="/Notifications" onClick={() => closeMobileMenu()} className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_about headerMobileMenu_login_btn">NOTIFICATIONS</div>
         </Link>
-        <Link to="/" className="headerMobileMenu_links app_textdecorationNone">
+        <Link to="/" onClick={() => closeMobileMenu()} className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_about headerMobileMenu_login_btn">ABOUT</div>
         </Link> 
-        <Link to="/vehicles" className="headerMobileMenu_links app_textdecorationNone">
+        <Link to="/vehicles" onClick={() => closeMobileMenu()} className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_about headerMobileMenu_login_btn">VEHICLE</div>
         </Link>
-        <Link to="/solar" className="headerMobileMenu_links app_textdecorationNone">
+        <Link to="/solar" onClick={() => closeMobileMenu()} className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_about headerMobileMenu_login_btn">SOLAR</div>
         </Link>
-        <Link to="/userSignup" className="headerMobileMenu_links app_textdecorationNone">
+        <Link to="/userSignup" onClick={() => closeMobileMenu()} className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_sign_up headerMobileMenu_login_btn">SIGN UP</div>
         </Link>
-        <Link to="/userLogin" className="headerMobileMenu_links app_textdecorationNone">
+        <Link to="/userLogin" onClick={() => closeMobileMenu()} className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_log_in headerMobileMenu_login_btn">LOG IN</div>
         </Link> 
-        <Link to="/userLogin" className="headerMobileMenu_links app_textdecorationNone">
+        <Link to="/userLogin" onClick={() => closeMobileMenu()} className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_log_in headerMobileMenu_login_btn">LOG OUT</div> 
         </Link> 
     </div>
