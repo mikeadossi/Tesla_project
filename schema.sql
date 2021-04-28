@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS zip_codes;
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS user_details;
 DROP TABLE IF EXISTS showrooms;
 DROP TABLE IF EXISTS service_centers;
 DROP TABLE IF EXISTS superchargers;
@@ -22,7 +22,7 @@ CREATE TABLE zip_codes (
   state_id TINYINT UNSIGNED NOT NULL
 )
 
-CREATE TABLE user (
+CREATE TABLE user_details (
   id SERIAL PRIMARY KEY,
   user_email VARCHAR(255) DEFAULT NULL,
   user_password VARCHAR(255) DEFAULT NULL,
@@ -32,7 +32,8 @@ CREATE TABLE user (
   apply_all_warning_on VARCHAR(255) DEFAULT NULL,
   reset_warning_on VARCHAR(255) DEFAULT NULL,
   account_active VARCHAR(255) DEFAULT NULL,
-  date_joined VARCHAR(255) DEFAULT NULL
+  date_joined VARCHAR(255) DEFAULT NULL,
+  forgotten_password_code VARCHAR(255) DEFAULT NULL
 )
 
 CREATE TABLE showrooms (
