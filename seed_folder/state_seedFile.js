@@ -79,7 +79,88 @@ leasing_available: true,
 financing_available: true,
 region: "Nashville",
 default_zipcode: 94538
-}}, Alaska:{
+},
+solar_state_data: {
+    max_bill_to_max_panel_kWh_production: { 100 : 13 },
+    panel_kWh_recommendation: { 15 : [4.08, 10, 15, "12 panels"] },
+    powerwall_number_recommendation: { 4.08 : 2 },
+    utility_incentives: {
+        utilityCompanyX: {
+            panel: {
+                incentive_details: { 
+                    incentive_type: ["discount_per_kW", "discount_dollar_limit_DE"], 
+                    description: ""
+                },
+                percent_discount_MY: undefined,
+                discount_per_kW: 200, 
+                discount_dollar_limit_DE: 6000, 
+                special_case_HI: FALSE,
+                flat_discount_MY: 0, 
+            },
+            roof: {
+                incentive_details: { 
+                    incentive_type: ["discount_per_kW", "discount_dollar_limit_DE"], 
+                    description: ""
+                },
+                percent_discount: undefined,
+                discount_per_kW: 200, 
+                discount_dollar_limit_DE: 6000, 
+                special_case: FALSE,
+                flat_discount: 0, 
+            },
+            powerwall: {
+                incentive_details: { 
+                    incentive_type: ["discount_per_kW", "discount_dollar_limit_DE"], 
+                    description: ""
+                },
+                percent_discount: undefined,
+                discount_per_kW: 200, 
+                discount_dollar_limit_DE: 6000, 
+                special_case: FALSE,
+                flat_discount: 0, 
+            }
+        }
+    },
+    general_incentives: { 
+        panel: {
+            incentive_details: {
+                incentives_provided: TRUE, 
+                incentive_type: ["discount_per_kW", "discount_dollar_limit_DE"], 
+                description: ""
+            },
+            percent_discount_MY: undefined,
+            discount_per_kW: 200, 
+            discount_dollar_limit_DE: 6000, 
+            special_case_HI: FALSE,
+            flat_discount_MY: 0, 
+        },
+        roof: {
+            incentive_details: {
+                incentives_provided: TRUE, 
+                incentive_type: ["discount_per_kW", "discount_dollar_limit_DE"], 
+                description: ""
+            },
+            percent_discount: undefined,
+            discount_per_kW: 200, 
+            discount_dollar_limit_DE: 6000, 
+            special_case: FALSE,
+            flat_discount: 0, 
+        },
+        powerwall: {
+            incentive_details: {
+                incentives_provided: TRUE, 
+                incentive_type: ["discount_per_kW", "discount_dollar_limit_DE"], 
+                description: ""
+            },
+            percent_discount: undefined,
+            discount_per_kW: 200, 
+            discount_dollar_limit_DE: 6000, 
+            special_case: FALSE,
+            flat_discount: 0, 
+        }
+    },
+
+}},Alaska:{
 state_name: 'Alaska',
 state_abbr: 'AK',
 vehicle_incentives: null,
@@ -160,6 +241,8 @@ leasing_available: true,
 financing_available: false,
 region: 'Portland',
 default_zipcode: 99801
+},
+solar_state_data: {
 }},Arizona:{
 state_name: 'Arizona',
 state_abbr: 'AZ',
@@ -250,6 +333,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'Pheonix',
 default_zipcode: 85007
+},
+solar_state_data: {
 }},Arkansas:{
 state_name: 'Arkansas',
 state_abbr: 'AR',
@@ -331,6 +416,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'Texas',
 default_zipcode: 72201
+},
+solar_state_data: {
 }},California:{
 state_name: 'California',
 state_abbr: 'CA',
@@ -421,6 +508,8 @@ leasing_available: true,
 financing_available: true, 
 region: [{region:"Greater LA/SD",longitude:"-118.298662",latitude:"+33.786594"},{region:"Bay Area",longitude:"-121.958320",latitude:"+37.509453"}],
 default_zipcode: 94538
+},
+solar_state_data: {
 }},Colorado:{
 state_name: 'Colorado',
 state_abbr: 'CO',
@@ -511,6 +600,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'Denver',
 default_zipcode: 80203
+},
+solar_state_data: {
 }},Connecticut:{
 state_name: 'Connecticut',
 state_abbr: 'CT',
@@ -601,6 +692,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'NY Metro',
 default_zipcode: 06106
+},
+solar_state_data: {
 }},Delaware:{
 state_name: 'Delaware',
 state_abbr: 'DE',
@@ -682,6 +775,8 @@ leasing_available: false,
 financing_available: false, 
 region: 'Philadelphia',
 default_zipcode: 19901
+},
+solar_state_data: {
 }},Florida:{
 state_name: 'Florida',
 state_abbr: 'FL',
@@ -772,6 +867,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'Florida',
 default_zipcode: 32399
+},
+solar_state_data: {
 }},Georgia:{
 state_name: 'Georgia',
 state_abbr: 'GA',
@@ -862,6 +959,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'Atlanta',
 default_zipcode: 30334
+},
+solar_state_data: {
 }},Hawaii:{
 state_name: 'Hawaii',
 state_abbr: 'HI',
@@ -952,6 +1051,8 @@ leasing_available: true,
 financing_available: true, 
 region:'Honolulu',
 default_zipcode:96813
+},
+solar_state_data: {
 }},Idaho:{
 state_name: 'Idaho',
 state_abbr: 'ID',
@@ -1033,6 +1134,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'Portland',
 default_zipcode: 83702
+},
+solar_state_data: {
 }},Illinois:{
 state_name: 'Illinois',
 state_abbr: 'IL',
@@ -1123,6 +1226,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'Indianapolis',
 default_zipcode: 62701
+},
+solar_state_data: {
 }},Iowa:{ 
 state_name: 'Iowa',
 state_abbr: 'IA',
@@ -1204,6 +1309,8 @@ leasing_available: false,
 financing_available: false, 
 region: 'St. Louis',
 default_zipcode: 50319
+},
+solar_state_data: {
 }},Indiana:{
 state_name: 'Indiana',
 state_abbr: 'IN',
@@ -1293,6 +1400,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'Indianapolis',
 default_zipcode: 46204
+},
+solar_state_data: {
 }},Kansas:{
 state_name: 'Kansas',
 state_abbr: 'KS',
@@ -1374,6 +1483,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'Kansas City',
 default_zipcode: 66612
+},
+solar_state_data: {
 }},Kentucky:{
 state_name: 'Kentucky',
 state_abbr: 'KY',
@@ -1454,6 +1565,8 @@ leasing_available: false,
 financing_available: false, 
 region: 'Nashville',
 default_zipcode: 40601
+},
+solar_state_data: {
 }},Louisiana:{
 state_name: 'Louisiana',
 state_abbr: 'LA',
@@ -1535,6 +1648,8 @@ leasing_available: false,
 financing_available: false, 
 region: 'Texas',
 default_zipcode: 70802
+},
+solar_state_data: {
 }},Maine:{ 
 state_name: 'Maine',
 state_abbr: 'ME',
@@ -1616,6 +1731,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'Boston',
 default_zipcode: 04333
+},
+solar_state_data: {
 }},Maryland:{
 state_name: 'Maryland',
 state_abbr: 'MD',
@@ -1706,6 +1823,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'Philadelphia',
 default_zipcode: 21401
+},
+solar_state_data: {
 }},Massachusetts:{
 state_name: 'Massachusetts',
 state_abbr: 'MA',
@@ -1796,6 +1915,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'Boston',
 default_zipcode: 02108
+},
+solar_state_data: {
 }},Michigan:{ 
 state_name: 'Michigan',
 state_abbr: 'MI',
@@ -1886,6 +2007,8 @@ leasing_available: false,
 financing_available: false, 
 region: 'Ohio',
 default_zipcode: 48906
+},
+solar_state_data: {
 }},Minnesota:{
 state_name: 'Minnesota',
 state_abbr: 'MN',
@@ -1976,6 +2099,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'Minneapolis',
 default_zipcode: 55155
+},
+solar_state_data: {
 }},Mississippi:{ 
 state_name: 'Mississippi',
 state_abbr: 'MS',
@@ -2057,6 +2182,8 @@ leasing_available: false,
 financing_available: false, 
 region: 'Nashville',
 default_zipcode: 39201
+},
+solar_state_data: {
 }},Missouri:{ 
 state_name: 'Missouri',
 state_abbr: 'MO',
@@ -2138,6 +2265,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'St. Louis',
 default_zipcode: 65101
+},
+solar_state_data: {
 }},Montana:{ 
 state_name: 'Montana',
 state_abbr: 'MT',
@@ -2219,6 +2348,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'Portland',
 default_zipcode: 59601
+},
+solar_state_data: {
 }},Nebraska:{ 
 state_name: 'Nebraska',
 state_abbr: 'NE',
@@ -2300,6 +2431,8 @@ leasing_available: false,
 financing_available: false, 
 region: 'Denver',
 default_zipcode: 68508
+},
+solar_state_data: {
 }},Nevada:{ 
 state_name: 'Nevada',
 state_abbr: 'NV',
@@ -2390,6 +2523,8 @@ leasing_available: true,
 financing_available: true, 
 region:'Las Vegas',
 default_zipcode: 89701
+},
+solar_state_data: {
 }},New_Hampshire:{ 
 state_name: 'New Hampshire',
 state_abbr: 'NH',
@@ -2471,6 +2606,8 @@ leasing_available: false,
 financing_available: false, 
 region: 'Boston',
 default_zipcode: 03301
+},
+solar_state_data: {
 }},New_Jersey:{ 
 state_name: 'New Jersey',
 state_abbr: 'NJ',
@@ -2551,6 +2688,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'NY Metro',
 default_zipcode: 08608
+},
+solar_state_data: {
 }},New_Mexico:{
 state_name: 'New Mexico',
 state_abbr: 'NM',
@@ -2632,6 +2771,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'Pheonix',
 default_zipcode: 87501
+},
+solar_state_data: {
 }},New_York:{ 
 state_name: 'New York',
 state_abbr: 'NY',
@@ -2722,6 +2863,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'NY Metro',
 default_zipcode: 12207
+},
+solar_state_data: {
 }},North_Carolina:{ 
 state_name: 'North Carolina',
 state_abbr: 'NC',
@@ -2812,6 +2955,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'North Carolina',
 default_zipcode: 27601
+},
+solar_state_data: {
 }},North_Dakota:{
 state_name: 'North Dakota',
 state_abbr: 'ND',
@@ -2893,6 +3038,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'Minneapolis',
 default_zipcode: 58505
+},
+solar_state_data: {
 }},Ohio:{
 state_name: 'Ohio',
 state_abbr: 'OH',
@@ -2983,6 +3130,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'Ohio',
 default_zipcode: 43215
+},
+solar_state_data: {
 }},Oklahoma:{ 
 state_name: 'Oklahoma',
 state_abbr: 'OK',
@@ -3064,6 +3213,8 @@ leasing_available: false,
 financing_available: false, 
 region: 'Kansas City',
 default_zipcode: 73105
+},
+solar_state_data: {
 }},Oregon:{
 state_name: 'Oregon',
 state_abbr: 'OR',
@@ -3154,6 +3305,8 @@ leasing_available: true,
 financing_available: true, 
 region:'Portland',
 default_zipcode: 97301
+},
+solar_state_data: {
 }},Pennsylvania:{
 state_name: 'Pennsylvania',
 state_abbr: 'PA',
@@ -3244,6 +3397,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'Pittsburgh',
 default_zipcode: 17120
+},
+solar_state_data: {
 }},Rhode_Island:{ 
 state_name: 'Rhode Island',
 state_abbr: 'RI',
@@ -3334,6 +3489,8 @@ leasing_available: false,
 financing_available: false, 
 region: 'Boston',
 default_zipcode: 02903
+},
+solar_state_data: {
 }},South_Carolina:{
 state_name: 'South Carolina',
 state_abbr: 'SC',
@@ -3415,6 +3572,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'North Carolina',
 default_zipcode: 29201
+},
+solar_state_data: {
 }},South_Dakota:{ 
 state_name: 'South Dakota',
 state_abbr: 'SD',
@@ -3496,6 +3655,8 @@ leasing_available: false,
 financing_available: false,
 region:'Minneapolis',
 default_zipcode: 57501
+},
+solar_state_data: {
 }},Tennessee:{ 
 state_name: 'Tennessee',
 state_abbr: 'TN',
@@ -3586,6 +3747,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'Nasville',
 default_zipcode: 37243
+},
+solar_state_data: {
 }},Texas:{ 
 state_name: 'Texas',
 state_abbr: 'TX',
@@ -3667,6 +3830,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'Texas',
 default_zipcode: 78701
+},
+solar_state_data: {
 }},Utah:{ 
 state_name: 'Utah',
 state_abbr: 'UT',
@@ -3757,6 +3922,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'Salt Lake City',
 default_zipcode: 84114
+},
+solar_state_data: {
 }},Vermont:{ 
 state_name: 'Vermont',
 state_abbr: 'VT',
@@ -3838,6 +4005,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'NY Metro',
 default_zipcode: 05633
+},
+solar_state_data: {
 }},Virginia:{ 
 state_name: 'Virginia',
 state_abbr: 'VA',
@@ -3928,6 +4097,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'Philadelphia',
 default_zipcode: 23219
+},
+solar_state_data: {
 }},Washington:{
 state_name: 'Washington',
 state_abbr: 'WA',
@@ -4018,6 +4189,8 @@ leasing_available: true,
 financing_available: true, 
 region: 'Portland',
 default_zipcode: 98504
+},
+solar_state_data: {
 }},West_Virginia:{
 state_name: 'West Virginia',
 state_abbr: 'WV',
@@ -4099,6 +4272,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'Ohio',
 default_zipcode: 25271
+},
+solar_state_data: {
 }},Wisconsin:{ 
 state_name: 'Wisconsin',
 state_abbr: 'WI',
@@ -4180,6 +4355,8 @@ leasing_available: false,
 financing_available: false, 
 region: 'Minneapolis',
 default_zipcode: 53703
+},
+solar_state_data: {
 }},Wyoming:{ 
 state_name: 'Wyoming',
 state_abbr: 'WY',
@@ -4261,6 +4438,8 @@ leasing_available: true,
 financing_available: false, 
 region: 'Denver',
 default_zipcode: 82002
+},
+solar_state_data: {
 }},District_of_Columbia:{
 state_name: 'District of Columbia',
 state_abbr: 'DC',
