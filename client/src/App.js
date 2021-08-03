@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Nav from "./containers/Nav/Nav";
+import LandingPageNav from "./containers/LandingPageNav/LandingPageNav";
 import LogIn from "./containers/LogIn/LogIn";
 import SignUp from "./containers/SignUp/SignUp";
 import LocationDetails from "./containers/LocationDetails/LocationDetails";
@@ -46,6 +47,7 @@ function App() {
             menuVisibility={menuVisibility} 
             closeMobileMenu={closeMobileMenu}
           />
+          <LandingPageNav />
           <LocationDetails />
           <DynamicMenu />
           <ProductMenu />
@@ -64,7 +66,13 @@ function App() {
                 <Vehicles />
               )}
             />
-            <Route exact path="/solar" component={Solar} />
+            <Route 
+              exact 
+              path="/solar" 
+              component={() => (
+                <Solar />
+              )}
+            />
             <Route exact path="/userLogin" component={LogIn} />
             <Route exact path="/userSignup" component={SignUp} />
           </Switch>

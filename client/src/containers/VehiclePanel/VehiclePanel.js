@@ -88,6 +88,7 @@ const VehiclePanel = ({
     }
   }, [usStatesData]);
 
+
   const [loadTeslaData, setLoadTeslaData] = useState(false);
 
   useEffect(() => {

@@ -16,14 +16,15 @@ class LogIn extends Component {
             <div>
               <div className="app_register_directive">Sign in with your email address</div>
               <label className="app_register_label">Email Address</label>
-              <input className="app_register_input_box logIn_email_address" placeholder="enter email address" />
+              <input className="app_register_input_box logIn_email_address" placeholder="enter email address" type="email" />
+              <div className="register_alert login_alert_valid_email">Please enter valid email address</div>
             </div>
             <div className="app_register_password_container">
               <label className="app_register_label">Password</label>
-              <div className="logIn_password"><input className="app_register_input_box" placeholder="enter password" /></div>
+              <div className="logIn_password"><input className="app_register_input_box" placeholder="enter password" type="password" /></div>
             </div>
-            <div className="register_alert register_alert_3">Password and/or email not found</div>
-            <div className="app_register_submit_btn logIn_submit_btn">SIGN UP</div> 
+            <div className="register_alert login_alert_not_found">Password and/or email not found</div>
+            <div className="app_register_submit_btn logIn_submit_btn">SUBMIT</div> 
             <Link to="/forgotPassword" className="logIn_forgot_password app_textdecorationNone">Forgot Password</Link>
           </form>
         </div>

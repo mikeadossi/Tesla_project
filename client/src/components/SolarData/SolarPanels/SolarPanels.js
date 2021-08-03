@@ -4,15 +4,12 @@ import './SolarPanels.css';
 const SolarPanels = () => { 
 
   const [activeSolarBtn, setActiveSolarBtn] = useState("");
-  const [activePurchase, setActivePurchase] = useState("");
+  const [activePurchase, setActivePurchase] = useState([]);
 
   return ( 
     <div className="app_columns_width vehicleConfig_column1">
         <div className="app_configTitle app_displayFlex">
           <div className="app_productName">Solar Panels</div>
-          <div className="vehicleConfig_header_options_container app_displayFlex"> 
-            <div className="app_options_btn">Specs</div>
-          </div>
         </div> 
         <div className="app_Solar_Img_container">
             <div className="solar_image_container app_solar_image_container">
@@ -32,7 +29,7 @@ const SolarPanels = () => {
                     setActiveSolarBtn("select_4kW");
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_select_kw_btn select_4kw 
-                  ${activePurchase == "select_4kW" && "solarbtn_selected"}`}
+                  ${activeSolarBtn == "select_4kW" && "solarbtn_selected"}`}
                 >
                   4.08 kW
                 </div>
@@ -88,8 +85,7 @@ const SolarPanels = () => {
         <div className="app_Solar_costs_container">
               <div className="app_displayFlex app_Solar_selectPymt_div">
                   <div className="app_Solar_selectPymt_btn">Cash</div>
-                  <div className="app_Solar_selectPymt_btn">Loan</div>
-                  <div className="app_Solar_selectPymt_btn">Subscription</div>
+                  <div className="app_Solar_selectPymt_btn">Loan</div> 
               </div>
               <div className="">
                   <div className="app_Solar_cost_div">
@@ -99,15 +95,7 @@ const SolarPanels = () => {
                   <div className="app_Solar_cost_div">
                       <span className="app_inline-block">Federal Tax Credit</span>
                       <span className="app_inline-block app_Solar_cost">-$4,264</span>
-                  </div>
-                  <div className="app_Solar_cost_div">
-                      <span className="app_inline-block">NY Solar Tax Credit</span>
-                      <span className="app_inline-block app_Solar_cost">-$4,100</span>
-                  </div>
-                  <div className="app_Solar_cost_div">
-                      <span className="app_inline-block">Utility (Central Hudson Gas Elec Corp.): </span>
-                      <span className="app_inline-block app_Solar_cost">-$10,000</span>
-                  </div>
+                  </div> 
                   <div className="app_Solar_cost_div">
                       <span className="app_inline-block">Price After Incentives</span>
                       <span className="app_inline-block app_Solar_cost">-$1,000</span>
@@ -122,10 +110,10 @@ const SolarPanels = () => {
         <div className="app_Solar_additions_container">
           <div className="app_padding_bottom_10px">Add Future Purchase</div>
           <div>
-              <div className="app_Solar_additions_select_div solarPanel_additions_select">
+              <div className="app_Solar_additions_select_div">
                 <div 
                   onClick={(event) => {
-                    setActivePurchase("select_model3");
+                    setActivePurchase([...activePurchase, "select_model3"]);
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_additions_item select_model3 
                   ${activePurchase == "select_model3" && "solarbtn_selected"}`}
@@ -134,7 +122,7 @@ const SolarPanels = () => {
                 </div>
                 <div 
                   onClick={(event) => {
-                    setActivePurchase("select_modelS");
+                    setActivePurchase([...activePurchase, "select_modelS"]);
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_additions_item select_modelS 
                   ${activePurchase == "select_modelS" && "solarbtn_selected"}`}
@@ -143,7 +131,7 @@ const SolarPanels = () => {
                 </div>
                 <div 
                   onClick={(event) => {
-                    setActivePurchase("select_modelX");
+                    setActivePurchase([...activePurchase, "select_modelX"]);
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_additions_item select_modelX
                   ${activePurchase == "select_modelX" && "solarbtn_selected"}`}
@@ -152,7 +140,7 @@ const SolarPanels = () => {
                 </div>
                 <div 
                   onClick={(event) => {
-                    setActivePurchase("select_modelY");
+                    setActivePurchase([...activePurchase, "select_modelY"]);
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_additions_item select_modelY
                   ${activePurchase == "select_modelY" && "solarbtn_selected"}`}
@@ -161,34 +149,7 @@ const SolarPanels = () => {
                 </div> 
                 <div 
                   onClick={(event) => {
-                    setActivePurchase("select_hotTub");
-                  }} 
-                  className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_hotTub 
-                  ${activePurchase == "select_hotTub" && "solarbtn_selected"}`}
-                >
-                  Hot Tub Electric Heater
-                </div> 
-                <div 
-                  onClick={(event) => {
-                    setActivePurchase("select_poolFilter");
-                  }} 
-                  className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_poolFilter 
-                  ${activePurchase == "select_poolFilter" && "solarbtn_selected"}`}
-                >
-                  Pool Filter Pump 2hp
-                </div>
-                <div 
-                  onClick={(event) => {
-                    setActivePurchase("select_poolSingleSpeed");
-                  }} 
-                  className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_poolSingleSpeed 
-                  ${activePurchase == "select_poolSingleSpeed" && "solarbtn_selected"}`}
-                >
-                  Pool Single Spd. Pump
-                </div>
-                <div 
-                  onClick={(event) => {
-                    setActivePurchase("select_electricWH");
+                    setActivePurchase([...activePurchase, "select_electricWH"]);
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_electricWH 
                   ${activePurchase == "select_electricWH" && "solarbtn_selected"}`}
@@ -197,7 +158,7 @@ const SolarPanels = () => {
                 </div>
                 <div 
                   onClick={(event) => {
-                    setActivePurchase("select_heatPump50");
+                    setActivePurchase([...activePurchase, "select_heatPump50"]);
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_heatPump50 
                   ${activePurchase == "select_heatPump50" && "solarbtn_selected"}`}
@@ -206,7 +167,7 @@ const SolarPanels = () => {
                 </div>
                 <div 
                   onClick={(event) => {
-                    setActivePurchase("select_heatPump75");
+                    setActivePurchase([...activePurchase, "select_heatPump75"]);
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_heatPump75 
                   ${activePurchase == "select_heatPump75" && "solarbtn_selected"}`}
@@ -215,7 +176,7 @@ const SolarPanels = () => {
                 </div>
                 <div 
                   onClick={(event) => {
-                    setActivePurchase("select_instant110");
+                    setActivePurchase([...activePurchase, "select_instant110"]);
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_instant110 
                   ${activePurchase == "select_instant110" && "solarbtn_selected"}`}
@@ -224,7 +185,7 @@ const SolarPanels = () => {
                 </div>
                 <div 
                   onClick={(event) => {
-                    setActivePurchase("select_instant240");
+                    setActivePurchase([...activePurchase, "select_instant240"]);
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_instant240 
                   ${activePurchase == "select_instant240" && "solarbtn_selected"}`}
@@ -233,7 +194,7 @@ const SolarPanels = () => {
                 </div>
                 <div 
                   onClick={(event) => {
-                    setActivePurchase("select_energyStar14");
+                    setActivePurchase([...activePurchase, "select_energyStar14"]);
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_energyStar14 
                   ${activePurchase == "select_energyStar14" && "solarbtn_selected"}`}
@@ -242,7 +203,7 @@ const SolarPanels = () => {
                 </div>
                 <div 
                   onClick={(event) => {
-                    setActivePurchase("select_energyStar25");
+                    setActivePurchase([...activePurchase, "select_energyStar25"]);
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_energyStar25 
                   ${activePurchase == "select_energyStar25" && "solarbtn_selected"}`}
@@ -251,7 +212,7 @@ const SolarPanels = () => {
                 </div>
                 <div 
                   onClick={(event) => {
-                    setActivePurchase("select_refrigerator1996");
+                    setActivePurchase([...activePurchase, "select_refrigerator1996"]);
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_refrigerator1996 
                   ${activePurchase == "select_refrigerator1996" && "solarbtn_selected"}`}
@@ -260,7 +221,7 @@ const SolarPanels = () => {
                 </div>
                 <div 
                   onClick={(event) => {
-                    setActivePurchase("select_manualDefrost");
+                    setActivePurchase([...activePurchase, "select_manualDefrost"]);
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_manualDefrost 
                   ${activePurchase == "select_manualDefrost" && "solarbtn_selected"}`}

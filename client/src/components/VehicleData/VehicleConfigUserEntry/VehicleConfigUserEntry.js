@@ -66,7 +66,7 @@ const VehicleConfigUserEntry = ({
 
     let formError = false;
 
-    if (!activeFormVals["leaseTermLength"]) { console.log('here -> ')
+    if (!activeFormVals["leaseTermLength"]) {
       formError = true;
     }
 

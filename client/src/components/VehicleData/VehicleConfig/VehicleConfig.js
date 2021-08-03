@@ -83,7 +83,7 @@ const VehicleConfig = ({
               renderedTesla={renderedTesla}
           />
 
-          <VehicleConfigPricing  
+          <VehicleConfigPricing 
               showComponent={showComponent}
               visibility={visibility}
               setActivePayment={setActivePayment}

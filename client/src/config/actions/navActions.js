@@ -2,7 +2,7 @@ import * as types from "./types";
 import axios from "axios";
 import { hasAValue } from "../../helpers/helper";
 
-export const getMyZipcodeData = (zip) => async (dispatch) => {
+export const getMyZipcodeData = (zip) => async (dispatch) => { 
   try {
     const res = await axios.get(`http://localhost:3002/zipcode?zipcode=${zip}`);
     dispatch({

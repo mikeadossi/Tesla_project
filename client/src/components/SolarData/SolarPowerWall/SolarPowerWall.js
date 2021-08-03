@@ -7,9 +7,6 @@ class SolarPowerWall extends Component {
       <div className="app_columns_width vehicleConfig_column2">
           <div className="app_configTitle app_displayFlex">
             <div className="app_productName">Powerwall</div>
-            <div className="vehicleConfig_header_options_container app_displayFlex"> 
-              <div className="app_options_btn">Specs</div>
-            </div>
           </div> 
           <div className="app_Solar_Img_container solarPowerWall_Img_container">
               <div className="solar_image_container app_solar_image_container">
@@ -40,8 +37,7 @@ class SolarPowerWall extends Component {
           <div className="app_Solar_costs_container">
                 <div className="app_displayFlex app_Solar_selectPymt_div">
                     <div className="app_Solar_selectPymt_btn">Cash</div>
-                    <div className="app_Solar_selectPymt_btn">Loan</div>
-                    <div className="app_Solar_selectPymt_btn">Lease</div>
+                    <div className="app_Solar_selectPymt_btn">Loan</div> 
                 </div>
                 <div className="solarPowerWall_pricing_container"> 
                     <div className="app_Solar_cost_div">
@@ -78,10 +74,7 @@ class SolarPowerWall extends Component {
                   <div className="app_seeMore_btn app_noSelect app_Solar_additions_item">Model 3</div>
                   <div className="app_seeMore_btn app_noSelect app_Solar_additions_item">Model S</div>
                   <div className="app_seeMore_btn app_noSelect app_Solar_additions_item">Model X</div>
-                  <div className="app_seeMore_btn app_noSelect app_Solar_additions_item">Model Y</div> 
-                  <div className="app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn">Hot Tub Electric Heater</div> 
-                  <div className="app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn">Pool Filter Pump 2hp</div>
-                  <div className="app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn">Pool Single Spd. Pump</div>
+                  <div className="app_seeMore_btn app_noSelect app_Solar_additions_item">Model Y</div>
                   <div className="app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn">Electric Water Heater</div>
                   <div className="app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn">Heat Pump Water Heater (50–75 gal)</div>
                   <div className="app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn">Heat Pump Water Heater (>75 gal)</div>

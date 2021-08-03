@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./HeaderCenter.css";
+import "./HeaderCenter.css"; 
 import { connect } from "react-redux";
 import { getMyZipcodeData } from "../../../config/actions/navActions";
 

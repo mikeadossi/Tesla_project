@@ -12,6 +12,7 @@ const VehicleMenu = ({setSelectedVehicleName, menuOptions, vehicleContainerRef, 
   ? menuOptions
   : []; 
 
+
   return (
     <div className="app_Menu_container">
       <h3>Select Vehicle</h3>

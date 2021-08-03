@@ -14,18 +14,12 @@ const HeaderRight = ({ toggleMobileMenu }) => {
           src="../../../../images/Nav/bell_icon.png"
           alt="menu"
         />
-      </div>
+      </div> 
+      <Link to="/" className="headerRight_links">
+        <div className="headerRight_log_in headerRight_login_btn">LOG OUT</div>
+      </Link>
       <Link to="/" className="headerRight_links">
         <div className="headerRight_about headerRight_login_btn">ABOUT</div>
-      </Link>
-      <Link to="/userSignup" className="headerRight_links">
-        <div className="headerRight_sign_up headerRight_login_btn">SIGN UP</div>
-      </Link>
-      <Link to="/userLogin" className="headerRight_links">
-        <div className="headerRight_log_in headerRight_login_btn">LOG IN</div>
-      </Link>
-      <Link to="/userLogin" className="headerRight_links">
-        <div className="headerRight_log_in headerRight_login_btn">LOG OUT</div>
       </Link>
       <img
         className="headerRight_hamburger"

@@ -16,16 +16,17 @@ class SignUp extends Component {
             <div>
               <div className="app_register_directive">Sign up with your email address</div>
               <label className="app_register_label">Email Address</label>
-              <input className="app_register_input_box signUp_email_address" placeholder="enter email address" />
-              <div className="register_alert register_alert_1">Please enter company email address</div>
+              <input className="app_register_input_box signUp_email_address" placeholder="enter email address" type="email" />
+              <div className="register_alert register_alert_valid_email">Please enter valid email address</div>
             </div>
             <div className="app_register_password_container">
               <label className="app_register_label">Password</label>
-              <div className="signUp_password"><input className="app_register_input_box " placeholder="enter password" /></div>
-              <div className="signUp_password_reentry"><input className="app_register_input_box " placeholder="reenter password" /></div>
+              <div className="signUp_password"><input className="app_register_input_box " placeholder="enter password" type="password" /></div>
+              <div className="signUp_password_reentry"><input className="app_register_input_box " placeholder="reenter password" type="password" /></div>
             </div>
-            <div className="register_alert register_alert_2">Please ensure both passwords match</div>
-            <div className="app_register_submit_btn signUp_submit_btn">SIGN UP</div>
+            <div className="register_alert register_alert_password">Please ensure both passwords match</div>
+            <div className="register_alert register_alert_email">Email given is being used by another user</div>
+            <div className="app_register_submit_btn signUp_submit_btn">SUBMIT</div>
           </form>
         </div>
       </div>

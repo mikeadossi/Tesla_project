@@ -2,7 +2,7 @@ import React from 'react';
 import './HeaderMobileMenu.css';
 import { Link }  from 'react-router-dom';
 
-const HeaderMobileMenu  = ({ closeMobileMenu }) => { 
+const HeaderMobileMenu  = ({ closeMobileMenu }) => {
   return (
     <div className="headerMobileMenu">
         <div

@@ -6,8 +6,6 @@ import HeaderCenter from "../../components/Header/HeaderCenter/HeaderCenter.js";
 import GrayBackground from "../../components/GrayBackground/GrayBackground.js";
 import HeaderCookiePermission from "../../components/Header/HeaderCookiePermission/HeaderCookiePermission.js"; 
 
-const defaultUsername = "Johnny Bravo"; 
-
 const Nav = ({
   menuVisibility, 
   closeMobileMenu,

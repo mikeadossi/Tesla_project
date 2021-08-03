@@ -24,7 +24,7 @@ const InfoPanel = (props) => {
   });
 
 
-  const showComponent = (value) => {
+  const showComponent = (value) => { 
     setVisibility({ [value]: true });
   };
 
@@ -36,9 +36,6 @@ const InfoPanel = (props) => {
     ? JSON.parse(props.stateData[0].vehicle_order)
     : null;
 
-  console.log('vehicleOrder- ',vOrder)
-  console.log('stateAbbr- ',stateAbbreviation)
-  console.log('props- ',props)
 
   return (
     <div className="infoPanel_container">

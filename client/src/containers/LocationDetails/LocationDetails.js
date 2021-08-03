@@ -16,15 +16,24 @@ const LocationDetails = ({
     latitude,
   },
 }) => {
-  const [currentTIme, setTime] = useState(
-    moment().tz("America/Los_Angeles").format("h:MM:ss A z")
+  // const location = "America/"+city;
+  // console.log('city: ',city)
+  const counties = county && county.split(","); 
+  // console.log('counties: ',counties)
+  const cityy = "Beverly_Hills"
+  const loc = "America/"+cityy
+  const [currentTime, setTime] = useState(
+    // moment().tz("America/Los_Angeles").format("h:mm:ss A z")
+    moment().tz("America/Los_Angeles").format("LT")
   );
 
-  const areaCodes = area_codes && area_codes.split(" / ");
-  const counties = county && county.split(",");
+  const timeZone = moment().tz("America/Los_Angeles").format(" z"); 
 
+  const areaCodes = area_codes && area_codes.split(" / ");
+  // const counties = county && county.split(","); 
   setInterval(() => {
-    setTime(moment().tz("America/Los_Angeles").format("h:MM:ss A z"));
+    // setTime(moment().tz("America/Los_Angeles").format("h:MM:ss A z"));  
+    setTime(moment().tz("America/Los_Angeles").format("LT"));
   }, 1000);
 
   return id ? (
@@ -72,8 +81,8 @@ const LocationDetails = ({
       <div className="app_locationDetails_border"></div>
 
       <div className="locationDetails_subcontainers locationDetails_subcontainer_3">
-        <div className="locationDetails_time_digital">{currentTIme}</div>
-        <div className="locationDetails_timezone">Pacific Time</div>
+        <div className="locationDetails_time_digital">{currentTime}</div>
+        <div className="locationDetails_timezone">{timeZone}</div>
       </div>
 
       <div className="app_locationDetails_border"></div>
