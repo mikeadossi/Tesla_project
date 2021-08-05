@@ -13,3 +13,7 @@
 .solarbtn_selected{
     border: 2px solid rgb(22, 131, 252);
 }
+
+.paint_red{
+    color:indianred;
+}

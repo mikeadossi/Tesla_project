@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from "react"; 
 import './SolarPanels.css';
 
-const SolarPanels = (recommendedProducts) => { 
+const SolarPanels = ({
+  recommendedProducts,
+  solarRecommendations,
+  setRecommendedProducts,
+  panelOptions,
+  recommendedSize,
+}) => { 
 
   const [activeSolarBtn, setActiveSolarBtn] = useState("");
-  const [activePurchase, setActivePurchase] = useState([]); 
-  const products = recommendedProducts["recommendedProducts"]["recommendedProducts"]; 
+  const [activePurchase, setActivePurchase] = useState([]);
+  const products = recommendedProducts; 
 
   useEffect(() => {
     setActiveSolarBtn(products["selected_btn"]);
   }, [products]);
+
+  const userSelectedProduct = (v) => {
+    // recommended size text to color red if option isn't same as recommended 
+    setRecommendedProducts(solarRecommendations[panelOptions[v]]);
+  }
 
   return ( 
     <div className="app_columns_width vehicleConfig_column1">
@@ -22,7 +33,11 @@ const SolarPanels = (recommendedProducts) => {
             </div>
 
             <div className="app_Config_specs_container app_Solar_specs_container">
-              <div className="app_Config_spec vehicleConfig_range">Recommended: {products["recommended_size"]} kW</div>
+              {recommendedSize === products["recommended_size"] ? (
+                <div className="app_Config_spec vehicleConfig_range">Recommended: {recommendedSize} kW</div>
+              ) : (
+                <div className="app_Config_spec vehicleConfig_range paint_red">Recommended: {recommendedSize} kW</div>
+              )} 
               <div className="app_Config_spec vehicleConfig_topSpeed">{products["recommended_size"]} kW = {products["kWh_per_day"]} kWh/day</div> 
             </div> 
         </div>
@@ -32,6 +47,7 @@ const SolarPanels = (recommendedProducts) => {
                 <div
                   onClick={(event) => {
                     setActiveSolarBtn("select_4kW");
+                    userSelectedProduct("4 kW")
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_select_kw_btn select_4kw 
                   ${activeSolarBtn == "select_4kW" && "solarbtn_selected"}`}
@@ -41,6 +57,7 @@ const SolarPanels = (recommendedProducts) => {
                 <div
                   onClick={(event) => {
                     setActiveSolarBtn("select_8kW");
+                    userSelectedProduct("8 kW")
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_select_kw_btn select_8kw 
                   ${activeSolarBtn == "select_8kW" && "solarbtn_selected"}`}
@@ -50,6 +67,7 @@ const SolarPanels = (recommendedProducts) => {
                 <div
                   onClick={(event) => {
                     setActiveSolarBtn("select_12kW");
+                    userSelectedProduct("12 kW")
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_select_kw_btn select_12kw 
                   ${activeSolarBtn == "select_12kW" && "solarbtn_selected"}`}
@@ -59,6 +77,7 @@ const SolarPanels = (recommendedProducts) => {
                 <div
                   onClick={(event) => {
                     setActiveSolarBtn("select_16kW");
+                    userSelectedProduct("16 kW")
                   }} 
                   className={`app_seeMore_btn app_noSelect app_Solar_select_kw_btn select_16kw 
                   ${activeSolarBtn == "select_16kW" && "solarbtn_selected"}`}

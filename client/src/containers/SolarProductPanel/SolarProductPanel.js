@@ -11,7 +11,8 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
   const [solarStateData, setSolarStateData] = useState("");
   const [solarProductData, setSolarProductData] = useState("");
   const [showSolarConfig, setShowSolarConfig] = useState(false);
-  const [recommendedProducts, setRecommendedProducts] = useState(""); 
+  const [recommendedProducts, setRecommendedProducts] = useState("");
+  const [recommendedSize, setRecommendedSize] = useState("");
 
   useEffect(() => {
     if (zipcode_data.id) { 
@@ -33,6 +34,52 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
     }
   }, [usStatesData]); // this becomes available when we call action getAllStateData()
 
+  const solarRecommendations = {
+    101: {
+      recommended_size: "4.08",
+      kWh_per_day: "10-15",
+      panel_cost: 10200,
+      fed_credit: 2652,
+      price_after_incentives: 7548,
+      recommended_powerwalls: 1,
+      selected_btn: "select_4kW",
+    },
+    151: {
+      recommended_size: "8.16",
+      kWh_per_day: "16-30",
+      panel_cost: 20400,
+      fed_credit: 5304,
+      price_after_incentives: 15096,
+      recommended_powerwalls: 2,
+      selected_btn: "select_8kW",
+    },
+    201: {
+      recommended_size: "12.24",
+      kWh_per_day: "31-40",
+      panel_cost: 30600,
+      fed_credit: 7956,
+      price_after_incentives: 22644,
+      recommended_powerwalls: 2,
+      selected_btn: "select_12kW",
+    },
+    301: {
+      recommended_size: "16.32",
+      kWh_per_day: "41-50",
+      panel_cost: 40800,
+      fed_credit: 10608,
+      price_after_incentives: 30192,
+      recommended_powerwalls: 3,
+      selected_btn: "select_16kW",
+    },
+  };
+
+  const panelOptions = {
+    "4 kW": 101,
+    "8 kW": 151,
+    "12 kW": 201,
+    "16 kW": 301,
+  };
+
   console.log('>> zz =====> ',zipcode_data.id)
 
   return (   
@@ -40,9 +87,17 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
       <SolarMenu 
         zip={zipcode_data.id}
         setShowSolarConfig={setShowSolarConfig}
+        solarRecommendations={solarRecommendations}
         setRecommendedProducts={setRecommendedProducts}
+        setRecommendedSize={setRecommendedSize}
       />
-      {showSolarConfig ? <SolarConfig recommendedProducts={recommendedProducts} /> : ""}
+      {showSolarConfig ? <SolarConfig 
+        recommendedProducts={recommendedProducts}
+        solarRecommendations={solarRecommendations}
+        setRecommendedProducts={setRecommendedProducts} 
+        panelOptions={panelOptions}
+        recommendedSize={recommendedSize} 
+      /> : ""}
     </div>
   ); 
 }
