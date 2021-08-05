@@ -5,16 +5,14 @@ import SolarRoof from '../SolarRoof/SolarRoof';
 import SolarPowerWall from '../SolarPowerWall/SolarPowerWall';
 import SolarAddProduct from '../SolarAddProduct/SolarAddProduct';
 
-class SolarConfig extends Component {
-  render() {
-    return (
-      <div className="app_Config_container app_inlineFlex">
-        <SolarPanels />
-        <div className="app_config_border"></div>
-        <SolarPowerWall />
-      </div>
-    );
-  }
+const SolarConfig = (recommendedProducts) => { 
+  return (
+    <div className="app_Config_container app_inlineFlex">
+      <SolarPanels recommendedProducts={recommendedProducts} />
+      <div className="app_config_border"></div>
+      <SolarPowerWall recommendedProducts={recommendedProducts} />
+    </div>
+  ); 
 }
 
 export default SolarConfig;

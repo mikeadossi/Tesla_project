@@ -1,42 +1,50 @@
 import React, { useState } from "react";
 import "./SolarMenu.css";
 
-const SolarMenu = ({ zip, setShowSolarConfig }) => {
+const SolarMenu = ({ 
+  zip, 
+  setShowSolarConfig,
+  setRecommendedProducts, 
+}) => {
 
-  const [userEnergyCost, setUserEnergyCost] = useState("");
+  const [userEnergyCost, setUserEnergyCost] = useState(""); 
 
-  /* TODO: move bottom two objects to SolarProductPanel, 
-  then write submitEnergyCost code to update state (hence UI), 
-  then write new function for each button to update state
-  */
   const solarRecommendations = {
     101: {
       recommended_size: "4.08",
       kWh_per_day: "10-15",
       panel_cost: 10200,
       fed_credit: 2652,
+      price_after_incentives: 7548,
       recommended_powerwalls: 1,
+      selected_btn: "select_4kW",
     },
     151: {
       recommended_size: "8.16",
       kWh_per_day: "16-30",
       panel_cost: 20400,
       fed_credit: 5304,
+      price_after_incentives: 15096,
       recommended_powerwalls: 2,
+      selected_btn: "select_8kW",
     },
     201: {
       recommended_size: "12.24",
       kWh_per_day: "31-40",
       panel_cost: 30600,
       fed_credit: 7956,
+      price_after_incentives: 22644,
       recommended_powerwalls: 2,
+      selected_btn: "select_12kW",
     },
     301: {
       recommended_size: "16.32",
       kWh_per_day: "41-50",
       panel_cost: 40800,
       fed_credit: 10608,
+      price_after_incentives: 30192,
       recommended_powerwalls: 3,
+      selected_btn: "select_16kW",
     },
   };
 
@@ -61,11 +69,20 @@ const SolarMenu = ({ zip, setShowSolarConfig }) => {
     submitEnergyCost(value);
   };
 
-  const submitEnergyCost = (v) => {
-    console.log("-----> ",v);
-    // if v = $120 
-    // Run loop that checks to see if number is less than [101,151,201,301] then take array
-    // save this array and pass it to UI 
+  const submitEnergyCost = (v) => { 
+    if(v < 101){
+      console.log(solarRecommendations[101])
+      setRecommendedProducts(solarRecommendations[101]);
+    } else if (v > 100 && v < 151){
+      console.log(solarRecommendations[151])
+      setRecommendedProducts(solarRecommendations[151]);
+    } else if (v > 150 && v < 201){
+      console.log(solarRecommendations[201])
+      setRecommendedProducts(solarRecommendations[201]);
+    } else if (v > 200){
+      console.log(solarRecommendations[301])
+      setRecommendedProducts(solarRecommendations[301]);
+    } 
   }
 
   return (

@@ -11,6 +11,7 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
   const [solarStateData, setSolarStateData] = useState("");
   const [solarProductData, setSolarProductData] = useState("");
   const [showSolarConfig, setShowSolarConfig] = useState(false);
+  const [recommendedProducts, setRecommendedProducts] = useState(""); 
 
   useEffect(() => {
     if (zipcode_data.id) { 
@@ -37,10 +38,11 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
   return (   
     <div className="app_Panel_container"> 
       <SolarMenu 
-        zip={zipcode_data.id} 
+        zip={zipcode_data.id}
         setShowSolarConfig={setShowSolarConfig}
+        setRecommendedProducts={setRecommendedProducts}
       />
-      {showSolarConfig ? <SolarConfig /> : ""}
+      {showSolarConfig ? <SolarConfig recommendedProducts={recommendedProducts} /> : ""}
     </div>
   ); 
 }

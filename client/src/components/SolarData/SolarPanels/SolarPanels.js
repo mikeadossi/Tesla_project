@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react"; 
 import './SolarPanels.css';
 
-const SolarPanels = () => { 
+const SolarPanels = (recommendedProducts) => { 
 
   const [activeSolarBtn, setActiveSolarBtn] = useState("");
-  const [activePurchase, setActivePurchase] = useState([]);
+  const [activePurchase, setActivePurchase] = useState([]); 
+  const products = recommendedProducts["recommendedProducts"]["recommendedProducts"]; 
+
+  useEffect(() => {
+    setActiveSolarBtn(products["selected_btn"]);
+  }, [products]);
 
   return ( 
     <div className="app_columns_width vehicleConfig_column1">
@@ -17,8 +22,8 @@ const SolarPanels = () => {
             </div>
 
             <div className="app_Config_specs_container app_Solar_specs_container">
-              <div className="app_Config_spec vehicleConfig_range">Recommended: 8kW</div>
-              <div className="app_Config_spec vehicleConfig_topSpeed">8kW = 10-15 kWh/day</div> 
+              <div className="app_Config_spec vehicleConfig_range">Recommended: {products["recommended_size"]} kW</div>
+              <div className="app_Config_spec vehicleConfig_topSpeed">{products["recommended_size"]} kW = {products["kWh_per_day"]} kWh/day</div> 
             </div> 
         </div>
 
@@ -89,21 +94,17 @@ const SolarPanels = () => {
               </div>
               <div className="">
                   <div className="app_Solar_cost_div">
-                      <span className="app_inline-block">8.16 kW Solar Panels</span>
-                      <span className="app_inline-block app_Solar_cost">$16,400</span>
+                      <span className="app_inline-block">{products["recommended_size"]} kW Solar Panels</span>
+                      <span className="app_inline-block app_Solar_cost">${products["panel_cost"].toLocaleString("en-US")}</span>
                   </div>
                   <div className="app_Solar_cost_div">
                       <span className="app_inline-block">Federal Tax Credit</span>
-                      <span className="app_inline-block app_Solar_cost">-$4,264</span>
+                      <span className="app_inline-block app_Solar_cost">-${products["fed_credit"].toLocaleString("en-US")}</span>
                   </div> 
                   <div className="app_Solar_cost_div">
                       <span className="app_inline-block">Price After Incentives</span>
-                      <span className="app_inline-block app_Solar_cost">-$1,000</span>
-                  </div>
-                  <div className="app_Solar_cost_div">
-                      <span className="app_inline-block">Est. 25 Year Savings</span>
-                      <span className="app_inline-block app_Solar_cost">-$1,000</span>
-                  </div>
+                      <span className="app_inline-block app_Solar_cost">${products["price_after_incentives"].toLocaleString("en-US")}</span>
+                  </div> 
               </div>
         </div>
 
