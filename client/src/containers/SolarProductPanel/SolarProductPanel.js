@@ -71,6 +71,42 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
       recommended_powerwalls: 3,
       selected_btn: "select_16kW",
     },
+    401: {
+      recommended_size: "20.40",
+      kWh_per_day: "51-60",
+      panel_cost: 51000,
+      fed_credit: 13260,
+      price_after_incentives: 37740,
+      recommended_powerwalls: 3,
+      selected_btn: "select_20kW",
+    },
+    501: {
+      recommended_size: "24.28",
+      kWh_per_day: "61-70",
+      panel_cost: 61200,
+      fed_credit: 15912,
+      price_after_incentives: 45288,
+      recommended_powerwalls: 4,
+      selected_btn: "select_24kW",
+    },
+    601: {
+      recommended_size: "28.56",
+      kWh_per_day: "71-80",
+      panel_cost: 71400,
+      fed_credit: 18564,
+      price_after_incentives: 52836,
+      recommended_powerwalls: 4,
+      selected_btn: "select_28kW",
+    },
+    701: {
+      recommended_size: "32.64",
+      kWh_per_day: "81-90",
+      panel_cost: 81600,
+      fed_credit: 21216,
+      price_after_incentives: 60384,
+      recommended_powerwalls: 5,
+      selected_btn: "select_32kW",
+    },
   };
 
   const panelOptions = {
@@ -78,6 +114,10 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
     "8 kW": 151,
     "12 kW": 201,
     "16 kW": 301,
+    "20 kW": 401,
+    "24 kW": 501,
+    "28 kW": 601,
+    "32 kW": 701,
   };
 
   console.log('>> zz =====> ',zipcode_data.id)

@@ -11,21 +11,6 @@ const SolarMenu = ({
 
   const [userEnergyCost, setUserEnergyCost] = useState(""); 
 
-  const energyAppliance = {
-    electric_water:{kWh_per_day:12.25, kWh_per_mo:380, additional_mo_cost:65}, 
-    heat_pump_50:{kWh_per_day:2.48, kWh_per_mo:77, additional_mo_cost:10}, 
-    heat_pump_75:{kWh_per_day:3.61, kWh_per_mo:112, additional_mo_cost:15}, 
-    instantaneous_110:{kWh_per_day:12.25, kWh_per_mo:380, additional_mo_cost:65}, 
-    instantaneus_240:{kWh_per_day:0.38, kWh_per_mo:12, additional_mo_cost:2}, 
-    energy_star_14:{kWh_per_day:1.11, kWh_per_mo:34.5, additional_mo_cost:5}, 
-    energy_start_25:{kWh_per_day:1.93, kWh_per_mo:60, additional_mo_cost:8}, 
-    refrigerator_15:{kWh_per_day:4.83, kWh_per_mo:150, additional_mo_cost:20}, 
-    freezer:{kWh_per_day:2.90, kWh_per_mo:90, additional_mo_cost:12},
-  };
-  // https://www.siliconvalleypower.com/residents/save-energy/appliance-energy-use-chart
-
-
-
   const openSolarConfig = (e, value) => {
     e.preventDefault();
     setShowSolarConfig(true);
@@ -42,9 +27,21 @@ const SolarMenu = ({
     } else if (v > 150 && v < 201){ 
       setRecommendedProducts(solarRecommendations[201]);
       setRecommendedSize("12.24");
-    } else if (v > 200){ 
+    } else if (v > 200 && v < 301){ 
       setRecommendedProducts(solarRecommendations[301]);
       setRecommendedSize("16.32");
+    } else if (v > 300 && v < 401){ 
+      setRecommendedProducts(solarRecommendations[401]);
+      setRecommendedSize("20.40");
+    }  else if (v > 400 && v < 501){ 
+      setRecommendedProducts(solarRecommendations[501]);
+      setRecommendedSize("24.28");
+    }  else if (v > 500 && v < 601){ 
+      setRecommendedProducts(solarRecommendations[601]);
+      setRecommendedSize("28.56");
+    }  else if (v > 600){ 
+      setRecommendedProducts(solarRecommendations[701]);
+      setRecommendedSize("32.64");
     } 
   }
 
