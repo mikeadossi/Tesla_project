@@ -6,12 +6,7 @@ const SolarPanels = ({
   solarRecommendations,
   setRecommendedProducts,
   panelOptions,
-  recommendedSize,
-  setActivePurchase,
-  activePurchase,
-  addFutureUserPurchases,
-  sumPurchases,
-  removeFromActive,
+  recommendedSize, 
 }) => {
   const [activeSolarBtn, setActiveSolarBtn] = useState("");
   const products = {...recommendedProducts};
@@ -163,7 +158,7 @@ const SolarPanels = ({
         </div>
       </div>
 
-      <div className="app_Solar_additions_container">
+      {/* <div className="app_Solar_additions_container">
         <div className="app_padding_bottom_10px">
           Add Future Purchase (hover for details)
         </div>
@@ -405,7 +400,7 @@ const SolarPanels = ({
             ""
           )}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

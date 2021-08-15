@@ -1,12 +1,12 @@
-.solarAddProduct_container{ 
-    position: relative;
+.solarAddProduct_container{  
     width: 100%;
+    border-top: 1px solid black; 
 }
 
 .solarAddProduct_btn{
-    margin: auto;
+    /* margin: auto;
     position: absolute;
     top: 50%;
     left: 30%;
-    -ms-transform: translateY(-50%); 
+    -ms-transform: translateY(-50%);  */
 }

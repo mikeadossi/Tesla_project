@@ -105,13 +105,9 @@ const SolarConfig = ({
       purchaseObj.kWHperDay += energyAppliance[item]["kWh_per_day"];
       purchaseObj.kWHperMonth += energyAppliance[item]["kWh_per_mo"];
       purchaseObj.monthlyCost += energyAppliance[item]["additional_mo_cost"];
-    };
+    }; 
 
-    console.log('purchaseObj.kWHperDay -- ',purchaseObj.kWHperDay)
-
-    activePurchase.forEach(addUpPurchases); // loop on our array activePurchases
-    console.log('activePurchase -- ',activePurchase)
-
+    activePurchase.forEach(addUpPurchases); // loop on our array activePurchases 
     setSumPurchases(purchaseObj);
   };
 
@@ -126,26 +122,30 @@ const SolarConfig = ({
   }
 
   return (
-    <div className="app_Config_container app_inlineFlex">
-      <SolarPanels
-        recommendedProducts={recommendedProducts}
-        solarRecommendations={solarRecommendations}
-        setRecommendedProducts={setRecommendedProducts}
-        panelOptions={panelOptions}
-        recommendedSize={recommendedSize}
-        activePurchase={activePurchase}
+    <div className="app_Config_container">
+      <div className="app_displayFlex">
+        <SolarPanels
+          recommendedProducts={recommendedProducts}
+          solarRecommendations={solarRecommendations}
+          setRecommendedProducts={setRecommendedProducts}
+          panelOptions={panelOptions}
+          recommendedSize={recommendedSize} 
+        />
+        <div className="app_config_border"></div>
+        <SolarPowerWall
+          recommendedProducts={recommendedProducts}
+          activePurchase={activePurchase}
+          setActivePurchase={setActivePurchase}
+          sumPurchases={sumPurchases}
+          powerwallPricing={powerwallPricing}
+        />
+      </div>
+      <SolarAddProduct 
         setActivePurchase={setActivePurchase}
+        activePurchase={activePurchase}
         addFutureUserPurchases={addFutureUserPurchases}
         sumPurchases={sumPurchases}
         removeFromActive={removeFromActive}
-      />
-      <div className="app_config_border"></div>
-      <SolarPowerWall
-        recommendedProducts={recommendedProducts}
-        activePurchase={activePurchase}
-        setActivePurchase={setActivePurchase}
-        sumPurchases={sumPurchases}
-        powerwallPricing={powerwallPricing}
       />
     </div>
   );
