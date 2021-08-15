@@ -11,16 +11,17 @@ const SolarPanels = ({
   activePurchase,
   addFutureUserPurchases,
   sumPurchases,
+  removeFromActive,
 }) => {
-  const [activeSolarBtn, setActiveSolarBtn] = useState(""); 
-  const products = recommendedProducts;
-
+  const [activeSolarBtn, setActiveSolarBtn] = useState("");
+  const products = {...recommendedProducts};
 
   useEffect(() => {
     setActiveSolarBtn(products["selected_btn"]);
   }, [products]);
 
-  const userSelectedProduct = (v) => { 
+  const userSelectedProduct = (v) => {
+    console.log('>>> ',solarRecommendations[panelOptions[v]])
     setRecommendedProducts(solarRecommendations[panelOptions[v]]);
   };
 
@@ -59,7 +60,7 @@ const SolarPanels = ({
         <div className="app_displayFlex">
           <div
             onClick={(event) => {
-              setActiveSolarBtn("select_4kW"); 
+              setActiveSolarBtn("select_4kW");
               userSelectedProduct("4 kW");
             }}
             className={`app_seeMore_btn app_noSelect app_Solar_select_kw_btn select_4kw 
@@ -69,7 +70,7 @@ const SolarPanels = ({
           </div>
           <div
             onClick={(event) => {
-              setActiveSolarBtn("select_8kW"); 
+              setActiveSolarBtn("select_8kW");
               userSelectedProduct("8 kW");
             }}
             className={`app_seeMore_btn app_noSelect app_Solar_select_kw_btn select_8kw 
@@ -79,7 +80,7 @@ const SolarPanels = ({
           </div>
           <div
             onClick={(event) => {
-              setActiveSolarBtn("select_12kW"); 
+              setActiveSolarBtn("select_12kW");
               userSelectedProduct("12 kW");
             }}
             className={`app_seeMore_btn app_noSelect app_Solar_select_kw_btn select_12kw 
@@ -89,7 +90,7 @@ const SolarPanels = ({
           </div>
           <div
             onClick={(event) => {
-              setActiveSolarBtn("select_16kW"); 
+              setActiveSolarBtn("select_16kW");
               userSelectedProduct("16 kW");
             }}
             className={`app_seeMore_btn app_noSelect app_Solar_select_kw_btn select_16kw 
@@ -98,36 +99,38 @@ const SolarPanels = ({
             16.32 kW
           </div>
         </div>
-        <div className="app_Solar_selectKwSize_div"
-          onClick={(event) => { 
-            console.log('ev: ',event.target.value) 
-            userSelectedProduct(event.target.value);
-          }}
+        <div 
+          className="app_Solar_selectKwSize_div"
         >
-          {
-           activeSolarBtn === "select_20kW" || 
-           activeSolarBtn === "select_24kW" || 
-           activeSolarBtn === "select_28kW" || 
-           activeSolarBtn === "select_32kW" 
-           ? 
+          {activeSolarBtn === "select_20kW" ||
+          activeSolarBtn === "select_24kW" ||
+          activeSolarBtn === "select_28kW" ||
+          activeSolarBtn === "select_32kW" ? ( 
             <select
               className={`app_Solar_select app_removeBlue select_20kW select_24kW select_28kW select_32kW solarbtn_selected`}
+              onClick={(event) => {
+                console.log('ev: ',event.target.value)
+                userSelectedProduct(event.target.value);
+              }}
             >
               <option value="20 kW">20.40 kW</option>
               <option value="24 kW">24.28 kW</option>
               <option value="28 kW">28.56 kW</option>
               <option value="32 kW">32.64 kW</option>
             </select>
-          : 
+          ) : (
             <select
               className={`app_Solar_select app_removeBlue select_20kW select_24kW select_28kW select_32kW`}
+              onClick={(event) => {
+                userSelectedProduct(event.target.value);
+              }}
             >
               <option value="20 kW">20.40 kW</option>
               <option value="24 kW">24.28 kW</option>
               <option value="28 kW">28.56 kW</option>
               <option value="32 kW">32.64 kW</option>
             </select>
-          }
+          )}
           <span> Select custom size </span>
         </div>
       </div>
@@ -168,48 +171,78 @@ const SolarPanels = ({
           <div className="app_Solar_additions_select_div">
             <div
               onClick={(event) => {
-                setActivePurchase([...activePurchase, "select_model3"]);
+                if(activePurchase.indexOf("select_model3") > -1){
+                  removeFromActive("select_model3");
+                } else {
+                  setActivePurchase([...activePurchase, "select_model3"]);
+                }
               }}
               className={`app_seeMore_btn app_noSelect app_Solar_additions_item select_model3 
-                  ${activePurchase == "select_model3" && "solarbtn_selected"}`}
+                  ${activePurchase.includes("select_model3") && "solarbtn_selected"}`}
+              title="Additional kWh/day: 5 kWh&#10;Additional kWh/mo: 140 kWh&#10;Additional Monthly cost: $20"
             >
               Model 3
             </div>
             <div
               onClick={(event) => {
-                setActivePurchase([...activePurchase, "select_modelS"]);
+                if(activePurchase.indexOf("select_modelS") > -1){
+                  removeFromActive("select_modelS");
+                } else {
+                  setActivePurchase([...activePurchase, "select_modelS"]); 
+                } 
               }}
               className={`app_seeMore_btn app_noSelect app_Solar_additions_item select_modelS 
-                  ${activePurchase == "select_modelS" && "solarbtn_selected"}`}
+                  ${activePurchase.includes("select_modelS") && "solarbtn_selected"}`}
+              title="Additional kWh/day: 7.5 kWh&#10;Additional kWh/mo: 210 kWh&#10;Additional Monthly cost: $30"
             >
               Model S
             </div>
             <div
-              onClick={(event) => {
-                setActivePurchase([...activePurchase, "select_modelX"]);
+              onClick={(event) => { 
+                if(activePurchase.indexOf("select_modelX") > -1){
+                  removeFromActive("select_modelX");
+                } else {
+                  setActivePurchase([...activePurchase, "select_modelX"]); 
+                } 
               }}
               className={`app_seeMore_btn app_noSelect app_Solar_additions_item select_modelX
-                  ${activePurchase == "select_modelX" && "solarbtn_selected"}`}
+                  ${
+                    activePurchase.includes("select_modelX") &&
+                    "solarbtn_selected"
+                  }`}
+              title="Additional kWh/day: 7.5 kWh&#10;Additional kWh/mo: 210 kWh&#10;Additional Monthly cost: $30"
             >
               Model X
             </div>
             <div
               onClick={(event) => {
-                setActivePurchase([...activePurchase, "select_modelY"]);
+                if(activePurchase.indexOf("select_modelY") > -1){
+                  removeFromActive("select_modelY");
+                } else {
+                  setActivePurchase([...activePurchase, "select_modelY"]);
+                }
               }}
               className={`app_seeMore_btn app_noSelect app_Solar_additions_item select_modelY
-                  ${activePurchase == "select_modelY" && "solarbtn_selected"}`}
+                  ${
+                    activePurchase.includes("select_modelY") &&
+                    "solarbtn_selected"
+                  }`}
+              title="Additional kWh/day: 5 kWh&#10;Additional kWh/mo: 140 kWh&#10;Additional Monthly cost: $20"
             >
               Model Y
             </div>
             <div
               onClick={(event) => {
-                setActivePurchase([...activePurchase, "select_electricWH"]);
-                addFutureUserPurchases();
+                if(activePurchase.indexOf("select_electricWH") > -1){
+                  removeFromActive("select_electricWH");
+                } else {
+                  setActivePurchase([...activePurchase, "select_electricWH"]);
+                }
               }}
               className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_electricWH 
                   ${
-                    activePurchase == "select_electricWH" && "solarbtn_selected"
+                    activePurchase.includes("select_electricWH") &&
+                    "solarbtn_selected"
                   }`}
               title="Additional kWh/day: 12.25 kWh&#10;Additional kWh/mo: 380 kWh&#10;Additional Monthly cost: $65"
             >
@@ -217,12 +250,15 @@ const SolarPanels = ({
             </div>
             <div
               onClick={(event) => {
-                setActivePurchase([...activePurchase, "select_heatPump50"]);
-                addFutureUserPurchases();
+                if(activePurchase.indexOf("select_heatPump50") > -1){
+                  removeFromActive("select_heatPump50");
+                } else {
+                  setActivePurchase([...activePurchase, "select_heatPump50"]);
+                }
               }}
               className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_heatPump50 
                   ${
-                    activePurchase == "select_heatPump50" && "solarbtn_selected"
+                    activePurchase.includes("select_heatPump50") && "solarbtn_selected"
                   }`}
               title="Additional kWh/day: 2.48 kWh&#10;Additional kWh/mo: 77 kWh&#10;Additional Monthly cost: $10"
             >
@@ -230,12 +266,15 @@ const SolarPanels = ({
             </div>
             <div
               onClick={(event) => {
-                setActivePurchase([...activePurchase, "select_heatPump75"]);
-                addFutureUserPurchases();
+                if(activePurchase.indexOf("select_heatPump75") > -1){
+                  removeFromActive("select_heatPump75");
+                } else {
+                  setActivePurchase([...activePurchase, "select_heatPump75"]);
+                }
               }}
               className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_heatPump75 
                   ${
-                    activePurchase == "select_heatPump75" && "solarbtn_selected"
+                    activePurchase.includes("select_heatPump75") && "solarbtn_selected"
                   }`}
               title="Additional kWh/day: 3.61 kWh&#10;Additional kWh/mo: 112 kWh&#10;Additional Monthly cost: $15"
             >
@@ -243,12 +282,15 @@ const SolarPanels = ({
             </div>
             <div
               onClick={(event) => {
-                setActivePurchase([...activePurchase, "select_instant110"]);
-                addFutureUserPurchases();
+                if(activePurchase.indexOf("select_instant110") > -1){
+                  removeFromActive("select_instant110");
+                } else {
+                  setActivePurchase([...activePurchase, "select_instant110"]);
+                }
               }}
               className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_instant110 
                   ${
-                    activePurchase == "select_instant110" && "solarbtn_selected"
+                    activePurchase.includes("select_instant110") && "solarbtn_selected"
                   }`}
               title="Additional kWh/day: 12.25 kWh&#10;Additional kWh/mo: 380 kWh&#10;Additional Monthly cost: $65"
             >
@@ -256,12 +298,15 @@ const SolarPanels = ({
             </div>
             <div
               onClick={(event) => {
-                setActivePurchase([...activePurchase, "select_instant240"]);
-                addFutureUserPurchases();
+                if(activePurchase.indexOf("select_instant240") > -1){
+                  removeFromActive("select_instant240");
+                } else {
+                  setActivePurchase([...activePurchase, "select_instant240"]);
+                }
               }}
               className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_instant240 
                   ${
-                    activePurchase == "select_instant240" && "solarbtn_selected"
+                    activePurchase.includes("select_instant240") && "solarbtn_selected"
                   }`}
               title="Additional kWh/day: 0.38 kWh&#10;Additional kWh/mo: 12 kWh&#10;Additional Monthly cost: $2"
             >
@@ -269,12 +314,15 @@ const SolarPanels = ({
             </div>
             <div
               onClick={(event) => {
-                setActivePurchase([...activePurchase, "select_energyStar14"]);
-                addFutureUserPurchases();
+                if(activePurchase.indexOf("select_energyStar14") > -1){
+                  removeFromActive("select_energyStar14");
+                } else {
+                  setActivePurchase([...activePurchase, "select_energyStar14"]);
+                }
               }}
               className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_energyStar14 
                   ${
-                    activePurchase == "select_energyStar14" &&
+                    activePurchase.includes("select_energyStar14") &&
                     "solarbtn_selected"
                   }`}
               title="Additional kWh/day: 1.11 kWh&#10;Additional kWh/mo: 34.5 kWh&#10;Additional Monthly cost: $5"
@@ -283,12 +331,15 @@ const SolarPanels = ({
             </div>
             <div
               onClick={(event) => {
-                setActivePurchase([...activePurchase, "select_energyStar25"]);
-                addFutureUserPurchases();
+                if(activePurchase.indexOf("select_energyStar25") > -1){
+                  removeFromActive("select_energyStar25");
+                } else {
+                  setActivePurchase([...activePurchase, "select_energyStar25"]);
+                }
               }}
               className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_energyStar25 
                   ${
-                    activePurchase == "select_energyStar25" &&
+                    activePurchase.includes("select_energyStar25") &&
                     "solarbtn_selected"
                   }`}
               title="Additional kWh/day: 1.93 kWh&#10;Additional kWh/mo: 60 kWh&#10;Additional Monthly cost: $8"
@@ -297,15 +348,18 @@ const SolarPanels = ({
             </div>
             <div
               onClick={(event) => {
-                setActivePurchase([
-                  ...activePurchase,
-                  "select_refrigerator1996",
-                ]);
-                addFutureUserPurchases();
+                if(activePurchase.indexOf("select_refrigerator1996") > -1){
+                  removeFromActive("select_refrigerator1996");
+                } else {
+                  setActivePurchase([
+                    ...activePurchase,
+                    "select_refrigerator1996",
+                  ]);
+                }
               }}
               className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_refrigerator1996 
                   ${
-                    activePurchase == "select_refrigerator1996" &&
+                    activePurchase.includes("select_refrigerator1996") &&
                     "solarbtn_selected"
                   }`}
               title="Additional kWh/day: 4.83 kWh&#10;Additional kWh/mo: 150 kWh&#10;Additional Monthly cost: $20"
@@ -314,12 +368,15 @@ const SolarPanels = ({
             </div>
             <div
               onClick={(event) => {
-                setActivePurchase([...activePurchase, "select_manualDefrost"]);
-                addFutureUserPurchases();
+                if(activePurchase.indexOf("select_manualDefrost") > -1){
+                  removeFromActive("select_manualDefrost");
+                } else {
+                  setActivePurchase([...activePurchase, "select_manualDefrost"]);
+                }
               }}
               className={`app_seeMore_btn app_noSelect app_Solar_additions_item app_Solar_pool_wider_btn select_manualDefrost 
                   ${
-                    activePurchase == "select_manualDefrost" &&
+                    activePurchase.includes("select_manualDefrost") &&
                     "solarbtn_selected"
                   }`}
               title="Additional kWh/day: 2.90 kWh&#10;Additional kWh/mo: 90 kWh&#10;Additional Monthly cost: $12"
