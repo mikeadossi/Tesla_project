@@ -1,30 +1,11 @@
 import React, { Component } from 'react';
 import './SolarFinance.css';
 
-const SolarFinance = ({products}) => {
-
-    const loan_pymts = (cost) => {
-        const r = 0.0299/12; // interest rate
-        const percentageOfCost = cost * 0.10;
-        const incentives = cost * 0.26;
-        const solutions = [
-            calculate_loan_pymts(r,cost,percentageOfCost,0), 
-            calculate_loan_pymts(r,cost,percentageOfCost,incentives),
-            percentageOfCost
-        ];
-        return solutions;
-    }
-    const calculate_loan_pymts = (r,cost,percentageOfCost,incentives) => {
-        const p = cost - percentageOfCost - incentives; // principal
-        const n = 120; //payback period in months
-        const y = Math.pow(1+r, 120); 
-        const ry = r * y; 
-        const pry = p * ry;
-        const result = pry/(y-1);
-        return result;
-    }; 
-
-
+const SolarFinance = ({
+    products,
+    loan_pymts,
+    calculate_loan_pymts,
+}) => {
 
     return (
         <div className="solarFinance_container"> 

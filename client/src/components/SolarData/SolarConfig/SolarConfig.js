@@ -121,6 +121,28 @@ const SolarConfig = ({
     setActivePurchase(activeP);
   }
 
+  const loan_pymts = (cost) => {
+    const r = 0.0299/12; // interest rate
+    const percentageOfCost = cost * 0.10;
+    const incentives = cost * 0.26;
+    const solutions = [
+        calculate_loan_pymts(r,cost,percentageOfCost,0), 
+        calculate_loan_pymts(r,cost,percentageOfCost,incentives),
+        percentageOfCost
+    ];
+    return solutions;
+  }
+
+  const calculate_loan_pymts = (r,cost,percentageOfCost,incentives) => {
+      const p = cost - percentageOfCost - incentives; // principal
+      const n = 120; //payback period in months
+      const y = Math.pow(1+r, 120); 
+      const ry = r * y; 
+      const pry = p * ry;
+      const result = pry/(y-1);
+      return result;
+  }; 
+
   return (
     <div className="app_Config_container">
       <div className="app_displayFlex">
@@ -130,6 +152,8 @@ const SolarConfig = ({
           setRecommendedProducts={setRecommendedProducts}
           panelOptions={panelOptions}
           recommendedSize={recommendedSize} 
+          loan_pymts={loan_pymts}
+          calculate_loan_pymts={calculate_loan_pymts}
         />
         <div className="app_config_border"></div>
         <SolarPowerWall
@@ -138,6 +162,8 @@ const SolarConfig = ({
           setActivePurchase={setActivePurchase}
           sumPurchases={sumPurchases}
           powerwallPricing={powerwallPricing}
+          loan_pymts={loan_pymts}
+          calculate_loan_pymts={calculate_loan_pymts}
         />
       </div>
       <SolarAddProduct 

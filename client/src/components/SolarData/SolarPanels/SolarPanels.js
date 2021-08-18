@@ -9,9 +9,21 @@ const SolarPanels = ({
   setRecommendedProducts,
   panelOptions,
   recommendedSize,
+  loan_pymts,
+  calculate_loan_pymts,
 }) => {
   const [activeSolarBtn, setActiveSolarBtn] = useState("");
   const products = { ...recommendedProducts };
+  const [activeSPPayment, setActiveSPPayment] = useState("Cash");
+
+  const [sPVisibility, setSPVisibility] = useState({
+    Cash: true,
+    Loan: false,
+  });
+
+  const showSPComponent = (value) => {
+    setSPVisibility({ [value]: true });
+  };
 
   useEffect(() => {
     setActiveSolarBtn(products["selected_btn"]);
@@ -21,6 +33,7 @@ const SolarPanels = ({
     console.log(">>> ", solarRecommendations[panelOptions[v]]);
     setRecommendedProducts(solarRecommendations[panelOptions[v]]);
   };
+
 
   return (
     <div className="app_columns_width vehicleConfig_column1">
@@ -131,10 +144,39 @@ const SolarPanels = ({
       </div>
       <div className="app_Solar_costs_container">
         <div className="app_displayFlex app_Solar_selectPymt_div">
-          <div className="app_Solar_selectPymt_btn">Cash</div>
-          <div className="app_Solar_selectPymt_btn">Loan</div>
+          <div 
+            onClick={() => {
+              showSPComponent("Cash");
+              setActiveSPPayment("Cash");
+            }}
+            className={`app_Solar_selectPymt_btn ${
+              activeSPPayment == "Cash" && "selected_payment"
+            }`} 
+          >
+            Cash
+          </div>
+          <div 
+            onClick={() => {
+              showSPComponent("Loan");
+              setActiveSPPayment("Loan");
+            }}
+            className={`app_Solar_selectPymt_btn ${
+              activeSPPayment == "Loan" && "selected_payment"
+            }`} 
+          >
+            Loan
+          </div>
         </div>
-        <SolarFinance products={products} />
+        {sPVisibility.Cash ? (
+          <SolarCash products={products} />
+        ) : ("")}
+        {sPVisibility.Loan ? (
+          <SolarFinance 
+            products={products} 
+            loan_pymts={loan_pymts}
+            calculate_loan_pymts={calculate_loan_pymts}
+          />
+        ) : ("")} 
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './SolarPowerWall.css';
+import PowerwallCash from "../../SolarData/Powerwall_pymt/PowerwallCash/PowerwallCash.js";
+import PowerwallFinance from "../../SolarData/Powerwall_pymt/PowerwallFinance/PowerwallFinance.js";
 
 const SolarPowerWall = ({
   recommendedProducts,
@@ -7,9 +9,21 @@ const SolarPowerWall = ({
   setActivePurchase,
   sumPurchases,
   powerwallPricing, 
+  loan_pymts,
+  calculate_loan_pymts,
 }) => { 
   const [activePWBtn, setActivePWBtn] = useState(""); 
   const products = {...recommendedProducts};
+  const [activePWPayment, setActivePWPayment] = useState("Cash");
+
+  const [pWVisibility, setPWVisibility] = useState({
+    Cash: true,
+    Loan: false,
+  });
+
+  const showPWComponent = (value) => {
+    setPWVisibility({ [value]: true });
+  };
 
   useEffect(() => {
     // console.log('pww: ',products["recommended_powerwalls"])
@@ -17,6 +31,7 @@ const SolarPowerWall = ({
   }, [products, activePWBtn]);
 
   // console.log("activePWBtn:- ",activePWBtn) // why doesn't useEffect populate asap?
+
 
   return (
     <div className="app_columns_width vehicleConfig_column2">
@@ -151,35 +166,40 @@ const SolarPowerWall = ({
         </div>
         <div className="app_Solar_costs_container">
               <div className="app_displayFlex app_Solar_selectPymt_div">
-                  <div className="app_Solar_selectPymt_btn">Cash</div>
-                  <div className="app_Solar_selectPymt_btn">Loan</div> 
+                  <div 
+                    onClick={() => {
+                      showPWComponent("Cash");
+                      setActivePWPayment("Cash");
+                    }}
+                    className={`app_Solar_selectPymt_btn ${
+                      activePWPayment == "Cash" && "selected_payment"
+                    }`} 
+                  >
+                    Cash
+                  </div>
+                  <div 
+                    onClick={() => {
+                      showPWComponent("Loan");
+                      setActivePWPayment("Loan");
+                    }}
+                    className={`app_Solar_selectPymt_btn ${
+                      activePWPayment == "Loan" && "selected_payment"
+                    }`} 
+                  >
+                    Loan
+                  </div> 
               </div>
-              <div className="solarPowerWall_pricing_container"> 
-                  <div className="app_Solar_cost_div">
-                      <span className="app_inline-block">{powerwallPricing["select_2PW"]["num"]}</span>
-                      <span className="app_inline-block app_Solar_cost">${powerwallPricing["select_2PW"]["pw_price"].toLocaleString("en-US")}</span>
-                  </div>
-                  <div className="app_Solar_cost_div">
-                      <span className="app_inline-block">Gateway</span>
-                      <span className="app_inline-block app_Solar_cost">${powerwallPricing["select_2PW"]["gateway_price"].toLocaleString("en-US")}</span>
-                  </div>
-                  <div className="app_Solar_cost_div">
-                      <span className="app_inline-block">Power Installation</span>
-                      <span className="app_inline-block app_Solar_cost">${powerwallPricing["select_2PW"]["install"].toLocaleString("en-US")}</span>
-                  </div>
-                  <div className="app_Solar_cost_div">
-                      <span className="app_inline-block">Cash Price</span>
-                      <span className="app_inline-block app_Solar_cost">${powerwallPricing["select_2PW"]["cash_price"].toLocaleString("en-US")}</span>
-                  </div>
-                  <div className="app_Solar_cost_div">
-                      <span className="app_inline-block">Federal Tax Credit</span>
-                      <span className="app_inline-block app_Solar_cost">-${powerwallPricing["select_2PW"]["fed_credit"].toLocaleString("en-US")}</span>
-                  </div>
-                  <div className="app_Solar_cost_div">
-                      <span className="app_inline-block">Price After Incentives (excludes sales tax)</span>
-                      <span className="app_inline-block app_Solar_cost">${powerwallPricing["select_2PW"]["price_after_incentives"].toLocaleString("en-US")}</span>
-                  </div>
-              </div>
+              {pWVisibility.Cash ? (
+                <PowerwallCash powerwallPricing={powerwallPricing} />
+              ) : ("")}
+              {pWVisibility.Loan ? (
+                <PowerwallFinance 
+                  powerwallPricing={powerwallPricing} 
+                  loan_pymts={loan_pymts}
+                  calculate_loan_pymts={calculate_loan_pymts}
+                />
+              ) : ("")} 
+              
         </div>
     </div> 
   ); 
