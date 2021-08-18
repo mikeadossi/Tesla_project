@@ -1,7 +1,7 @@
 import React from 'react';
 import './InfoPanel_warranty.css';
 
-const InfoPanel_warranty = (props) => {
+const InfoPanel_warranty = (props) => { 
 
   return (
     <div className="InfoPanel_charging_container">
