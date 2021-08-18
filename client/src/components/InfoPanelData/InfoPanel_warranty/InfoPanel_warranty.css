@@ -5,3 +5,7 @@
 .infoPanel_warranty_ul li{
     padding-bottom: 10px;
 }
+
+.infoPanel_warranty_container div{
+    padding-top: 5px;
+}

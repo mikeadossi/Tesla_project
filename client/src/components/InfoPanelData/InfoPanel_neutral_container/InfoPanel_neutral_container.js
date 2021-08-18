@@ -4,20 +4,23 @@ import "./InfoPanel_neutral_container.css";
 const InfoPanel_neutral_container = ({ 
   showComponent,
   whichComponent,
+  vOrder,
 }) => { 
   
   return (
     <div className="InfoPanel_neutral_container_div">
-      <div className="infoPanel_payments_div">
-        <div
-          className="infoPanel_section app_cursorPointer"
-          onClick={() =>
-            showComponent("InfoPanel_payments")
-          }
-        >
-          PAYMENT
+      {vOrder ? (
+        <div className="infoPanel_payments_div">
+          <div
+            className="infoPanel_section app_cursorPointer"
+            onClick={() =>
+              showComponent("InfoPanel_payments")
+            }
+          >
+            PAYMENT
+          </div>
         </div>
-      </div>
+      ) : ("")}
       <div className="infoPanel_incentives_div">
         <div
           className="infoPanel_section app_cursorPointer"
