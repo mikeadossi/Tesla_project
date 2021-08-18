@@ -243,10 +243,7 @@ const SolarAddProduct = ({
               <div>
                 Additional monthly cost (w/o Solar):{" "}
                 <span>${sumPurchases.monthlyCost.toLocaleString("en-US")}</span>
-              </div>
-              <div>
-                New Recommended Size: <span>16.32 kW</span>
-              </div>
+              </div> 
             </div>
           ) : (
             ""

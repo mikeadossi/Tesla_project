@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import './SolarProductPanel.css';
-import SolarMenu from '../../components/SolarData/SolarMenu/SolarMenu';
-import SolarConfig from '../../components/SolarData/SolarConfig/SolarConfig';
+import React, { useState, useEffect } from "react";
+import "./SolarProductPanel.css";
+import SolarMenu from "../../components/SolarData/SolarMenu/SolarMenu";
+import SolarConfig from "../../components/SolarData/SolarConfig/SolarConfig";
 import { connect } from "react-redux";
 
 import { getAllStateData } from "../../config/actions/usStateActions";
 
-const SolarProductPanel = ({zipcode_data, usStatesData}) => { 
-
+const SolarProductPanel = ({ zipcode_data, usStatesData }) => {
   const [solarStateData, setSolarStateData] = useState("");
   const [solarProductData, setSolarProductData] = useState("");
   const [showSolarConfig, setShowSolarConfig] = useState(false);
@@ -15,13 +14,13 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
   const [recommendedSize, setRecommendedSize] = useState("");
 
   useEffect(() => {
-    if (zipcode_data.id) { 
+    if (zipcode_data.id) {
       getAllStateData(zipcode_data.state_abbr);
     }
   }, [zipcode_data]); // this becomes available when we call action getMyZipcodeData()
 
-  useEffect(() => { 
-    if (usStatesData[0]) { 
+  useEffect(() => {
+    if (usStatesData[0]) {
       // show Submit Energy Use options
       setSolarStateData(() => {
         return [
@@ -30,7 +29,7 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
           JSON.parse(usStatesData[0]["vehicle_order"]),
           JSON.parse(usStatesData[0]["payment_object"]),
         ];
-      }); 
+      });
     }
   }, [usStatesData]); // this becomes available when we call action getAllStateData()
 
@@ -41,7 +40,7 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
       panel_cost: 10200,
       fed_credit: 2652,
       price_after_incentives: 7548,
-      recommended_powerwalls: 1,
+      recommended_powerwalls: "select_1PW",
       selected_btn: "select_4kW",
     },
     151: {
@@ -50,7 +49,7 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
       panel_cost: 20400,
       fed_credit: 5304,
       price_after_incentives: 15096,
-      recommended_powerwalls: 2,
+      recommended_powerwalls: "select_2PW",
       selected_btn: "select_8kW",
     },
     201: {
@@ -59,7 +58,7 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
       panel_cost: 30600,
       fed_credit: 7956,
       price_after_incentives: 22644,
-      recommended_powerwalls: 2,
+      recommended_powerwalls: "select_2PW",
       selected_btn: "select_12kW",
     },
     301: {
@@ -68,7 +67,7 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
       panel_cost: 40800,
       fed_credit: 10608,
       price_after_incentives: 30192,
-      recommended_powerwalls: 3,
+      recommended_powerwalls: "select_3PW",
       selected_btn: "select_16kW",
     },
     401: {
@@ -77,7 +76,7 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
       panel_cost: 51000,
       fed_credit: 13260,
       price_after_incentives: 37740,
-      recommended_powerwalls: 3,
+      recommended_powerwalls: "select_3PW",
       selected_btn: "select_20kW",
     },
     501: {
@@ -86,7 +85,7 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
       panel_cost: 61200,
       fed_credit: 15912,
       price_after_incentives: 45288,
-      recommended_powerwalls: 4,
+      recommended_powerwalls: "select_4PW",
       selected_btn: "select_24kW",
     },
     601: {
@@ -95,7 +94,7 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
       panel_cost: 71400,
       fed_credit: 18564,
       price_after_incentives: 52836,
-      recommended_powerwalls: 4,
+      recommended_powerwalls: "select_4PW",
       selected_btn: "select_28kW",
     },
     701: {
@@ -104,7 +103,7 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
       panel_cost: 81600,
       fed_credit: 21216,
       price_after_incentives: 60384,
-      recommended_powerwalls: 5,
+      recommended_powerwalls: "select_5PW",
       selected_btn: "select_32kW",
     },
   };
@@ -120,36 +119,134 @@ const SolarProductPanel = ({zipcode_data, usStatesData}) => {
     "32 kW": 701,
   };
 
-  console.log('>> zz =====> ',zipcode_data.id)
+  const powerwallPricing = {
+    select_1PW: {
+      num: "1 Powerwall",
+      pw_price: 7500,
+      gateway_price: 1000,
+      install: 3500,
+      cash_price: 12000,
+      fed_credit: 3120,
+      price_after_incentives: 8880,
+    },
+    select_2PW: {
+      num: "2 Powerwalls",
+      pw_price: 10500,
+      gateway_price: 1000,
+      install: 3000,
+      cash_price: 14500,
+      fed_credit: 3770,
+      price_after_incentives: 10730,
+    },
+    select_3PW: {
+      num: "3 Powerwalls",
+      pw_price: 13500,
+      gateway_price: 1000,
+      install: 2500,
+      cash_price: 17000,
+      fed_credit: 4420,
+      price_after_incentives: 12580,
+    },
+    select_4PW: {
+      num: "4 Powerwalls",
+      pw_price: 16500,
+      gateway_price: 1000,
+      install: 2000,
+      cash_price: 19500,
+      fed_credit: 5070,
+      price_after_incentives: 14430,
+    },
+    select_5PW: {
+      num: "5 Powerwalls",
+      pw_price: 19500,
+      gateway_price: 1000,
+      install: 1500,
+      cash_price: 22000,
+      fed_credit: 5720,
+      price_after_incentives: 16280,
+    },
+    select_6PW: {
+      num: "6 Powerwalls",
+      pw_price: 22500,
+      gateway_price: 1000,
+      install: 1000,
+      cash_price: 24500,
+      fed_credit: 6370,
+      price_after_incentives: 18130,
+    },
+    select_7PW: {
+      num: "7 Powerwalls",
+      pw_price: 25500,
+      gateway_price: 1000,
+      install: 500,
+      cash_price: 27000,
+      fed_credit: 7020,
+      price_after_incentives: 19980,
+    },
+    select_8PW: {
+      num: "8 Powerwalls",
+      pw_price: 28500,
+      gateway_price: 1000,
+      install: 0,
+      cash_price: 29500,
+      fed_credit: 7670,
+      price_after_incentives: 21830,
+    },
+    select_9PW: {
+      num: "9 Powerwalls",
+      pw_price: 31500,
+      gateway_price: 1000,
+      install: 0,
+      cash_price: 32500,
+      fed_credit: 8450,
+      price_after_incentives: 24050,
+    },
+    select_10PW: {
+      num: "10 Powerwalls",
+      pw_price: 34500,
+      gateway_price: 1000,
+      install: 0,
+      cash_price: 35500,
+      fed_credit: 9230,
+      price_after_incentives: 26270,
+    },
+  };
 
-  return (   
-    <div className="app_Panel_container"> 
-      <SolarMenu 
+  console.log(">> zz =====> ", zipcode_data.id);
+
+  return (
+    <div className="app_Panel_container">
+      <SolarMenu
         zip={zipcode_data.id}
         setShowSolarConfig={setShowSolarConfig}
         solarRecommendations={solarRecommendations}
         setRecommendedProducts={setRecommendedProducts}
         setRecommendedSize={setRecommendedSize}
       />
-      {showSolarConfig ? <SolarConfig 
-        recommendedProducts={recommendedProducts}
-        solarRecommendations={solarRecommendations}
-        setRecommendedProducts={setRecommendedProducts} 
-        panelOptions={panelOptions}
-        recommendedSize={recommendedSize} 
-      /> : ""}
+      {showSolarConfig ? (
+        <SolarConfig
+          recommendedProducts={recommendedProducts}
+          solarRecommendations={solarRecommendations}
+          setRecommendedProducts={setRecommendedProducts}
+          panelOptions={panelOptions}
+          recommendedSize={recommendedSize}
+          powerwallPricing={powerwallPricing}
+        />
+      ) : (
+        ""
+      )}
     </div>
-  ); 
-}
+  );
+};
 
 function mapStateToProps(state) {
   return {
     error: state.vehiclesReducer.error,
     usStatesData: state.usStateReducer.usStatesData,
-    zipcode_data: state.navReducer.zipcode_data, 
+    zipcode_data: state.navReducer.zipcode_data,
   };
 }
 
-export default connect(mapStateToProps, { 
+export default connect(mapStateToProps, {
   getAllStateData,
 })(SolarProductPanel);

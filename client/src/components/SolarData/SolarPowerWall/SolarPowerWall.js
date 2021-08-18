@@ -235,7 +235,7 @@ const SolarPowerWall = ({
                   </div> 
               </div>
               {pWVisibility.Cash ? (
-                <PowerwallCash 
+                <PowerwallCash  
                   userPreferredPW={userPreferredPW} 
                 />
               ) : ("")}

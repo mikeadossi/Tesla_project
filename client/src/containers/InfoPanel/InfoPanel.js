@@ -68,42 +68,64 @@ const InfoPanel = (props) => {
           )} 
           {visibility.InfoPanel_payments ? (
           <>
-            <InfoPanel_payments vehicleOrder={vOrder} stateAbbr={stateAbbreviation} /> 
+            <InfoPanel_payments 
+              vehicleOrder={vOrder} 
+              stateAbbr={stateAbbreviation} 
+              whichComponent={props.whichComponent}
+            /> 
           </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_links ? (
           <>
-            <InfoPanel_links vehicleOrder={vOrder} stateAbbr={stateAbbreviation} /> 
+            <InfoPanel_links 
+              vehicleOrder={vOrder} 
+              stateAbbr={stateAbbreviation} 
+              whichComponent={props.whichComponent}
+            /> 
           </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_warranty ? (
           <>
-            <InfoPanel_warranty vehicleOrder={vOrder} stateAbbr={stateAbbreviation} /> 
+            <InfoPanel_warranty 
+              vehicleOrder={vOrder} 
+              stateAbbr={stateAbbreviation} 
+              whichComponent={props.whichComponent}
+            /> 
           </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_incentives ? (
           <>
-            <InfoPanel_incentives vehicleOrder={vOrder} stateAbbr={stateAbbreviation} /> 
+            <InfoPanel_incentives 
+              vehicleOrder={vOrder} 
+              stateAbbr={stateAbbreviation} 
+              whichComponent={props.whichComponent}
+            /> 
           </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_installation ? (
           <>
-            <InfoPanel_installation vehicleOrder={vOrder} stateAbbr={stateAbbreviation} /> 
+            <InfoPanel_installation 
+              vehicleOrder={vOrder} 
+              stateAbbr={stateAbbreviation} 
+            /> 
           </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_roofTypes ? (
           <>
-            <InfoPanel_roofTypes vehicleOrder={vOrder} stateAbbr={stateAbbreviation} /> 
+            <InfoPanel_roofTypes 
+              vehicleOrder={vOrder} 
+              stateAbbr={stateAbbreviation} 
+            /> 
           </>
           ) : (
             ""

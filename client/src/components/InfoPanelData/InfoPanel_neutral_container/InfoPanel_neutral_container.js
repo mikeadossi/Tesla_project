@@ -1,7 +1,10 @@
 import React from "react";
 import "./InfoPanel_neutral_container.css";
 
-const InfoPanel_neutral_container = ({ showComponent }) => {
+const InfoPanel_neutral_container = ({ 
+  showComponent,
+  whichComponent,
+}) => { 
   
   return (
     <div className="InfoPanel_neutral_container_div">

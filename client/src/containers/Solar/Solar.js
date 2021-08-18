@@ -5,7 +5,8 @@ import SolarProductPanel from "../SolarProductPanel/SolarProductPanel.js";
 import { connect } from "react-redux";
 
 const Solar = (props) => {
-  const { statedata } = props;
+  const { statedata } = props; 
+
 
   return (
     <div className="solar_container app_pageHeight">
