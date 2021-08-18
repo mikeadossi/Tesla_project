@@ -9,7 +9,7 @@ import {
   showResetWarning,
 } from "../../../config/actions/navActions";
 
-const VehicleConfigUserEntry = ({
+const VehicleConfigUserEntry = ({ 
   showComponent,
   visibility,
   setActivePayment,

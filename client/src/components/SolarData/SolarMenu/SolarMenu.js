@@ -1,50 +1,48 @@
 import React, { useState } from "react";
 import "./SolarMenu.css";
 
-const SolarMenu = ({ 
-  zip, 
+const SolarMenu = ({
+  zip,
   setShowSolarConfig,
   solarRecommendations,
-  setRecommendedProducts, 
+  setRecommendedProducts,
   setRecommendedSize,
 }) => {
-
   const [userEnergyCost, setUserEnergyCost] = useState(""); 
 
   const openSolarConfig = (e, value) => {
     e.preventDefault();
     setShowSolarConfig(true);
-    submitEnergyCost(value);
+    submitEnergyCost(value); 
   };
 
-  const submitEnergyCost = (v) => { 
-    if(v < 101){ 
+  const submitEnergyCost = (v) => {
+    if (v < 101) {
       setRecommendedProducts(solarRecommendations[101]);
       setRecommendedSize("4.08");
-    } else if (v > 100 && v < 151){ 
+    } else if (v > 100 && v < 151) {
       setRecommendedProducts(solarRecommendations[151]);
       setRecommendedSize("8.16");
-    } else if (v > 150 && v < 201){ 
+    } else if (v > 150 && v < 201) {
       setRecommendedProducts(solarRecommendations[201]);
       setRecommendedSize("12.24");
-    } else if (v > 200 && v < 301){ 
+    } else if (v > 200 && v < 301) {
       setRecommendedProducts(solarRecommendations[301]);
       setRecommendedSize("16.32");
-    } else if (v > 300 && v < 401){ 
+    } else if (v > 300 && v < 401) {
       setRecommendedProducts(solarRecommendations[401]);
       setRecommendedSize("20.40");
-    }  else if (v > 400 && v < 501){ 
+    } else if (v > 400 && v < 501) {
       setRecommendedProducts(solarRecommendations[501]);
       setRecommendedSize("24.28");
-    }  else if (v > 500 && v < 601){ 
+    } else if (v > 500 && v < 601) {
       setRecommendedProducts(solarRecommendations[601]);
       setRecommendedSize("28.56");
-    }  else if (v > 600){ 
+    } else if (v > 600) {
       setRecommendedProducts(solarRecommendations[701]);
       setRecommendedSize("32.64");
-    } 
-  }
-
+    }
+  };
 
   return (
     <div>
@@ -59,7 +57,7 @@ const SolarMenu = ({
                     Average monthly electricity cost:
                   </label>
                   <span>$</span>
-                  <input 
+                  <input
                     className="solarMenu_form_bill_input app_main_submit_input app_removeBlue"
                     onChange={(e) => setUserEnergyCost(e.target.value)}
                   ></input>

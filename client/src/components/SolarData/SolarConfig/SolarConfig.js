@@ -94,54 +94,54 @@ const SolarConfig = ({
     addFutureUserPurchases();
   }, [activePurchase]);
 
-  const addFutureUserPurchases = () => { 
+  const addFutureUserPurchases = () => {
     let purchaseObj = {
       kWHperDay: 0,
       kWHperMonth: 0,
       monthlyCost: 0,
-    }; 
+    };
 
     const addUpPurchases = (item) => {
       purchaseObj.kWHperDay += energyAppliance[item]["kWh_per_day"];
       purchaseObj.kWHperMonth += energyAppliance[item]["kWh_per_mo"];
       purchaseObj.monthlyCost += energyAppliance[item]["additional_mo_cost"];
-    }; 
+    };
 
-    activePurchase.forEach(addUpPurchases); // loop on our array activePurchases 
+    activePurchase.forEach(addUpPurchases); // loop on our array activePurchases
     setSumPurchases(purchaseObj);
   };
 
   const removeFromActive = (v) => {
     const activeP = [...activePurchase];
-    const indx = activeP.indexOf(v); 
-    
+    const indx = activeP.indexOf(v);
+
     if (indx > -1) {
       activeP.splice(indx, 1);
     }
     setActivePurchase(activeP);
-  }
+  };
 
   const loan_pymts = (cost) => {
-    const r = 0.0299/12; // interest rate
-    const percentageOfCost = cost * 0.10;
+    const r = 0.0299 / 12; // interest rate
+    const percentageOfCost = cost * 0.1;
     const incentives = cost * 0.26;
     const solutions = [
-        calculate_loan_pymts(r,cost,percentageOfCost,0), 
-        calculate_loan_pymts(r,cost,percentageOfCost,incentives),
-        percentageOfCost
+      calculate_loan_pymts(r, cost, percentageOfCost, 0),
+      calculate_loan_pymts(r, cost, percentageOfCost, incentives),
+      percentageOfCost,
     ];
     return solutions;
-  }
+  };
 
-  const calculate_loan_pymts = (r,cost,percentageOfCost,incentives) => {
-      const p = cost - percentageOfCost - incentives; // principal
-      const n = 120; //payback period in months
-      const y = Math.pow(1+r, 120); 
-      const ry = r * y; 
-      const pry = p * ry;
-      const result = pry/(y-1);
-      return result;
-  }; 
+  const calculate_loan_pymts = (r, cost, percentageOfCost, incentives) => {
+    const p = cost - percentageOfCost - incentives; // principal
+    const n = 120; //payback period in months
+    const y = Math.pow(1 + r, 120);
+    const ry = r * y;
+    const pry = p * ry;
+    const result = pry / (y - 1);
+    return result;
+  };
 
   return (
     <div className="app_Config_container">
@@ -151,7 +151,7 @@ const SolarConfig = ({
           solarRecommendations={solarRecommendations}
           setRecommendedProducts={setRecommendedProducts}
           panelOptions={panelOptions}
-          recommendedSize={recommendedSize} 
+          recommendedSize={recommendedSize}
           loan_pymts={loan_pymts}
           calculate_loan_pymts={calculate_loan_pymts}
         />
@@ -162,11 +162,12 @@ const SolarConfig = ({
           setActivePurchase={setActivePurchase}
           sumPurchases={sumPurchases}
           powerwallPricing={powerwallPricing}
+          recommendedSize={recommendedSize} 
           loan_pymts={loan_pymts}
           calculate_loan_pymts={calculate_loan_pymts}
         />
       </div>
-      <SolarAddProduct 
+      <SolarAddProduct
         setActivePurchase={setActivePurchase}
         activePurchase={activePurchase}
         addFutureUserPurchases={addFutureUserPurchases}

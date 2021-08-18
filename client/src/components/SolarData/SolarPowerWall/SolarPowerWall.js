@@ -9,12 +9,15 @@ const SolarPowerWall = ({
   setActivePurchase,
   sumPurchases,
   powerwallPricing, 
+  recommendedSize, 
   loan_pymts,
   calculate_loan_pymts,
 }) => { 
-  const [activePWBtn, setActivePWBtn] = useState(""); 
-  const products = {...recommendedProducts};
+  const products = {...recommendedProducts}; 
+  const [userPreferredPW, setUserPreferredPW] = useState(powerwallPricing[products["recommended_powerwalls"]]);
+  const [activePWBtn, setActivePWBtn] = useState(products["recommended_powerwalls"]); 
   const [activePWPayment, setActivePWPayment] = useState("Cash");
+  
 
   const [pWVisibility, setPWVisibility] = useState({
     Cash: true,
@@ -24,12 +27,7 @@ const SolarPowerWall = ({
   const showPWComponent = (value) => {
     setPWVisibility({ [value]: true });
   };
-
-  useEffect(() => {
-    // console.log('pww: ',products["recommended_powerwalls"])
-    setActivePWBtn(products["recommended_powerwalls"]);
-  }, [products, activePWBtn]);
-
+  
   // console.log("activePWBtn:- ",activePWBtn) // why doesn't useEffect populate asap?
 
 
@@ -44,15 +42,26 @@ const SolarPowerWall = ({
             </div>
 
             <div className="app_Config_specs_container app_Solar_specs_container">
-              <div className="app_Config_spec vehicleConfig_range">Recommended: <span>2 Powerwalls</span></div>
-              <div className="app_Config_spec vehicleConfig_range"><span>10 Powerwalls</span> Cost: $<span>100,000</span></div>
-              <div className="app_Config_spec vehicleConfig_topSpeed"><span>2 Powerwalls</span> = <span>1</span> day backup</div>
+            {activePWBtn === products["recommended_powerwalls"] ? (
+              <div className="app_Config_spec vehicleConfig_range">
+                Recommended: <span>{powerwallPricing[products["recommended_powerwalls"]]["num"]}</span>
+              </div>
+            ) : (
+              <div className="app_Config_spec vehicleConfig_range paint_red">
+                Recommended: <span>{powerwallPricing[products["recommended_powerwalls"]]["num"]}</span>
+              </div>
+            )}
+              <div className="app_Config_spec vehicleConfig_range"><span>{userPreferredPW["num"]}</span> Cost: $<span>{userPreferredPW["cash_price"].toLocaleString("en-US")}</span></div> 
             </div> 
         </div>
 
         <div className="app_Solar_kw_div">
             <div className="app_displayFlex">
                 <div 
+                  onClick={(event) => {
+                    setActivePWBtn("select_1PW");
+                    setUserPreferredPW(powerwallPricing["select_1PW"]);
+                  }}
                   className={`
                     app_seeMore_btn 
                     app_noSelect 
@@ -64,6 +73,10 @@ const SolarPowerWall = ({
                   1
                 </div>
                 <div 
+                  onClick={(event) => {
+                    setActivePWBtn("select_2PW");
+                    setUserPreferredPW(powerwallPricing["select_2PW"]);
+                  }}
                   className={`
                     app_seeMore_btn 
                     app_noSelect 
@@ -75,6 +88,10 @@ const SolarPowerWall = ({
                   2
                 </div>
                 <div 
+                  onClick={(event) => {
+                    setActivePWBtn("select_3PW");
+                    setUserPreferredPW(powerwallPricing["select_3PW"]);
+                  }}
                   className={`
                     app_seeMore_btn 
                     app_noSelect 
@@ -86,6 +103,10 @@ const SolarPowerWall = ({
                   3
                 </div>
                 <div 
+                  onClick={(event) => {
+                    setActivePWBtn("select_4PW");
+                    setUserPreferredPW(powerwallPricing["select_4PW"]);
+                  }}
                   className={`
                     app_seeMore_btn 
                     app_noSelect 
@@ -97,6 +118,10 @@ const SolarPowerWall = ({
                   4
                 </div>
                 <div 
+                  onClick={(event) => {
+                    setActivePWBtn("select_5PW");
+                    setUserPreferredPW(powerwallPricing["select_5PW"]);
+                  }}
                   className={`
                     app_seeMore_btn 
                     app_noSelect 
@@ -108,6 +133,10 @@ const SolarPowerWall = ({
                   5
                 </div>
                 <div 
+                  onClick={(event) => {
+                    setActivePWBtn("select_6PW");
+                    setUserPreferredPW(powerwallPricing["select_6PW"]);
+                  }}
                   className={`
                     app_seeMore_btn 
                     app_noSelect 
@@ -119,6 +148,10 @@ const SolarPowerWall = ({
                   6
                 </div>
                 <div 
+                  onClick={(event) => {
+                    setActivePWBtn("select_7PW");
+                    setUserPreferredPW(powerwallPricing["select_7PW"]);
+                  }}
                   className={`
                     app_seeMore_btn 
                     app_noSelect 
@@ -130,6 +163,10 @@ const SolarPowerWall = ({
                   7
                 </div>
                 <div 
+                  onClick={(event) => {
+                    setActivePWBtn("select_8PW");
+                    setUserPreferredPW(powerwallPricing["select_8PW"]);
+                  }}
                   className={`
                     app_seeMore_btn 
                     app_noSelect 
@@ -141,6 +178,10 @@ const SolarPowerWall = ({
                   8
                 </div>
                 <div 
+                  onClick={(event) => {
+                    setActivePWBtn("select_9PW");
+                    setUserPreferredPW(powerwallPricing["select_9PW"]);
+                  }}
                   className={`
                     app_seeMore_btn 
                     app_noSelect 
@@ -152,6 +193,10 @@ const SolarPowerWall = ({
                   9
                 </div>
                 <div 
+                  onClick={(event) => {
+                    setActivePWBtn("select_10PW");
+                    setUserPreferredPW(powerwallPricing["select_10PW"]);
+                  }}
                   className={`
                     app_seeMore_btn 
                     app_noSelect 
@@ -190,13 +235,14 @@ const SolarPowerWall = ({
                   </div> 
               </div>
               {pWVisibility.Cash ? (
-                <PowerwallCash powerwallPricing={powerwallPricing} />
+                <PowerwallCash 
+                  userPreferredPW={userPreferredPW} 
+                />
               ) : ("")}
               {pWVisibility.Loan ? (
-                <PowerwallFinance 
-                  powerwallPricing={powerwallPricing} 
-                  loan_pymts={loan_pymts}
-                  calculate_loan_pymts={calculate_loan_pymts}
+                <PowerwallFinance  
+                  userPreferredPW={userPreferredPW} 
+                  loan_pymts={loan_pymts} 
                 />
               ) : ("")} 
               

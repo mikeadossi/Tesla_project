@@ -30,10 +30,8 @@ const SolarPanels = ({
   }, [products]);
 
   const userSelectedProduct = (v) => {
-    console.log(">>> ", solarRecommendations[panelOptions[v]]);
     setRecommendedProducts(solarRecommendations[panelOptions[v]]);
   };
-
 
   return (
     <div className="app_columns_width vehicleConfig_column1">
@@ -144,39 +142,39 @@ const SolarPanels = ({
       </div>
       <div className="app_Solar_costs_container">
         <div className="app_displayFlex app_Solar_selectPymt_div">
-          <div 
+          <div
             onClick={() => {
               showSPComponent("Cash");
               setActiveSPPayment("Cash");
             }}
             className={`app_Solar_selectPymt_btn ${
               activeSPPayment == "Cash" && "selected_payment"
-            }`} 
+            }`}
           >
             Cash
           </div>
-          <div 
+          <div
             onClick={() => {
               showSPComponent("Loan");
               setActiveSPPayment("Loan");
             }}
             className={`app_Solar_selectPymt_btn ${
               activeSPPayment == "Loan" && "selected_payment"
-            }`} 
+            }`}
           >
             Loan
           </div>
         </div>
-        {sPVisibility.Cash ? (
-          <SolarCash products={products} />
-        ) : ("")}
+        {sPVisibility.Cash ? <SolarCash products={products} /> : ""}
         {sPVisibility.Loan ? (
-          <SolarFinance 
-            products={products} 
+          <SolarFinance
+            products={products}
             loan_pymts={loan_pymts}
             calculate_loan_pymts={calculate_loan_pymts}
           />
-        ) : ("")} 
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
