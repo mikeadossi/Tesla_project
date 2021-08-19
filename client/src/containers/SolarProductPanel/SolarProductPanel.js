@@ -6,7 +6,12 @@ import { connect } from "react-redux";
 
 import { getAllStateData } from "../../config/actions/usStateActions";
 
-const SolarProductPanel = ({ zipcode_data, usStatesData }) => {
+const SolarProductPanel = ({ 
+  zipcode_data, 
+  usStatesData,
+  getAllStateData,
+}) => {
+
   const [solarStateData, setSolarStateData] = useState("");
   const [solarProductData, setSolarProductData] = useState("");
   const [showSolarConfig, setShowSolarConfig] = useState(false);
@@ -15,6 +20,7 @@ const SolarProductPanel = ({ zipcode_data, usStatesData }) => {
 
   useEffect(() => {
     if (zipcode_data.id) {
+      console.log('zipcode =====> ',zipcode_data.id)
       getAllStateData(zipcode_data.state_abbr);
     }
   }, [zipcode_data]); // this becomes available when we call action getMyZipcodeData()
@@ -32,6 +38,7 @@ const SolarProductPanel = ({ zipcode_data, usStatesData }) => {
       });
     }
   }, [usStatesData]); // this becomes available when we call action getAllStateData()
+
 
   const solarRecommendations = {
     101: {
@@ -212,7 +219,6 @@ const SolarProductPanel = ({ zipcode_data, usStatesData }) => {
     },
   };
 
-  console.log(">> zz =====> ", zipcode_data.id);
 
   return (
     <div className="app_Panel_container">
