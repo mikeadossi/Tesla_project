@@ -54,6 +54,7 @@ const InfoPanel = (props) => {
           <>
             <InfoPanel_vehicle_container 
               showComponent={showComponent} 
+              vOrder={vOrder}
             />
             <InfoPanel_neutral_container 
               showComponent={showComponent} 

@@ -19,8 +19,7 @@ const SolarProductPanel = ({
   const [recommendedSize, setRecommendedSize] = useState("");
 
   useEffect(() => {
-    if (zipcode_data.id) {
-      console.log('zipcode =====> ',zipcode_data.id)
+    if (zipcode_data.id) { 
       getAllStateData(zipcode_data.state_abbr);
     }
   }, [zipcode_data]); // this becomes available when we call action getMyZipcodeData()

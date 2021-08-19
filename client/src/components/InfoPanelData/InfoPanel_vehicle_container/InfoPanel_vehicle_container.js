@@ -1,10 +1,11 @@
 import React from 'react';
 import './InfoPanel_vehicle_container.css'; 
 
-const InfoPanel_vehicle_container = (props) => {
+const InfoPanel_vehicle_container = (props) => { 
   
   return (
     <div className="InfoPanel_vehicle_container_div">
+      {props.vOrder ? (
         <div className="infoPanel_locations_div">
           <div 
             className="infoPanel_section app_cursorPointer" 
@@ -13,6 +14,7 @@ const InfoPanel_vehicle_container = (props) => {
             LOCATIONS NEARBY
           </div> 
         </div>
+      ) : ("")}
     </div>
   ); 
 }

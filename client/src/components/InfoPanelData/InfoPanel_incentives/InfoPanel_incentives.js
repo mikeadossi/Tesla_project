@@ -13,8 +13,7 @@ const InfoPanel_incentives = (props) => {
           </p>
         ) : ("")}
         {props.whichComponent === "solar" ? (
-          <p className="InfoPanel_incentives_container content_solar">
-            {props.stateAbbr}
+          <p className="InfoPanel_incentives_container content_solar"> 
             {props.solarIncentives}
           </p>
         ) : ("")}

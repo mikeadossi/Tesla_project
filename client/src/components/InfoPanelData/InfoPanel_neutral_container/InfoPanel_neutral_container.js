@@ -20,14 +20,16 @@ const InfoPanel_neutral_container = ({
           </div>
         </div>
       ) : ("")}
-      <div className="infoPanel_incentives_div">
-        <div
-          className="infoPanel_section app_cursorPointer"
-          onClick={() => showComponent("InfoPanel_incentives")}
-        >
-          INCENTIVES
+      {vOrder ? (
+        <div className="infoPanel_incentives_div">
+          <div
+            className="infoPanel_section app_cursorPointer"
+            onClick={() => showComponent("InfoPanel_incentives")}
+          >
+            INCENTIVES
+          </div>
         </div>
-      </div>
+      ) : ("")}
       <div className="infoPanel_warranty_div">
         <div
           className="infoPanel_section app_cursorPointer"
