@@ -5,13 +5,15 @@ import SolarProductPanel from "../SolarProductPanel/SolarProductPanel.js";
 import { connect } from "react-redux";
 
 const Solar = (props) => {
-  const { statedata } = props; 
-
+  const { statedata } = props;  
 
   return (
     <div className="solar_container app_pageHeight">
       <div className="solar_info_panel app_displayFlex">
-        <InfoPanel whichComponent={"solar"} stateData={statedata} />
+        <InfoPanel 
+          whichComponent={"solar"} 
+          stateData={statedata} 
+        />
         <SolarProductPanel />
       </div>
     </div>
@@ -22,3 +24,4 @@ const mapStateToProps = (state) => ({
   statedata: state.usStateReducer.usStatesData,
 });
 export default connect(mapStateToProps)(Solar);
+

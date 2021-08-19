@@ -28,12 +28,21 @@ const InfoPanel = (props) => {
     setVisibility({ [value]: true });
   };
 
+
   const stateAbbreviation = props.stateData.length
     ? props.stateData[0].state_abbr
     : null;
 
   const vOrder = props.stateData.length
     ? JSON.parse(props.stateData[0].vehicle_order)
+    : null;
+
+  const vehicleIncentives = props.stateData.length
+    ? props.stateData[0].vehicle_incentives
+    : null;
+  
+  const solarIncentives = props.stateData.length
+    ? props.stateData[0].solar_incentives
     : null;
 
 
@@ -43,8 +52,13 @@ const InfoPanel = (props) => {
         <h3 className="infoPanel_title">INFORMATION</h3>
         {props.whichComponent == "vehicles" && (
           <>
-            <InfoPanel_vehicle_container showComponent={showComponent} />
-            <InfoPanel_neutral_container showComponent={showComponent} />
+            <InfoPanel_vehicle_container 
+              showComponent={showComponent} 
+            />
+            <InfoPanel_neutral_container 
+              showComponent={showComponent} 
+              vOrder={vOrder} 
+            />
           </>
         )}
         {props.whichComponent == "solar" && (
@@ -55,7 +69,7 @@ const InfoPanel = (props) => {
         )}
 
         <div>
-          {visibility.InfoPanel_locations_nearby ? (
+          {visibility.InfoPanel_locations_nearby ? ( 
           <>
             <InfoPanel_locations_nearby 
               vehicleOrder={vOrder} 
@@ -90,8 +104,7 @@ const InfoPanel = (props) => {
           )}
           {visibility.InfoPanel_warranty ? (
           <>
-            <InfoPanel_warranty 
-              vehicleOrder={vOrder} 
+            <InfoPanel_warranty
               stateAbbr={stateAbbreviation} 
               whichComponent={props.whichComponent}
             /> 
@@ -103,6 +116,8 @@ const InfoPanel = (props) => {
           <>
             <InfoPanel_incentives 
               vehicleOrder={vOrder} 
+              vehicleIncentives={vehicleIncentives}
+              solarIncentives={solarIncentives}
               stateAbbr={stateAbbreviation} 
               whichComponent={props.whichComponent}
             /> 

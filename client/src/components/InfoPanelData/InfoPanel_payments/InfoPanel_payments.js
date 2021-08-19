@@ -2,7 +2,7 @@ import React from "react";
 import "./InfoPanel_payments.css";
 
 const InfoPanel_payments = (props) => {
-  const vehicleOrder = props.vehicleOrder; 
+  const vehicleOrder = props.vehicleOrder;
   const stateAbbr = props.stateAbbr; 
 
   // make sure to include whether this state allows for net trade0in tax credit - www.realcartips.com/selling/010-states-that-allow-trade-in-tax-credit.shtml

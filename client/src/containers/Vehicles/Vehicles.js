@@ -1,11 +1,11 @@
-import React, { useState, useSelector } from "react";
+import React, { useState } from "react";
 import "./Vehicles.css";
 import InfoPanel from "../InfoPanel/InfoPanel.js";
 import VehiclePanel from "../VehiclePanel/VehiclePanel.js";
 import { connect } from "react-redux";
 
 const Vehicles = (props) => {
-  const { statedata } = props;
+  const { statedata } = props; 
 
   const [modalVisibility, setModalVisibility] = useState({
     locationsModal: false,

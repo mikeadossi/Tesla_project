@@ -33,7 +33,6 @@ const VehicleConfigContainer = ({
     })
     .join("");
 
-  console.log({ vehicleContent, name });
   
   const renderedTesla = vehicleContent.vehicle_render[name];
   const vehicleBattery = renderedTesla["battery"][1]; // ex: "long_range"

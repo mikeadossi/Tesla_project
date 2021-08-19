@@ -17,7 +17,7 @@ import Settings from "./containers/Settings/Settings";
 import Lost from "./containers/Lost/Lost";
 import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
 import { connect } from "react-redux";
-import { getMyZipcodeData } from "./config/actions/navActions";
+import { getMyZipcodeData } from "./config/actions/navActions"; 
 
 import { Provider } from "react-redux";
 import { store } from "./store";
@@ -30,8 +30,7 @@ function App() {
     resetWarning: false,
   });
 
-  const closeMobileMenu = () => {
-    console.log("Close Mobile Menu called!");
+  const closeMobileMenu = () => { 
     setMenuVisibility({
       mobileMenu: false,
       applyAllWarning: false,
@@ -87,7 +86,6 @@ function mapStateToProps(state) {
   return {
     error: state.navReducer.error,
     zipcode_data: state.navReducer.zipcode_data,
-    // state_data: state.usStateReducer.usStatesData,
   };
 }
 

@@ -2,8 +2,7 @@ import React from "react";
 import "./InfoPanel_neutral_container.css";
 
 const InfoPanel_neutral_container = ({ 
-  showComponent,
-  whichComponent,
+  showComponent, 
   vOrder,
 }) => { 
   

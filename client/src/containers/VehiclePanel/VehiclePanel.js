@@ -48,8 +48,7 @@ const VehiclePanel = ({
     });
   }
 
-  useEffect(() => {
-    console.log({ vehicleData });
+  useEffect(() => { 
     dispatch({
       type: VIEW_RENDERED_OPTIONS,
       payload: vehicleData,
@@ -93,8 +92,7 @@ const VehiclePanel = ({
 
   useEffect(() => {
     const payload = usStateVehicleOrder && usStateVehicleOrder[3];
-    if (!loadTeslaData && metaVehicleObj.length > 0 && payload) {
-      console.log("call get modal with ", payload);
+    if (!loadTeslaData && metaVehicleObj.length > 0 && payload) { 
       getTeslaData({ ...payload });
       setLoadTeslaData(true);
       populateMenu();
@@ -328,9 +326,6 @@ const VehiclePanel = ({
     let selectedModel = {
       ...selectedModelRenderObj,
     };
-    // TODO: get list of open vehicles.
-    // TODO: save data inside open vehicles
-    // TODO: close modal
   };
 
   const runReset = (vehicleName, detailsAndRender) => {
@@ -442,9 +437,6 @@ const VehiclePanel = ({
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
       // details should remain unchanged, with render changing (also vehicles should remain unchanged)
-      // console.log('Veh - ',newTeslaModels,'\n selectedOption - ',selectedOption)
-      // console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"]["model3"]["default_optioned_vehicle"]["autopilot"][1])
-      // console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"]["model3"]["autopilot"][1])
 
       return newTeslaModels;
     });
@@ -1180,11 +1172,6 @@ const VehiclePanel = ({
       }
 
       // details should remain unchanged, with render changing (also vehicles should remain unchanged)
-      /*
-      console.log('Veh - ',newTeslaModels)
-      console.log('vehicle details -- ',newTeslaModels["vehicle_details"][model]["default_optioned_vehicle"]["payment_object"]["tradeInEquity"])
-      console.log('vehicle render -- ',newTeslaModels["vehicle_render"][model]["payment_object"]["tradeInEquity"]) 
-      */
 
       return newTeslaModels;
     });

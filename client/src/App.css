@@ -196,8 +196,7 @@ div{
 
 .app_Solar_costs_container{
   margin-top: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid gainsboro;
+  padding-bottom: 30px; 
 }
 
 .app_Solar_select_kw_btn{
@@ -248,10 +247,12 @@ div{
 .app_Solar_additions_select_div{
   flex-wrap: wrap;
   display: inline-flex;
-  padding-bottom: 10px;
+  padding-bottom: 10px; 
 }
 
 .app_Solar_additions_details{
+  border-top: 1px solid gainsboro;
+  padding-top: 5px;
 }
 
 .app_Solar_additions_item{
