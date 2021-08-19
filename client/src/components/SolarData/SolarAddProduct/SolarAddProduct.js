@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './SolarAddProduct.css';
 
+
 const SolarAddProduct = ({
   setActivePurchase,
   activePurchase,
@@ -8,6 +9,13 @@ const SolarAddProduct = ({
   sumPurchases,
   removeFromActive,
 }) => {
+
+  const roundToHundredth = (value) =>{
+    var mult = value * 100;
+    mult = Math.round(mult);
+    return mult / 100;
+  }
+
   return (
     <div className="solarAddProduct_container">
       <div className="app_Solar_additions_container">
@@ -234,11 +242,11 @@ const SolarAddProduct = ({
           {sumPurchases["kWHperDay"] > 0 ? (
             <div className="app_Solar_additions_details">
               <div>
-                Additional kWh/day: <span>{sumPurchases.kWHperDay} kWh</span>
+                Additional kWh/day: <span>{roundToHundredth(sumPurchases.kWHperDay)} kWh</span>
               </div>
               <div>
                 Additional kWh/month:{" "}
-                <span>{sumPurchases.kWHperMonth} kWh</span>
+                <span>{roundToHundredth(sumPurchases.kWHperMonth)} kWh</span>
               </div>
               <div>
                 Additional monthly cost (w/o Solar):{" "}
