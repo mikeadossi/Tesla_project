@@ -30,8 +30,19 @@ const SolarPanels = ({
   }, [products]);
 
   const userSelectedProduct = (v) => {
+    console.log("user selected:", v)
+    setActiveSolarBtn("select_" + v.substring(0, 2) + "kW");
     setRecommendedProducts(solarRecommendations[panelOptions[v]]);
   };
+
+  var selectValue;
+  switch(activeSolarBtn){
+    case "select_20kW": selectValue = "20 kW"; break;
+    case "select_24kW": selectValue = "24 kW"; break;
+    case "select_28kW": selectValue = "28 kW"; break;
+    case "select_32kW": selectValue = "32 kW"; break;
+    default: selectValue = ""; break;
+  }
 
   return (
     <div className="app_columns_width vehicleConfig_column1">
@@ -114,10 +125,11 @@ const SolarPanels = ({
           activeSolarBtn === "select_32kW" ? (
             <select
               className={`app_Solar_select app_removeBlue select_20kW select_24kW select_28kW select_32kW solarbtn_selected`}
-              onClick={(event) => {
-                console.log("ev: ", event.target.value);
+              onChange={(event) => {
+                console.log("ev: ", event);
                 userSelectedProduct(event.target.value);
               }}
+              value={selectValue}
             >
               <option value="20 kW">20.40 kW</option>
               <option value="24 kW">24.28 kW</option>
@@ -127,7 +139,7 @@ const SolarPanels = ({
           ) : (
             <select
               className={`app_Solar_select app_removeBlue select_20kW select_24kW select_28kW select_32kW`}
-              onClick={(event) => {
+              onChange={(event) => {
                 userSelectedProduct(event.target.value);
               }}
             >
