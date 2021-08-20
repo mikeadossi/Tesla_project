@@ -3,8 +3,10 @@ import "./VehiclePanel.css";
 import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfig from "../../components/VehicleData/VehicleConfig/VehicleConfig";
 import VehicleConfigContainer from "../../components/VehicleData/VehicleConfigContainer/VehicleConfigContainer";
+import removeModel from "./VehiclePanelMethods/removeModel";
 import InfoModal from "../InfoModal/InfoModal.js";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { useStore } from "react-redux";
 
 import { getAllVehicles } from "../../config/actions/vehicleActions";
 import { getAllStateData } from "../../config/actions/usStateActions";
@@ -48,7 +50,10 @@ const VehiclePanel = ({
     });
   }
 
-  useEffect(() => { 
+  const store = useStore();
+  console.log("vd - ", store.getState());
+
+  useEffect(() => {
     dispatch({
       type: VIEW_RENDERED_OPTIONS,
       payload: vehicleData,
@@ -65,7 +70,7 @@ const VehiclePanel = ({
       newVehicleNames = [selectedVehicleName, ...newVehicleNames]; // sets selected vehicle atop vehicleData array
       return newVehicleNames;
     });
-  }
+  };
 
   useEffect(() => {
     if (zipcode_data.id) {
@@ -87,36 +92,17 @@ const VehiclePanel = ({
     }
   }, [usStatesData]);
 
-
   const [loadTeslaData, setLoadTeslaData] = useState(false);
 
   useEffect(() => {
     const payload = usStateVehicleOrder && usStateVehicleOrder[3];
-    if (!loadTeslaData && metaVehicleObj.length > 0 && payload) { 
+    if (!loadTeslaData && metaVehicleObj.length > 0 && payload) {
       getTeslaData({ ...payload });
       setLoadTeslaData(true);
       populateMenu();
     }
   }, [metaVehicleObj, usStateVehicleOrder, loadTeslaData]);
 
-  const removeModel = (model) => {
-    console.log("model to be removed: ", model);
-    const stateData = vehicleData.filter(name => name !== model);
-    
-    const modelName = model
-      .split(" ")
-      .map((iv, i) => {
-        if (i === 0) {
-          return iv.toLowerCase();
-        }
-        return iv;
-      })
-      .join("");
-
-    runReset(modelName, teslaModels); 
-
-    setVehicleData([...stateData]);
-  };
 
   const parseAllStringValues = (obj) => {
     const objKeys = Object.keys(obj);
@@ -295,7 +281,7 @@ const VehiclePanel = ({
     modelPaymentObj["lease"]["annualMiles"] = annualMiles;
 
     return modelPaymentObj;
-  }; // handled deep cpy!
+  };
 
   const populateMenu = () => {
     let modelNames = [];
@@ -498,9 +484,6 @@ const VehiclePanel = ({
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
       // details should remain unchanged, with render changing (also vehicles should remain unchanged)
-      // console.log('Veh - ',newTeslaModels,'\n trim - ',trim,'\n model - ',model)
-      // console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"][model]["default_optioned_vehicle"]["autopilot"][1])
-      // console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"][model]["autopilot"][1])
 
       return newTeslaModels;
     });
@@ -553,9 +536,6 @@ const VehiclePanel = ({
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
       // details should remain unchanged, with render changing (also vehicles should remain unchanged)
-      // console.log('Veh - ',newTeslaModels,'\n trim - ',trim,'\n model - ',model)
-      // console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"][model]["default_optioned_vehicle"]["tow_hitch"])
-      // console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"][model]["tow_hitch"])
 
       return newTeslaModels;
     });
@@ -636,9 +616,6 @@ const VehiclePanel = ({
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
       // details should remain unchanged, with render changing (also vehicles should remain unchanged)
-      // console.log('Veh - ',newTeslaModels,'\n trim - ',trim,'\n layoutSelected - ',layoutSelected)
-      // console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"][model]["default_optioned_vehicle"]["layout"][0])
-      // console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"][model]["layout"][0])
 
       return newTeslaModels;
     });
@@ -873,9 +850,6 @@ const VehiclePanel = ({
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
       // details should remain unchanged, with render changing (also vehicles should remain unchanged)
-      // console.log('Veh - ',newTeslaModels,'\n batterySelected - ',batterySelected)
-      // console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"]["model3"]["default_optioned_vehicle"]["battery"][1])
-      // console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"][model]["battery"][1])
 
       return newTeslaModels;
     });
@@ -960,9 +934,6 @@ const VehiclePanel = ({
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
       // details should remain unchanged, with render changing (also vehicles should remain unchanged)
-      // console.log('Veh - ',newTeslaModels,'\n trim - ',trim,'\n interiorSelected - ',interiorSelected)
-      // console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"]["model3"]["default_optioned_vehicle"]["interior"][1])
-      // console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"][model]["interior"][1])
 
       return newTeslaModels;
     });
@@ -1049,9 +1020,6 @@ const VehiclePanel = ({
       ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
       // details should remain unchanged, with render changing (also vehicles should remain unchanged)
-      // console.log('Veh - ',newTeslaModels,'\n trim - ',trim,'\n wheelSelected - ',wheelSelected)
-      // console.log('A. vehicle details -- ',newTeslaModels["vehicle_details"]["model3"]["default_optioned_vehicle"]["wheel"][1])
-      // console.log('A. vehicle render -- ',newTeslaModels["vehicle_render"][model]["wheel"][1])
 
       return newTeslaModels;
     });
@@ -1123,6 +1091,7 @@ const VehiclePanel = ({
 
   const setUserPymtEntry = (activeFormValues, value) => {
     const model = value;
+    const formValuesObj = { ...activeFormValues };
 
     setTeslaModels((metaVehicles) => {
       // handle deep copy on all (relevant) nested objects w/ spread operator
@@ -1145,16 +1114,14 @@ const VehiclePanel = ({
         },
       };
 
-      let renderedVehicle = newTeslaModels["vehicle_render"][model];
-      let pymtObj = renderedVehicle["payment_object"];
-      const formValuesObj = { ...activeFormValues };
+      let pymtObj = newTeslaModels["vehicle_render"][model]["payment_object"];
 
       if (formValuesObj["tradeInValue"] || formValuesObj["tradeInPayoff"]) {
-        newTeslaModels.vehicle_render[model]["payment_object"][
-          "tradeInEquity"
-        ] = formValuesObj["tradeInValue"] - formValuesObj["tradeInPayoff"];
+        pymtObj["tradeInEquity"] =
+          formValuesObj["tradeInValue"] - formValuesObj["tradeInPayoff"];
       }
 
+      // loop below updates state payment_object with new user entries
       for (let i in formValuesObj) {
         if (pymtObj[i] !== undefined) {
           newTeslaModels.vehicle_render[model]["payment_object"][
@@ -1171,11 +1138,14 @@ const VehiclePanel = ({
         }
       }
 
-      // details should remain unchanged, with render changing (also vehicles should remain unchanged)
+      console.log(
+        "adjustmentsss 1 ---> ",
+        newTeslaModels.vehicle_render[model]["payment_object"]["adjustments"]
+      );
 
       return newTeslaModels;
     });
-  }; // handled deep cpy!
+  };
 
   return (
     <div className="app_Panel_container">
@@ -1194,7 +1164,15 @@ const VehiclePanel = ({
 
       {vehicleData.map((ele) => (
         <VehicleConfigContainer
-          removeModel={removeModel}
+          removeModel={(selectedVehicle)=>{
+            removeModel({
+              model: selectedVehicle, 
+              vehicleData,
+              teslaModels,
+              setVehicleData,
+              runReset,
+            })
+          }}
           vehicleContent={teslaModels}
           selectedVehicle={ele}
           vehicleContainerRef={vehicleContainerRef}
