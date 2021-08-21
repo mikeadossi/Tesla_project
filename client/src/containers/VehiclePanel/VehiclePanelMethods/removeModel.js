@@ -1,10 +1,10 @@
-const removeModel = ({
+const removeModel = (
     model, 
     vehicleData,
     teslaModels,
     setVehicleData,
     runReset,
-}) => { 
+) => { 
 
   const stateData = vehicleData.filter(name => name !== model);
   const modelName = model
@@ -16,6 +16,7 @@ const removeModel = ({
       return iv;
       })
       .join("");
+      
   runReset(modelName, teslaModels);
   setVehicleData([...stateData]);
 };

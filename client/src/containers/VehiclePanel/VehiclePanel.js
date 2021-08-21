@@ -3,10 +3,13 @@ import "./VehiclePanel.css";
 import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfig from "../../components/VehicleData/VehicleConfig/VehicleConfig";
 import VehicleConfigContainer from "../../components/VehicleData/VehicleConfigContainer/VehicleConfigContainer";
-import removeModel from "./VehiclePanelMethods/removeModel";
 import InfoModal from "../InfoModal/InfoModal.js";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { useStore } from "react-redux";
+import removeModel from "./VehiclePanelMethods/removeModel";
+import setSelectedVehicleName from "./VehiclePanelMethods/setSelectedVehicleName";
+import populatePaymentObject from "./VehiclePanelMethods/populatePaymentObject";
+import parseAllStringValues from "./VehiclePanelMethods/parseAllStringValues";
+import getTeslaData from "./VehiclePanelMethods/getTeslaData"; 
+import { connect, useDispatch } from "react-redux";
 
 import { getAllVehicles } from "../../config/actions/vehicleActions";
 import { getAllStateData } from "../../config/actions/usStateActions";
@@ -50,27 +53,12 @@ const VehiclePanel = ({
     });
   }
 
-  const store = useStore();
-  console.log("vd - ", store.getState());
-
   useEffect(() => {
     dispatch({
       type: VIEW_RENDERED_OPTIONS,
       payload: vehicleData,
     });
   }, [vehicleData]);
-
-  const setSelectedVehicleName = (selectedVehicleName) => {
-    setVehicleData((data) => {
-      if (!selectedVehicleName) return data; // ensures vehicleData array has no starting empty value
-
-      let newVehicleNames = data.filter(
-        (modelName) => modelName !== selectedVehicleName
-      ); // checks for and removes vehicle from array
-      newVehicleNames = [selectedVehicleName, ...newVehicleNames]; // sets selected vehicle atop vehicleData array
-      return newVehicleNames;
-    });
-  };
 
   useEffect(() => {
     if (zipcode_data.id) {
@@ -96,192 +84,14 @@ const VehiclePanel = ({
 
   useEffect(() => {
     const payload = usStateVehicleOrder && usStateVehicleOrder[3];
+    console.log("payload:-- ", payload);
     if (!loadTeslaData && metaVehicleObj.length > 0 && payload) {
-      getTeslaData({ ...payload });
+      getTeslaData(payload, metaVehicleObj, setTeslaModels);
       setLoadTeslaData(true);
       populateMenu();
     }
   }, [metaVehicleObj, usStateVehicleOrder, loadTeslaData]);
 
-
-  const parseAllStringValues = (obj) => {
-    const objKeys = Object.keys(obj);
-    for (let i = 0; i < objKeys.length; i++) {
-      let newValue;
-      let oldValue = obj[objKeys[i]];
-
-      if (
-        (typeof oldValue === "string" && oldValue.charAt(0) === "{") ||
-        oldValue === "null"
-      ) {
-        newValue = JSON.parse(oldValue);
-        obj[objKeys[i]] = newValue;
-      }
-    }
-
-    return obj;
-  };
-
-  const getLoanMonthlyPymt = (principal, annualInterestRate, numOfPymts) => {
-    // principal * ( effectiveInterestRate / (1 - (1 + effectiveInterestRate)^-numOfPymts))
-    const effectiveInterestRate = annualInterestRate / 100 / 12;
-    const onePlusEIR = 1 + effectiveInterestRate;
-    const x = Math.pow(onePlusEIR, -numOfPymts);
-    const denominator = 1 - x;
-    const y = effectiveInterestRate / denominator;
-    return Math.round(principal * y);
-  };
-
-  const getTeslaData = async (statePymtObj) => {
-    // this function converts DB data into useable state data for app: a 'details' object and a 'rendering' object.
-    const metaVehicles = [...metaVehicleObj];
-    const vehicleObj = {
-      // vehicle_details should never be user modified, vehicle_render can be.
-      vehicle_details: {},
-      vehicle_render: {},
-    };
-
-    if (metaVehicles.length > 0) {
-      for (let i = 0; i < metaVehicles.length; i++) {
-        let model = metaVehicles[i].model;
-        let parsedValue = { ...parseAllStringValues(metaVehicles[i]) };
-        // parsedValue["default_optioned_vehicle"]["image_paint"] = "_white1"
-
-        if (statePymtObj !== undefined) {
-          let purchasePrice =
-            parsedValue["default_optioned_vehicle"]["cash_price"];
-          let paymentObject = populatePaymentObject(
-            purchasePrice,
-            statePymtObj
-          );
-          parsedValue["default_optioned_vehicle"]["payment_object"] = {
-            ...paymentObject,
-          };
-        }
-
-        vehicleObj.vehicle_details[model] = parsedValue;
-        vehicleObj.vehicle_render[model] = parsedValue.default_optioned_vehicle;
-      }
-    }
-
-    setTeslaModels(vehicleObj);
-  };
-
-  const populatePaymentObject = (configuredPrice, paymentObj) => {
-    // handle deep copy on all (relevant) nested objects w/ spread operator
-    let modelPaymentObj = {
-      ...paymentObj,
-      finance: {
-        ...paymentObj["finance"],
-      },
-      lease: {
-        ...paymentObj["lease"],
-      },
-      nonCashCreditsArr: [...paymentObj["nonCashCreditsArr"]],
-    };
-
-    const docFee = modelPaymentObj["docFee"];
-    const adjustments = modelPaymentObj["adjustments"];
-    const stateTotalFees = modelPaymentObj["stateTotalFees"]; // TODO: how do we get this #?
-    const stateTaxRate = modelPaymentObj["taxRate"];
-    const modelTax = (stateTaxRate / 100) * configuredPrice;
-    const orderPymt = modelPaymentObj["orderPymt"];
-    const orderFeeTax = (stateTaxRate / 100) * orderPymt;
-    const stateDestinationFee = modelPaymentObj["stateDestinationFee"];
-    const stateDocumentationFee = modelPaymentObj["stateDocumentationFee"];
-    const tradeInEquity = modelPaymentObj["tradeInEquity"];
-
-    // get non cash credit sum
-    const nonCashCreditsArr = modelPaymentObj["nonCashCreditsArr"];
-    let credits = 0;
-
-    for (let i = 0; i < nonCashCreditsArr.length; i++) {
-      credits += nonCashCreditsArr[i]["amt"];
-    }
-
-    modelPaymentObj["nonCashCredit"] = credits;
-
-    // get cashDueAtDelivery
-    let stateSalesTax =
-      modelTax + orderFeeTax + stateDestinationFee + stateDocumentationFee;
-    stateSalesTax = Math.floor(stateSalesTax * 100) / 100;
-    let cashDueAtDelivery =
-      configuredPrice + docFee + stateTotalFees + stateSalesTax;
-    cashDueAtDelivery =
-      cashDueAtDelivery - credits - orderPymt - tradeInEquity - adjustments;
-    cashDueAtDelivery = Math.floor(cashDueAtDelivery);
-
-    modelPaymentObj["modelTax"] = modelTax;
-    modelPaymentObj["orderFeeTax"] = orderFeeTax;
-    modelPaymentObj["stateSalesTax"] = stateSalesTax;
-    modelPaymentObj["cashDueAtDelivery"] = cashDueAtDelivery;
-
-    // get loan monthly payment
-    const cashDownPymt = configuredPrice / 100;
-    let financeDueAtDelivery = stateTotalFees + stateSalesTax + cashDownPymt;
-    financeDueAtDelivery =
-      financeDueAtDelivery - orderPymt - credits - tradeInEquity;
-    financeDueAtDelivery = Math.floor(financeDueAtDelivery);
-    let equity = 0;
-
-    if (financeDueAtDelivery <= 0) {
-      equity = financeDueAtDelivery; // this occurs if trade-in equity exceeds amt due
-      financeDueAtDelivery = 0;
-    }
-
-    const amtFinanced = cashDueAtDelivery - financeDueAtDelivery - equity;
-    const loanApr = modelPaymentObj["finance"]["loanApr"];
-    const loanTerm = modelPaymentObj["finance"]["loanTerm"];
-
-    modelPaymentObj["finance"]["monthlyPymt"] = getLoanMonthlyPymt(
-      amtFinanced,
-      loanApr,
-      loanTerm
-    );
-    modelPaymentObj["finance"]["dueAtDelivery"] = financeDueAtDelivery;
-    modelPaymentObj["finance"]["amtFinanced"] = amtFinanced;
-
-    // get lease cash down payment
-    modelPaymentObj["cashDownPymt"] = cashDownPymt;
-
-    // get lease money factor
-    let leaseIntRate = modelPaymentObj["lease"]["leaseInterestRate"];
-    let leaseIntRatePercent = leaseIntRate / 100;
-    const moneyFactor = leaseIntRatePercent / 24;
-    modelPaymentObj["lease"]["moneyFactor"] = moneyFactor;
-
-    // get lease monthly payment
-    const leaseTerm = modelPaymentObj["lease"]["leaseTerm"]; // ex: 36
-    const annualMiles = modelPaymentObj["lease"]["annualMiles"]; // ex: 10000 TODO: need to calculate this into price
-    const acquisitionFee = modelPaymentObj["lease"]["acquisitionFee"]; // TODO: Does this change?
-    const residualValue = cashDueAtDelivery * 0.64; // TODO: get correct residual value
-
-    let netCapitalizedCost =
-      configuredPrice + docFee + acquisitionFee + stateTotalFees;
-    netCapitalizedCost =
-      netCapitalizedCost - cashDownPymt - credits - orderPymt;
-    const depreciationFee = (netCapitalizedCost - residualValue) / leaseTerm;
-    const financeFee = (netCapitalizedCost + residualValue) * moneyFactor;
-    const salesTax = (depreciationFee + financeFee) * stateTaxRate;
-    const monthlyLeasePymt = depreciationFee + financeFee + salesTax;
-    modelPaymentObj["lease"]["monthlyPymt"] = monthlyLeasePymt;
-
-    // get lease due at delivery
-    const upfrontSalesTax = modelPaymentObj["lease"]["upfrontTaxAmt"];
-    let leaseDueAtDelivery =
-      cashDownPymt +
-      monthlyLeasePymt +
-      acquisitionFee +
-      upfrontSalesTax +
-      stateTotalFees;
-    leaseDueAtDelivery = leaseDueAtDelivery - orderPymt - credits;
-
-    modelPaymentObj["lease"]["dueAtDelivery"] = leaseDueAtDelivery;
-    modelPaymentObj["lease"]["residualValue"] = residualValue;
-    modelPaymentObj["lease"]["annualMiles"] = annualMiles;
-
-    return modelPaymentObj;
-  };
 
   const populateMenu = () => {
     let modelNames = [];
@@ -1150,7 +960,9 @@ const VehiclePanel = ({
   return (
     <div className="app_Panel_container">
       <VehicleMenu
-        setSelectedVehicleName={setSelectedVehicleName}
+        setSelectedVehicleName={(selectedVehicleName) => {
+          setSelectedVehicleName(selectedVehicleName, setVehicleData);
+        }}
         menuOptions={menuOptions}
         vehicleData={vehicleData}
         vehicleContainerRef={vehicleContainerRef}
@@ -1164,14 +976,14 @@ const VehiclePanel = ({
 
       {vehicleData.map((ele) => (
         <VehicleConfigContainer
-          removeModel={(selectedVehicle)=>{
-            removeModel({
-              model: selectedVehicle, 
+          removeModel={(model) => {
+            removeModel(
+              model,
               vehicleData,
               teslaModels,
               setVehicleData,
               runReset,
-            })
+            );
           }}
           vehicleContent={teslaModels}
           selectedVehicle={ele}
