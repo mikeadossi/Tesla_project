@@ -9,7 +9,7 @@ import {
   showResetWarning,
 } from "../../../config/actions/navActions";
 
-const VehicleConfigUserEntry = ({ 
+const VehicleConfigUserEntry = ({
   showComponent,
   visibility,
   setActivePayment,
@@ -33,7 +33,7 @@ const VehicleConfigUserEntry = ({
   const [activeFormVals, setActiveFormVals] = useState({});
   const [error, setFormError] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => { 
     setActiveFormVals({
       ...activeFormVals,
       leaseInterestRate:
@@ -61,61 +61,65 @@ const VehicleConfigUserEntry = ({
     });
   };
 
-  const handlePaymentFormSubmit = () => {
-    // write error handling code to review user entries! - TODO
+  const handlePaymentFormSubmit = async () => {
+    let formError = false; 
 
-    let formError = false;
-
-    if (!activeFormVals["leaseTermLength"]) {
+    if (!activeFormVals["leaseInterestRate"]) {
       formError = true;
     }
 
     setFormError(formError);
 
     const modelName = vehicleName;
-    setUserPymtEntry(activeFormVals, modelName);
+    // function below updates state with user entries
+    const vehicleContent = setUserPymtEntry(
+      activeFormVals,
+      modelName,
+      setTeslaModels
+    );
 
-    setTeslaModels((vehicleContent) => {
-      let newTeslaModels = { ...vehicleContent };
+    setTeslaModels(() => { 
+      const configuredPrice =
+        vehicleContent.vehicle_render[modelName].cash_price;
+      const paymentObj =
+        vehicleContent.vehicle_render[modelName].payment_object;
 
-      const configuredPrice = renderedTesla["cash_price"];
-      const paymentObj = renderedTesla["payment_object"];
+      // function below runs all necessary lease, finance calculations
+      vehicleContent.vehicle_render[
+        modelName
+      ].payment_object = populatePaymentObject(configuredPrice, paymentObj);
 
-      newTeslaModels.vehicle_render[modelName][
-        "payment_object"
-      ] = populatePaymentObject(configuredPrice, paymentObj);
-
-      return newTeslaModels;
+      return vehicleContent;
     });
   };
 
-  const showWarningModal = (value,vehicleName,object) => {
-    if(3 > 5){// if settings has warnings turned off call function
-      handleResetApply(value,vehicleName,object);
+  const showWarningModal = (value, vehicleName, object) => {
+    if (3 > 5) {
+      // if settings has warnings turned off call function
+      handleResetApply(value, vehicleName, object);
       return;
-    };
+    }
 
-    if (value === "applyAll") { 
+    if (value === "applyAll") {
       showApplyAllWarning(dispatch, vehicleName);
-    } else if (value === "reset") { 
+    } else if (value === "reset") {
       showResetWarning(dispatch, vehicleName);
-    };
-  }
+    }
+  };
 
-  const handleResetApply = (value,vehicleName,object) => {
-    if (value === "applyAll") { 
-      runApplyAll(vehicleName,object);
-    } else if (value === "reset") { 
-      runReset(vehicleName,object);
-    };
-  }
-
+  const handleResetApply = (value, vehicleName, object) => {
+    if (value === "applyAll") {
+      runApplyAll(vehicleName, object);
+    } else if (value === "reset") {
+      runReset(vehicleName, object);
+    }
+  };
 
   return (
     <div className="veicleConfig_userEntry_container">
-      <GrayBackground 
-        handleResetApply={handleResetApply} 
-        runReset={runReset} 
+      <GrayBackground
+        handleResetApply={handleResetApply}
+        runReset={runReset}
         runApplyAll={runApplyAll}
       />
       <div className="veicleConfig_userEntry_subcontainer">
@@ -195,18 +199,18 @@ const VehicleConfigUserEntry = ({
         </div>
       </div>
 
-      <div className="vehicleConfig_submit_btn_container"> 
+      <div className="vehicleConfig_submit_btn_container">
         <button
-          onClick={() => { 
-            showWarningModal('applyAll',vehicleName,{}); 
+          onClick={() => {
+            showWarningModal("applyAll", vehicleName, {});
           }}
           className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_setAll_btn app_cursorPointer"
         >
           APPLY ALL
         </button>
         <button
-          onClick={() => { 
-            showWarningModal('reset',vehicleName,{}); 
+          onClick={() => {
+            showWarningModal("reset", vehicleName, {});
           }}
           className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_reset_btn app_cursorPointer"
         >
@@ -223,10 +227,9 @@ const VehicleConfigUserEntry = ({
   );
 };
 
-
 const mapDispatchToProps = (dispatch, modelName) => ({
   showApplyAllWarning: showApplyAllWarning(dispatch, modelName),
-  showResetWarning: showResetWarning(dispatch, modelName), 
+  showResetWarning: showResetWarning(dispatch, modelName),
 });
 
 export default connect(null, mapDispatchToProps)(VehicleConfigUserEntry);

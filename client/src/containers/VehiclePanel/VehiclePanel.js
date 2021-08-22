@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./VehiclePanel.css";
-import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu"; 
+import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfigContainer from "../../components/VehicleData/VehicleConfigContainer/VehicleConfigContainer";
 import InfoModal from "../InfoModal/InfoModal.js";
 // import runReset from "./VehiclePanelMethods/runReset";
@@ -19,7 +19,7 @@ import {
   changeVehicleLayout,
   addTowHitch,
   toggleFSD,
-  selectOffMenuAutopilot, 
+  selectOffMenuAutopilot,
 } from "./VehiclePanelMethods/moduleExports";
 import { connect, useDispatch } from "react-redux";
 import { getAllVehicles } from "../../config/actions/vehicleActions";
@@ -33,8 +33,6 @@ import {
   TOGGLE_APPLY_ALL_WARNING,
 } from "../../config/actions/types";
 
-
-
 const VehiclePanel = ({
   getAllVehicles,
   getAllStateData,
@@ -43,12 +41,8 @@ const VehiclePanel = ({
   usStatesData,
   modalVisibility,
   closeModal,
-  saveVehicleRenderData,
   teslaModels,
-  toggleResetWarning,
-  toggleApplyAllWarning,
 }) => {
-  
   const [vehicleData, setVehicleData] = useState([]);
   const [menuOptions, setMenuOptions] = useState("");
   const [usStateVehicleOrder, setUsStateVehicleOrder] = useState("");
@@ -85,15 +79,12 @@ const VehiclePanel = ({
 
   useEffect(() => {
     const payload = usStateVehicleOrder && usStateVehicleOrder[3];
-    console.log("payload:-- ", payload);
     if (!loadTeslaData && metaVehicleObj.length > 0 && payload) {
       getTeslaData(payload, metaVehicleObj, setTeslaModels);
       setLoadTeslaData(true);
       populateMenu(metaVehicleObj, setMenuOptions);
     }
   }, [metaVehicleObj, usStateVehicleOrder, loadTeslaData]);
-
-
 
   const setTeslaModels = (value) => {
     if (typeof value === "function") {
@@ -103,9 +94,11 @@ const VehiclePanel = ({
       type: UPDATE_VEHICLE_RENDER_DATA,
       payload: value,
     });
-  }
 
-  const runReset = (vehicleName, detailsAndRender) => { 
+    return value;
+  };
+
+  const runReset = (vehicleName, detailsAndRender) => {
     let selectedModelDetailsObj =
       detailsAndRender["vehicle_details"][vehicleName];
 
@@ -163,11 +156,10 @@ const VehiclePanel = ({
       },
     };
 
-    dispatch(updateRenderData(newDetailsAndRender)); 
+    dispatch(updateRenderData(newDetailsAndRender));
 
     // toggleResetWarning(vehicleName);
   };
-
 
   return (
     <div className="app_Panel_container">
@@ -194,7 +186,7 @@ const VehiclePanel = ({
               vehicleData,
               teslaModels,
               setVehicleData,
-              runReset,
+              runReset
             );
           }}
           vehicleContent={teslaModels}
@@ -202,17 +194,17 @@ const VehiclePanel = ({
           vehicleContainerRef={vehicleContainerRef}
           changeVehicleColor={(color, value) => {
             changeVehicleColor(
-              color, 
-              value, 
+              color,
+              value,
               teslaModels,
-              setTeslaModels, 
-              populatePaymentObject,
+              setTeslaModels,
+              populatePaymentObject
             );
           }}
           changeVehicleWheel={(trim, wheelSelected, value) => {
-            changeVehicleWheel(    
-              trim, 
-              wheelSelected, 
+            changeVehicleWheel(
+              trim,
+              wheelSelected,
               value,
               setTeslaModels,
               populatePaymentObject
@@ -220,61 +212,47 @@ const VehiclePanel = ({
           }}
           changeVehicleInterior={(trim, interiorSelected, value) => {
             changeVehicleInterior(
-              trim, 
+              trim,
               interiorSelected,
               value,
-              setTeslaModels, 
-              populatePaymentObject,
-            )
+              setTeslaModels,
+              populatePaymentObject
+            );
           }}
           changeVehicleLayout={(trim, layoutSelected, value) => {
             changeVehicleLayout(
-              trim, 
-              layoutSelected, 
-              value, 
+              trim,
+              layoutSelected,
+              value,
               setTeslaModels,
               populatePaymentObject
-            )
+            );
           }}
           changeVehicleBattery={(batterySelected, value) => {
             changeVehicleBattery(
-              batterySelected, 
+              batterySelected,
               value,
-              setTeslaModels, 
+              setTeslaModels,
               populatePaymentObject
-            )
+            );
           }}
           addTowHitch={(trim, value) => {
-            addTowHitch(
-              trim, 
-              value, 
-              setTeslaModels, 
-              populatePaymentObject
-            )
+            addTowHitch(trim, value, setTeslaModels, populatePaymentObject);
           }}
           toggleFSD={(trim, value) => {
-            toggleFSD(
-              trim, 
-              value, 
-              setTeslaModels, 
-              populatePaymentObject
-            )
+            toggleFSD(trim, value, setTeslaModels, populatePaymentObject);
           }}
           selectOffMenuAutopilot={(selectedOption) => {
             selectOffMenuAutopilot(
-              selectedOption, 
-              setTeslaModels, 
+              selectedOption,
+              setTeslaModels,
               populatePaymentObject
-            )
+            );
           }}
           usStateVehicleOrder={usStateVehicleOrder}
           populatePaymentObject={populatePaymentObject}
           setUserPymtEntry={(activeFormValues, value) => {
-            setUserPymtEntry(
-              activeFormValues, 
-              value,
-              setTeslaModels
-            );
+            return setUserPymtEntry(activeFormValues, value, setTeslaModels);
           }}
           setTeslaModels={setTeslaModels}
           runReset={runReset}
