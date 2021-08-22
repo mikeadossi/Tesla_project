@@ -5,7 +5,7 @@ const VehicleConfigHeader = ({
   removeModel, 
   modelInfo,
   usStateVehicleOrder,
-  makeVisible
+  makeVisible,
 }) => {
   
   const modelSelectObj = {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './VehicleCash.css';
 
 
@@ -7,7 +7,7 @@ const VehicleCash = ({usStateVehicleOrder, vehicleContent, modelInfo}) => {
     let myModelInfo = { ...modelInfo };
     let myVehicleContent = { ...vehicleContent };
     let usStateVehicleOrderr = { ...usStateVehicleOrder };
-    let modelName = [myModelInfo["modelName"]];
+    let modelName = myModelInfo["modelName"];  
     const teslaVC = myVehicleContent["vehicle_render"][modelName]["payment_object"]; 
 
   return (

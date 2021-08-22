@@ -1,15 +1,15 @@
-import * as types from "../actions/types";
+import * as types from "../actions/types"; 
 
 const initialState = {
   vehicle: {},
-  error: "", 
+  error: "",
   vehicleRenderData: {},
   vehiclesRendered: [],
 };
 
-export default function (state = initialState, action) {
+export default function state(state = initialState, action) {
   switch (action.type) {
-    case types.GET_ALL_VEHICLES: 
+    case types.GET_ALL_VEHICLES:
       return {
         ...state,
         vehicle: action.payload,
@@ -26,21 +26,19 @@ export default function (state = initialState, action) {
         error: action.payload,
         vehicle: {},
       };
-    case types.UPDATE_VEHICLE_RENDER_DATA: 
-      initialState.vehicleRenderData = {}
+    case types.UPDATE_VEHICLE_RENDER_DATA:
+      initialState.vehicleRenderData = {};
       return {
         ...state,
         vehicleRenderData: action.payload,
       };
     case types.VIEW_RENDERED_OPTIONS:
-      initialState.vehiclesRendered = []
+      initialState.vehiclesRendered = [];
       return {
         ...state,
         vehiclesRendered: action.payload,
       };
     default:
-      return state; 
+      return state;
   }
 }
-
-
