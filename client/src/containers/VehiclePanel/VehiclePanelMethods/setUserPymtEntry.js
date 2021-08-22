@@ -25,10 +25,18 @@ const setUserPymtEntry = (activeFormValues, value, setTeslaModels) => {
 
     let pymtObj = newTeslaModels["vehicle_render"][model]["payment_object"];
 
+    let inputValues = ["tradeInValue", "tradeInPayoff", "cashDownPayment"];
+
+    for(let y = 0; y < inputValues.length; y++){
+      if(formValuesObj[inputValues[y]] === "" || formValuesObj[inputValues[y]] === undefined){
+        formValuesObj[inputValues[y]] = "0";
+      }
+    }
+
     if (formValuesObj["tradeInValue"] || formValuesObj["tradeInPayoff"]) {
       pymtObj["tradeInEquity"] =
         formValuesObj["tradeInValue"] - formValuesObj["tradeInPayoff"];
-    }
+    } console.log({formValuesObj})
 
     // loop below updates state payment_object with new user entries
     for (let i in formValuesObj) {
