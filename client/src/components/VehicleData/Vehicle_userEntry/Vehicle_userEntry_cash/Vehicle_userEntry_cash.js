@@ -1,7 +1,6 @@
 import React from "react";
 import "./Vehicle_userEntry_cash.css";
 
-
 const Vehicle_userEntry_cash = ({
     activeFormVals,
     handleFormChange,

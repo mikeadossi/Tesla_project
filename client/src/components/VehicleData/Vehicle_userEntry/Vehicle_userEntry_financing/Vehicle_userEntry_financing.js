@@ -47,16 +47,9 @@ const Vehicle_userEntry_financing = ({
               %
               <input
                 className="vehicleConfig_userInput app_removeBlue"
-                value={activeFormVals["loanApr"]}
-                onChange={(e) => handleFormChange("loanApr", e.target.value)}
+                value={activeFormVals["loanApr"]} 
               />
             </div>
-            <button
-              className="vehicleConfig_clearBtn"
-              onClick={() => handleClearField("loanApr")}
-            >
-              Clear
-            </button> 
           </span>
         </div>
         <div className="vehicleConfig_pricing vehicleConfig_customerCashDown">

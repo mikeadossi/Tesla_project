@@ -56,16 +56,9 @@ const Vehicle_userEntry_leasing = ({
               %
               <input
                 className="vehicleConfig_userInput app_removeBlue"
-                value={activeFormVals["leaseInterestRate"]}
-                onChange={(e) => handleFormChange("leaseInterestRate", e.target.value)}
+                value={activeFormVals["leaseInterestRate"]} 
               />
-            </div>
-            <button
-              className="vehicleConfig_clearBtn"
-              onClick={() => handleClearField("leaseInterestRate")}
-            >
-              Clear
-            </button> 
+            </div> 
           </span>
         </div>
         <div className="vehicleConfig_pricing vehicleConfig_pricing_grey vehicleConfig_customerCashDown">
