@@ -33,8 +33,8 @@ const Vehicle_userEntry_leasing = ({
             }
             value={activeFormVals["leaseTerm"]}
           >
-            <option value="24">24 months</option>
             <option value="36">36 months</option>
+            <option value="24">24 months</option> 
           </select>
         </div>
         <div className="vehicleConfig_pricing vehicleConfig_pricing_grey vehicleConfig_stateFees">

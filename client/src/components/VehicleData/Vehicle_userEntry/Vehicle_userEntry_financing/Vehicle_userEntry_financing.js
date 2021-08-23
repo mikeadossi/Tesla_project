@@ -34,10 +34,10 @@ const Vehicle_userEntry_financing = ({
             onChange={(e) => handleFormChange("loanTerm", e.target.value)}
             value={activeFormVals["loanTerm"]}
           >
-            <option value="36">36 months</option>
-            <option value="48">48 months</option>
-            <option value="60">60 months</option>
             <option value="72">72 months</option>
+            <option value="60">60 months</option>
+            <option value="48">48 months</option>
+            <option value="36">36 months</option>
           </select>
         </div>
         <div className="vehicleConfig_pricing vehicleConfig_pricing_grey vehicleConfig_stateTax">
