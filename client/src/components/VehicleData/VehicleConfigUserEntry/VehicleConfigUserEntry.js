@@ -66,7 +66,8 @@ const VehicleConfigUserEntry = ({
 
     if (!activeFormVals["leaseInterestRate"]) {
       formError = true;
-    }
+    } 
+    // console.log({activeFormVals})
 
     setFormError(formError);
 
@@ -82,12 +83,23 @@ const VehicleConfigUserEntry = ({
       const configuredPrice =
         vehicleContent.vehicle_render[modelName].cash_price;
       const paymentObj =
-        vehicleContent.vehicle_render[modelName].payment_object;
-
+        vehicleContent.vehicle_render[modelName].payment_object; 
+      const submittedCashDown = activeFormVals["cashDownPayment"];
+      const submittedLeaseTerm = activeFormVals["leaseTerm"];
+      const submittedLoanTerm = activeFormVals["loanTerm"]; 
+      const submittedAnnualMiles = activeFormVals["annualMiles"];
+      
       // function below runs all necessary lease, finance calculations
       vehicleContent.vehicle_render[
         modelName
-      ].payment_object = populatePaymentObject(configuredPrice, paymentObj);
+      ].payment_object = populatePaymentObject(
+        configuredPrice, 
+        paymentObj, 
+        submittedCashDown, 
+        submittedLeaseTerm, 
+        submittedLoanTerm, 
+        submittedAnnualMiles
+      );
 
       return vehicleContent;
     });

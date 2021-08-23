@@ -36,7 +36,7 @@ const setUserPymtEntry = (activeFormValues, value, setTeslaModels) => {
     if (formValuesObj["tradeInValue"] || formValuesObj["tradeInPayoff"]) {
       pymtObj["tradeInEquity"] =
         formValuesObj["tradeInValue"] - formValuesObj["tradeInPayoff"];
-    } console.log({formValuesObj})
+    }  
 
     // loop below updates state payment_object with new user entries
     for (let i in formValuesObj) {

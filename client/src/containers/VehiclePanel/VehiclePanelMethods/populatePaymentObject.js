@@ -1,6 +1,13 @@
 import getLoanMonthlyPymt from "./getLoanMonthlyPymt";
 
-const populatePaymentObject = (configuredPrice, paymentObj) => {
+const populatePaymentObject = (
+  configuredPrice, 
+  paymentObj, 
+  submittedCashDown, 
+  submittedLeaseTerm, 
+  submittedLoanTerm,
+  submittedAnnualMiles
+  ) => { 
   // handle deep copy on all (relevant) nested objects w/ spread operator
   let modelPaymentObj = {
     ...paymentObj,
@@ -50,7 +57,12 @@ const populatePaymentObject = (configuredPrice, paymentObj) => {
   modelPaymentObj["cashDueAtDelivery"] = cashDueAtDelivery;
 
   // get loan monthly payment
-  const cashDownPymt = configuredPrice / 100;
+  let cashDownPymt = configuredPrice / 100;
+  if(submittedCashDown && JSON.parse(submittedCashDown) > cashDownPymt){ 
+    cashDownPymt = JSON.parse(submittedCashDown); 
+  }
+
+
   let financeDueAtDelivery = stateTotalFees + stateSalesTax + cashDownPymt;
   financeDueAtDelivery =
     financeDueAtDelivery - orderPymt - credits - tradeInEquity;
@@ -64,7 +76,11 @@ const populatePaymentObject = (configuredPrice, paymentObj) => {
 
   const amtFinanced = cashDueAtDelivery - financeDueAtDelivery - equity;
   const loanApr = modelPaymentObj["finance"]["loanApr"];
-  const loanTerm = modelPaymentObj["finance"]["loanTerm"];
+  let loanTerm = modelPaymentObj["finance"]["loanTerm"]; 
+
+  if(submittedLoanTerm && JSON.parse(submittedLoanTerm) > loanTerm){ 
+    loanTerm = JSON.parse(submittedLoanTerm); 
+  }
 
   modelPaymentObj["finance"]["monthlyPymt"] = getLoanMonthlyPymt(
     amtFinanced,
@@ -84,10 +100,23 @@ const populatePaymentObject = (configuredPrice, paymentObj) => {
   modelPaymentObj["lease"]["moneyFactor"] = moneyFactor;
 
   // get lease monthly payment
-  const leaseTerm = modelPaymentObj["lease"]["leaseTerm"]; // ex: 36
-  const annualMiles = modelPaymentObj["lease"]["annualMiles"]; // ex: 10000 TODO: need to calculate this into price
-  const acquisitionFee = modelPaymentObj["lease"]["acquisitionFee"]; // TODO: Does this change?
-  const residualValue = cashDueAtDelivery * 0.64; // TODO: get correct residual value
+  let leaseTerm = modelPaymentObj["lease"]["leaseTerm"]; // ex: 36 
+  if(submittedLeaseTerm && JSON.parse(submittedLeaseTerm) > leaseTerm){ 
+    leaseTerm = JSON.parse(submittedLeaseTerm); 
+  }
+
+  let annualMiles = modelPaymentObj["lease"]["annualMiles"]; // ex: 10000
+  if(submittedAnnualMiles && JSON.parse(submittedAnnualMiles) > annualMiles){ 
+    annualMiles = JSON.parse(submittedAnnualMiles); 
+  }
+
+  const acquisitionFee = modelPaymentObj["lease"]["acquisitionFee"];
+  let residualValue = cashDueAtDelivery * 0.64; 
+  if(annualMiles === 12000){  
+    residualValue *= 0.9889; // arbitrary 
+  } else if(annualMiles === 15000){ 
+    residualValue *= 0.981; // arbitrary 
+  }
 
   let netCapitalizedCost =
     configuredPrice + docFee + acquisitionFee + stateTotalFees;
@@ -95,7 +124,8 @@ const populatePaymentObject = (configuredPrice, paymentObj) => {
   const depreciationFee = (netCapitalizedCost - residualValue) / leaseTerm;
   const financeFee = (netCapitalizedCost + residualValue) * moneyFactor;
   const salesTax = (depreciationFee + financeFee) * stateTaxRate;
-  const monthlyLeasePymt = depreciationFee + financeFee + salesTax;
+  let monthlyLeasePymt = depreciationFee + financeFee + salesTax;
+
   modelPaymentObj["lease"]["monthlyPymt"] = monthlyLeasePymt;
 
   // get lease due at delivery
