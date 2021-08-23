@@ -19,8 +19,9 @@ const Vehicle_userEntry_cash = ({
                 <div className="vehicleConfig_userInput_subcontainer">
                     $
                     <input 
-                      className="vehicleConfig_userInput app_removeBlue" 
+                      className="vehicleConfig_userInput app_noClicking app_removeBlue" 
                       value={usStateVehicleOrder[2].order_pymt} 
+                      disabled
                     />
                 </div> 
                 </span>

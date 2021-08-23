@@ -18,11 +18,9 @@ const Vehicle_userEntry_financing = ({
             <div className="vehicleConfig_userInput_subcontainer">
               $
               <input
-                className="vehicleConfig_userInput app_removeBlue"
+                className="vehicleConfig_userInput app_noClicking app_removeBlue"
                 value={usStateVehicleOrder[2].order_pymt}
-                onChange={(e) =>
-                  handleFormChange("tradeInValue", e.target.value)
-                }
+                disabled
               />
             </div>
           </span>
@@ -46,8 +44,9 @@ const Vehicle_userEntry_financing = ({
             <div className="vehicleConfig_userInput_subcontainer">
               %
               <input
-                className="vehicleConfig_userInput app_removeBlue"
+                className="vehicleConfig_userInput app_noClicking app_removeBlue"
                 value={activeFormVals["loanApr"]} 
+                disabled
               />
             </div>
           </span>

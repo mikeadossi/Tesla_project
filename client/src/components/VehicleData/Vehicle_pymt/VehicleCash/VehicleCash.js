@@ -19,21 +19,21 @@ const VehicleCash = ({usStateVehicleOrder, vehicleContent, modelInfo}) => {
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_loan">
                 <div>Trade-in Equity: </div>
-                $<input className="vehicleConfig_returnInput app_removeBlue" value={teslaVC["tradeInEquity"]} />
+                $<input className="vehicleConfig_returnInput app_removeBlue" value={teslaVC["tradeInEquity"].toLocaleString("en-US")} />
             </div> 
             <div className="vehicleConfig_pricing vehicleConfig_loan">
                 <div>Non-cash credit: </div>
-                $<input className="vehicleConfig_returnInput app_removeBlue" value={teslaVC["nonCashCredit"]} />
+                $<input className="vehicleConfig_returnInput app_removeBlue" value={teslaVC["nonCashCredit"].toLocaleString("en-US")} />
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_loan">
                 <div>Dest./Doc. Fee: </div>
-                $<input className="vehicleConfig_returnInput app_removeBlue" value={teslaVC["docFee"]} />
+                $<input className="vehicleConfig_returnInput app_removeBlue" value={teslaVC["docFee"].toLocaleString("en-US")} />
             </div>
         </div>
         <div className="vehicleConfig_pricing_subcontainer2 app_inline-block">
             <div className="vehicleConfig_pricing vehicleConfig_stateFees">
                 <div>Adjustments: </div>
-                $<input className="vehicleConfig_returnInput app_removeBlue" value={teslaVC["adjustments"]} />
+                $<input className="vehicleConfig_returnInput app_removeBlue" value={teslaVC["adjustments"].toLocaleString("en-US")} />
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_loan">
                 <div>{usStateVehicleOrderr[0]} Sales Tax: </div>
@@ -45,7 +45,7 @@ const VehicleCash = ({usStateVehicleOrder, vehicleContent, modelInfo}) => {
             </div> 
             <div className="vehicleConfig_pricing vehicleConfig_loan">
                 <div>Tot. Amt. Due: </div>
-                $<input className="vehicleConfig_returnInput app_removeBlue" value={teslaVC["cashDueAtDelivery"]} />
+                $<input className="vehicleConfig_returnInput app_removeBlue" value={teslaVC["cashDueAtDelivery"].toLocaleString("en-US")} />
             </div> 
         </div>
     </div>

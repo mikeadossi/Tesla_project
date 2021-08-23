@@ -75,7 +75,7 @@ const VehicleConfig = ({
               {renderedTesla.battery[0]}
             </span>
             <span className="vehicleConfig_modelPrice">
-              Cash Price: ${renderedTesla.cash_price}
+              Cash Price: ${renderedTesla.cash_price.toLocaleString("en-US")}
             </span>
           </div>
 
