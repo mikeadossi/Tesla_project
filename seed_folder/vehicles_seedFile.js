@@ -1141,7 +1141,7 @@ module.exports = {
       image_vehicle: "modelX",
       image_trim: "_perf",
       specs: {
-        Battery: "Peformance",
+        Battery: "Performance",
         Acceleration: "2.6s 0-60 mph",
         Range: "341 miles (EPA est.)",
         Drive: "All-Wheel Drive",
