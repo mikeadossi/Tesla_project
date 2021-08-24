@@ -35,6 +35,7 @@ const VehicleConfigContainer = ({
 
   const renderedTesla = vehicleContent.vehicle_render[name]; 
   const vehicleBattery = renderedTesla["battery"][1]; // ex: "long_range"
+  const teslaDetails = vehicleContent.vehicle_details[name];
 
   const modelInfo = {
     modelName: name,
@@ -57,6 +58,24 @@ const VehicleConfigContainer = ({
     ConfigPage: true,
     SpecsPage: false,
   });
+
+  const [activeBattery, setActiveBattery] = useState("");
+
+  const batteryObject = {
+    standard_battery: teslaDetails.standard_battery,
+    off_menu: teslaDetails.off_menu,
+    long_range: teslaDetails.long_range,
+    performance: teslaDetails.performance,
+    plaid: teslaDetails.plaid,
+  };
+
+  const batteryObjectKeys = [
+    "standard_battery",
+    "off_menu",
+    "long_range",
+    "performance",
+    "plaid",
+  ];
 
   return (
     <div className="app_Config_container" ref={vehicleContainerRef}>
@@ -87,12 +106,28 @@ const VehicleConfigContainer = ({
           setTeslaModels={setTeslaModels}
           runReset={runReset}
           runApplyAll={runApplyAll}
+          batteryObject={batteryObject}
+          batteryObjectKeys={batteryObjectKeys}
+          activeBattery={activeBattery}
+          setActiveBattery={setActiveBattery}
         />
       ) : (
         ""
       )}
 
-      {configVisibility.SpecsPage ? <VehicleSpecs /> : ""}
+      {configVisibility.SpecsPage 
+        ? 
+        <VehicleSpecs 
+          vehicleContent={vehicleContent}
+          modelInfo={modelInfo}
+          changeVehicleBattery={changeVehicleBattery}
+          batteryObject={batteryObject}
+          batteryObjectKeys={batteryObjectKeys} 
+          setActiveBattery={setActiveBattery}
+        /> 
+        : 
+        ""
+      }
     </div>
   );
 };

@@ -64,20 +64,16 @@ const changeVehicleBattery = (batterySelected, value, setTeslaModels, populatePa
                 ...metaVehicles.vehicle_details[model][batterySelected][
                   "specs"
                 ],
+                ["detailed_specs"]: {
+                  ...metaVehicles.vehicle_details[model][batterySelected][
+                    "specs"
+                  ]["detailed_specs"],
+                },
               },
               ["wheel"]: {
                 ...metaVehicles.vehicle_details[model][batterySelected][
                   "wheel"
                 ],
-                // ["18 inch Aero Wheels"]: {
-                //   ...metaVehicles.vehicle_details[model][batterySelected]["wheel"]["18 inch Aero Wheels"],
-                // },
-                // ["19 inch Sport Wheels"]: {
-                //   ...metaVehicles.vehicle_details[model][batterySelected]["wheel"]["19 inch Sport Wheels"],
-                // },
-                // ["20 inch Überturbine Wheels"]: {
-                //   ...metaVehicles.vehicle_details[model][batterySelected]["wheel"]["20 inch Überturbine Wheels"],
-                // },
               },
             },
           },
@@ -107,6 +103,7 @@ const changeVehicleBattery = (batterySelected, value, setTeslaModels, populatePa
 
       let currentBatteryPrice = renderedVehicle["battery"][2];
       let batteryName = batteryOptionsObj["specs"]["Battery"];
+      let detailed_specs = batteryOptionsObj["specs"]["detailed_specs"];
 
       let currentVehiclePrice = renderedVehicle["cash_price"];
       currentVehiclePrice -= currentBatteryPrice;
@@ -219,7 +216,8 @@ const changeVehicleBattery = (batterySelected, value, setTeslaModels, populatePa
         batteryName,
         batterySelected,
         newPrice,
-      ];
+      ]; 
+      newTeslaModels.vehicle_render[model]["detailed_specs"] = detailed_specs;
 
       let paymentObj = renderedVehicle["payment_object"];
       newTeslaModels.vehicle_render[model][

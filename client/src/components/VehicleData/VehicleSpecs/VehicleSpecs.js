@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react"; 
 import './VehicleSpecs.css';
 
-const VehicleSpecs = () => {
+const VehicleSpecs = ({
+  vehicleContent,
+  modelInfo,
+  changeVehicleBattery,
+  batteryObject,
+  batteryObjectKeys, 
+  setActiveBattery,
+}) => {
+
 
   return (
     <div className="vehicleSpecs">

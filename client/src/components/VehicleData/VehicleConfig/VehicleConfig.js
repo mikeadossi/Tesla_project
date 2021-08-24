@@ -29,6 +29,10 @@ const VehicleConfig = ({
   setTeslaModels, 
   runReset,
   runApplyAll,
+  batteryObject,
+  batteryObjectKeys,
+  activeBattery,
+  setActiveBattery,
 }) => {
   
   const showComponent = (value) => {
@@ -101,6 +105,10 @@ const VehicleConfig = ({
               renderedTesla={renderedTesla}
               teslaDetails={teslaDetails}
               changeVehicleBattery={changeVehicleBattery}
+              batteryObject={batteryObject}
+              batteryObjectKeys={batteryObjectKeys}
+              activeBattery={activeBattery}
+              setActiveBattery={setActiveBattery}
           />
 
         </div>

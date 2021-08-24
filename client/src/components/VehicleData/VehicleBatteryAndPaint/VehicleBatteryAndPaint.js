@@ -7,10 +7,13 @@ const VehicleBatteryAndPaint = ({
   changeVehicleColor, 
   renderedTesla,
   teslaDetails,
-  changeVehicleBattery
+  changeVehicleBattery,
+  batteryObject,
+  batteryObjectKeys,
+  activeBattery,
+  setActiveBattery,
 }) => {
 
-  const [activeBattery, setActiveBattery] = useState("");
   const [activeColor, setActiveColor] = useState("");
   
   const paintObject = teslaDetails["paint_options"];
@@ -23,22 +26,6 @@ const VehicleBatteryAndPaint = ({
     const battery = vehicleContent.vehicle_render[vehicleName]["battery"][1];
     setActiveBattery(battery);
   }, [vehicleContent, vehicleName])
-
-  const batteryObject = {
-    standard_battery: teslaDetails.standard_battery,
-    off_menu: teslaDetails.off_menu,
-    long_range: teslaDetails.long_range,
-    performance: teslaDetails.performance,
-    plaid: teslaDetails.plaid,
-  };
-
-  const batteryObjectKeys = [
-    "standard_battery",
-    "off_menu",
-    "long_range",
-    "performance",
-    "plaid",
-  ];
 
 
   return (
