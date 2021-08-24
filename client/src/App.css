@@ -21,6 +21,10 @@
   outline: none;
 }
 
+.app_noClicking:hover{
+  cursor: default !important
+}
+
 div{
   font-size: 13px;
 }
@@ -73,11 +77,18 @@ div{
   height: 390px; 
 }
 
-.app_Menu_btn{
-  border: 1px solid black;
+.app_Menu_btn{ 
   padding: 5px;
   border-radius: 6px;
   border: 2px solid black; 
+  margin: 5px;
+  cursor: pointer;
+}
+
+.app_Spec_btn{ 
+  padding: 5px;
+  border-radius: 6px;
+  border: 2px solid gainsboro; 
   margin: 5px;
   cursor: pointer;
 }

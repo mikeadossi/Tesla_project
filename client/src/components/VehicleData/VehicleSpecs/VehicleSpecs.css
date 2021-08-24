@@ -25,6 +25,11 @@
     width: 190px;
 }
 
+.spec_shrunk{
+    padding: 3px;
+    width: 160px;
+}
+
 .darkerBacking{
     background-color: rgb(240, 240, 240);
 }
@@ -40,6 +45,5 @@
 }
 
 .selected_spec{
-    background-color: steelblue;
-    color: white; 
+    border: 2px solid rgb(22, 131, 252); 
 }

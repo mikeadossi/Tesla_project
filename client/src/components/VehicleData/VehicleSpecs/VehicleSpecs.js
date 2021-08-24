@@ -13,6 +13,8 @@ const VehicleSpecs = ({
 }) => {
   
   const detailed_specs = vehicleContent.vehicle_render[modelInfo.modelName]["detailed_specs"];
+  let touchscreen = detailed_specs.general_specs.displays
+  touchscreen = touchscreen.replace(' inch','"');
 
   return (
     <div className="vehicleSpecs">
@@ -26,7 +28,7 @@ const VehicleSpecs = ({
                     changeVehicleBattery(batt, selectedVehicle);
                     setActiveBattery(batt);
                     }}
-                    className={`batteryOption app_Menu_btn app_noSelect ${
+                    className={`batteryOption app_Spec_btn app_noSelect ${
                     activeBattery == batt && "selected_spec"
                     }`}
                 >
@@ -44,7 +46,7 @@ const VehicleSpecs = ({
                     changeVehicleBattery(batt, selectedVehicle);
                     setActiveBattery(batt);
                     }}
-                    className={`batteryOption app_Menu_btn app_noSelect ${
+                    className={`batteryOption app_Spec_btn app_noSelect ${
                     activeBattery == batt && "selected_spec"
                     }`}
                 >
@@ -61,7 +63,7 @@ const VehicleSpecs = ({
                     changeVehicleBattery(batt, selectedVehicle);
                     setActiveBattery(batt);
                     }}
-                    className={`batteryOption app_Menu_btn app_noSelect ${
+                    className={`batteryOption app_Spec_btn app_noSelect ${
                     activeBattery == batt && "selected_spec"
                     }`}
                 >
@@ -81,11 +83,11 @@ const VehicleSpecs = ({
               <div className="specContainer"><div className="spec">Ground Clearance (min):</div><div className="specDetail">{detailed_specs.general_specs.ground_clearance_min}</div></div>
               <div className="specContainer darkerBacking"><div className="spec">Staggered tires</div><div className="specDetail">{detailed_specs.general_specs.staggered_tires}</div></div> 
               <div className="specContainer"><div className="spec">Tire type</div><div className="specDetail">{detailed_specs.general_specs.tire_type}</div></div> 
-              <div className="specContainer darkerBacking"><div className="spec">Dimensions</div><div className="specDetail">{detailed_specs.general_specs.dimensions}</div></div>
+              <div className="specContainer darkerBacking"><div className="spec_shrunk">Dimensions</div><div className="specDetail">{detailed_specs.general_specs.dimensions}</div></div>
               <div className="specContainer"><div className="spec">Towing Capacity</div><div className="specDetail">{detailed_specs.general_specs.towing_capacity}</div></div>
-              <div className="specContainer darkerBacking"><div className="spec">Displays</div><div className="specDetail">{detailed_specs.general_specs.displays}</div></div>
-              <div className="specContainer"><div className="spec">Supercharging Max/Pymt type</div><div className="specDetail">{detailed_specs.general_specs.supecharging_max_pymt_type}</div></div>
-              <div className="specContainer darkerBacking"><div className="spec">Onboard charger max</div><div className="specDetail">{detailed_specs.general_specs.onboard_charger_max}</div></div>
+              <div className="specContainer darkerBacking"><div className="spec">Displays</div><div className="specDetail">{touchscreen}</div></div>
+              <div className="specContainer"><div className="spec">Supercharging Max/Pymt type</div><div className="specDetail">{detailed_specs.general_specs.supercharging_max_pymt_type}</div></div>
+              <div className="specContainer darkerBacking"><div className="spec_shrunk">Onboard charger max</div><div className="specDetail">{detailed_specs.general_specs.onboard_charger_max}</div></div>
             </div>
             <div className="specSubContainer">
               <div className="specsHeading">Interior Dimensions</div>
