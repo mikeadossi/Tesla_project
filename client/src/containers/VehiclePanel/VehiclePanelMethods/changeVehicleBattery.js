@@ -8,6 +8,8 @@ const changeVehicleBattery = (batterySelected, value, setTeslaModels, populatePa
         return iv;
       })
       .join("");
+    
+      console.log({batterySelected})
 
     setTeslaModels((metaVehicles) => {
       // handle deep copy on all (relevant) nested objects w/ spread operator

@@ -14,7 +14,7 @@ const VehicleBatteryAndPaint = ({
   setActiveBattery,
 }) => {
 
-  const [activeColor, setActiveColor] = useState("");
+  const [activeColor, setActiveColor] = useState(""); 
   
   const paintObject = teslaDetails["paint_options"];
   const paintObjectKeys = Object.keys(paintObject);

@@ -118,12 +118,14 @@ const VehicleConfigContainer = ({
       {configVisibility.SpecsPage 
         ? 
         <VehicleSpecs 
+          selectedVehicle={selectedVehicle}
           vehicleContent={vehicleContent}
           modelInfo={modelInfo}
           changeVehicleBattery={changeVehicleBattery}
           batteryObject={batteryObject}
           batteryObjectKeys={batteryObjectKeys} 
           setActiveBattery={setActiveBattery}
+          activeBattery={activeBattery}
         /> 
         : 
         ""

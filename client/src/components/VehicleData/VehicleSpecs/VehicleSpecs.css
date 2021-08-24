@@ -38,3 +38,8 @@
 .specSubContainer{
     padding-top: 15px;
 }
+
+.selected_spec{
+    background-color: steelblue;
+    color: white; 
+}
