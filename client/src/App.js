@@ -20,6 +20,7 @@ import { connect } from "react-redux";
 import { getMyZipcodeData } from "./config/actions/navActions"; 
 
 import { Provider } from "react-redux";
+import { AuthProvider } from "./contexts/AuthContext.js";
 import { store } from "./store";
 
 function App() {
@@ -30,6 +31,9 @@ function App() {
     resetWarning: false,
   });
 
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const closeMobileMenu = () => { 
     setMenuVisibility({
       mobileMenu: false,
@@ -39,46 +43,68 @@ function App() {
   };
 
   return (
-    <Provider store={store}>
-      <div className="App">
-        <BrowserRouter>
-          <Nav
-            menuVisibility={menuVisibility} 
-            closeMobileMenu={closeMobileMenu}
-          />
-          <LandingPageNav />
-          <LocationDetails />
-          <DynamicMenu />
-          <ProductMenu />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/signUp" component={SignUp} />
-            <Route exact path="/logIn" component={LogIn} />
-            <Route exact path="/notifications" component={Notifications} />
-            <Route exact path="/settings" component={Settings} />
-            <Route exact path="/lost" component={Lost} />
-            <Route exact path="/forgotPassword" component={ForgotPassword} />
-            <Route
-              exact
-              path="/vehicles"
-              component={() => (
-                <Vehicles />
-              )}
+    <AuthProvider>
+        <div className="App">
+          <BrowserRouter>
+            <Nav
+              menuVisibility={menuVisibility} 
+              closeMobileMenu={closeMobileMenu}
             />
-            <Route 
-              exact 
-              path="/solar" 
-              component={() => (
-                <Solar />
-              )}
-            />
-            <Route exact path="/userLogin" component={LogIn} />
-            <Route exact path="/userSignup" component={SignUp} />
-          </Switch>
-          <Footer />
-        </BrowserRouter>
-      </div>
-    </Provider>
+            <LandingPageNav />
+            <LocationDetails />
+            <DynamicMenu />
+            <ProductMenu />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/signUp" component={SignUp} />
+              <Route exact path="/logIn" component={LogIn} />
+              <Route exact path="/notifications" component={Notifications} />
+              <Route exact path="/settings" component={Settings} />
+              <Route exact path="/lost" component={Lost} />
+              <Route exact path="/forgotPassword" component={ForgotPassword} />
+              <Route
+                exact
+                path="/vehicles"
+                component={() => (
+                  <Vehicles />
+                )}
+              />
+              <Route 
+                exact 
+                path="/solar" 
+                component={() => (
+                  <Solar />
+                )}
+              />
+              <Route 
+                exact 
+                path="/userLogin" 
+                component={() => (
+                  <LogIn 
+                    errorMessage={errorMessage}
+                    setErrorMessage={setErrorMessage}
+                    loading={loading}
+                    setLoading={setLoading}
+                  />
+                )} 
+              />
+              <Route 
+                exact 
+                path="/userSignup" 
+                component={() => (
+                  <SignUp 
+                    errorMessage={errorMessage}
+                    setErrorMessage={setErrorMessage}
+                    loading={loading}
+                    setLoading={setLoading}
+                  />
+                )} 
+              />
+            </Switch>
+            <Footer />
+          </BrowserRouter>
+        </div>
+    </AuthProvider>
   );
 }
 
