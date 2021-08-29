@@ -1,7 +1,9 @@
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -18,7 +20,27 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 
 export const createUser = (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+  return createUserWithEmailAndPassword(auth, email, password)
+    .then((user) => console.log("user", user))
+    .catch((error) => {
+      console.log("message", error.message);
+      console.log("code", error.code); 
+    });
 };
+
+export const logInUser = (email, password) => {
+  return signInWithEmailAndPassword(auth, email, password);
+};
+
+export const logOutOfApp = () => { 
+  signOut(auth)
+    .then((res) => {
+      console.log("signed out");
+    })
+    .catch((error) => {
+      console.log("signout error", error);
+    });
+};
+
 
 export default app;

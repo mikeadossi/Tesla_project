@@ -79,7 +79,7 @@ const VehicleConfigContainer = ({
 
   return (
     <div className="app_Config_container" ref={vehicleContainerRef}>
-      <VehicleConfigHeader
+      <VehicleConfigHeader 
         selectedVehicle={selectedVehicle}
         removeModel={removeModel}
         modelInfo={modelInfo}
@@ -88,7 +88,7 @@ const VehicleConfigContainer = ({
       />
 
       {configVisibility.ConfigPage ? (
-        <VehicleConfig
+        <VehicleConfig 
           selectedVehicle={selectedVehicle}
           vehicleContent={vehicleContent}
           changeVehicleColor={changeVehicleColor}

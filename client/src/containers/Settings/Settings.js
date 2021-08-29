@@ -1,11 +1,14 @@
 import React from "react";
 import "./Settings.css";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Settings = () => { 
+    const { currentUser } = useAuth();
+
     return <div className="settings_container app_pageHeight">
         <h1 className="settings_title">SETTINGS</h1> 
-        <div className="settings_signedIn">Signed in as useremail@gmail.com</div> 
+        <div className="settings_signedIn">Signed in as {currentUser && currentUser.email}</div> 
         <div className="settings_section">
             <h3 className="">SHOW/HIDE WARNINGS</h3>
             <div className="settings_subsection app_displayFlex">

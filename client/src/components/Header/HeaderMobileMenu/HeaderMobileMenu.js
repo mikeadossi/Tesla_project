@@ -1,8 +1,21 @@
 import React from 'react';
 import './HeaderMobileMenu.css';
-import { Link }  from 'react-router-dom';
+import { Link, useHistory }  from 'react-router-dom';
+import { useAuth } from "../../../contexts/AuthContext";
 
 const HeaderMobileMenu  = ({ closeMobileMenu }) => {
+  const { logOut } = useAuth();
+  const history = useHistory();
+
+  function handleLogOut(){
+    try{
+      logOut();
+      history.push("/");
+    } catch(e){
+      console.log(e)
+    }
+  }
+
   return (
     <div className="headerMobileMenu">
         <div
@@ -37,7 +50,7 @@ const HeaderMobileMenu  = ({ closeMobileMenu }) => {
           <div className="headerMobileMenu_log_in headerMobileMenu_login_btn">LOG IN</div>
         </Link> 
         <Link to="/userLogin" onClick={() => closeMobileMenu()} className="headerMobileMenu_links app_textdecorationNone">
-          <div className="headerMobileMenu_log_in headerMobileMenu_login_btn">LOG OUT</div> 
+          <div className="headerMobileMenu_log_in headerMobileMenu_login_btn" onClick={handleLogOut}>LOG OUT</div> 
         </Link> 
     </div>
   ); 

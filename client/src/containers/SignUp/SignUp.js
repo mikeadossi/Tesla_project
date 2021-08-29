@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import "./SignUp.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
 const SignUp = ({
@@ -13,8 +13,9 @@ const SignUp = ({
   const passwordSignupRef = useRef();
   const passwordConfirmSignupRef = useRef();
   const { signup, currentUser } = useAuth(); 
+  const history = useHistory();
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
 
     if (
@@ -24,11 +25,11 @@ const SignUp = ({
     }
     try {
       setLoading(true);
-      await signup(
+      signup(
         emailSignupRef.current.value,
         passwordSignupRef.current.value
-      );
-      setErrorMessage("success");
+      ); 
+      history.push("/");
     } catch (e) { 
       setErrorMessage("Failed to create account! ");
     }
@@ -49,8 +50,7 @@ const SignUp = ({
           Create Account
         </div>
       </div>
-      <div className="app_register_container_div">
-        {currentUser && currentUser.email}
+      <div className="app_register_container_div"> 
         <form className="signUp_form_container" onSubmit={handleSubmit}>
           <div>
             <div className="app_register_directive">

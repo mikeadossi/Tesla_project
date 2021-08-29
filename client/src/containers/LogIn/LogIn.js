@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import './LogIn.css'; 
-import { Link }  from 'react-router-dom';
+import { Link, useHistory }  from 'react-router-dom';
+import { useAuth } from "../../contexts/AuthContext";
 
 const LogIn = ({
   errorMessage,
@@ -10,6 +11,26 @@ const LogIn = ({
 }) => { 
   const emailLogInRef = useRef();
   const passwordLogInRef = useRef(); 
+  const { login, currentUser } = useAuth();
+  const history = useHistory();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      login(
+        emailLogInRef.current.value,
+        passwordLogInRef.current.value
+      ); 
+      history.push("/");
+
+      setErrorMessage("logged in?");
+    } catch (e) { 
+      setErrorMessage("Failed to log in! ");
+    }
+    setLoading(false);
+  }
 
   return (
     <div className="logIn_container">
@@ -18,8 +39,8 @@ const LogIn = ({
         <div className="app_register_border"></div>
         <Link to="/userSignUp" className="app_inactive_register_btn app_register_option_btn app_noSelect app_textdecorationNone">Create Account</Link>
       </div>
-      <div className="app_register_container_div">
-        <form className="logIn_form_container">
+      <div className="app_register_container_div"> 
+        <form className="logIn_form_container" onSubmit={handleSubmit}>
           <div>
             <div className="app_register_directive">Sign in with your email address</div>
             <label className="app_register_label">Email Address</label>
