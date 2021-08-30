@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(false); 
 
-  console.log("current User", currentUser);
+  if(currentUser) console.log("current User", currentUser.uid);
 
   useEffect(() => { 
     setLoading(); 
@@ -18,14 +18,32 @@ export const AuthProvider = ({ children }) => {
 
   // firebase handles our signup functionality
   function signup(email, password) {
-    createUser(email, password).then((user) => setCurrentUser(user.user));
-    // set ucurrect usr
+    createUser(email, password)
+      .then((user) => {
+        const userObj = { 
+          email : user["user"]["email"], 
+          id : user["_tokenResponse"]["localId"], 
+          date_joined : user["user"]["metadata"]["creationTime"],
+        }
+        setCurrentUser(userObj);
+      })
+      .catch((error) => { 
+        console.log("message", error.message);
+      });
   }
 
   // firebase handles our signup functionality
   function login(email, password) {
     logInUser(email, password)
-      .then((user) => setCurrentUser(user.user))
+      .then((user) => { 
+        const userObj = { 
+          email : user["user"]["email"], 
+          id : user["_tokenResponse"]["localId"], 
+          date_joined : user["user"]["metadata"]["creationTime"],
+        }
+        setCurrentUser(userObj);
+        console.log(userObj);
+      })
       .catch((error) => {
         console.log("code", error.code);
         console.log("message", error.message);
