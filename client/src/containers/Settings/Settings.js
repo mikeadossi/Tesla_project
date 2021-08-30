@@ -7,27 +7,27 @@ const Settings = () => {
     const { currentUser } = useAuth();
 
     const [warnings, setWarnings] = useState({
-        apply_all_warning_on: true,
-        reset_warning_on: true,
-        notifications_on: true,
+        apply_all_warning_on: currentUser["apply_all_warning_on"],
+        reset_warning_on: currentUser["reset_warning_on"],
+        notifications_on: currentUser["notifications_on"],
     }) 
 
-    const handleWarning = (ObjKey) => { 
-        setWarnings(() => {
-            if(warnings[ObjKey] === true){
-                warnings[ObjKey] = false
-            } else {
-                warnings[ObjKey] = true
-            } 
-            console.log(warnings[ObjKey])
-            return warnings;
-        }) 
+    const handleWarning = (ObjKey) => {
+        var newWarnings = {...warnings}
+        console.log('1 - ',newWarnings[ObjKey])
+        if(newWarnings[ObjKey] === true){ 
+            newWarnings[ObjKey] = false;
+        } else if(newWarnings[ObjKey] === false) { 
+            newWarnings[ObjKey] = true;
+        } 
+        console.log('2 - ',newWarnings[ObjKey])
+        console.log(newWarnings)
+        return setWarnings(newWarnings);
     }
 
     const closeAccount = () => {
         console.log('account closed!')
     }
-
     
 
     return <div className="settings_container app_pageHeight">
@@ -37,7 +37,7 @@ const Settings = () => {
             <h3 className="">SHOW/HIDE WARNINGS</h3>
             <div className="settings_subsection app_displayFlex">
                 <div className="settings_text">Apply All warning</div>
-                {warnings["apply_all_turned_on"] ? (
+                {warnings["apply_all_warning_on"] ? (
                     <button 
                         onClick={() => handleWarning("apply_all_warning_on")} 
                         className="settings_close"

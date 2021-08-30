@@ -44,14 +44,12 @@ const LogIn = ({
           <div>
             <div className="app_register_directive">Sign in with your email address</div>
             <label className="app_register_label">Email Address</label>
-            <input className="app_register_input_box logIn_email_address" id="emailLogIn" placeholder="enter email address" type="email" ref={emailLogInRef} required />
-            {/* <div className="register_alert login_alert_valid_email">Please enter valid email address</div> */}
+            <input className="app_register_input_box logIn_email_address" id="emailLogIn" placeholder="enter email address" type="email" ref={emailLogInRef} required /> 
           </div>
           <div className="app_register_password_container">
             <label className="app_register_label">Password</label>
             <div className="logIn_password"><input className="app_register_input_box" id="passwordLogIn" placeholder="enter password" type="password" ref={passwordLogInRef} required /></div>
-          </div>
-          {/* <div className="register_alert login_alert_not_found">Password and/or email not found</div> */}
+          </div> 
           {errorMessage ? <div className="register_alert register_alert_password">{errorMessage}</div> : ''}
           <button className="app_register_submit_btn logIn_submit_btn" type="submit" disabled={loading}>SUBMIT</button> 
           <Link to="/forgotPassword" className="logIn_forgot_password app_textdecorationNone">Forgot Password</Link>

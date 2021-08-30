@@ -6,3 +6,7 @@
 .logIn_submit_btn{
     margin-bottom: 10px;
 }
+
+.logIn_container{
+    min-height: 75vh;
+}

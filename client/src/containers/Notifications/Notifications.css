@@ -14,16 +14,29 @@
     padding: 10px;
 }
 
+.notitifcation_date_new{
+    background-color: #df6161;
+    padding-right: 20px;
+    padding: 10px;
+}
+
 .notifications_text{
     padding: 10px;
 }
 
 .notifications_content{
-    border: 1px solid orange;
-    background-color: rgb(244, 244, 244);
+    border: 1px solid orange; 
     border-radius: 4px;
     display: flex;
-    margin-bottom: 5px;
+    margin-bottom: 30px;
+}
+
+.notifications_content_new{
+    border: 1px solid firebrick;
+    background-color: white;
+    border-radius: 4px;
+    display: flex;
+    margin-bottom: 30px;
 }
 
 .more_notifications:hover{
@@ -34,10 +47,10 @@
 .more_notifications{
     padding-bottom: 5px;
     border-radius: 4px;
-    margin-bottom: 5px;
+    margin-bottom: 30px;
     border: 1px solid white;
 }
 
 .open_notifications{
-    font-size: 20px;
+    font-size: 20px; 
 }
