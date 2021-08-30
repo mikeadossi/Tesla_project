@@ -13,15 +13,66 @@ app.use(bodyParser.json());
 
 app.get("/statedata", async (req, res) => {
   console.log("req received");
-  // const { abbr } = req.body;
   const {
     query: { abbr },
   } = req;
   console.log("request received for statedata", abbr);
   try {
     const rows = await queries.getStateDataByStateAbbr(abbr);
-    console.log('statedata rows ---> ',rows)
+    // console.log('statedata rows ---> ',rows)
     return res.status(200).send(rows);
+  } catch (e) {
+    return res.status(500);
+  }
+});
+
+app.get("/userData", async (req, res) => {
+  const {
+    query: { id },
+  } = req;
+  console.log("request received for id: ", id);
+  try {
+    const rows = await queries.getUserData(id);
+    return res.status(200).send(JSON.stringify(rows));
+  } catch (e) {
+    return res.status(500);
+  }
+});
+
+app.post("/insertNewUser", async (req, res) => {
+  const { body } = req;
+  console.log("received params", body);
+  // console.log("request received for email: ", email);
+  try {
+    const rows = await queries.insertNewUser(body);
+    return res.status(200).send(JSON.stringify(rows));
+  } catch (e) {
+    return res.status(500);
+  }
+});
+
+app.get("/updateUserData", async (req, res) => {
+  const {
+    query: {
+      id,
+      dark_theme_off,
+      gave_cookie_permission,
+      notifications_on,
+      apply_all_warning_on,
+      reset_warning_on,
+    },
+  } = req;
+  console.log("request received for id: ", id);
+  try {
+    const rows = await queries.updateUser({
+      id,
+      dark_theme_off,
+      gave_cookie_permission,
+      notifications_on,
+      apply_all_warning_on,
+      reset_warning_on,
+    });
+    return res.status(200).send(JSON.stringify(rows));
   } catch (e) {
     return res.status(500);
   }
@@ -65,5 +116,8 @@ app.get("/allModels", async (req, res) => {
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server is running on port ${PORT}`); 
-}); 
+  console.log(`Server is running on port ${PORT}`);
+  // queries.seedVehiclesDatabase();
+  // queries.seedStateDatabase();
+});
+// kill -9 $( lsof -t -i:3002)
