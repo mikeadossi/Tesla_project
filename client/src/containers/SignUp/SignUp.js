@@ -1,21 +1,36 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./SignUp.css";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { connect, useDispatch } from "react-redux";
+import { insertNewMember } from "../../config/actions/userActions";
+import "firebase/firestore";
+import app from "../../firebase";
 
 const SignUp = ({
   errorMessage,
   setErrorMessage,
   loading,
   setLoading,
+  insertNewMember,
+  user_data,
 }) => {
   const emailSignupRef = useRef();
   const passwordSignupRef = useRef();
   const passwordConfirmSignupRef = useRef();
-  const { signup, currentUser } = useAuth(); 
+  const { signup, currentUser } = useAuth();
   const history = useHistory();
 
-  function handleSubmit(e) {
+  useEffect(() => {
+    // after successful firebase signup, push user to db
+    // TODO: update insertNewMember to check if user is already there
+    if(currentUser){
+      insertNewMember(currentUser);
+    }
+  }, []);
+
+
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (
@@ -25,12 +40,11 @@ const SignUp = ({
     }
     try {
       setLoading(true);
-      signup(
+      await signup(
         emailSignupRef.current.value,
         passwordSignupRef.current.value
-      ); 
-      history.push("/");
-    } catch (e) { 
+      );
+    } catch (e) {
       setErrorMessage("Failed to create account! ");
     }
     setLoading(false);
@@ -50,7 +64,7 @@ const SignUp = ({
           Create Account
         </div>
       </div>
-      <div className="app_register_container_div"> 
+      <div className="app_register_container_div">
         <form className="signUp_form_container" onSubmit={handleSubmit}>
           <div>
             <div className="app_register_directive">
@@ -64,7 +78,6 @@ const SignUp = ({
               ref={emailSignupRef}
               required
             />
-            {/* <div className="register_alert register_alert_valid_email">Please enter valid email address</div> */}
           </div>
           <div className="app_register_password_container">
             <label className="app_register_label">Password</label>
@@ -87,8 +100,6 @@ const SignUp = ({
               />
             </div>
           </div>
-          {/* <div className="register_alert register_alert_password">Please ensure both passwords match</div>
-          <div className="register_alert register_alert_email">Email given is being used by another user</div> */}
           {errorMessage ? (
             <div className="register_alert register_alert_password">
               {errorMessage}
@@ -109,4 +120,12 @@ const SignUp = ({
   );
 };
 
-export default SignUp;
+// export default SignUp;
+
+function mapStateToProps(state) {
+  return {
+    user_data: state.userReducer.user_data, 
+  };
+}
+
+export default connect(mapStateToProps, { insertNewMember })(SignUp); 

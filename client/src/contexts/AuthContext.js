@@ -10,25 +10,30 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(false); 
 
-  if(currentUser) console.log("current User", currentUser.uid);
-
-  useEffect(() => { 
+  useEffect(() => {
     setLoading(); 
   }, []);
 
   // firebase handles our signup functionality
-  function signup(email, password) {
-    createUser(email, password)
+  async function signup(email, password) {
+    setCurrentUser(null); // very important to clear out currentUser!
+    
+    await createUser(email, password)
       .then((user) => {
-        const userObj = { 
+        console.log('user --- ',user)
+        setCurrentUser({ 
           email : user["user"]["email"], 
           id : user["_tokenResponse"]["localId"], 
           date_joined : user["user"]["metadata"]["creationTime"],
-        }
-        setCurrentUser(userObj);
+          gave_cookie_permission : "",
+          notifications_on : "",
+          apply_all_warning_on : "",
+          reset_warning_on : "", 
+        })
       })
       .catch((error) => { 
         console.log("message", error.message);
+        return null;
       });
   }
 
@@ -36,10 +41,15 @@ export const AuthProvider = ({ children }) => {
   function login(email, password) {
     logInUser(email, password)
       .then((user) => { 
+        console.log('user >>> ',user)
         const userObj = { 
           email : user["user"]["email"], 
           id : user["_tokenResponse"]["localId"], 
           date_joined : user["user"]["metadata"]["creationTime"],
+          gave_cookie_permission : "",
+          notifications_on : "",
+          apply_all_warning_on : "",
+          reset_warning_on : "", 
         }
         setCurrentUser(userObj);
         console.log(userObj);
