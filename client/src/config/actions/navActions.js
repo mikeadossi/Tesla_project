@@ -18,7 +18,7 @@ export const getMyZipcodeData = (zip) => async (dispatch) => {
       });
     }
   }
-};
+}; 
 
 export const showApplyAllWarning = (dispatch, modelName) => () => { // action creator - creates and returns action object
   console.log('hey - ',modelName["name"])
