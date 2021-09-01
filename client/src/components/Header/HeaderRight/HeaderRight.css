@@ -1,8 +1,7 @@
 .headerRight{
     width: 24%;
     float: right; 
-    text-align: right;
-    cursor: pointer;
+    text-align: right; 
 }
 
 .headerRight div{
@@ -14,20 +13,22 @@
 }
 
 .headerRight_links{
-    color: white;
+    color: white; 
+    vertical-align: middle;
 } 
 
-.headerRight_hamburger{
-    /* display: none; */
+.headerRight_hamburger{ 
     height: 10px;
     padding-right: 10px;
     cursor: pointer;
+    vertical-align: middle;
 }
 
 .notification_bell{
     height: 20px;
-    border-radius: 50%;
-    padding: 3px;
+    border-radius: 50%; 
+    vertical-align: middle;
+    padding: 1px;
 }
 
 .notification_bell:hover{
@@ -38,11 +39,12 @@
     color: white;
     background-color: red;
     border-radius: 5px;
-    padding: 3px;
+    padding: 4px 5px 4px 5px;
     font-size: 10px;
     margin-right: 0 !important;
+    vertical-align: middle;
 }
 
-.notification_bell_container{
-    display: none !important;
+.notifications_number:hover{
+    cursor: default;
 }

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import "./HeaderRight.css";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
@@ -8,6 +8,7 @@ import { useAuth } from "../../../contexts/AuthContext";
 const HeaderRight = ({ toggleMobileMenu }) => {
   const { logOut, currentUser } = useAuth();
   const history = useHistory();
+  const [notifications, setNotifications] = useState(2);
 
   function handleLogOut() {
     try {
@@ -19,20 +20,26 @@ const HeaderRight = ({ toggleMobileMenu }) => {
   }
 
   return (
-    <div className="headerRight app_marginTop">
-      <div className="notification_bell_container">
-        <div className="notifications_number">9+</div>
-        <img
-          className="notification_bell"
-          src="../../../../images/Nav/bell_icon.png"
-          alt="menu"
-        />
-      </div>
+    <div className="headerRight app_marginTop"> 
       {currentUser ? (
-        <Link className="headerRight_links">
+        <div className="notification_bell_container"> 
+        {notifications ? (
+          <div className="notifications_number">{notifications}</div> 
+        ) : ""}
+          <Link className="headerRight_links" to="/Notifications">
+            <img
+              className="notification_bell"
+              src="../../../../images/Nav/bell_icon.png"
+              alt="menu"
+            />
+          </Link>
+        </div>
+      ) : ("")}
+      {currentUser ? (
+        <Link className="headerRight_links" to="/">
           <div
             className="headerRight_log_in headerRight_login_btn"
-            onClick={handleLogOut}
+            onClick={() => handleLogOut()}
           >
             LOG OUT
           </div>
