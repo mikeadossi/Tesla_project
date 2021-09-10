@@ -3,11 +3,12 @@ const pool = require("./utility/database");
 const zipCodes = require("./seed_folder/newestObject");
 const vehiclesObj = require("./seed_folder/vehicles_seedFile");
 const stateDataObj = require("./seed_folder/state_seedFile.js");
-const areaCodesObj = require("./seed_folder/area_codes");
+const areaCodesObj = require("./seed_folder/area_codes"); 
 // const showroomObj = require("./seed_folder/showroomData");
 // const serviceCenterObj = require(".seed_folder/serviceCenterData");
 // const showroomPhoneObj = require("./seed_folder/showroomPhoneNum");
 // const serviceCenterPhoneObj = require(".seed_folder/serviceCenterPhoneNum");
+
 
 const userObject = {
   user1: {
@@ -45,8 +46,32 @@ let queries = {
     });
   },
 
-  getStateDataByStateName: function (stateName) {
-    console.log(`SELECT * from stateData where state_name=${stateName}`);
+  isEmailRegistered: function (email) {
+    return new Promise((resolve, reject) => {
+      pool.query( 
+        `SELECT account_active from user_details where user_email="${email}"`, 
+        (err, rows) => {
+          if (err) return reject(err);
+          return resolve(rows);
+        }
+      );
+    });
+  },
+
+
+  getUserQuery: function(email, password) {
+    return new Promise((resolve, reject) => {
+      pool.query( 
+        `SELECT * from user_details where user_email="${email}"`,
+        (err, response) => { 
+          if (err) return reject(err);
+          return resolve(response);
+        }
+      );
+    });
+  },
+
+  getStateDataByStateName: function (stateName) { 
     return new Promise((resolve, reject) => {
       pool.query(
         `SELECT * from stateData where state_name=${stateName}`,
@@ -59,9 +84,9 @@ let queries = {
     });
   },
 
-  getUserData: function (id) {
+  getUserData: function (email) {
     return new Promise((resolve, reject) => {
-      pool.query(`SELECT * from user_details where id=${id}`, (err, rows) => { 
+      pool.query(`SELECT * from user_details where user_email='${email}'`, (err, rows) => { 
         if (err) return reject(err);
         return resolve(rows[0]);
       });
@@ -70,7 +95,8 @@ let queries = {
 
   insertNewUser: function ({
     id,
-    email, 
+    email,
+    password,
     date_joined, 
     gave_cookie_permission,
     notifications_on,
@@ -81,20 +107,22 @@ let queries = {
       `INSERT INTO user_details (
         user_id, 
         user_email,
+        user_password,
         date_joined, 
         gave_cookie_permission,
         notifications_on,
         apply_all_warning_on,
         reset_warning_on
         ) VALUES (
-        '${id}', 
-        '${email}', 
-        '${date_joined}',
-        '${gave_cookie_permission}',
-        '${notifications_on}',
-        '${apply_all_warning_on}',
-        '${reset_warning_on}'
-      )`,
+          '${id}', 
+          '${email}',
+          '${password}', 
+          '${date_joined}',
+          '${gave_cookie_permission}',
+          '${notifications_on}',
+          '${apply_all_warning_on}',
+          '${reset_warning_on}'
+        )`,
       (err, rows) => {
         if (err) console.log("Got an error inserting row to user_details", err);
         else
@@ -105,34 +133,18 @@ let queries = {
 
   updateUser: function ({
     id, 
-    dark_theme_off,
-    gave_cookie_permission,
-    notifications_on,
-    apply_all_warning_on,
-    reset_warning_on, 
+    ourKey,
+    ourValue, 
   }) {
     pool.query(
-      `INSERT INTO user_details (dark_theme_off, gave_cookie_permission, notifications_on, apply_all_warning_on, reset_warning_on) VALUES ('${dark_theme_off}', '${gave_cookie_permission}', '${notifications_on}', '${apply_all_warning_on}', '${reset_warning_on}') where id=${id}`,
+      `UPDATE user_details SET ${ourKey} = '${ourValue}' WHERE user_id='${id}'`, 
       (err, rows) => {
         if (err) console.log("Got an error inserting row to user_details", err);
         else
-          console.log(`Row was inserted in user_details: ${id} - ${state_name}`);
+          console.log(`Row was inserted in user_details at: ${ourValue}`);
       }
     );
   },
-
-  // dropUser: function ({
-  //   id
-  // }) {
-  //   pool.query(
-  //     `DELETE INTO user_details (dark_theme_off, gave_cookie_permission, notifications_on, apply_all_warning_on, reset_warning_on) VALUES ('${dark_theme_off}', '${gave_cookie_permission}', '${notifications_on}', '${apply_all_warning_on}', '${reset_warning_on}') where id=${id}`,
-  //     (err, rows) => {
-  //       if (err) console.log("Got an error inserting row to user_details", err);
-  //       else
-  //         console.log(`Row was inserted in user_details: ${id} - ${state_name}`);
-  //     }
-  //   );
-  // },
 
   getZipcodeData: function (zipcode) {
     return new Promise((resolve, reject) => {
