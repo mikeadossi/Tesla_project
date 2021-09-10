@@ -24,8 +24,8 @@ const Settings = ({
 
     const handleWarning = (ObjKey) => {
         let newWarnings = {...warnings} 
-        let newCurrentUser = {...currentUser}; 
-        if(newWarnings[ObjKey] === true || newWarnings[ObjKey] === ""){ 
+        let newCurrentUser = {...currentUser};
+        if(newWarnings[ObjKey] === true || newWarnings[ObjKey] === "" || newWarnings[ObjKey] === "undefined"){ 
             newWarnings[ObjKey] = false;
             newCurrentUser[ObjKey] = false;
         } else if(newWarnings[ObjKey] === false) { 
@@ -34,6 +34,7 @@ const Settings = ({
         }  
         setWarnings(newWarnings);
         setCurrentUser(newCurrentUser);
+        
         const parcel = {
             id: newCurrentUser.id,
             ourKey: ObjKey,
