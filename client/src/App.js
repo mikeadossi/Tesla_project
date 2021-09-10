@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Nav from "./containers/Nav/Nav";
@@ -17,13 +17,13 @@ import Settings from "./containers/Settings/Settings";
 import Lost from "./containers/Lost/Lost";
 import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
 import { connect } from "react-redux";
-import { getMyZipcodeData } from "./config/actions/navActions"; 
+import { getMyZipcodeData } from "./config/actions/navActions";
 
 import { Provider } from "react-redux";
 import { AuthProvider } from "./contexts/AuthContext.js";
 import { store } from "./store";
 
-function App() {
+function App() { 
 
   const [menuVisibility, setMenuVisibility] = useState({
     mobileMenu: false,
@@ -42,6 +42,7 @@ function App() {
     });
   };
 
+
   return (
     <AuthProvider>
         <div className="App">
@@ -49,15 +50,14 @@ function App() {
             <Nav
               menuVisibility={menuVisibility} 
               closeMobileMenu={closeMobileMenu}
+              setErrorMessage={setErrorMessage}
             />
             <LandingPageNav />
             <LocationDetails />
             <DynamicMenu />
             <ProductMenu />
             <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/signUp" component={SignUp} />
-              <Route exact path="/logIn" component={LogIn} />
+              <Route exact path="/" component={Home} /> 
               <Route exact path="/notifications" component={Notifications} />
               <Route exact path="/settings" component={Settings} />
               <Route exact path="/lost" component={Lost} />

@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   // firebase handles our signup functionality
   async function signup(email, password) {
     setCurrentUser(null); // very important to clear out currentUser!
-    
+
     await createUser(email, password)
       .then((user) => {
         console.log('user --- ',user)
@@ -41,7 +41,6 @@ export const AuthProvider = ({ children }) => {
   function login(email, password) {
     logInUser(email, password)
       .then((user) => { 
-        console.log('user >>> ',user)
         const userObj = { 
           email : user["user"]["email"], 
           id : user["_tokenResponse"]["localId"], 
@@ -52,7 +51,7 @@ export const AuthProvider = ({ children }) => {
           reset_warning_on : "", 
         }
         setCurrentUser(userObj);
-        console.log(userObj);
+        console.log(currentUser);
       })
       .catch((error) => {
         console.log("code", error.code);
@@ -62,7 +61,7 @@ export const AuthProvider = ({ children }) => {
 
   function logOut() {
     logOutOfApp()
-      .then((_) => setCurrentUser(null)) 
+      .then((_) => setCurrentUser(null))
       .catch((error) => {
         console.log("code", error.code);
         console.log("message", error.message);
@@ -71,6 +70,7 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     currentUser,
+    setCurrentUser,
     signup,
     login,
     logOut,

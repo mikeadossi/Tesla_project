@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Settings.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { connect } from "react-redux";
+import { updateUserDetails } from "../../config/actions/userActions";
 
-const Settings = () => { 
-    const { currentUser } = useAuth();
+const Settings = ({ updateUserDetails }) => { 
+    
+    const { currentUser, setCurrentUser } = useAuth(); 
+    console.log("THIS PAGE ERRORS OUT IF YOU'RE NOT LOGGED IN - ",currentUser.user_email)
 
     const [warnings, setWarnings] = useState({
         apply_all_warning_on: currentUser["apply_all_warning_on"],
@@ -13,26 +17,36 @@ const Settings = () => {
     }) 
 
     const handleWarning = (ObjKey) => {
-        var newWarnings = {...warnings}
-        console.log('1 - ',newWarnings[ObjKey])
-        if(newWarnings[ObjKey] === true){ 
+        let newWarnings = {...warnings} 
+        let newCurrentUser = {...currentUser}; 
+        if(newWarnings[ObjKey] === true || newWarnings[ObjKey] === ""){ 
             newWarnings[ObjKey] = false;
+            newCurrentUser[ObjKey] = false;
         } else if(newWarnings[ObjKey] === false) { 
             newWarnings[ObjKey] = true;
+            newCurrentUser[ObjKey] = true;
+        }  
+        setWarnings(newWarnings);
+        setCurrentUser(newCurrentUser);
+        const parcel = {
+            id: newCurrentUser.id,
+            ourKey: ObjKey,
+            ourValue: newCurrentUser[ObjKey],
         } 
-        console.log('2 - ',newWarnings[ObjKey])
-        console.log(newWarnings)
-        return setWarnings(newWarnings);
+        console.log('parcel: ',parcel)
+        return updateUserDetails(parcel);
     }
 
     const closeAccount = () => {
         console.log('account closed!')
     }
+
+    console.log('currentUser - ',currentUser)
     
 
     return <div className="settings_container app_pageHeight">
         <h1 className="settings_title">SETTINGS</h1> 
-        <div className="settings_signedIn">Signed in as {currentUser && currentUser.email}</div> 
+        <div className="settings_signedIn">Signed in as {currentUser && currentUser.user_email}</div> 
         <div className="settings_section">
             <h3 className="">SHOW/HIDE WARNINGS</h3>
             <div className="settings_subsection app_displayFlex">
@@ -123,4 +137,12 @@ const Settings = () => {
     </div>
 }
 
-export default Settings;
+// export default Settings;
+
+function mapStateToProps(state) {
+    return {
+      user_data: state.userReducer.user_data, 
+    };
+  }
+  
+  export default connect(mapStateToProps, { updateUserDetails })(Settings); 

@@ -2,10 +2,14 @@ import React, { useRef, useEffect, useState } from "react";
 import "./SignUp.css";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import { connect, useDispatch } from "react-redux";
-import { insertNewMember } from "../../config/actions/userActions";
+import { connect } from "react-redux";
+import {
+  insertNewMember,
+  isUserRegistered,
+} from "../../config/actions/userActions";
 import "firebase/firestore";
 import app from "../../firebase";
+import axios from "axios";
 
 const SignUp = ({
   errorMessage,
@@ -20,15 +24,22 @@ const SignUp = ({
   const passwordConfirmSignupRef = useRef();
   const { signup, currentUser } = useAuth();
   const history = useHistory();
+  // const [myCurrentUser, setMyCurrentUser] = useState();
 
-  useEffect(() => {
-    // after successful firebase signup, push user to db
-    // TODO: update insertNewMember to check if user is already there
-    if(currentUser){
-      insertNewMember(currentUser);
-    }
-  }, []);
-
+  // useEffect(() => {
+  //   // after successful firebase signup, push user to db
+  //   // TODO: update insertNewMember to check if user is already there
+  //   insertNewMember({
+  //   email : user["user"]["email"],
+  //   password: user["user"]["password"],
+  //   id : user["_tokenResponse"]["localId"],
+  //   date_joined : user["user"]["metadata"]["creationTime"],
+  //   gave_cookie_permission : "",
+  //   notifications_on : "",
+  //   apply_all_warning_on : "",
+  //   reset_warning_on : "",
+  // });
+  // }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -37,15 +48,70 @@ const SignUp = ({
       passwordSignupRef.current.value !== passwordConfirmSignupRef.current.value
     ) {
       return setErrorMessage("Passwords do not match!");
+    } else {
+      console.log(
+        "emailSignupRef.current.value - ",
+        emailSignupRef.current.value
+      );
+      console.log(
+        "passwordConfirmSignupRef.current.value - ",
+        passwordConfirmSignupRef.current.value
+      );
     }
+    const email = emailSignupRef.current.value;
+    const password = passwordConfirmSignupRef.current.value;
     try {
       setLoading(true);
-      await signup(
-        emailSignupRef.current.value,
-        passwordSignupRef.current.value
-      );
+      // write function - is username already registered?
+      // const userIsRegistered = await isUserRegistered(emailSignupRef.current.value); 
+      const checkEmail = await axios.get(`http://localhost:3002/isUserRegistered?email=${email}`);
+
+      console.log('checkEmail: ',checkEmail);
+
+      if (checkEmail.success) {
+        setErrorMessage(`${email} is already used`);
+      } else {
+        let axiosConfig = {
+          headers: {
+              'Content-Type': 'application/json'
+          }
+        };
+        const body = {
+          email,
+          password, 
+          date_joined : new Date(),
+          gave_cookie_permission : "",
+          notifications_on : "",
+          apply_all_warning_on : "",
+          reset_warning_on : "",
+        } 
+        
+        const newUser = await axios.post(`http://localhost:3002/insertNewUser`, body, axiosConfig);
+        console.log({newUser})
+        // create hash password
+        // save it to db
+        // /insertNewUser
+      }
+
+      // if(!userIsRegistered){
+      //   // convert password using jwt
+
+      //   // insertNewMember(
+      //   //   emailSignupRef.current.value,
+      //   //   jwt_password
+      //   // );
+      //   // console.log("user ",emailSignupRef.current.value," was added!")
+      // } else {
+      //   // throw appropriate error
+      //   console.log("email is already taken");
+      // }
+
+      // await signup(
+      //   emailSignupRef.current.value,
+      //   passwordSignupRef.current.value
+      // );
     } catch (e) {
-      setErrorMessage("Failed to create account! ");
+      setErrorMessage(`${email} is already used`); 
     }
     setLoading(false);
   }
@@ -124,8 +190,8 @@ const SignUp = ({
 
 function mapStateToProps(state) {
   return {
-    user_data: state.userReducer.user_data, 
+    user_data: state.userReducer.user_data,
   };
 }
 
-export default connect(mapStateToProps, { insertNewMember })(SignUp); 
+export default connect(mapStateToProps, { insertNewMember })(SignUp);

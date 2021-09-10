@@ -292,6 +292,10 @@ div{
   padding-bottom: 10px;
 }
 
+.app_padding_left{
+  padding-left: 5px;
+}
+
 .app_active_register_btn{
   background-color: #FBFBFB; 
 }
@@ -330,6 +334,8 @@ div{
   color: white;
   cursor: pointer; 
   border-radius: 6px;
+  border: none;
+  width: 100%;
 }
 
 .app_register_submit_btn:hover{

@@ -19,9 +19,11 @@ const HeaderRight = ({ toggleMobileMenu }) => {
     }
   }
 
+  console.log('currentUser -- ',currentUser)
+
   return (
     <div className="headerRight app_marginTop"> 
-      {currentUser ? (
+      {currentUser && currentUser.user_email ? (
         <div className="notification_bell_container"> 
         {notifications ? (
           <div className="notifications_number">{notifications}</div> 
@@ -35,7 +37,7 @@ const HeaderRight = ({ toggleMobileMenu }) => {
           </Link>
         </div>
       ) : ("")}
-      {currentUser ? (
+      {currentUser && currentUser.user_email ? (
         <Link className="headerRight_links" to="/">
           <div
             className="headerRight_log_in headerRight_login_btn"

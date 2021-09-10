@@ -2,6 +2,7 @@ import * as types from "../actions/types";
 
 const initialState = {
   user_data: {},
+  user_exists: "",
   error: "", 
 };
 
@@ -38,6 +39,12 @@ export default function (state = initialState, action) {
       return {
         ...state, 
         error: action.payload, 
+      };
+    case types.EMAIL_EXISTS_IN_DB:
+      return {
+        ...state, 
+        error: action.payload, 
+        user_exists: "",
       };
     default:
       return state;
