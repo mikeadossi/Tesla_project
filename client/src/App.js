@@ -33,6 +33,7 @@ function App() {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const closeMobileMenu = () => { 
     setMenuVisibility({
@@ -51,6 +52,8 @@ function App() {
               menuVisibility={menuVisibility} 
               closeMobileMenu={closeMobileMenu}
               setErrorMessage={setErrorMessage}
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
             />
             <LandingPageNav />
             <LocationDetails />
@@ -59,7 +62,16 @@ function App() {
             <Switch>
               <Route exact path="/" component={Home} /> 
               <Route exact path="/notifications" component={Notifications} />
-              <Route exact path="/settings" component={Settings} />
+              <Route 
+                exact 
+                path="/settings" 
+                component={() => (
+                  <Settings
+                    currentUser={currentUser} 
+                    setCurrentUser={setCurrentUser}
+                  />
+                )}  
+              />
               <Route exact path="/lost" component={Lost} />
               <Route exact path="/forgotPassword" component={ForgotPassword} />
               <Route
@@ -84,7 +96,8 @@ function App() {
                     errorMessage={errorMessage}
                     setErrorMessage={setErrorMessage}
                     loading={loading}
-                    setLoading={setLoading}
+                    setLoading={setLoading} 
+                    setCurrentUser={setCurrentUser}
                   />
                 )} 
               />
@@ -96,7 +109,7 @@ function App() {
                     errorMessage={errorMessage}
                     setErrorMessage={setErrorMessage}
                     loading={loading}
-                    setLoading={setLoading}
+                    setLoading={setLoading} 
                   />
                 )} 
               />

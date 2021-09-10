@@ -5,9 +5,13 @@ import { useAuth } from "../../contexts/AuthContext";
 import { connect } from "react-redux";
 import { updateUserDetails } from "../../config/actions/userActions";
 
-const Settings = ({ updateUserDetails }) => { 
+const Settings = ({ 
+    updateUserDetails,
+    currentUser,
+    setCurrentUser,
+}) => { 
     
-    const { currentUser, setCurrentUser } = useAuth(); 
+    // const { currentUser, setCurrentUser } = useAuth(); 
     console.log("THIS PAGE ERRORS OUT IF YOU'RE NOT LOGGED IN - ",currentUser.user_email)
 
     const [warnings, setWarnings] = useState({

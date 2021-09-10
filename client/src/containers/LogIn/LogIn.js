@@ -13,20 +13,21 @@ const LogIn = ({
   loading,
   setLoading,
   getUserDetails,
-  metaUserObj,
+  metaUserObj, 
+  setCurrentUser,
 }) => {
   const emailLogInRef = useRef();
   const passwordLogInRef = useRef();
-  const { login, setCurrentUser } = useAuth();
+  // const { login, setCurrentUser } = useAuth();
   const history = useHistory();
   // const [myCurrentUser, setMyCurrentUser] = useState();
 
 
-  useEffect(() => { 
-    if(metaUserObj){
-      setCurrentUser(metaUserObj);
-    }
-  }, [metaUserObj]);
+  // useEffect(() => { 
+  //   if(metaUserObj){
+  //     setCurrentUser(metaUserObj);
+  //   }
+  // }, [metaUserObj]);
 
 
 

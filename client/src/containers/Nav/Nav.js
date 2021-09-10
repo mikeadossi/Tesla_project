@@ -10,17 +10,24 @@ const Nav = ({
   menuVisibility, 
   closeMobileMenu,
   displayMobileMenu,
+  currentUser,
+  setCurrentUser,
 }) => {
   
   return (
     <div className="nav_container">
       <HeaderLeft />
       <HeaderCenter />
-      <HeaderRight />
+      <HeaderRight 
+        currentUser={currentUser}
+        setCurrentUser={setCurrentUser}
+      />
 
       <GrayBackground
         menuVisibility={menuVisibility}
         closeMobileMenu={closeMobileMenu}
+        currentUser={currentUser}
+        setCurrentUser={setCurrentUser}
       /> 
 
       <HeaderCookiePermission />

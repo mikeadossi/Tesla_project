@@ -3,13 +3,17 @@ import './HeaderMobileMenu.css';
 import { Link, useHistory }  from 'react-router-dom';
 import { useAuth } from "../../../contexts/AuthContext";
 
-const HeaderMobileMenu  = ({ closeMobileMenu }) => {
-  const { logOut, currentUser } = useAuth();
+const HeaderMobileMenu  = ({ 
+  closeMobileMenu,
+  currentUser,
+  setCurrentUser,
+}) => {
+  // const { logOut, currentUser } = useAuth();
   const history = useHistory();
 
   function handleLogOut(){
     try{
-      logOut();
+      setCurrentUser(null)
       history.push("/");
     } catch(e){
       console.log(e)
@@ -28,7 +32,7 @@ const HeaderMobileMenu  = ({ closeMobileMenu }) => {
               alt="close" 
           ></img>
         </div> 
-        { currentUser ? (
+        { currentUser && currentUser.user_email ? (
           <div>
             <Link to="/Settings" onClick={() => closeMobileMenu()} className="headerMobileMenu_links app_textdecorationNone">
               <div className="headerMobileMenu_about headerMobileMenu_login_btn">SETTINGS</div>
@@ -49,7 +53,7 @@ const HeaderMobileMenu  = ({ closeMobileMenu }) => {
         <Link to="/solar" onClick={() => closeMobileMenu()} className="headerMobileMenu_links app_textdecorationNone">
           <div className="headerMobileMenu_about headerMobileMenu_login_btn">SOLAR</div>
         </Link>
-        { currentUser ? (
+        { currentUser && currentUser.user_email ? (
           <div>
             <Link to="/userLogin" onClick={() => closeMobileMenu()} className="headerMobileMenu_links app_textdecorationNone">
               <div className="headerMobileMenu_log_in headerMobileMenu_login_btn" onClick={handleLogOut}>LOG OUT</div> 

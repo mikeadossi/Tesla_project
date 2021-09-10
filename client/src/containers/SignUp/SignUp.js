@@ -17,12 +17,12 @@ const SignUp = ({
   loading,
   setLoading,
   insertNewMember,
-  user_data,
+  user_data, 
 }) => {
   const emailSignupRef = useRef();
   const passwordSignupRef = useRef();
   const passwordConfirmSignupRef = useRef();
-  const { signup, currentUser } = useAuth();
+  // const { signup, currentUser } = useAuth();
   const history = useHistory();
   // const [myCurrentUser, setMyCurrentUser] = useState();
 

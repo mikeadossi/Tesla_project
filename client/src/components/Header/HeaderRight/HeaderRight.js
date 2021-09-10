@@ -5,21 +5,21 @@ import { connect } from "react-redux";
 import { TOGGLE_MOBILE_MENU } from "../../../config/actions/types";
 import { useAuth } from "../../../contexts/AuthContext";
 
-const HeaderRight = ({ toggleMobileMenu }) => {
-  const { logOut, currentUser } = useAuth();
+const HeaderRight = ({ 
+  toggleMobileMenu,
+  currentUser,
+  setCurrentUser,
+}) => {
+  // const { logOut, currentUser } = useAuth();
   const history = useHistory();
   const [notifications, setNotifications] = useState(2);
 
   function handleLogOut() {
-    try {
-      logOut();
-      history.push("/");
-    } catch (e) {
-      console.log(e);
-    }
+    setCurrentUser(null);
+    history.push("/");
   }
 
-  console.log('currentUser -- ',currentUser)
+  // console.log('currentUser -- ',currentUser)
 
   return (
     <div className="headerRight app_marginTop"> 

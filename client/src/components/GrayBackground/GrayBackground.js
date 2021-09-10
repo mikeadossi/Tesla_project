@@ -22,6 +22,8 @@ const GrayBackground = ({
   handleResetApply,
   runReset,
   runApplyAll,
+  currentUser,
+  setCurrentUser
 }) => {
   if (!displayMobileMenu && !displayResetWarning && !displayApplyAllWarning) {
     return null;
@@ -35,7 +37,11 @@ const GrayBackground = ({
   return (
     <div className="grayBackground app_marginTop">
       {displayMobileMenu && (
-        <HeaderMobileMenu closeMobileMenu={closeMobileMenu} />
+        <HeaderMobileMenu 
+          closeMobileMenu={closeMobileMenu} 
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+        />
       )}
       {displayResetWarning && (
         <DisplayResetWarning 
