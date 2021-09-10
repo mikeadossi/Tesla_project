@@ -1,8 +1,14 @@
 import React from "react";
-import "./Notifications.css";
-import { Link } from "react-router-dom";
+import "./Notifications.css"; 
+import { useHistory } from "react-router-dom";
 
-const Notifications = () => { 
+const Notifications = ({ currentUser }) => { 
+    // const history = useHistory(); 
+
+    // if(currentUser === null || {}){
+    //     history.push("/lost");
+    // }
+
     return <div className="notifications_container app_pageHeight">
         <h1 className="notifications_title">NOTIFICATIONS</h1>
         <div className="notifications_content_container"> 

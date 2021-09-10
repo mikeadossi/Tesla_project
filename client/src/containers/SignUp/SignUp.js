@@ -1,45 +1,18 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef } from "react";
 import "./SignUp.css";
 import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
-import { connect } from "react-redux";
-import {
-  insertNewMember,
-  isUserRegistered,
-} from "../../config/actions/userActions";
-import "firebase/firestore";
-import app from "../../firebase";
 import axios from "axios";
 
 const SignUp = ({
   errorMessage,
   setErrorMessage,
   loading,
-  setLoading,
-  insertNewMember,
-  user_data, 
+  setLoading, 
 }) => {
   const emailSignupRef = useRef();
   const passwordSignupRef = useRef();
-  const passwordConfirmSignupRef = useRef();
-  // const { signup, currentUser } = useAuth();
-  const history = useHistory();
-  // const [myCurrentUser, setMyCurrentUser] = useState();
-
-  // useEffect(() => {
-  //   // after successful firebase signup, push user to db
-  //   // TODO: update insertNewMember to check if user is already there
-  //   insertNewMember({
-  //   email : user["user"]["email"],
-  //   password: user["user"]["password"],
-  //   id : user["_tokenResponse"]["localId"],
-  //   date_joined : user["user"]["metadata"]["creationTime"],
-  //   gave_cookie_permission : "",
-  //   notifications_on : "",
-  //   apply_all_warning_on : "",
-  //   reset_warning_on : "",
-  // });
-  // }, []);
+  const passwordConfirmSignupRef = useRef(); 
+  const history = useHistory(); 
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -48,25 +21,12 @@ const SignUp = ({
       passwordSignupRef.current.value !== passwordConfirmSignupRef.current.value
     ) {
       return setErrorMessage("Passwords do not match!");
-    } else {
-      console.log(
-        "emailSignupRef.current.value - ",
-        emailSignupRef.current.value
-      );
-      console.log(
-        "passwordConfirmSignupRef.current.value - ",
-        passwordConfirmSignupRef.current.value
-      );
-    }
+    } 
     const email = emailSignupRef.current.value;
     const password = passwordConfirmSignupRef.current.value;
     try {
-      setLoading(true);
-      // write function - is username already registered?
-      // const userIsRegistered = await isUserRegistered(emailSignupRef.current.value); 
+      setLoading(true); 
       const checkEmail = await axios.get(`http://localhost:3002/isUserRegistered?email=${email}`);
-
-      console.log('checkEmail: ',checkEmail);
 
       if (checkEmail.success) {
         setErrorMessage(`${email} is already used`);
@@ -86,30 +46,10 @@ const SignUp = ({
           reset_warning_on : "",
         } 
         
-        const newUser = await axios.post(`http://localhost:3002/insertNewUser`, body, axiosConfig);
-        console.log({newUser})
-        // create hash password
-        // save it to db
-        // /insertNewUser
+        await axios.post(`http://localhost:3002/insertNewUser`, body, axiosConfig);
+        history.push("/userLogIn");
       }
 
-      // if(!userIsRegistered){
-      //   // convert password using jwt
-
-      //   // insertNewMember(
-      //   //   emailSignupRef.current.value,
-      //   //   jwt_password
-      //   // );
-      //   // console.log("user ",emailSignupRef.current.value," was added!")
-      // } else {
-      //   // throw appropriate error
-      //   console.log("email is already taken");
-      // }
-
-      // await signup(
-      //   emailSignupRef.current.value,
-      //   passwordSignupRef.current.value
-      // );
     } catch (e) {
       setErrorMessage(`${email} is already used`); 
     }
@@ -186,12 +126,4 @@ const SignUp = ({
   );
 };
 
-// export default SignUp;
-
-function mapStateToProps(state) {
-  return {
-    user_data: state.userReducer.user_data,
-  };
-}
-
-export default connect(mapStateToProps, { insertNewMember })(SignUp);
+export default SignUp; 

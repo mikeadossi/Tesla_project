@@ -1,14 +1,12 @@
 import React from 'react';
 import './HeaderMobileMenu.css';
-import { Link, useHistory }  from 'react-router-dom';
-import { useAuth } from "../../../contexts/AuthContext";
+import { Link, useHistory }  from 'react-router-dom'; 
 
 const HeaderMobileMenu  = ({ 
   closeMobileMenu,
   currentUser,
   setCurrentUser,
-}) => {
-  // const { logOut, currentUser } = useAuth();
+}) => { 
   const history = useHistory();
 
   function handleLogOut(){

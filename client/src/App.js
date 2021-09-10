@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Nav from "./containers/Nav/Nav";
@@ -19,9 +19,6 @@ import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
 import { connect } from "react-redux";
 import { getMyZipcodeData } from "./config/actions/navActions";
 
-import { Provider } from "react-redux";
-import { AuthProvider } from "./contexts/AuthContext.js";
-import { store } from "./store";
 
 function App() { 
 
@@ -45,79 +42,85 @@ function App() {
 
 
   return (
-    <AuthProvider>
-        <div className="App">
-          <BrowserRouter>
-            <Nav
-              menuVisibility={menuVisibility} 
-              closeMobileMenu={closeMobileMenu}
-              setErrorMessage={setErrorMessage}
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-            />
-            <LandingPageNav />
-            <LocationDetails />
-            <DynamicMenu />
-            <ProductMenu />
-            <Switch>
-              <Route exact path="/" component={Home} /> 
-              <Route exact path="/notifications" component={Notifications} />
-              <Route 
-                exact 
-                path="/settings" 
-                component={() => (
-                  <Settings
-                    currentUser={currentUser} 
-                    setCurrentUser={setCurrentUser}
-                  />
-                )}  
+    <div className="App">
+      <BrowserRouter>
+        <Nav
+          menuVisibility={menuVisibility} 
+          closeMobileMenu={closeMobileMenu}
+          setErrorMessage={setErrorMessage}
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+        />
+        <LandingPageNav />
+        <LocationDetails />
+        <DynamicMenu />
+        <ProductMenu />
+        <Switch>
+          <Route exact path="/" component={Home} /> 
+          <Route 
+            exact 
+            path="/notifications" 
+            component={() => (
+              <Notifications
+                currentUser={currentUser}
               />
-              <Route exact path="/lost" component={Lost} />
-              <Route exact path="/forgotPassword" component={ForgotPassword} />
-              <Route
-                exact
-                path="/vehicles"
-                component={() => (
-                  <Vehicles />
-                )}
+            )}
+          />
+          <Route 
+            exact 
+            path="/settings" 
+            component={() => (
+              <Settings
+                currentUser={currentUser} 
+                setCurrentUser={setCurrentUser}
               />
-              <Route 
-                exact 
-                path="/solar" 
-                component={() => (
-                  <Solar />
-                )}
+            )}  
+          />
+          <Route exact path="/lost" component={Lost} />
+          <Route exact path="/forgotPassword" component={ForgotPassword} />
+          <Route
+            exact
+            path="/vehicles"
+            component={() => (
+              <Vehicles />
+            )}
+          />
+          <Route 
+            exact 
+            path="/solar" 
+            component={() => (
+              <Solar />
+            )}
+          />
+          <Route 
+            exact 
+            path="/userLogin" 
+            component={() => (
+              <LogIn 
+                errorMessage={errorMessage}
+                setErrorMessage={setErrorMessage}
+                loading={loading}
+                setLoading={setLoading} 
+                setCurrentUser={setCurrentUser}
               />
-              <Route 
-                exact 
-                path="/userLogin" 
-                component={() => (
-                  <LogIn 
-                    errorMessage={errorMessage}
-                    setErrorMessage={setErrorMessage}
-                    loading={loading}
-                    setLoading={setLoading} 
-                    setCurrentUser={setCurrentUser}
-                  />
-                )} 
+            )} 
+          />
+          <Route 
+            exact 
+            path="/userSignup" 
+            component={() => (
+              <SignUp 
+                errorMessage={errorMessage}
+                setErrorMessage={setErrorMessage}
+                loading={loading}
+                setLoading={setLoading} 
               />
-              <Route 
-                exact 
-                path="/userSignup" 
-                component={() => (
-                  <SignUp 
-                    errorMessage={errorMessage}
-                    setErrorMessage={setErrorMessage}
-                    loading={loading}
-                    setLoading={setLoading} 
-                  />
-                )} 
-              />
-            </Switch>
-            <Footer />
-          </BrowserRouter>
-        </div>
-    </AuthProvider>
+            )} 
+          />
+        </Switch>
+        <Footer />
+      </BrowserRouter>
+    </div>
   );
 }
 

@@ -2,15 +2,13 @@ import React, { Component, useState } from "react";
 import "./HeaderRight.css";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { TOGGLE_MOBILE_MENU } from "../../../config/actions/types";
-import { useAuth } from "../../../contexts/AuthContext";
+import { TOGGLE_MOBILE_MENU } from "../../../config/actions/types"; 
 
 const HeaderRight = ({ 
   toggleMobileMenu,
   currentUser,
   setCurrentUser,
-}) => {
-  // const { logOut, currentUser } = useAuth();
+}) => { 
   const history = useHistory();
   const [notifications, setNotifications] = useState(2);
 
@@ -19,7 +17,6 @@ const HeaderRight = ({
     history.push("/");
   }
 
-  // console.log('currentUser -- ',currentUser)
 
   return (
     <div className="headerRight app_marginTop"> 

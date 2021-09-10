@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Settings.css";
-import { Link } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { updateUserDetails } from "../../config/actions/userActions";
 
 const Settings = ({ 
@@ -10,9 +9,12 @@ const Settings = ({
     currentUser,
     setCurrentUser,
 }) => { 
-    
-    // const { currentUser, setCurrentUser } = useAuth(); 
-    console.log("THIS PAGE ERRORS OUT IF YOU'RE NOT LOGGED IN - ",currentUser.user_email)
+    // const history = useHistory(); 
+
+    // if(currentUser === null || {}){
+    //     history.push("/lost"); 
+    //     return
+    // } 
 
     const [warnings, setWarnings] = useState({
         apply_all_warning_on: currentUser["apply_all_warning_on"],
@@ -43,12 +45,11 @@ const Settings = ({
 
     const closeAccount = () => {
         console.log('account closed!')
-    }
+    } 
 
-    console.log('currentUser - ',currentUser)
-    
 
-    return <div className="settings_container app_pageHeight">
+
+    return <div className="settings_container app_pageHeight"> 
         <h1 className="settings_title">SETTINGS</h1> 
         <div className="settings_signedIn">Signed in as {currentUser && currentUser.user_email}</div> 
         <div className="settings_section">

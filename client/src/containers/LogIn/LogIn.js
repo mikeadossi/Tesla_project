@@ -1,37 +1,18 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import "./LogIn.css";
-import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
-import { connect } from "react-redux";
-import { getUserDetails } from "../../config/actions/userActions";
-// import { getUserData } from '../../../../queries';
+import { Link, useHistory } from "react-router-dom";  
 import axios from "axios";
 
 const LogIn = ({
   errorMessage,
   setErrorMessage,
   loading,
-  setLoading,
-  getUserDetails,
-  metaUserObj, 
+  setLoading, 
   setCurrentUser,
 }) => {
   const emailLogInRef = useRef();
-  const passwordLogInRef = useRef();
-  // const { login, setCurrentUser } = useAuth();
+  const passwordLogInRef = useRef(); 
   const history = useHistory();
-  // const [myCurrentUser, setMyCurrentUser] = useState();
-
-
-  // useEffect(() => { 
-  //   if(metaUserObj){
-  //     setCurrentUser(metaUserObj);
-  //   }
-  // }, [metaUserObj]);
-
-
-
-
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -51,8 +32,7 @@ const LogIn = ({
         password
       } 
       
-      const loggedInUser = await axios.post(`http://localhost:3002/logUserIntoApp`, body, axiosConfig);
-      console.log('loggedInUser:',loggedInUser)
+      const loggedInUser = await axios.post(`http://localhost:3002/logUserIntoApp`, body, axiosConfig); 
 
       if(loggedInUser.data.success){
         setCurrentUser(loggedInUser.data.data[0]); 
@@ -68,11 +48,6 @@ const LogIn = ({
   }
 
 
-
-
-
-
-  // console.log("metaUserObj outside ", metaUserObj);
 
   return (
     <div className="logIn_container">
@@ -143,12 +118,4 @@ const LogIn = ({
   );
 };
 
-// export default LogIn;
-
-function mapStateToProps(state) {
-  return {
-    metaUserObj: state.userReducer.user_data,
-  };
-}
-
-export default connect(mapStateToProps, { getUserDetails })(LogIn);
+export default LogIn;
