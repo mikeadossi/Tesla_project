@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import "./SignUp.css";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
+import axios from "axios"; 
 
 const SignUp = ({
   errorMessage,
@@ -40,13 +40,13 @@ const SignUp = ({
           email,
           password, 
           date_joined : new Date(),
-          gave_cookie_permission : "",
-          notifications_on : "",
-          apply_all_warning_on : "",
-          reset_warning_on : "",
+          gave_cookie_permission : 'false',
+          notifications_on : 'true',
+          apply_all_warning_on : 'true',
+          reset_warning_on : 'true',
         } 
         
-        await axios.post(`http://localhost:3002/insertNewUser`, body, axiosConfig);
+        await axios.post(`http://localhost:3002/insertNewUser`, body, axiosConfig); 
         history.push("/userLogIn");
       }
 

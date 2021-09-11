@@ -33,9 +33,21 @@ const LogIn = ({
       } 
       
       const loggedInUser = await axios.post(`http://localhost:3002/logUserIntoApp`, body, axiosConfig); 
+      
+      const userObj = { 
+        id: loggedInUser.data.data[0].id,
+        user_email: loggedInUser.data.data[0].user_email, 
+        apply_all_warning_on: loggedInUser.data.data[0].apply_all_warning_on,
+        dark_theme_off: loggedInUser.data.data[0].dark_theme_off,
+        date_joined: loggedInUser.data.data[0].date_joined,
+        gave_cookie_permission: loggedInUser.data.data[0].gave_cookie_permission,
+        notifications_on: loggedInUser.data.data[0].notifications_on,
+        reset_warning_on: loggedInUser.data.data[0].reset_warning_on,
+      }
 
       if(loggedInUser.data.success){
-        setCurrentUser(loggedInUser.data.data[0]); 
+        setCurrentUser(userObj);
+        setErrorMessage(loggedInUser.data.msg);
         history.push("/");
       } else {
         setErrorMessage("Failed to log in! ");

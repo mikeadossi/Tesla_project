@@ -2,7 +2,7 @@ import React from 'react';
 import './Footer.css'; 
 import { Link }  from 'react-router-dom';
 
-const Footer = () => {
+const Footer = ({ currentUser }) => {
   let currYr = new Date().getFullYear();
   return (
     <div>
@@ -10,8 +10,12 @@ const Footer = () => {
         <span className="footer_text footer_email">xxxx@email.com - </span>
         <span className="footer_text footer_contact">Contact</span>
         <span>
-          <Link to="/" className="footer_text app_textdecorationNone">Settings</Link>
-          <Link to="/" className="footer_text app_textdecorationNone">Notifications</Link>
+          {currentUser && currentUser.user_email ? (
+            <span>
+              <Link to="/settings" className="footer_text app_textdecorationNone">Settings</Link>
+              <Link to="/notifications" className="footer_text app_textdecorationNone">Notifications</Link>
+            </span>
+          ) : ""}
           <Link to="/" className="footer_text app_textdecorationNone">About</Link>
           <Link to="/vehicles" className="footer_text app_textdecorationNone">Vehicle</Link>
           <Link to="/solar" className="footer_text app_textdecorationNone">Solar</Link>
