@@ -14,9 +14,8 @@ var passwordHelper = {
 
     compare : async(given, hashed) => {
         const [ hashPassword, salt ] = hashed.split('.');
-
         let givenHash = await scryptAsync(given, salt, 32);
-
+        
         return givenHash.toString('hex') === hashPassword;
     }
 
