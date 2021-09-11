@@ -118,7 +118,7 @@ function App() {
             )} 
           />
         </Switch>
-        <Footer />
+        <Footer currentUser={currentUser} />
       </BrowserRouter>
     </div>
   );

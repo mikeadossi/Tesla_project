@@ -11,6 +11,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+
+
 app.get("/isUserRegistered", async (req, res) => {
   const {
     query: { email },
@@ -45,8 +47,7 @@ app.get("/statedata", async (req, res) => {
   } = req;
 
   try {
-    const rows = await queries.getStateDataByStateAbbr(abbr);
-    // console.log('statedata rows ---> ',rows)
+    const rows = await queries.getStateDataByStateAbbr(abbr); 
     return res.status(200).send(rows);
   } catch (e) {
     return res.status(500);
@@ -68,11 +69,11 @@ app.get("/userData", async (req, res) => {
 });
 
 app.post("/insertNewUser", async (req, res) => {
-  let { email, password  } = req.body; 
-  password = await passwordHelper.hash(password); 
+  let body = req.body; 
+  body["password"] = await passwordHelper.hash(body["password"]);
 
   try {
-    const rows = await queries.insertNewUser({ email, password });
+    const rows = await queries.insertNewUser(body);
     return res.status(200).send(JSON.stringify(rows));
   } catch (e) {
     return res.status(500);
@@ -81,9 +82,8 @@ app.post("/insertNewUser", async (req, res) => {
 
 app.post("/logUserIntoApp", async (req, res) => {
   const { email, password } = req.body;
-  const getUser = await queries.getUserQuery(email); 
-
-  var result = await passwordHelper.compare(password, getUser[0].user_password); 
+  const getUser = await queries.getUserQuery(email);  
+  var result = await passwordHelper.compare(password, getUser[0]["user_password"]); 
 
   if(result) { 
     let ob = {
@@ -93,7 +93,7 @@ app.post("/logUserIntoApp", async (req, res) => {
     }
 
     return res.status(200).json(ob);
-  } else{
+  } else{ 
     let ob = {
       data: {},
       success: false,
@@ -107,8 +107,12 @@ app.post("/logUserIntoApp", async (req, res) => {
 app.post("/updateUserData", async (req, res) => {
   const { body } = req;
 
+  if(body["ourKey"] === "user_password"){
+    body["ourValue"] = await passwordHelper.hash(body["ourValue"]);
+  }
+
   try {
-    const rows = await queries.updateUser(body);
+    const rows = await queries.updateUser(body); 
     return res.status(200).send(JSON.stringify(rows));
   } catch (e) {
     return res.status(500);

@@ -10,19 +10,19 @@ const areaCodesObj = require("./seed_folder/area_codes");
 // const serviceCenterPhoneObj = require(".seed_folder/serviceCenterPhoneNum");
 
 
-const userObject = {
-  user1: {
-    user_email: 'null',
-    user_password: 'null',
-    dark_theme_off: 'null',
-    gave_cookie_permission: 'null',
-    notifications_on: 'null',
-    apply_all_warning_on: 'null',
-    reset_warning_on: 'null',
-    account_active: 'null',
-    date_joined: 'null'
-  }
-};
+// const userObject = {
+//   user1: {
+//     user_email: 'null',
+//     user_password: 'null',
+//     dark_theme_off: 'null',
+//     gave_cookie_permission: 'null',
+//     notifications_on: 'null',
+//     apply_all_warning_on: 'null',
+//     reset_warning_on: 'null',
+//     account_active: 'null',
+//     date_joined: 'null'
+//   }
+// };
 
 let queries = {
   getAll: function () {
@@ -124,9 +124,10 @@ let queries = {
           '${reset_warning_on}'
         )`,
       (err, rows) => {
-        if (err) console.log("Got an error inserting row to user_details", err);
-        else
-          console.log(`Row was inserted in user_details: ${email}`);
+        if(err) { console.log("Got an error inserting row to user_details", err); 
+        } else {
+          console.log(`Row was inserted in user_details: ${email}`); 
+        }
       }
     );
   },
@@ -135,13 +136,14 @@ let queries = {
     id, 
     ourKey,
     ourValue, 
-  }) {
+  }) { 
     pool.query(
-      `UPDATE user_details SET ${ourKey} = '${ourValue}' WHERE user_id='${id}'`, 
+      `UPDATE user_details SET ${ourKey} = '${ourValue}' WHERE id=${id}`, 
       (err, rows) => {
-        if (err) console.log("Got an error inserting row to user_details", err);
-        else
-          console.log(`Row was inserted in user_details at: ${ourValue}`);
+        if (err){ console.log("Got an error inserting row to user_details", err);
+        } else {
+          console.log(`Row was inserted in user_details at: ${id}`); 
+        }
       }
     );
   },
