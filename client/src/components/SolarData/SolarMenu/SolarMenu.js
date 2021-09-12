@@ -46,8 +46,8 @@ const SolarMenu = ({
 
   return (
     <div>
-      <div className="app_Menu_container solarMenu_form_container">
-        <h3 className="solarMenu_form_title">Submit Energy Use</h3>
+      <div className="app_Menu_container solarMenu_form_container"> 
+        {zip ? <h3 className="solarMenu_form_title">Submit Energy Use</h3> : <h3>To begin search for any US zip code or area code above.</h3>} 
         {zip ? (
           <div className="solarMenu_div">
             <form className="solarMenu_form">
