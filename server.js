@@ -119,6 +119,17 @@ app.post("/updateUserData", async (req, res) => {
   }
 });
 
+app.post("/deleteUserData", async (req, res) => {
+  const { body } = req;
+
+  try {
+    const rows = await queries.deleteUser(body); 
+    return res.status(200).send(JSON.stringify(rows));
+  } catch (e) {
+    return res.status(500);
+  }
+});
+
 app.get("/zipcode", async (req, res) => {
   const {
     query: { zipcode },

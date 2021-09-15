@@ -14,7 +14,7 @@ const Settings = ({
     const [settingsError, setSettingsError] = useState("");
     const [settingsSuccessMsg, setSettingsSuccessMsg] = useState(""); 
 
-    // const history = useHistory(); 
+    const history = useHistory(); 
 
     // if(currentUser === null || {}){
     //     history.push("/lost"); 
@@ -56,8 +56,28 @@ const Settings = ({
         await axios.post(`http://localhost:3002/updateUserData`, parcel, axiosConfig); 
     }
 
-    const closeAccount = () => {
-        console.log('account closed!')
+    const closeAccount = async () => { 
+        let newCurrentUser = {...currentUser};
+
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const parcel = {
+            id: newCurrentUser.id,
+            email: newCurrentUser.user_email
+        }
+        
+        // const deleteUser = window.confirm("Are you sure you want to delete your account?");
+        if(window.confirm("Are you sure you want to delete your account?")){
+            await axios.post(`http://localhost:3002/deleteUserData`, parcel, axiosConfig); 
+            history.push("/");
+            setCurrentUser({});
+        } else {
+            console.log('user not deleted')
+        }
     } 
 
     const changePassword = async (e) => {
@@ -223,12 +243,11 @@ const Settings = ({
         <div className="settings_section">
             <h3 className="">CANCEL ACCOUNT</h3>
             <div className="settings_subsection app_displayFlex">
-                <div className="settings_text">Close account</div>
                 <button 
                     className="settings_close"
                     onClick={() => closeAccount()}
                 >
-                    Close
+                    Close Account
                 </button>
             </div>
         </div> 

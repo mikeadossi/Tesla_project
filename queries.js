@@ -148,6 +148,21 @@ let queries = {
     );
   },
 
+  deleteUser: function ({
+    id, 
+    email,
+  }) { 
+    pool.query( 
+      `DELETE FROM user_details WHERE user_email='${email}' && id=${id}`,
+      (err, rows) => {
+        if (err){ console.log("Got an error delete account from user_details", err);
+        } else {
+          console.log(`User deleted from DB: ${email}`); 
+        }
+      }
+    );
+  },
+
   getZipcodeData: function (zipcode) {
     return new Promise((resolve, reject) => {
       pool.query(`SELECT * from zip_codes where id=${zipcode}`, (err, rows) => {
