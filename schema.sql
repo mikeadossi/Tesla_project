@@ -24,16 +24,22 @@ CREATE TABLE zip_codes (
 
 CREATE TABLE user_details (
   id SERIAL PRIMARY KEY,
-  user_email VARCHAR(255) DEFAULT NULL,
-  user_password VARCHAR(255) DEFAULT NULL,
+  user_email VARCHAR(255) DEFAULT NULL, 
   dark_theme_off VARCHAR(255) DEFAULT NULL,
   gave_cookie_permission VARCHAR(255) DEFAULT NULL,
+  notifications_last_viewed_on VARCHAR(255) DEFAULT NULL,
   notifications_on VARCHAR(255) DEFAULT NULL,
   apply_all_warning_on VARCHAR(255) DEFAULT NULL,
-  reset_warning_on VARCHAR(255) DEFAULT NULL,
-  account_active VARCHAR(255) DEFAULT NULL,
+  reset_warning_on VARCHAR(255) DEFAULT NULL, 
   date_joined VARCHAR(255) DEFAULT NULL,
-  forgotten_password_code VARCHAR(255) DEFAULT NULL
+  temp_password VARCHAR(255) DEFAULT NULL,
+)
+
+CREATE TABLE notifications (
+  id SERIAL PRIMARY KEY,
+  notification_date VARCHAR(255) DEFAULT NULL,
+  text_content VARCHAR(255) DEFAULT NULL,
+  link VARCHAR(255) DEFAULT NULL,
 )
 
 CREATE TABLE showrooms (

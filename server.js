@@ -171,5 +171,6 @@ app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
   // queries.seedVehiclesDatabase();
   // queries.seedStateDatabase();
+  // queries.seedNotifications();
 });
 // kill -9 $( lsof -t -i:3002)

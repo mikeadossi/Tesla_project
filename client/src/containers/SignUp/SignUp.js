@@ -40,6 +40,7 @@ const SignUp = ({
           email,
           password, 
           date_joined : new Date(),
+          notifications_last_viewed_on: null,
           gave_cookie_permission : 'false',
           notifications_on : 'true',
           apply_all_warning_on : 'true',

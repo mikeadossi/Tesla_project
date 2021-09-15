@@ -4,6 +4,7 @@ const zipCodes = require("./seed_folder/newestObject");
 const vehiclesObj = require("./seed_folder/vehicles_seedFile");
 const stateDataObj = require("./seed_folder/state_seedFile.js");
 const areaCodesObj = require("./seed_folder/area_codes"); 
+const notificationsArr = require("./seed_folder/notifications");
 // const showroomObj = require("./seed_folder/showroomData");
 // const serviceCenterObj = require(".seed_folder/serviceCenterData");
 // const showroomPhoneObj = require("./seed_folder/showroomPhoneNum");
@@ -98,6 +99,7 @@ let queries = {
     email,
     password,
     date_joined, 
+    notifications_last_viewed_on,
     gave_cookie_permission,
     notifications_on,
     apply_all_warning_on,
@@ -109,6 +111,7 @@ let queries = {
         user_email,
         user_password,
         date_joined, 
+        notifications_last_viewed_on,
         gave_cookie_permission,
         notifications_on,
         apply_all_warning_on,
@@ -118,6 +121,7 @@ let queries = {
           '${email}',
           '${password}', 
           '${date_joined}',
+          '${notifications_last_viewed_on}',
           '${gave_cookie_permission}',
           '${notifications_on}',
           '${apply_all_warning_on}',
@@ -311,15 +315,37 @@ let queries = {
 
   seedAreaCodeDatabase: function () {
     const areaCodesObjKeys = Object.keys(areaCodesObj);
+    let area_code;
+    let state_abbr;
+    let strStateAbbr;
     for (let i = 0; i < areaCodesObjKeys.length; i++) {
-      let area_code = areaCodesObjKeys[i];
-      let state_abbr = areaCodesObj[area_code];
-      let strStateAbbr = JSON.stringify(state_abbr);
+      area_code = areaCodesObjKeys[i];
+      state_abbr = areaCodesObj[area_code];
+      strStateAbbr = JSON.stringify(state_abbr);
       pool.query(
         `INSERT INTO area_codes (id,state_abbr) VALUES ('${area_code}','${strStateAbbr}')`,
         (err, rows) => {
           if (err) console.log("Got an error inserting row to area_codes", err);
           else console.log(`Row was inserted in area_codes: ${strStateAbbr}`);
+        }
+      );
+    }
+  },
+
+  seedNotifications: function () {
+    const notifications = [...notificationsArr];
+    let dateCopy;
+    let textCopy;
+    let linkCopy;console.log('notifications[0]: ',notifications[0]);
+    for(let i = 0; i < notifications.length; i++){
+      dateCopy = notifications[i]["notification_date"]; 
+      textCopy = notifications[i]["text_content"];
+      linkCopy = notifications[i]["link"];
+      pool.query(
+        `INSERT INTO notifications (notification_date, text_content, link) VALUES ('${dateCopy}','${textCopy}','${linkCopy}')`,
+        (err, rows) => {
+          if (err) console.log("Got an error inserting row into notifications", err);
+          else console.log(`Row inserted: ${dateCopy}`);
         }
       );
     }
