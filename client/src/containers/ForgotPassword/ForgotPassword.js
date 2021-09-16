@@ -75,13 +75,23 @@ const ForgotPassword = () => {
             </div>
           ) : ""
         }
-        <button
-          className="forgotPassword_close"
-          type="submit"
-          disabled={loading}
-        >
-          SUBMIT
-        </button>
+        {theResult && theResult === "SUCCESS! Your temporary password will be sent in 5-15 minutes!" ? (
+          <button
+            className="forgotPassword_close forgotPassword_disable"
+            type="submit"
+            disabled
+          >
+            SUBMIT
+          </button>
+        ) : (
+          <button
+            className="forgotPassword_close"
+            type="submit"
+            disabled={loading}
+          >
+            SUBMIT
+          </button>
+        )}
       </form>
     </div>
   );
