@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Notifications.css"; 
 import { useHistory } from "react-router-dom";
 
-const Notifications = ({ currentUser }) => { 
+const Notifications = ({ 
+    currentUser, 
+    setCurrentUser
+}) => { 
     // const history = useHistory(); 
 
     // if(currentUser === null || {}){
     //     history.push("/lost");
     // }
+
+    useEffect(() => { 
+        let newCurrentUser = {...currentUser}; 
+        newCurrentUser["notifications_last_viewed_on"] = new Date();
+        // setCurrentUser(newCurrentUser);
+        console.log('set! ',newCurrentUser);
+      }, []);
 
     return <div className="notifications_container app_pageHeight">
         <h1 className="notifications_title">NOTIFICATIONS</h1>

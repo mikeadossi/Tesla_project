@@ -63,6 +63,7 @@ function App() {
             component={() => (
               <Notifications
                 currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
               />
             )}
           />

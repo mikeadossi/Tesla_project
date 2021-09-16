@@ -70,14 +70,11 @@ const Settings = ({
             email: newCurrentUser.user_email
         }
         
-        // const deleteUser = window.confirm("Are you sure you want to delete your account?");
         if(window.confirm("Are you sure you want to delete your account?")){
             await axios.post(`http://localhost:3002/deleteUserData`, parcel, axiosConfig); 
             history.push("/");
             setCurrentUser({});
-        } else {
-            console.log('user not deleted')
-        }
+        } 
     } 
 
     const changePassword = async (e) => {

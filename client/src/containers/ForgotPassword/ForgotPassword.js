@@ -7,7 +7,7 @@ const ForgotPassword = () => {
   const [theResult, setTheResult] = useState("");
   const emailRef = useRef();
 
-  const generatePassword = () => {
+  const generatePassword = async () => {
     var length = 10,
         charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
         retVal = "";
@@ -15,7 +15,7 @@ const ForgotPassword = () => {
         retVal += charset.charAt(Math.floor(Math.random() * n));
     }
     return retVal;
-}
+  }
 
   async function getTempPassword(e) {
     e.preventDefault();
@@ -24,7 +24,7 @@ const ForgotPassword = () => {
     const checkEmail = await axios.get(`http://localhost:3002/isUserRegistered?email=${email}`); 
 
     if(checkEmail.data.success){
-      const passw = generatePassword();
+      const passw = await generatePassword();
       const body = { email, passw };
       const id = checkEmail.data.data[0].id;
 
@@ -33,24 +33,22 @@ const ForgotPassword = () => {
             'Content-Type': 'application/json'
         }
       };
-      await axios.post(`http://localhost:3002/sendTempPassword`, body, axiosConfig);
+      await axios.post(`http://localhost:3002/sendNewPassword`, body, axiosConfig);
 
       const parcel = {
         id,
-        ourKey: "temp_password",
+        ourKey: "user_password",
         ourValue: passw,
       }
       await axios.post(`http://localhost:3002/updateUserData`, parcel, axiosConfig);
 
-      setTheResult("SUCCESS! Your temporary password will be sent in 5-15 minutes!"); 
+      setTheResult("SUCCESS! Your new password will arrive in 5 minutes!"); 
 
     } else {
       setTheResult("Email not found"); 
     }
 
   }
-
-  console.log({theResult})
 
   return (
     <div className="forgotPassword_container app_pageHeight">

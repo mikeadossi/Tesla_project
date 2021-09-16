@@ -1,8 +1,8 @@
 import * as types from "./types";
 import axios from "axios";
 import { hasAValue } from "../../helpers/helper";
-// import { useDispatch } from "react-redux"
-// const dispatch = useDispatch();
+import { useDispatch } from "react-redux"
+const dispatch = useDispatch();
 
 export const getUserDetails = (email) => async (dispatch) => {
   try {
@@ -45,7 +45,7 @@ export const insertNewMember = (userObj) => async (dispatch) => {
 };
 
 export const updateUserDetails = (userObj) => async (dispatch) => {
-  try {
+  try { 
     const res = await axios.post(
       `http://localhost:3002/updateUserData`,
       userObj,
