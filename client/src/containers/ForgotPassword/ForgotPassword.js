@@ -1,15 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./ForgotPassword.css";
+import axios from "axios";
 
 const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
+  const [theResult, setTheResult] = useState("");
+  const emailRef = useRef();
 
   async function getTempPassword(e) {
     e.preventDefault();
-    // call server endpoint that calls /isUserRegistered
-    // if email exists create a temp password (generate-password package) and call /updateUserData. Send email to user, and return success message to client
-    // update your login code - if password doesn't match, check temp password. Also if temprary password is used to log in the original password gets deleted, and temp password is set back to null!
+    const email = emailRef.current.value;
+
+    const checkEmail = await axios.get(`http://localhost:3002/isUserRegistered?email=${email}`); 
+
+    if(checkEmail.data.success){ 
+      const body = { email };
+      let axiosConfig = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+      };
+      await axios.post(`http://localhost:3002/sendTempPassword`, body, axiosConfig);
+      setTheResult("SUCCESS! Your temporary password will be sent in 5-15 minutes!"); 
+    } else {
+      setTheResult("Email not found") 
+    }
+
   }
+
+  console.log({theResult})
 
   return (
     <div className="forgotPassword_container app_pageHeight">
@@ -20,14 +39,20 @@ const ForgotPassword = () => {
         </div>
         <div className="forgotPassword_email_container settings_subsection app_displayFlex">
           <div className="settings_text">Enter user email</div>
-          <input className="fogotPassword_email" type="email" required />
+          <input className="fogotPassword_email" type="email" ref={emailRef} required />
         </div>
-        <div className="forgotPassword_not_found">
-          Email not found: myemail@gmail.com
-        </div>
-        <div className="forgotPassword_success">
-          SUCCESS! Check your inbox for your temporary password!
-        </div>
+        {theResult && theResult === "Email not found" ?(
+            <div className="forgotPassword_not_found">
+              {theResult}
+            </div>
+          ) : ""
+        }
+        {theResult && theResult === "SUCCESS! Your temporary password will be sent in 5-15 minutes!" ? (
+            <div className="forgotPassword_success">
+              {theResult}
+            </div>
+          ) : ""
+        }
         <button
           className="forgotPassword_close"
           type="submit"
