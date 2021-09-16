@@ -4,26 +4,12 @@ const zipCodes = require("./seed_folder/newestObject");
 const vehiclesObj = require("./seed_folder/vehicles_seedFile");
 const stateDataObj = require("./seed_folder/state_seedFile.js");
 const areaCodesObj = require("./seed_folder/area_codes"); 
-const notificationsArr = require("./seed_folder/notifications");
+const notificationsArr = require("./seed_folder/notifications"); 
 // const showroomObj = require("./seed_folder/showroomData");
 // const serviceCenterObj = require(".seed_folder/serviceCenterData");
 // const showroomPhoneObj = require("./seed_folder/showroomPhoneNum");
 // const serviceCenterPhoneObj = require(".seed_folder/serviceCenterPhoneNum");
 
-
-// const userObject = {
-//   user1: {
-//     user_email: 'null',
-//     user_password: 'null',
-//     dark_theme_off: 'null',
-//     gave_cookie_permission: 'null',
-//     notifications_on: 'null',
-//     apply_all_warning_on: 'null',
-//     reset_warning_on: 'null',
-//     account_active: 'null',
-//     date_joined: 'null'
-//   }
-// };
 
 let queries = {
   getAll: function () {
@@ -49,8 +35,8 @@ let queries = {
 
   isEmailRegistered: function (email) {
     return new Promise((resolve, reject) => {
-      pool.query( 
-        `SELECT account_active from user_details where user_email="${email}"`, 
+      pool.query(
+        `SELECT id from user_details where user_email="${email}"`, 
         (err, rows) => {
           if (err) return reject(err);
           return resolve(rows);

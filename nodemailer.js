@@ -14,23 +14,12 @@ const transporter = nodemailer.createTransport({
   logger: true, 
 });
 
-const generatePassword = () => {
-    var length = 10,
-        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-        retVal = "";
-    for (var i = 0, n = charset.length; i < length; i++) {
-        retVal += charset.charAt(Math.floor(Math.random() * n));
-    }
-    return retVal;
-}
-
-const sendMail = (to) => {
-  const tempPassword = generatePassword();
+const sendMail = (to, passw) => { 
   const options = {
     from: process.env.MAIL_FROM,
     to,
-    subject: "env works slow?",
-    html: "<p>Use this password: "+tempPassword+"</p>",
+    subject: "Tesla Sidekick Password",
+    html: "<p>Use this password to log into your account: "+passw+"</p>",
   };
 
   return new Promise((resolve, reject) => {
