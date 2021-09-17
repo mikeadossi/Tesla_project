@@ -38,11 +38,12 @@
 
 .locationDetails_areacode{
     font-size: 28px;
+    padding-right: 5px;
 }
 
 .locationDetails_areacode_subtext{
     font-size: x-small;
-    margin-left: 9px;
+    margin-left: 16px;
 }
 
 .locationDetails_time_digital{

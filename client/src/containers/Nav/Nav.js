@@ -12,15 +12,22 @@ const Nav = ({
   displayMobileMenu,
   currentUser,
   setCurrentUser,
+  notifications,
+  warnings,
+  changeRegion,
 }) => {
   
   return (
     <div className="nav_container">
       <HeaderLeft />
-      <HeaderCenter />
+      <HeaderCenter
+        changeRegion={changeRegion} 
+      />
       <HeaderRight 
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
+        notifications={notifications}
+        warnings={warnings}
       />
 
       <GrayBackground

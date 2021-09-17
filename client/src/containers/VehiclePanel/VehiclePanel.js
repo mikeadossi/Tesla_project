@@ -42,6 +42,7 @@ const VehiclePanel = ({
   modalVisibility,
   closeModal,
   teslaModels,
+  changeRegion,
 }) => {
   const [vehicleData, setVehicleData] = useState([]);
   const [menuOptions, setMenuOptions] = useState("");
@@ -59,13 +60,14 @@ const VehiclePanel = ({
 
   useEffect(() => {
     if (zipcode_data.id) {
-      getAllVehicles();
-      getAllStateData(zipcode_data.state_abbr);
+      getAllVehicles(); 
+      getAllStateData(zipcode_data.state_abbr)
     }
   }, [zipcode_data]);
 
   useEffect(() => {
     if (usStatesData[0]) {
+      let vehicle_order = JSON.parse(usStatesData[0]["vehicle_order"]); 
       setUsStateVehicleOrder(() => {
         return [
           usStatesData[0]["state_abbr"],
@@ -74,8 +76,9 @@ const VehiclePanel = ({
           JSON.parse(usStatesData[0]["payment_object"]),
         ];
       });
+      return changeRegion(zipcode_data.state_name, zipcode_data.county, vehicle_order, usStatesData[0]); 
     }
-  }, [usStatesData]);
+  }, [usStatesData[0]]);
 
   useEffect(() => {
     const payload = usStateVehicleOrder && usStateVehicleOrder[3];

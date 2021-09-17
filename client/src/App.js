@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Nav from "./containers/Nav/Nav";
@@ -31,6 +31,9 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [notifications, setNotifications] = useState(2); 
+  const [warnings, setWarnings] = useState({});
+  const [ourRegion, setOurRegion] = useState("--");
 
   const closeMobileMenu = () => { 
     setMenuVisibility({
@@ -39,6 +42,94 @@ function App() {
       resetWarning: false,
     });
   };
+
+  function inNorCalifornia(county) {
+    const norCal = [
+      "ALAMEDA",
+      "ALPINE",
+      "AMADOR", 
+      "BUTTE", 
+      "CALAVERAS",
+      "COLUSA",
+      "CONTRA COSTA",
+      "DEL NORTE",
+      "EL DORADO",
+      "FRESNO",
+      "GLENN",
+      "HUMBOLDT",
+      "INYO",
+      "KINGS",
+      "LAKE",
+      "LASSEN",
+      "MADERA",
+      "MARIN",
+      "MARIPOSA",
+      "MENDOCINO",
+      "MERCED",
+      "MODOC",
+      "MONO",
+      "MONTEREY",
+      "NAPA",
+      "NEVADA",
+      "PLACER",
+      "PLUMAS",
+      "SACRAMENTO",
+      "SAN BENITO",
+      "SAN FRANCISCO",
+      "SAN JOAQUIN",
+      "SAN MATEO",
+      "SANTA CLARA",
+      "SANTA CRUZ",
+      "SHASTA",
+      "SIERRA",
+      "SISKIYOU",
+      "SOLANO",
+      "SONOMA",
+      "STANISLAUS",
+      "SUTTER",
+      "TEHAMA",
+      "TRINITY",
+      "TULARE",
+      "TUOLUMNE",
+      "YOLO",
+      "YUBA"
+    ];
+    return norCal.includes(county);
+  }
+
+  function changeRegion(state, county, vo, obj) {
+    if(obj && obj["state_name"] === state){ 
+
+      if(state !== 'California') {
+        setOurRegion(vo.region);  
+      } else if(state === 'California'){
+        county = county.split(",")[0]; 
+        if(inNorCalifornia(county)){
+          setOurRegion(vo.region[1].region); // 'Bay Area'  
+        } else {
+          setOurRegion(vo.region[0].region); // 'Greater LA/SD' 
+        }
+      };
+
+    }
+    
+  }
+
+  useEffect(() => {
+    // write code to pull notifications from DB (check for updates)
+    // if there are updates use setNotifications
+    console.log('check for notifications')
+  }, []);
+
+  useEffect(() => {
+    if(currentUser){
+      setWarnings({
+        apply_all_warning_on: currentUser["apply_all_warning_on"],
+        reset_warning_on: currentUser["reset_warning_on"],
+        notifications_on: currentUser["notifications_on"],
+      })
+    }
+  }, [currentUser]);
 
 
   return (
@@ -50,9 +141,15 @@ function App() {
           setErrorMessage={setErrorMessage}
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
+          notifications={notifications}
+          warnings={warnings}
+          changeRegion={changeRegion}
         />
         <LandingPageNav />
-        <LocationDetails />
+        <LocationDetails 
+          ourRegion={ourRegion}
+          changeRegion={changeRegion}
+        />
         <DynamicMenu />
         <ProductMenu />
         <Switch>
@@ -74,6 +171,9 @@ function App() {
               <Settings
                 currentUser={currentUser} 
                 setCurrentUser={setCurrentUser}
+                setNotifications={setNotifications} 
+                warnings={warnings}
+                setWarnings={setWarnings}
               />
             )}  
           />
@@ -83,7 +183,7 @@ function App() {
             exact
             path="/vehicles"
             component={() => (
-              <Vehicles />
+              <Vehicles changeRegion={changeRegion} />
             )}
           />
           <Route 

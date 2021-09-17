@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import "./HeaderRight.css";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
@@ -8,21 +8,21 @@ const HeaderRight = ({
   toggleMobileMenu,
   currentUser,
   setCurrentUser,
+  notifications,
+  warnings,
 }) => { 
-  const history = useHistory();
-  const [notifications, setNotifications] = useState(2);
+  const history = useHistory(); 
 
   function handleLogOut() {
     setCurrentUser(null);
     history.push("/");
-  }
-
+  } 
 
   return (
     <div className="headerRight app_marginTop"> 
       {currentUser && currentUser.user_email ? (
         <div className="notification_bell_container"> 
-        {notifications ? (
+        {notifications && warnings["notifications_on"] === 'true' ? (
           <div className="notifications_number">{notifications}</div> 
         ) : ""}
           <Link className="headerRight_links" to="/Notifications">

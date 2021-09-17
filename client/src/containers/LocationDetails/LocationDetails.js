@@ -3,11 +3,16 @@ import { connect } from "react-redux";
 import "./LocationDetails.css";
 import moment from "moment-timezone";
 
-const LocationDetails = ({ zipcodeData }) => {
+const LocationDetails = ({ 
+  zipcodeData, 
+  statedata,
+  ourRegion,
+  changeRegion,
+}) => {
   const counties = zipcodeData.county && zipcodeData.county.split(","); 
   const [currentTime, setCurrentTime] = useState("");
   const [timeZone, setTimeZone] = useState("");
-  const [today, setToday] = useState([]);
+  const [today, setToday] = useState([]); 
 
   const areaCodes = zipcodeData.area_codes && zipcodeData.area_codes.split(" / ");
 
@@ -38,19 +43,6 @@ const LocationDetails = ({ zipcodeData }) => {
     Hawaii: "Pacific/Honolulu",
     Central: "America/Kentucky/Louisville",
   };
-
-  useEffect(() => {
-    if(zipcodeData.city){ 
-      let timeZ =  checkTimezone();
-      if(timeZ === 'n/a'){
-        setCurrentTime("N/A");
-        setTimeZone("");
-      } else {
-        setCurrentTime(moment().tz( getTime[timeZ] ).format("LT"));
-        setTimeZone(timeZ);
-      }
-    }
-  }, [zipcodeData.city]);
 
   function calculateTime(ourDate, ourTime) {
     let tz =  checkTimezone();
@@ -114,17 +106,33 @@ const LocationDetails = ({ zipcodeData }) => {
   }
 
   useEffect(() => {
-    if(zipcodeData.city){
-      // console.log('zzz: ',zipcodeData.time_zone)
+    if(zipcodeData.city){ 
+      let timeZ =  checkTimezone();
+      if(timeZ === 'n/a'){
+        setCurrentTime("N/A");
+        setTimeZone("");
+      } else {
+        setCurrentTime(moment().tz( getTime[timeZ] ).format("LT"));
+        setTimeZone(timeZ);
+      }
+    }
+  }, [zipcodeData.city]);
+
+  useEffect(() => {
+    if(statedata[0] && statedata[0].vehicle_order){
+      const vehicle_order = JSON.parse(statedata[0]["vehicle_order"]) 
+      // changeRegion(zipcodeData.state_name, zipcodeData.county, vehicle_order);
+    }
+  }, [statedata]);
+
+  useEffect(() => {
+    if(zipcodeData.city){ 
       let roughOffset = zipcodeData.time_zone; // "Pacific (GMT -08:00)" 
       let offset = roughOffset.split('(GMT ');
       offset = offset[1].split(')');
       offset = offset[0]; // -08.00
       offset = offset.split('-0').join('-');
-      offset = offset.split(':00')[0];
-      // console.log('offset: ',offset) // -8 (one hour ahead)
-    
-      // console.log('calculate offset: ',calc(offset) );
+      offset = offset.split(':00')[0]; 
       calc(offset);
     }
   }, [zipcodeData.city]);
@@ -168,10 +176,14 @@ const LocationDetails = ({ zipcodeData }) => {
             <div className="locationDetails_areacode_subtext">area code</div>
           </div>
         ) : (
-          <>
-            <div className="locationDetails_areacode">{areaCodes[0]}</div>
-            <div className="locationDetails_areacode_subtext">area code</div>
-          </>
+          <div>
+            <div className="locationDetails_content_areacode">
+              (
+              <span className="locationDetails_areacode">{areaCodes[0]}</span>
+              )
+            </div>
+            <div className="locationDetails_areacode_subtext">area code</div> 
+          </div>
         )}
       </div>
 
@@ -192,7 +204,7 @@ const LocationDetails = ({ zipcodeData }) => {
       <div className="app_locationDetails_border"></div>
 
       <div className="locationDetails_subcontainers locationDetails_subcontainer_4">
-        <div className="locationDetails_region_name">BAY AREA</div>
+        <div className="locationDetails_region_name">{ourRegion}</div>
         <div className="locationDetails_region_tag">Region</div>
       </div>
 
@@ -233,7 +245,8 @@ const LocationDetails = ({ zipcodeData }) => {
 function mapStateToProps(state) {
   return {
     error: state.navReducer.error,
-    zipcodeData: state.navReducer.zipcode_data,
+    zipcodeData: state.navReducer.zipcode_data, 
+    statedata: state.usStateReducer.usStatesData,
   };
 }
 
