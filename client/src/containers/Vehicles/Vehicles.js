@@ -4,8 +4,11 @@ import InfoPanel from "../InfoPanel/InfoPanel.js";
 import VehiclePanel from "../VehiclePanel/VehiclePanel.js";
 import { connect } from "react-redux";
 
-const Vehicles = ({ statedata, changeRegion }) => {
-  // const { statedata } = props; 
+const Vehicles = ({ 
+  statedata, 
+  changeRegion, 
+  zipcode, 
+}) => { 
 
   const [modalVisibility, setModalVisibility] = useState({
     locationsModal: false,
@@ -28,6 +31,7 @@ const Vehicles = ({ statedata, changeRegion }) => {
           whichComponent={"vehicles"}
           stateData={statedata}
           showInfoModal={showInfoModal}
+          zipcode={zipcode} 
         />
         <VehiclePanel
           modalVisibility={modalVisibility}

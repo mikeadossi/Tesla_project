@@ -1,8 +1,10 @@
 import React from 'react';
 import './InfoPanel_links.css';
 
-const InfoPanel_links = (props) => { 
+const InfoPanel_links = (props) => {
 
+  const link = "https://www.tesla.com/inventory/new/m3?arrangeby=relevance&zip="+props.zipcode+"&range=200";
+  
   return (
     <div className="InfoPanel_charging_container">
       <div id="infoPanel_loaded_title">LINKS</div>
@@ -13,23 +15,11 @@ const InfoPanel_links = (props) => {
               <div className="infoPanel_links_div">
                 <a 
                   className="infoPanel_links app_textdecorationNone" 
-                  href="https://www.tesla.com/inventory/new/m3?arrangeby=relevance&zip=90210&range=200" 
+                  href={link}
                   target="_blank" 
                   rel="noopener noreferrer"
                 >
                   New Inventory (w/ zipcode)
-                </a>
-              </div>
-            ) : ("")}
-            {props.vehicleOrder ? (
-              <div className="infoPanel_links_div">
-                <a 
-                  className="infoPanel_links app_textdecorationNone" 
-                  href="https://www.tesla.com/findus?search=90210%2C%20USA&bounds=34.151956579194035%2C-118.30060511874998%2C34.05402148312065%2C-118.52033168124998&zoom=13&filters=store%2Cservice%2Csupercharger%2Cdestination%20charger" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  Tesla Find Us (w/ zipcode)
                 </a>
               </div>
             ) : ("")}

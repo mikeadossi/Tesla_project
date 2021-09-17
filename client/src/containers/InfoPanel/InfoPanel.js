@@ -98,6 +98,7 @@ const InfoPanel = (props) => {
               vehicleOrder={vOrder} 
               stateAbbr={stateAbbreviation} 
               whichComponent={props.whichComponent}
+              zipcode={props.zipcode} 
             /> 
           </>
           ) : (

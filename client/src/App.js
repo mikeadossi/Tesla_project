@@ -33,7 +33,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [notifications, setNotifications] = useState(2); 
   const [warnings, setWarnings] = useState({});
-  const [ourRegion, setOurRegion] = useState("--");
+  const [ourRegion, setOurRegion] = useState("");
+  const [zipcode, setZipcode] = useState('90210');
 
   const closeMobileMenu = () => { 
     setMenuVisibility({
@@ -144,6 +145,8 @@ function App() {
           notifications={notifications}
           warnings={warnings}
           changeRegion={changeRegion}
+          zipcode={zipcode}
+          setZipcode={setZipcode}
         />
         <LandingPageNav />
         <LocationDetails 
@@ -183,7 +186,10 @@ function App() {
             exact
             path="/vehicles"
             component={() => (
-              <Vehicles changeRegion={changeRegion} />
+              <Vehicles 
+                changeRegion={changeRegion} 
+                zipcode={zipcode}
+              />
             )}
           />
           <Route 

@@ -15,6 +15,8 @@ const Nav = ({
   notifications,
   warnings,
   changeRegion,
+  zipcode,
+  setZipcode,
 }) => {
   
   return (
@@ -22,6 +24,8 @@ const Nav = ({
       <HeaderLeft />
       <HeaderCenter
         changeRegion={changeRegion} 
+        zipcode={zipcode}
+        setZipcode={setZipcode}
       />
       <HeaderRight 
         currentUser={currentUser}

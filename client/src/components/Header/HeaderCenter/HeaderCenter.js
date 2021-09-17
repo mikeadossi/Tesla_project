@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./HeaderCenter.css"; 
 import { connect } from "react-redux";
 import { getMyZipcodeData } from "../../../config/actions/navActions";
@@ -11,17 +11,10 @@ const HeaderCenter = ({
   cashAmt,
   changeRegion,
   statedata,
-}) => {
-  const [zipcode, setZipcode] = useState('90210'); 
-  
-  // useEffect(() => {
-  //   if(statedata[0] && statedata[0].vehicle_order){
-  //     console.log('statedata[0]: ',statedata[0].state_name);
-  //     console.log('zipcode_data.state_name: ',zipcode_data.state_name)
-  //     var vehicle_order = JSON.parse(statedata[0]["vehicle_order"]);
-  //     changeRegion(zipcode_data.state_name, zipcode_data.county, vehicle_order);
-  //   }
-  // }, [zipcode_data]);
+  zipcode,
+  setZipcode,
+}) => { 
+
 
   return (
     <div className="headerCenter app_removeBlue"> 

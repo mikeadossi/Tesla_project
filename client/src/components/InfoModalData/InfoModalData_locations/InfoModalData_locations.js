@@ -9,17 +9,7 @@ class InfoModalData_locations extends Component {
         <h1>LOCATIONS NEARBY</h1>
         <div className="app_modalData_content">
           <div className="infoModalData_showrooms_container">
-            <div className="">
-              <a 
-                className="app_textdecorationNone" 
-                href="https://www.tesla.com/findus?search=90210%2C%20USA&bounds=34.151956579194035%2C-118.30060511874998%2C34.05402148312065%2C-118.52033168124998&zoom=13&filters=store%2Cservice%2Csupercharger%2Cdestination%20charger" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                Tesla Find Us
-              </a>
-            </div>
-            <div className="">SHOWROOMS</div>
+            <h3 className="modalTitle">SHOWROOMS</h3>
             <div className="infoModalData_showroom_container">
               <div className="infoPanel_showroom1">
                 <h4 className="infoPanel_showroom1_name">Santa Monica Place</h4>
@@ -53,7 +43,7 @@ class InfoModalData_locations extends Component {
           </div>
 
           <div className="infoModalData_serviceCenters_container">
-            <div className="">SERVICE CENTERS</div>
+            <h3 className="modalTitle">SERVICE CENTERS</h3>
             <div className="infoModalData_showroom_container">
               <div className="infoPanel_showroom1">
                 <h4 className="infoPanel_showroom1_name">Santa Monica Place</h4>
@@ -87,7 +77,7 @@ class InfoModalData_locations extends Component {
           </div>
 
           <div className="infoModalData_chargingLocations_container">
-            <div className="">CHARGING LOCATIONS</div>
+            <h3 className="modalTitle">CHARGING LOCATIONS</h3>
             <div className="infoModalData_showroom_container">
               <div className="infoPanel_showroom1">
                 <h4 className="infoPanel_showroom1_name">Santa Monica Place</h4>
