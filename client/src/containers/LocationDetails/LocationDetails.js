@@ -1,49 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import "./LocationDetails.css";
 import moment from "moment-timezone";
 
-const LocationDetails = ({
-  zipcodeData: {
-    id,
-    city,
-    state_abbr,
-    state_name,
-    state_data_id,
-    area_codes,
-    county,
-    longitude,
-    latitude,
-  },
-}) => {
-  // const location = "America/"+city;
-  // console.log('city: ',city)
-  const counties = county && county.split(","); 
-  // console.log('counties: ',counties)
-  const cityy = "Beverly_Hills"
-  const loc = "America/"+cityy
-  const [currentTime, setTime] = useState(
-    // moment().tz("America/Los_Angeles").format("h:mm:ss A z")
-    moment().tz("America/Los_Angeles").format("LT")
-  );
+const LocationDetails = ({ zipcodeData }) => {
+  console.log('zipcodeData: ',zipcodeData)
+  const counties = zipcodeData.county && zipcodeData.county.split(","); 
+  const [currentTime, setCurrentTime] = useState("");
+  const [timeZone, setTimeZone] = useState("");
 
-  const timeZone = moment().tz("America/Los_Angeles").format(" z"); 
+  const areaCodes = zipcodeData.area_codes && zipcodeData.area_codes.split(" / ");
 
-  const areaCodes = area_codes && area_codes.split(" / ");
-  // const counties = county && county.split(","); 
-  setInterval(() => {
-    // setTime(moment().tz("America/Los_Angeles").format("h:MM:ss A z"));  
-    setTime(moment().tz("America/Los_Angeles").format("LT"));
-  }, 1000);
+  const checkTimezone = () => {
+    let timeZ = zipcodeData.time_zone; 
+    if(timeZ.indexOf("Pacific") > -1){
+      return 'Pacific';
+    } else if(timeZ.indexOf("Eastern") > -1){
+      return 'Eastern';
+    } else if(timeZ.indexOf("Mountain") > -1){
+      return 'Mountain';
+    } else if(timeZ.indexOf("Alaska") > -1){
+      return 'Alaska';
+    } else if(timeZ.indexOf("Hawaii") > -1){
+      return 'Hawaii';
+    } else if(timeZ.indexOf("Central") > -1){
+      return 'Central';
+    } else {
+      return 'n/a';
+    }
+  };
 
-  return id ? (
+  const getTime = {
+    Pacific: "America/Los_Angeles",
+    Eastern: "America/New_York",
+    Mountain: "America/Pheonix",
+    Alaska: "America/Juneau",
+    Hawaii: "Pacific/Honolulu",
+    Central: "America/Kentucky/Louisville",
+  };
+
+  useEffect(() => {
+    if(zipcodeData.city){ 
+      let timeZ =  checkTimezone();
+      if(timeZ === 'n/a'){
+        setCurrentTime("N/A");
+        setTimeZone("");
+      } else {
+        setCurrentTime(moment().tz( getTime[timeZ] ).format("LT"));
+        setTimeZone(timeZ);
+        console.log('moment.tz.zonesForCountry(US): ',moment.tz.zonesForCountry('US'))
+      }
+    }
+  }, [zipcodeData.city]);
+
+
+
+  return zipcodeData.id ? (
     <div className="locationDetails_container app_displayFlex">
       <div className="locationDetails_subcontainers locationDetails_subcontainer_1">
         <div className="LocationDetails_zipcode LocationDetails_element">
-          {id}
+          {zipcodeData.id}
         </div>
         <div className="LocationDetails_city LocationDetails_element">
-          {city}, {state_abbr}
+          {zipcodeData.city}, {zipcodeData.state_abbr}
         </div>
         <div className="LocationDetails_county LocationDetails_element">
           <select className="locationDetails_content app_removeBlue">
