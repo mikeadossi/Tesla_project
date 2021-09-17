@@ -4,10 +4,10 @@ import "./LocationDetails.css";
 import moment from "moment-timezone";
 
 const LocationDetails = ({ zipcodeData }) => {
-  console.log('zipcodeData: ',zipcodeData)
   const counties = zipcodeData.county && zipcodeData.county.split(","); 
   const [currentTime, setCurrentTime] = useState("");
   const [timeZone, setTimeZone] = useState("");
+  const [today, setToday] = useState([]);
 
   const areaCodes = zipcodeData.area_codes && zipcodeData.area_codes.split(" / ");
 
@@ -48,10 +48,88 @@ const LocationDetails = ({ zipcodeData }) => {
       } else {
         setCurrentTime(moment().tz( getTime[timeZ] ).format("LT"));
         setTimeZone(timeZ);
-        console.log('moment.tz.zonesForCountry(US): ',moment.tz.zonesForCountry('US'))
       }
     }
   }, [zipcodeData.city]);
+
+  function calculateTime(ourDate, ourTime) {
+    let tz =  checkTimezone();
+    tz = getTime[tz];
+
+    let myDate = { date: ourDate+" "+ourTime, timezone_type: 3, timezone: tz}
+    let dt = moment(myDate.date, "YYYY-MM-DD")
+    let day = dt.format('dddd') // Monday
+    let dateFull = dt.format('ll'); // Sep 17, 2021
+    setToday([day, dateFull]);
+  }
+
+  function convertOffsetToDate(offset){
+    // create Date object for current location
+    var d = new Date();
+
+    // convert to msec
+    // subtract local time zone offset
+    // get UTC time in msec
+    var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+
+    // create new Date object for different city
+    // using supplied offset
+    var nd = new Date(utc + (3600000*offset));
+
+    return nd.toLocaleString(); // 9/17/2021, 1:45:10 AM 
+  };
+
+  function getDateStr(dateStr){ 
+    let justDate = dateStr.split(',')[0];
+    let justDateArr = justDate.split('/');
+
+    // we need a 2 digit month, so for September - 09 > 9
+    let checkNum = Number(justDateArr[0]);
+    if(checkNum <= 10){
+      justDateArr[0] = '0'+justDateArr[0];
+    }
+    
+    let newArr = [justDateArr[2], justDateArr[0], justDateArr[1]];
+    justDate = newArr.join('-'); // 2021-09-17
+
+    return justDate;
+  }
+
+  function getTimeStr(dateStr){
+    let timeStr = dateStr.split(', ')[1];
+    timeStr = timeStr.split(' AM')[0];
+    timeStr = timeStr.split(' PM')[0];
+    let timeArr = timeStr.split(':');
+    let num = Number(timeArr[0]) + 12
+    timeArr[0] = num;
+    timeStr = timeArr.join(":"); 
+    return timeStr; // 13:45:10
+  }
+
+  function calc(offset) {
+    let str = convertOffsetToDate(offset); // 9/17/2021, 1:45:10 AM
+    let date = getDateStr(str);
+    let time = getTimeStr(str);
+    calculateTime(date, time);
+  }
+
+  useEffect(() => {
+    if(zipcodeData.city){
+      // console.log('zzz: ',zipcodeData.time_zone)
+      let roughOffset = zipcodeData.time_zone; // "Pacific (GMT -08:00)" 
+      let offset = roughOffset.split('(GMT ');
+      offset = offset[1].split(')');
+      offset = offset[0]; // -08.00
+      offset = offset.split('-0').join('-');
+      offset = offset.split(':00')[0];
+      // console.log('offset: ',offset) // -8 (one hour ahead)
+    
+      // console.log('calculate offset: ',calc(offset) );
+      calc(offset);
+    }
+  }, [zipcodeData.city]);
+
+
 
 
 
@@ -107,8 +185,8 @@ const LocationDetails = ({ zipcodeData }) => {
       <div className="app_locationDetails_border"></div>
 
       <div className="locationDetails_subcontainers locationDetails_subcontainer_4">
-        <div className="locationDetails_day">Monday</div>
-        <div className="locationDetails_date">Oct. 26, 2020</div>
+        <div className="locationDetails_day">{today[0]}</div>
+        <div className="locationDetails_date">{today[1]}</div>
       </div>
 
       <div className="app_locationDetails_border"></div>
