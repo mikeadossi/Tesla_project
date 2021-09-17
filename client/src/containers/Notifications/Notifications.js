@@ -6,18 +6,20 @@ const Notifications = ({
     currentUser, 
     setCurrentUser
 }) => { 
-    // const history = useHistory(); 
-
-    // if(currentUser === null || {}){
-    //     history.push("/lost");
-    // }
+    const history = useHistory();
 
     useEffect(() => { 
         let newCurrentUser = {...currentUser}; 
         newCurrentUser["notifications_last_viewed_on"] = new Date();
         // setCurrentUser(newCurrentUser);
         console.log('set! ',newCurrentUser);
-      }, []);
+    }, []);
+    
+    useEffect(() => {
+        if(!currentUser){
+          history.push("/lost"); 
+        }
+    }, [currentUser]);
 
     return <div className="notifications_container app_pageHeight">
         <h1 className="notifications_title">NOTIFICATIONS</h1>

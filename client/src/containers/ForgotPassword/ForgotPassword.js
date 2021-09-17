@@ -55,7 +55,7 @@ const ForgotPassword = () => {
       <form onSubmit={getTempPassword}>
         <h1 className="forgotPassword_title">FORGOT PASSWORD</h1>
         <div className="forgotPassword_text">
-          Submit the form below to receive a temporary password.
+          Submit the form below to receive a new password.
         </div>
         <div className="forgotPassword_email_container settings_subsection app_displayFlex">
           <div className="settings_text">Enter user email</div>
@@ -67,13 +67,13 @@ const ForgotPassword = () => {
             </div>
           ) : ""
         }
-        {theResult && theResult === "SUCCESS! Your temporary password will be sent in 5-15 minutes!" ? (
+        {theResult && theResult === "SUCCESS! Your new password will arrive in 5 minutes!" ? (
             <div className="forgotPassword_success">
               {theResult}
             </div>
           ) : ""
         }
-        {theResult && theResult === "SUCCESS! Your temporary password will be sent in 5-15 minutes!" ? (
+        {theResult && theResult === "SUCCESS! Your new password will arrive in 5 minutes!" ? (
           <button
             className="forgotPassword_close forgotPassword_disable"
             type="submit"

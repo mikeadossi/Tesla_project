@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Settings.css";
 import { useHistory } from "react-router-dom"; 
 import axios from "axios";
@@ -6,6 +6,9 @@ import axios from "axios";
 const Settings = ({  
     currentUser,
     setCurrentUser,
+    setNotifications, 
+    warnings,
+    setWarnings,
 }) => { 
     const currentPasswRef = useRef();
     const newPasswRef = useRef();
@@ -16,16 +19,12 @@ const Settings = ({
 
     const history = useHistory(); 
 
-    // if(currentUser === null || {}){
-    //     history.push("/lost"); 
-    //     return
-    // } 
+    useEffect(() => {
+        if(!currentUser){
+          history.push("/lost"); 
+        }
+    }, [currentUser]);
 
-    const [warnings, setWarnings] = useState({
-        apply_all_warning_on: currentUser["apply_all_warning_on"],
-        reset_warning_on: currentUser["reset_warning_on"],
-        notifications_on: currentUser["notifications_on"],
-    }) 
 
     const handleWarning = async (ObjKey) => {
         let newWarnings = {...warnings} 
