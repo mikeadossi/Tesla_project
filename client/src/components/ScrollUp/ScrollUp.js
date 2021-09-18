@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import "./ScrollUp.css";
+import { Link, animateScroll as scroll } from "react-scroll";
 
 const ScrollUp = ({ vehicleData, vehicleContainerRef }) => {
   const renderedVehiclesArr = vehicleData.length ? vehicleData : [];
@@ -25,9 +26,18 @@ const ScrollUp = ({ vehicleData, vehicleContainerRef }) => {
     // window.scroll(0, app_Panel_container.children[i]);
   };
 
+  const scrollTop = () => {
+    scroll.scrollToTop(); 
+  }
+
   return (
     <div className="scrollUp_container">
-      <div className="scrollUp_top">Top</div>
+      <div 
+        className="scrollUp_top"
+        onClick={(e) => scrollTop()}
+      >
+        Top
+      </div>
       <div className="scrollUp_vehicle_container">
         {renderedVehiclesArr.map((option, i) => {
           return (
