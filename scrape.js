@@ -10,7 +10,7 @@ const fs = require("fs");
 // const newZipcodeObject = require('./seed_folder/newZipcodeObject');
 // const newestObject = require('./seed_folder/newestObject');
 // const needAreacodes = require('./seed_folder2/needAreacodes');
-const state_seedFile_copy = require("./seed_folder/state_seedFile");
+// const state_seedFile_copy = require("./seed_folder/state_seedFile");
 
 require("dotenv").config({ path: __dirname + "/.env" });
 
@@ -25019,70 +25019,156 @@ let scrape = async () => {
       );
     };
 
-    const getLongLat = async (state_seedFile_copy) => {
+    const getLongLat = async (seed) => {
         // scrape web for long and lat of each showroo..., and store in state_seedFile 
     
         await page.goto(
-          "https://www.latlong.net/convert-address-to-lat-long.html",
+          "https://www.barattalo.it/convert-address-lat-long",
           { timeout: 60 * 1000 }
-        );
-        const tableSelector = "body > main > div:nth-child(4) > div.col-7.graybox > form:nth-child(1) > input";
+        ); 
+        const tableSelector = "body > div:nth-child(2) > article > form > input#q";
         await page.waitForSelector(tableSelector);
     
         let address;
+        let state_seedFile_copy = seed;
         let ssKeys = Object.keys(state_seedFile_copy);
-    
-        for (let i = 0; i < state_seedFile_copy.length; i++) {
-          if (state_seedFile_copy[ssKeys[i]]["all_showrooms"].length > 0) {
-            for (let a = 0; a < state_seedFile_copy.length; a++) {
+
+
+        for (let i = 0; i < ssKeys.length; i++) {
+          console.log('> > > > > > > > > > ssKeys[',i,'] of 50 - ',ssKeys[i]);
+
+          let all_showrooms = state_seedFile_copy[ssKeys[i]]["all_showrooms"];
+          let all_serve_centers = state_seedFile_copy[ssKeys[i]]["all_serve_centers"];
+          let all_charging_locations = state_seedFile_copy[ssKeys[i]]["all_charging_locations"];
+          let addressDict = {};
+          const inputSelector = "input[id='q']";
+          let len;
+          
+          if (all_showrooms) { 
+            len = all_showrooms.length; // we add to all_showrooms below so we'll need to store starting length here
+            
+            for (let a = 0; a < len; a++) {
+              let addy = all_showrooms[a][2]; // this is for readability
               address =
-                state_seedFile_copy[ssKeys[i]]["all_showrooms"][a][2][0] +
-                state_seedFile_copy[ssKeys[i]]["all_showrooms"][a][2][1];
-              address = address.replace("\n", " "); // address = "9428 Reisterstown Road Owings Mills, MD 21117 "
-    
-              const addressInputSelector = "input[id='zb2648']"; // working?
-              await page.type(addressInputSelector, address, { delay: 500 });
+                addy[0] +
+                addy[addy.length-1]; // some addresses have 2 lines, and some have 3.
+              address = address.replace("\n", " "); // address = "9428 Reisterstown Road Owings Mills, MD 21117 " 
+              
+              await page.type(inputSelector, address, { delay: 500 });
               await page.waitFor(3000);
               await page.keyboard.press("Enter");
               await page.waitFor(1500);
-    
-              const obj = await page.evaluate(() => {
-                let longLatObj = {
-                  longitude: null,
-                  latitude: null,
-                };
-    
-                longLatObj.longitude = document.querySelector(
-                  "#lat"
-                ).innerText; // working?
-                longLatObj.latitude = document.querySelector("#lng").innerText; // working?
-                return longLatObj;
-              });
-    
-              state_seedFile_copy[i]["all_showrooms"].push(obj); // working?
+              
+              if(addressDict[address]){
+                all_showrooms.push(addressDict[address]); 
+              } else {
+                const obj = await page.evaluate(() => {
+                  let longLatObj = {
+                    longitude: null,
+                    latitude: null,
+                  };
+      
+                  longLatObj.longitude = document.querySelector("#risultato b:nth-child(1)").innerText; 
+                  longLatObj.latitude = document.querySelector("#risultato b:nth-child(2)").innerText; 
+                  return longLatObj;
+                }); 
+                
+                addressDict[address] = obj; 
+                all_showrooms.push(obj);  
+              }
+
             }
           }
-        }
-    
-        // await fs.appendFile(
-        //     "./seed_folder2.js",
-        //     JSON.stringify(state_seedFile_copy),
-        //     (err) => {
-        //       if (err) throw err;
-        //       console.log("lat, long were added!");
-        //     }
-        //   );
-      };
 
-    const readr = async (state_seedFile_copy) => {
-      console.log('state_seedFile_copy[ssKeys["Arizona"]]- ',state_seedFile_copy["Arizona"] )
-    }
+          if (all_serve_centers) {
+            len = all_serve_centers.length; // we add to all_serve_centers below so we'll need to store starting length here
+              
+            for (let a = 0; a < len; a++) {
+              let addy = all_serve_centers[a][2]; // this is for readability
+              address =
+                addy[0] +
+                addy[addy.length-1]; // some addresses have 2 lines, and some have 3.
+              address = address.replace("\n", " "); // address = "9428 Reisterstown Road Owings Mills, MD 21117 " 
+              
+              await page.type(inputSelector, address, { delay: 500 });
+              await page.waitFor(3000);
+              await page.keyboard.press("Enter");
+              await page.waitFor(1500);
+              
+              if(addressDict[address]){
+                all_serve_centers.push(addressDict[address]); 
+              } else {
+                const obj = await page.evaluate(() => {
+                  let longLatObj = {
+                    longitude: null,
+                    latitude: null,
+                  };
+      
+                  longLatObj.longitude = document.querySelector("#risultato b:nth-child(1)").innerText; 
+                  longLatObj.latitude = document.querySelector("#risultato b:nth-child(2)").innerText; 
+                  return longLatObj;
+                }); 
+                
+                addressDict[address] = obj; 
+                all_serve_centers.push(obj);  
+              }
+
+            }
+          };
+
+          if (all_charging_locations) {
+            len = all_charging_locations.length; // we add to all_charging_locations below so we'll need to store starting length here
+             
+            for (let a = 0; a < len; a++) {
+              let addy = all_charging_locations[a][2]; // this is for readability
+              address =
+                addy[0] +
+                addy[addy.length-1]; // some addresses have 2 lines, and some have 3.
+              address = address.replace("\n", " "); // address = "9428 Reisterstown Road Owings Mills, MD 21117 " 
+              
+              await page.type(inputSelector, address, { delay: 500 });
+              await page.waitFor(3000);
+              await page.keyboard.press("Enter");
+              await page.waitFor(1500);
+              
+              if(addressDict[address]){
+                all_charging_locations.push(addressDict[address]); 
+              } else {
+                const obj = await page.evaluate(() => {
+                  let longLatObj = {
+                    longitude: null,
+                    latitude: null,
+                  };
+      
+                  longLatObj.longitude = document.querySelector("#risultato b:nth-child(1)").innerText;
+                  longLatObj.latitude = document.querySelector("#risultato b:nth-child(2)").innerText;
+                  return longLatObj;
+                }); 
+                
+                addressDict[address] = obj; 
+                all_charging_locations.push(obj);  
+              }
+
+            }
+          }
+
+        };
+
+        await fs.appendFile(
+            "./state_seedFile.js",
+            JSON.stringify(state_seedFile_copy),
+            (err) => {
+              if (err) throw err;
+              console.log("lat, long were added!");
+            }
+          );
+    };
+
 
     // console.log('====> ',newestObject['10001'])
     // return await  stringifyAreacodeArrays(newestObject);
 
-    // return await getLongLat(state_seedFile_copy);
-    return await readr(state_seedFile_copy);
+    // return await getLongLat(state_seedFile_copy); 
 
     // return await getIncentiveTable(stateNames, allStates);
     // return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await getSolarPanelData(), await getIncentiveTable(stateNames, allStates), await getQualificationData(), await getQualifyingUtility(), await getMobileCharging(), await getWallConnectorData() ];
