@@ -17,6 +17,9 @@
     width: 53.4%;
     padding: 20px;
     border-radius: 5px 5px 5px 5px;
-    position: absolute;
     z-index: 1; 
+    margin: auto;
+    position: relative;
+    text-align: center;
+    top: 3%;
 }

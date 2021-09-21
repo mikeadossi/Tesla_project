@@ -1,38 +1,39 @@
-import React from 'react';
-import './InfoModal.css';
-import InfoModalData_locations from '../../components/InfoModalData/InfoModalData_locations/InfoModalData_locations';
-import InfoModalData_charging from '../../components/InfoModalData/InfoModalData_charging/InfoModalData_charging';
+import React from "react";
+import "./InfoModal.css";
+import InfoModalData_locations from "../../components/InfoModalData/InfoModalData_locations/InfoModalData_locations"; 
 
-const InfoModal = ({ closeModal, modalVisibility }) => {
-  return ( 
+const InfoModal = ({
+  closeLocations, 
+  allShowrooms,
+  allServiceCenters,
+  allChargingLocations,
+}) => {
+
+  return (
     <div className="infoModal_backing">
-      <div className="infoModal_container"> 
+      <div className="infoModal_container">
         <div
           className="vehicleConfig_close_container"
-          onClick={() => {closeModal()}} 
+          onClick={() => {
+            closeLocations();
+          }}
         >
           <img
-              className="vehicleConfig_close"
-              src="../../../../images/Nav/close_2.png"
-              alt="close"
+            className="vehicleConfig_close"
+            src="../../../../images/Nav/close_2.png"
+            alt="close"
           ></img>
         </div>
 
-        {modalVisibility.chargingModal ? ( 
-          <InfoModalData_charging />
-          ) : (
-            ""
-        )}
+        <InfoModalData_locations
+          allShowrooms={allShowrooms}
+          allServiceCenters={allServiceCenters}
+          allChargingLocations={allChargingLocations}
+        />
 
-        {modalVisibility.locationsModal ? ( 
-          <InfoModalData_locations />
-          ) : (
-            ""
-        )}
-        
       </div>
     </div>
-  ); 
-}
+  );
+};
 
 export default InfoModal;
