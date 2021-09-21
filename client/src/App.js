@@ -33,10 +33,10 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [notifications, setNotifications] = useState(2); 
   const [warnings, setWarnings] = useState({});
-  const [ourRegion, setOurRegion] = useState("");
-  const [zipcode, setZipcode] = useState('90210');
+  const [ourRegion, setOurRegion] = useState("--");
+  const [zipcode, setZipcode] = useState('83211');
 
-  const closeMobileMenu = () => { 
+  const closeMobileMenu = () => {
     setMenuVisibility({
       mobileMenu: false,
       applyAllWarning: false,

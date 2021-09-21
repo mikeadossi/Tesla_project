@@ -1,4 +1,4 @@
-const displayVehicleFacts = () => {
+const displayVehicleFacts = (x) => {
     const vehicleFacts = [
         "Tesla may be one of the newer car companies in the country, but they are considered the second oldest publicly listed American Automaker (the first is Ford). This is because General Motors went bankrupt, and Chrysler is privately owned.",
         
@@ -21,7 +21,8 @@ const displayVehicleFacts = () => {
         "Tesla has an open patent policy. It’s true! Tesla has made many of its designs and patents open source, which means anyone can use them to their own ends.",
         
     ];
-        
+
+    return vehicleFacts[x];
 }
 
 export default displayVehicleFacts;

@@ -19,8 +19,8 @@ const Footer = ({ currentUser }) => {
           <Link to="/" className="footer_text app_textdecorationNone">About</Link>
           <Link to="/vehicles" className="footer_text app_textdecorationNone">Vehicle</Link>
           <Link to="/solar" className="footer_text app_textdecorationNone">Solar</Link>
-        </span> 
-        <span className="footer_text footer_project">© {currYr} Sidekick</span>
+        </span>
+        <span className="footer_text footer_project">© {currYr} Sidekick</span> 
       </div> 
     </div>
   );

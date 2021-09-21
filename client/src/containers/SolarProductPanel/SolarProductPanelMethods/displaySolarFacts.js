@@ -1,4 +1,4 @@
-const displaySolarFacts = () => {
+const displaySolarFacts = (x) => {
     const solarFacts = [
         "The ideal conditions for solar panels to produce electricity are sunny and cold days, and some colder states are better for solar because of high electricity rates and state solar tax credits. ",
         
@@ -20,6 +20,8 @@ const displaySolarFacts = () => {
         
         "The first solar cell was made of selenium wafers in 1883, and in California, 19% of energy is generated from solar systems.",
     ];
+
+    return solarFacts[x];
 }
 
 export default displaySolarFacts;

@@ -1,14 +1,22 @@
 import React from "react";
 import "./InfoPanel_locations_nearby.css";
+import { connect, useDispatch } from "react-redux";
+import {
+  showLocations,
+} from "../../../config/actions/navActions";
+
 
 const InfoPanel_locations_nearby = ({
   vehicleOrder,
-  stateAbbr,
-  showInfoModal,
+  stateAbbr, 
   allShowrooms,
   allServiceCenters,
   allChargingLocations,
+  closeLocations,
+  showLocations,
 }) => {
+  const dispatch = useDispatch(); 
+
   return (
     <div className="InfoPanel_charging_container">
       <div id="infoPanel_loaded_title">LOCATIONS</div>
@@ -92,8 +100,8 @@ const InfoPanel_locations_nearby = ({
             </div>
             <div
               className="app_seeMore_btn infoPanel_locations_seeMore"
-              onClick={() => {
-                showInfoModal("locationsModal");
+              onClick={() => { 
+                showLocations(dispatch); 
               }}
             >
               See More
@@ -105,4 +113,10 @@ const InfoPanel_locations_nearby = ({
   );
 };
 
-export default InfoPanel_locations_nearby;
+// export default InfoPanel_locations_nearby;
+
+const mapDispatchToProps = (dispatch) => ({
+  showLocations: showLocations(dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(InfoPanel_locations_nearby);

@@ -4,19 +4,21 @@ import InfoPanel_locations_nearby from "../../components/InfoPanelData/InfoPanel
 import InfoPanel_payments from "../../components/InfoPanelData/InfoPanel_payments/InfoPanel_payments";
 import InfoPanel_incentives from "../../components/InfoPanelData/InfoPanel_incentives/InfoPanel_incentives";
 import InfoPanel_warranty from "../../components/InfoPanelData/InfoPanel_warranty/InfoPanel_warranty";
-import InfoPanel_links from "../../components/InfoPanelData/InfoPanel_links/InfoPanel_links"; 
+import InfoPanel_links from "../../components/InfoPanelData/InfoPanel_links/InfoPanel_links";
 import InfoPanel_installation from "../../components/InfoPanelData/InfoPanel_installation/InfoPanel_installation";
 import InfoPanel_roofTypes from "../../components/InfoPanelData/InfoPanel_roofTypes/InfoPanel_roofTypes";
 import InfoPanel_solar_container from "../../components/InfoPanelData/InfoPanel_solar_container/InfoPanel_solar_container";
 import InfoPanel_vehicle_container from "../../components/InfoPanelData/InfoPanel_vehicle_container/InfoPanel_vehicle_container";
-import InfoPanel_neutral_container from "../../components/InfoPanelData/InfoPanel_neutral_container/InfoPanel_neutral_container"; 
+import InfoPanel_neutral_container from "../../components/InfoPanelData/InfoPanel_neutral_container/InfoPanel_neutral_container";
+import GrayBackground from "../../components/GrayBackground/GrayBackground";
 import { getMyZipcodeData } from "../../config/actions/navActions";
 import { connect } from "react-redux";
 
 const InfoPanel = (props) => {
-  
+  console.log("*>>> ", props.allShowrooms);
+
   const [visibility, setVisibility] = useState({
-    InfoPanel_locations_nearby: false, 
+    InfoPanel_locations_nearby: false,
     InfoPanel_payments: false,
     InfoPanel_links: false,
     InfoPanel_incentives: false,
@@ -25,23 +27,9 @@ const InfoPanel = (props) => {
     InfoPanel_roofTypes: false,
   });
 
-
-  const showComponent = (value) => { 
+  const showComponent = (value) => {
     setVisibility({ [value]: true });
   };
-
-  const parseLocation = (x) => {
-    let data = props.stateData.length ? props.stateData[0][x] : null;
-    if(data){
-      data = data.replace("''","\'"); 
-      data = data.replace(/\s+/g, " ");
-      data = JSON.parse(data);
-      console.log('data: ',data);
-      return data;
-    }
-  }
-
-  parseLocation("all_charging_locations");
 
   const stateAbbreviation = props.stateData.length
     ? props.stateData[0].state_abbr
@@ -54,7 +42,7 @@ const InfoPanel = (props) => {
   const vehicleIncentives = props.stateData.length
     ? props.stateData[0].vehicle_incentives
     : null;
-  
+
   const solarIncentives = props.stateData.length
     ? props.stateData[0].solar_incentives
     : null;
@@ -62,17 +50,22 @@ const InfoPanel = (props) => {
 
   return (
     <div className="infoPanel_container">
+      <GrayBackground
+        allShowrooms={props.allShowrooms}
+        allServiceCenters={props.allServiceCenters}
+        allChargingLocations={props.allChargingLocations}
+      />
       <div className="infoPanel_subcontainer sticky_infoPanel">
         <h3 className="infoPanel_title">INFORMATION</h3>
         {props.whichComponent == "vehicles" && (
           <>
-            <InfoPanel_vehicle_container 
-              showComponent={showComponent} 
+            <InfoPanel_vehicle_container
+              showComponent={showComponent}
               vOrder={vOrder}
             />
-            <InfoPanel_neutral_container 
-              showComponent={showComponent} 
-              vOrder={vOrder} 
+            <InfoPanel_neutral_container
+              showComponent={showComponent}
+              vOrder={vOrder}
             />
           </>
         )}
@@ -84,80 +77,82 @@ const InfoPanel = (props) => {
         )}
 
         <div>
-          {visibility.InfoPanel_locations_nearby ? ( 
-          <>
-            <InfoPanel_locations_nearby 
-              vehicleOrder={vOrder} 
-              stateAbbr={stateAbbreviation} 
-              showInfoModal={props.showInfoModal}
-            /> 
-          </>
+          {visibility.InfoPanel_locations_nearby ? (
+            <>
+              <InfoPanel_locations_nearby
+                vehicleOrder={vOrder}
+                stateAbbr={stateAbbreviation}
+                allShowrooms={props.allShowrooms}
+                allServiceCenters={props.allServiceCenters}
+                allChargingLocations={props.allChargingLocations}
+              />
+            </>
           ) : (
             ""
-          )} 
+          )}
           {visibility.InfoPanel_payments ? (
-          <>
-            <InfoPanel_payments 
-              vehicleOrder={vOrder} 
-              stateAbbr={stateAbbreviation} 
-              whichComponent={props.whichComponent}
-            /> 
-          </>
+            <>
+              <InfoPanel_payments
+                vehicleOrder={vOrder}
+                stateAbbr={stateAbbreviation}
+                whichComponent={props.whichComponent}
+              />
+            </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_links ? (
-          <>
-            <InfoPanel_links 
-              vehicleOrder={vOrder} 
-              stateAbbr={stateAbbreviation} 
-              whichComponent={props.whichComponent}
-              zipcode={props.zipcode} 
-            /> 
-          </>
+            <>
+              <InfoPanel_links
+                vehicleOrder={vOrder}
+                stateAbbr={stateAbbreviation}
+                whichComponent={props.whichComponent}
+                zipcode={props.zipcode}
+              />
+            </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_warranty ? (
-          <>
-            <InfoPanel_warranty
-              stateAbbr={stateAbbreviation} 
-              whichComponent={props.whichComponent}
-            /> 
-          </>
+            <>
+              <InfoPanel_warranty
+                stateAbbr={stateAbbreviation}
+                whichComponent={props.whichComponent}
+              />
+            </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_incentives ? (
-          <>
-            <InfoPanel_incentives 
-              vehicleOrder={vOrder} 
-              vehicleIncentives={vehicleIncentives}
-              solarIncentives={solarIncentives}
-              stateAbbr={stateAbbreviation} 
-              whichComponent={props.whichComponent}
-            /> 
-          </>
+            <>
+              <InfoPanel_incentives
+                vehicleOrder={vOrder}
+                vehicleIncentives={vehicleIncentives}
+                solarIncentives={solarIncentives}
+                stateAbbr={stateAbbreviation}
+                whichComponent={props.whichComponent}
+              />
+            </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_installation ? (
-          <>
-            <InfoPanel_installation 
-              vehicleOrder={vOrder} 
-              stateAbbr={stateAbbreviation} 
-            /> 
-          </>
+            <>
+              <InfoPanel_installation
+                vehicleOrder={vOrder}
+                stateAbbr={stateAbbreviation}
+              />
+            </>
           ) : (
             ""
           )}
           {visibility.InfoPanel_roofTypes ? (
-          <>
-            <InfoPanel_roofTypes 
-              vehicleOrder={vOrder} 
-              stateAbbr={stateAbbreviation} 
-            /> 
-          </>
+            <>
+              <InfoPanel_roofTypes
+                vehicleOrder={vOrder}
+                stateAbbr={stateAbbreviation}
+              />
+            </>
           ) : (
             ""
           )}
@@ -175,4 +170,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getMyZipcodeData })(InfoPanel); 
+export default connect(mapStateToProps, { getMyZipcodeData })(InfoPanel);

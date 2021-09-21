@@ -21,7 +21,7 @@ export const getMyZipcodeData = (zip) => async (dispatch) => {
 }; 
 
 export const showApplyAllWarning = (dispatch, modelName) => () => { // action creator - creates and returns action object
-  console.log('hey - ',modelName["name"])
+  console.log('hey there - ',modelName["name"])
   debugger
   dispatch({ // action - plain JavaScript object that has a type field.
     type: types.TOGGLE_APPLY_ALL_WARNING,
@@ -33,5 +33,12 @@ export const showResetWarning = (dispatch, modelName) => () => {
   dispatch({
     type: types.TOGGLE_RESET_WARNING,
     payload: modelName,
+  });
+};
+
+export const showLocations = (dispatch, locations) => () => {
+  dispatch({
+    type: types.TOGGLE_LOCATIONS, 
+    payload: locations,
   });
 };

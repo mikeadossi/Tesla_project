@@ -113,9 +113,9 @@ const VehicleConfigUserEntry = ({
     }
 
     if (value === "applyAll") {
-      showApplyAllWarning(dispatch, vehicleName);
+      showApplyAllWarning(dispatch);
     } else if (value === "reset") {
-      showResetWarning(dispatch, vehicleName);
+      showResetWarning(dispatch);
     }
   };
 

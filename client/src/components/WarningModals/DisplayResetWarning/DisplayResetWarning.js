@@ -2,7 +2,11 @@ import React from 'react';
 import { useSelector } from "react-redux";
 import './DisplayResetWarning.css';
 
-const DisplayResetWarning  = ({ closeResetWarning, runReset }) => { 
+const DisplayResetWarning = ({ 
+    closeResetWarning, 
+    runReset 
+}) => { 
+    
     const currentModelName = useSelector(
         (state) => state.navReducer.currentModelName["name"]
     );

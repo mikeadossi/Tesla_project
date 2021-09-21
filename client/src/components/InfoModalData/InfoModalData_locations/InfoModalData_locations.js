@@ -5,7 +5,7 @@ const InfoModalData_locations = ({
   allShowrooms,
   allServiceCenters,
   allChargingLocations,
-}) => { 
+}) => {  
 
   return (
     <div className="infoModalData_locations_container">
