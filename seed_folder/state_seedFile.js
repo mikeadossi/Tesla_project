@@ -2574,7 +2574,7 @@ module.exports = {
       [
         "Scotts Valley, CA, Supercharger",
         "https://www.tesla.com/findus/location/supercharger/scottsvalleysupercharger",
-        ["230 Mount Hermon Road\n", "Scott\\'s Valley, CA 95066\n"],
+        ["230 Mount Hermon Road\n", "Scott''s Valley, CA 95066\n"],
         { longitude: "9.80656", latitude: "-83.90798" },
       ],
       [
@@ -3950,7 +3950,7 @@ module.exports = {
       [
         "Fort Drum, FL Supercharger",
         "https://www.tesla.com/findus/location/supercharger/fortdrumsupercharger",
-        ["184 Florida\\'s Turnpike\n", "Okeechobee, FL 34972\n"],
+        ["184 Florida''s Turnpike\n", "Okeechobee, FL 34972\n"],
         { longitude: "27.24280", latitude: "-80.83015" },
       ],
       [
@@ -4852,9 +4852,9 @@ module.exports = {
         { longitude: "42.54738", latitude: "-113.79089" },
       ],
       [
-        "Coeur d\\'Alene Supercharger",
+        "Coeur d''Alene Supercharger",
         "https://www.tesla.com/findus/location/supercharger/coeurdaleneidsupercharger",
-        ["3458 N Fruitland Lane\n", "Coeur d\\'Alene, ID 83815\n"],
+        ["3458 N Fruitland Lane\n", "Coeur d''Alene, ID 83815\n"],
         { longitude: "47.70885", latitude: "-116.79297" },
       ],
       [
@@ -5121,10 +5121,10 @@ module.exports = {
         { longitude: "41.90703", latitude: "-87.64807" },
       ],
       [
-        "Chicago, IL - O\\'Hare Supercharger",
+        "Chicago, IL - O''Hare Supercharger",
         "https://www.tesla.com/findus/location/supercharger/chicagoiloharesupercharger",
         [
-          "Building 840 Chicago O\\'Hare International Airport\n",
+          "Building 840 Chicago O''Hare International Airport\n",
           "Chicago, IL 60666\n",
         ],
         { longitude: "41.90703", latitude: "-87.64807" },
@@ -8959,7 +8959,7 @@ module.exports = {
       [
         "South Toms River, NJ Supercharger",
         "https://www.tesla.com/findus/location/supercharger/tomsrivernjsupercharger",
-        ["Tom\\'s River, NJ 08757\n"],
+        ["Tom''s River, NJ 08757\n"],
         { longitude: "40.91217", latitude: "-74.04120" },
       ],
       [
@@ -9965,7 +9965,7 @@ module.exports = {
       [
         "Cary, NC Supercharger",
         "https://www.tesla.com/findus/location/supercharger/carynorthcarolinasupercharger",
-        ["7119 O\\'Kelly Chapel Road\n", "Cary, NC 27519\n"],
+        ["7119 O''Kelly Chapel Road\n", "Cary, NC 27519\n"],
         { longitude: "35.85307", latitude: "-78.93414" },
       ],
       [

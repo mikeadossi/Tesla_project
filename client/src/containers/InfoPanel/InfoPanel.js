@@ -9,7 +9,9 @@ import InfoPanel_installation from "../../components/InfoPanelData/InfoPanel_ins
 import InfoPanel_roofTypes from "../../components/InfoPanelData/InfoPanel_roofTypes/InfoPanel_roofTypes";
 import InfoPanel_solar_container from "../../components/InfoPanelData/InfoPanel_solar_container/InfoPanel_solar_container";
 import InfoPanel_vehicle_container from "../../components/InfoPanelData/InfoPanel_vehicle_container/InfoPanel_vehicle_container";
-import InfoPanel_neutral_container from "../../components/InfoPanelData/InfoPanel_neutral_container/InfoPanel_neutral_container";
+import InfoPanel_neutral_container from "../../components/InfoPanelData/InfoPanel_neutral_container/InfoPanel_neutral_container"; 
+import { getMyZipcodeData } from "../../config/actions/navActions";
+import { connect } from "react-redux";
 
 const InfoPanel = (props) => {
   
@@ -28,6 +30,18 @@ const InfoPanel = (props) => {
     setVisibility({ [value]: true });
   };
 
+  const parseLocation = (x) => {
+    let data = props.stateData.length ? props.stateData[0][x] : null;
+    if(data){
+      data = data.replace("''","\'"); 
+      data = data.replace(/\s+/g, " ");
+      data = JSON.parse(data);
+      console.log('data: ',data);
+      return data;
+    }
+  }
+
+  parseLocation("all_charging_locations");
 
   const stateAbbreviation = props.stateData.length
     ? props.stateData[0].state_abbr
@@ -153,4 +167,12 @@ const InfoPanel = (props) => {
   );
 };
 
-export default InfoPanel;
+// export default InfoPanel;
+function mapStateToProps(state) {
+  return {
+    error: state.navReducer.error,
+    zipcode_data: state.navReducer.zipcode_data,
+  };
+}
+
+export default connect(mapStateToProps, { getMyZipcodeData })(InfoPanel); 

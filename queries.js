@@ -352,8 +352,11 @@ let queries = {
   }) {
     let strPaymentObject = JSON.stringify(payment_object);
     let strVehicleOrder = JSON.stringify(vehicle_order);
+    let strAllShowrooms = JSON.stringify(all_showrooms);
+    let strAllServiceCenters = JSON.stringify(all_service_centers);
+    let strAllChargingLocations = JSON.stringify(all_charging_locations);
     pool.query(
-      `INSERT INTO state_data (state_name,state_abbr,vehicle_incentives,solar_incentives,local_vehicle_incentives,local_solar_incentives,all_showrooms,all_service_centers,all_charging_locations,payment_object,vehicle_order) VALUES ('${state_name}','${state_abbr}', '${vehicle_incentives}','${solar_incentives}','${local_vehicle_incentives}','${local_solar_incentives}','${all_showrooms}','${all_service_centers}','${all_charging_locations}','${strPaymentObject}','${strVehicleOrder}')`,
+      `INSERT INTO state_data (state_name,state_abbr,vehicle_incentives,solar_incentives,local_vehicle_incentives,local_solar_incentives,all_showrooms,all_service_centers,all_charging_locations,payment_object,vehicle_order) VALUES ('${state_name}','${state_abbr}', '${vehicle_incentives}','${solar_incentives}','${local_vehicle_incentives}','${local_solar_incentives}','${strAllShowrooms}','${strAllServiceCenters}','${strAllChargingLocations}','${strPaymentObject}','${strVehicleOrder}')`,
       (err, rows) => {
         if (err) console.log("Got an error inserting row to state_data", err);
         else console.log(`Row was inserted in state_data: ${state_name}`);
