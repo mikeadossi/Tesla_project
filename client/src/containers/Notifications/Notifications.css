@@ -38,19 +38,3 @@
     display: flex;
     margin-bottom: 30px;
 }
-
-.more_notifications:hover{
-    cursor: pointer;
-    border: 1px solid black;
-}
-
-.more_notifications{
-    padding-bottom: 5px;
-    border-radius: 4px;
-    margin-bottom: 30px;
-    border: 1px solid white;
-}
-
-.open_notifications{
-    font-size: 20px; 
-}
