@@ -41,6 +41,7 @@ const VehiclePanel = ({
   usStatesData, 
   teslaModels,
   changeRegion, 
+  currentUser,
 }) => {
   const [vehicleData, setVehicleData] = useState([]);
   const [menuOptions, setMenuOptions] = useState("");
@@ -257,6 +258,7 @@ const VehiclePanel = ({
           setTeslaModels={setTeslaModels}
           runReset={runReset}
           runApplyAll={runApplyAll}
+          currentUser={currentUser} 
         />
       ))}
     </div>

@@ -11,16 +11,17 @@ const Vehicles = ({
   changeRegion, 
   zipcode, 
   zipcode_data, 
+  currentUser,
 }) => { 
 
   const [allShowrooms, setAllShowrooms] = useState({});
   const [allServiceCenters, setAllServiceCenters] = useState({});
   const [allChargingLocations, setAllChargingLocations] = useState({});
-
+  
   useEffect(() => {
-    if (zipcode_data) {
+    if (zipcode_data) { 
       let zipLong = zipcode_data.longitude;
-      let zipLat = zipcode_data.latitude; 
+      let zipLat = zipcode_data.latitude;  
         setAllShowrooms(
           getLocations("all_showrooms", zipLong, zipLat, statedata)
         );  
@@ -31,7 +32,7 @@ const Vehicles = ({
           getLocations("all_charging_locations", zipLong, zipLat, statedata)
         ); 
     }
-  }, []);
+  }, [zipcode_data]); 
 
   return (
     <div className="vehicles_container app_pageHeight">
@@ -46,9 +47,11 @@ const Vehicles = ({
           allShowrooms={allShowrooms}
           allServiceCenters={allServiceCenters}
           allChargingLocations={allChargingLocations}
+          zipcode_data={zipcode_data}
         />
         <VehiclePanel 
           changeRegion={changeRegion} 
+          currentUser={currentUser} 
         />
       </div>
     </div>

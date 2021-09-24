@@ -107,7 +107,8 @@ div{
   padding: 20px; 
   background-color: lightgrey;
   border-radius: 5px 5px 5px 5px;
-  border: 1px solid grey; 
+  /* border: 1px solid grey;  */
+  border: 2px solid grey; 
 }
 
 .app_Config_container{ 
@@ -115,7 +116,8 @@ div{
   padding: 20px; 
   background-color: white;
   border-radius: 5px 5px 5px 5px;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
+  border: 2px solid grey;
   margin-top: 20px; 
 }
 
@@ -302,7 +304,7 @@ div{
 
 .app_inactive_register_btn{
   background-color: #F2F2F2;
-  border-bottom: 1px solid gainsboro;
+  border-bottom: 2px solid gainsboro;
   cursor: pointer;
   color: inherit;
 } 
@@ -362,9 +364,9 @@ div{
   padding: 40px;
   margin: auto;
   margin-bottom: 60px;
-  border-bottom: 1px solid gainsboro;
-  border-left: 1px solid gainsboro;
-  border-right: 1px solid gainsboro;
+  border-bottom: 2px solid gainsboro;
+  border-left: 2px solid gainsboro;
+  border-right: 2px solid gainsboro;
 }
 
 .app_register_option_btn{
@@ -381,15 +383,15 @@ div{
   max-width: 590px;
   margin: auto;
   margin-top: 60px;
-  border-top: 1px solid gainsboro;
-  border-right: 1px solid gainsboro;
-  border-left: 1px solid gainsboro;
+  border-top: 2px solid gainsboro;
+  border-right: 2px solid gainsboro;
+  border-left: 2px solid gainsboro;
   display: flex;
 }
 
 .app_register_border{
   display: inline-block;
-  border-right: 1px solid gainsboro;
+  border-right: 2px solid gainsboro;
 } 
 
 .app_config_border{

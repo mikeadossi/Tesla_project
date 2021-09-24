@@ -6,7 +6,7 @@ const VehicleConfigAutopilot = ({
     vehicleBattery,
     selectOffMenuAutopilot,
     vehicleContent,
-    toggleFSD
+    toggleFSD,
 }) => {
 
   const [activeFSDSetting, setActiveFSDSetting] = useState("autopilot");
@@ -19,7 +19,7 @@ const VehicleConfigAutopilot = ({
   useEffect(() => {
     const autopilotSetting = vehicleContent.vehicle_render[name]["autopilot"][0];
     setActiveOffMenuAutopilot(autopilotSetting);
-    const activeFSDSetting = vehicleContent.vehicle_render[name]["autopilot"][0];
+    const activeFSDSetting = vehicleContent.vehicle_render[name]["autopilot"][0]; 
     setActiveFSDSetting(activeFSDSetting); 
   })
 

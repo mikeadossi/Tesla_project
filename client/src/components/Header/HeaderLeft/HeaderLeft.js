@@ -8,7 +8,7 @@ class HeaderLeft extends Component {
       <div className="headerLeft app_marginTop">
           <i className="fas fa-bars headerRight_hamburger" aria-hidden="true"></i> 
           <Link to="/" className="headerLeft_link">
-            <div className="headerLeft_brandname">SIDEKICK <span className="headerLeft_brandname_beta">BETA</span></div>
+            <div className="headerLeft_brandname header_logo">SIDEKICK <span className="headerLeft_brandname_beta">BETA</span></div>
           </Link> 
       </div>
     );

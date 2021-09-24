@@ -22,6 +22,7 @@ const VehicleConfigContainer = ({
   setTeslaModels,
   runReset,
   runApplyAll,
+  currentUser,
 }) => {
   const name = `${selectedVehicle}`
     .split(" ")
@@ -110,6 +111,7 @@ const VehicleConfigContainer = ({
           batteryObjectKeys={batteryObjectKeys}
           activeBattery={activeBattery}
           setActiveBattery={setActiveBattery}
+          currentUser={currentUser} 
         />
       ) : (
         ""

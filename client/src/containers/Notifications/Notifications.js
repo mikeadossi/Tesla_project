@@ -6,20 +6,21 @@ const Notifications = ({ currentUser, setCurrentUser }) => {
   const history = useHistory();
 
   useEffect(() => {
+    if (!currentUser) {
+      history.push("/lost");
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
     return () => {
       setCurrentUser({
         ...currentUser,
         notifications_last_viewed_on: new Date(),
       });
-      console.log('currentUser:--- ',currentUser)
+      console.log('last viewed notifications:--- ',currentUser["notifications_last_viewed_on"])
     };
   }, []);
 
-  useEffect(() => {
-    if (!currentUser) {
-      history.push("/lost");
-    }
-  }, [currentUser]);
 
   return (
     <div className="notifications_container app_pageHeight">

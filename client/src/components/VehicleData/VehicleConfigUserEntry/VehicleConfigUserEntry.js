@@ -4,10 +4,11 @@ import Vehicle_userEntry_leasing from "../../VehicleData/Vehicle_userEntry/Vehic
 import Vehicle_userEntry_cash from "../../VehicleData/Vehicle_userEntry/Vehicle_userEntry_cash/Vehicle_userEntry_cash";
 import GrayBackground from "../../GrayBackground/GrayBackground";
 import { connect, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   showApplyAllWarning,
   showResetWarning,
-} from "../../../config/actions/navActions";
+} from "../../../config/actions/navActions"; 
 
 const VehicleConfigUserEntry = ({
   showComponent,
@@ -26,12 +27,19 @@ const VehicleConfigUserEntry = ({
   showResetWarning,
   runReset,
   runApplyAll,
+  currentUser,
 }) => {
   const dispatch = useDispatch();
-  const vehicleName = name;
+  const vehicleName = name; //ex: model3  
+  const spacedVehicleName = vehicleContent["vehicle_details"][vehicleName]["default_optioned_vehicle"]["model"]; //ex: Model 3 
 
   const [activeFormVals, setActiveFormVals] = useState({});
   const [error, setFormError] = useState(false);
+
+  const vehiclesRendered = useSelector(
+    (state) => state.vehiclesReducer.vehiclesRendered
+  );
+
 
   useEffect(() => { 
     setActiveFormVals({
@@ -69,15 +77,19 @@ const VehicleConfigUserEntry = ({
     } 
     // console.log({activeFormVals})
 
+
+
     setFormError(formError);
 
-    const modelName = vehicleName;
+
+    const modelName = vehicleName; 
+    
     // function below updates state with user entries
     const vehicleContent = setUserPymtEntry(
       activeFormVals,
       modelName,
       setTeslaModels
-    );
+    ); 
 
     setTeslaModels(() => { 
       const configuredPrice =
@@ -105,34 +117,17 @@ const VehicleConfigUserEntry = ({
     });
   };
 
-  const showWarningModal = (value, vehicleName, object) => {
-    if (3 > 5) {
-      // if settings has warnings turned off call function
-      handleResetApply(value, vehicleName, object);
-      return;
-    }
+  console.log('>>vehicleContent.vehicle_render - ',vehicleContent.vehicle_render)
+  console.log('>>vehicleContent - ',vehicleContent)
 
-    if (value === "applyAll") {
-      showApplyAllWarning(dispatch);
-    } else if (value === "reset") {
-      showResetWarning(dispatch);
-    }
-  };
 
-  const handleResetApply = (value, vehicleName, object) => {
-    if (value === "applyAll") {
-      runApplyAll(vehicleName, object);
-    } else if (value === "reset") {
-      runReset(vehicleName, object);
-    }
-  };
 
   return (
     <div className="veicleConfig_userEntry_container">
-      <GrayBackground
-        handleResetApply={handleResetApply}
+      <GrayBackground 
         runReset={runReset}
-        runApplyAll={runApplyAll}
+        runApplyAll={runApplyAll} 
+        setTeslaModels={setTeslaModels}
       />
       <div className="veicleConfig_userEntry_subcontainer">
         <div className="app_displayFlex app_Solar_selectPymt_div">
@@ -214,7 +209,17 @@ const VehicleConfigUserEntry = ({
       <div className="vehicleConfig_submit_btn_container">
         <button
           onClick={() => {
-            showWarningModal("applyAll", vehicleName, {});
+            if(currentUser && currentUser["apply_all_warning_on"] === 'false'){
+              handlePaymentFormSubmit();
+              runApplyAll(
+                spacedVehicleName,
+                vehiclesRendered, 
+                vehicleName,
+                setTeslaModels
+              ); 
+            } else {
+              showApplyAllWarning(dispatch, vehicleName);
+            }
           }}
           className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_setAll_btn app_cursorPointer"
         >
@@ -222,7 +227,12 @@ const VehicleConfigUserEntry = ({
         </button>
         <button
           onClick={() => {
-            showWarningModal("reset", vehicleName, {});
+            if(currentUser && currentUser["reset_warning_on"] === 'false'){
+              console.log('ran here')
+              runReset(vehicleName, vehicleContent.vehicle_render);
+            } else {
+              showResetWarning(dispatch, vehicleName);
+            }
           }}
           className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_reset_btn app_cursorPointer"
         >

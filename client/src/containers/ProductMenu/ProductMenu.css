@@ -1,9 +1,12 @@
 .productMenu_container {
-  background-color: white;
-  border-bottom: 1px solid gainsboro;
+  background-color: white; 
   display: block;
   overflow: hidden;
   text-align: center;
+}
+
+.productMenu_subcontainer {
+  border-bottom: 2px solid gainsboro;
 }
 
 .productMenu_btn {

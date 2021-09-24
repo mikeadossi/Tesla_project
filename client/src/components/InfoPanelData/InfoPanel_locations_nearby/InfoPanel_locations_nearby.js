@@ -16,6 +16,7 @@ const InfoPanel_locations_nearby = ({
   showLocations,
 }) => {
   const dispatch = useDispatch(); 
+  console.log(')))) ',allShowrooms);
 
   return (
     <div className="InfoPanel_charging_container">
@@ -101,7 +102,7 @@ const InfoPanel_locations_nearby = ({
             <div
               className="app_seeMore_btn infoPanel_locations_seeMore"
               onClick={() => { 
-                showLocations(dispatch); 
+                showLocations(dispatch,allShowrooms); 
               }}
             >
               See More
@@ -115,8 +116,8 @@ const InfoPanel_locations_nearby = ({
 
 // export default InfoPanel_locations_nearby;
 
-const mapDispatchToProps = (dispatch) => ({
-  showLocations: showLocations(dispatch),
+const mapDispatchToProps = (dispatch,allShowrooms) => ({
+  showLocations: showLocations(dispatch,allShowrooms),
 });
 
 export default connect(null, mapDispatchToProps)(InfoPanel_locations_nearby);

@@ -189,6 +189,7 @@ function App() {
               <Vehicles 
                 changeRegion={changeRegion} 
                 zipcode={zipcode}
+                currentUser={currentUser} 
               />
             )}
           />

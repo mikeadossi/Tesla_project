@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./InfoModal.css";
 import InfoModalData_locations from "../../components/InfoModalData/InfoModalData_locations/InfoModalData_locations"; 
 
@@ -7,7 +7,11 @@ const InfoModal = ({
   allShowrooms,
   allServiceCenters,
   allChargingLocations,
+  zipcode_data, 
+  statedata
 }) => {
+  console.log('** all showroom InfoModal **',allShowrooms)
+
 
   return (
     <div className="infoModal_backing">

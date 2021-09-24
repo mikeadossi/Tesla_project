@@ -17,6 +17,14 @@
     color:white;
 }
 
+.headerLeft_brandname{
+    font-weight: bold;
+}
+
+.header_logo{
+    /* font-size: 17px; */
+}
+
 .headerLeft_brandname_beta{
     color: skyblue;
 }

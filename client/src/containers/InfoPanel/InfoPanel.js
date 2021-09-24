@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./InfoPanel.css";
 import InfoPanel_locations_nearby from "../../components/InfoPanelData/InfoPanel_locations_nearby/InfoPanel_locations_nearby";
 import InfoPanel_payments from "../../components/InfoPanelData/InfoPanel_payments/InfoPanel_payments";
@@ -12,7 +12,7 @@ import InfoPanel_vehicle_container from "../../components/InfoPanelData/InfoPane
 import InfoPanel_neutral_container from "../../components/InfoPanelData/InfoPanel_neutral_container/InfoPanel_neutral_container";
 import GrayBackground from "../../components/GrayBackground/GrayBackground";
 import { getMyZipcodeData } from "../../config/actions/navActions";
-import { connect } from "react-redux";
+import { connect } from "react-redux"; 
 
 const InfoPanel = (props) => {
   console.log("*>>> ", props.allShowrooms);
@@ -54,6 +54,8 @@ const InfoPanel = (props) => {
         allShowrooms={props.allShowrooms}
         allServiceCenters={props.allServiceCenters}
         allChargingLocations={props.allChargingLocations}
+        zipcode_data={props.zipcode_data} 
+        stateData={props.stateData} 
       />
       <div className="infoPanel_subcontainer sticky_infoPanel">
         <h3 className="infoPanel_title">INFORMATION</h3>

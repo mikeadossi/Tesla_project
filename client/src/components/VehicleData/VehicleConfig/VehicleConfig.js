@@ -33,6 +33,7 @@ const VehicleConfig = ({
   batteryObjectKeys,
   activeBattery,
   setActiveBattery,
+  currentUser,
 }) => {
   
   const showComponent = (value) => {
@@ -158,7 +159,7 @@ const VehicleConfig = ({
               vehicleBattery={vehicleBattery}
               selectOffMenuAutopilot={selectOffMenuAutopilot} 
               vehicleContent={vehicleContent}
-              toggleFSD={toggleFSD} 
+              toggleFSD={toggleFSD}
           />
 
           <VehicleConfigTowHitch
@@ -186,6 +187,7 @@ const VehicleConfig = ({
               setTeslaModels={setTeslaModels} 
               runReset={runReset}
               runApplyAll={runApplyAll}
+              currentUser={currentUser} 
           />
 
         </div>

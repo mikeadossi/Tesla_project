@@ -1,8 +1,9 @@
-const setUserPymtEntry = (activeFormValues, value, setTeslaModels) => {
-  const model = value;
-  const formValuesObj = { ...activeFormValues };
+const setUserPymtEntry = (activeFormValues, model, setTeslaModels) => { 
+  // console.log('$activeFormValues: ',activeFormValues);
+  const formValuesObj = { ...activeFormValues }; 
 
-  const vehicleContent = setTeslaModels((metaVehicles) => {
+  const vehicleContent = setTeslaModels((metaVehicles) => { 
+    console.log('???!')
     // handle deep copy on all (relevant) nested objects w/ spread operator
     let newTeslaModels = {
       ...metaVehicles,
