@@ -25,15 +25,9 @@ const GrayBackground = ({
   runReset,
   runApplyAll,
   currentUser,
-  setCurrentUser,
-  allShowrooms,
-  allServiceCenters,
-  allChargingLocations, 
-  zipcode_data, 
-  stateData,  
+  setCurrentUser,  
   setTeslaModels, 
-}) => { 
-  console.log('all SHOWROOMS ',allShowrooms) 
+}) => {
   
   if (!displayMobileMenu && !displayResetWarning && !displayApplyAllWarning && !displayLocations) {
     return null;
@@ -44,7 +38,7 @@ const GrayBackground = ({
   const closeApplyAllWarning = () => toggleApplyAllWarning();
   const closeLocations = () => toggleLocations();
 
-
+  
   return (
     <div className="grayBackground app_marginTop">
       {displayMobileMenu && (
@@ -70,11 +64,6 @@ const GrayBackground = ({
       {displayLocations && (
         <InfoModal
           closeLocations={closeLocations}
-          allShowrooms={allShowrooms}
-          allServiceCenters={allServiceCenters}
-          allChargingLocations={allChargingLocations} 
-          zipcode_data={zipcode_data} 
-          statedata={stateData}
         />
       )}
     </div>

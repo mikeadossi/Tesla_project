@@ -3,14 +3,8 @@ import "./InfoModal.css";
 import InfoModalData_locations from "../../components/InfoModalData/InfoModalData_locations/InfoModalData_locations"; 
 
 const InfoModal = ({
-  closeLocations, 
-  allShowrooms,
-  allServiceCenters,
-  allChargingLocations,
-  zipcode_data, 
-  statedata
-}) => {
-  console.log('** all showroom InfoModal **',allShowrooms)
+  closeLocations,
+}) => { 
 
 
   return (
@@ -29,11 +23,7 @@ const InfoModal = ({
           ></img>
         </div>
 
-        <InfoModalData_locations
-          allShowrooms={allShowrooms}
-          allServiceCenters={allServiceCenters}
-          allChargingLocations={allChargingLocations}
-        />
+        <InfoModalData_locations />
 
       </div>
     </div>

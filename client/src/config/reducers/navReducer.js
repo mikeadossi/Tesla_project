@@ -7,6 +7,7 @@ const initialState = {
   displayResetWarning: false,
   displayApplyAllWarning: false,
   displayLocations: false,
+  getLocations: {},
 };
 
 export default function (state = initialState, action) {
@@ -49,6 +50,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         displayLocations: !displayLocations, 
+      };
+    case types.GET_LOCATIONS:
+      initialState.getLocations = {};
+      return {
+        ...state,
+        getLocations: action.payload, 
       };
     default:
       return state;

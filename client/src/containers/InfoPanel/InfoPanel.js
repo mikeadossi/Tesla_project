@@ -12,10 +12,27 @@ import InfoPanel_vehicle_container from "../../components/InfoPanelData/InfoPane
 import InfoPanel_neutral_container from "../../components/InfoPanelData/InfoPanel_neutral_container/InfoPanel_neutral_container";
 import GrayBackground from "../../components/GrayBackground/GrayBackground";
 import { getMyZipcodeData } from "../../config/actions/navActions";
-import { connect } from "react-redux"; 
+import { connect, useDispatch } from "react-redux"; 
+import {
+  GET_LOCATIONS
+} from "../../config/actions/types"; 
 
-const InfoPanel = (props) => {
-  console.log("*>>> ", props.allShowrooms);
+const InfoPanel = (props) => { 
+  const dispatch = useDispatch();
+  const allLocations = {
+    allShowrooms: props.allShowrooms,
+    allServiceCenters: props.allServiceCenters,
+    allChargingLocations: props.allChargingLocations,
+  };
+
+  useEffect(() => {
+    // here we pass our state data to our redux store
+    dispatch({
+      type: GET_LOCATIONS,
+      payload: allLocations,
+    });
+  }, [allLocations]);
+
 
   const [visibility, setVisibility] = useState({
     InfoPanel_locations_nearby: false,
@@ -50,13 +67,7 @@ const InfoPanel = (props) => {
 
   return (
     <div className="infoPanel_container">
-      <GrayBackground
-        allShowrooms={props.allShowrooms}
-        allServiceCenters={props.allServiceCenters}
-        allChargingLocations={props.allChargingLocations}
-        zipcode_data={props.zipcode_data} 
-        stateData={props.stateData} 
-      />
+      <GrayBackground />
       <div className="infoPanel_subcontainer sticky_infoPanel">
         <h3 className="infoPanel_title">INFORMATION</h3>
         {props.whichComponent == "vehicles" && (
