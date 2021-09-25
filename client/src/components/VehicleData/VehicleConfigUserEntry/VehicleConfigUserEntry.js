@@ -8,7 +8,9 @@ import { useSelector } from "react-redux";
 import {
   showApplyAllWarning,
   showResetWarning,
-} from "../../../config/actions/navActions"; 
+} from "../../../config/actions/navActions";
+import { runApp } from "../../../containers/VehiclePanel/VehiclePanelMethods/moduleExports";
+import { ACTIVE_FORM } from "../../../config/actions/types";
 
 const VehicleConfigUserEntry = ({
   showComponent,
@@ -27,33 +29,31 @@ const VehicleConfigUserEntry = ({
   showResetWarning,
   runReset,
   runApplyAll,
-  currentUser,
+  currentUser, 
 }) => {
   const dispatch = useDispatch();
-  const vehicleName = name; //ex: model3  
-  const spacedVehicleName = vehicleContent["vehicle_details"][vehicleName]["default_optioned_vehicle"]["model"]; //ex: Model 3 
+  const vehicleName = name; //ex: model3
+  const spacedVehicleName =
+    vehicleContent["vehicle_details"][vehicleName]["default_optioned_vehicle"][
+      "model"
+    ]; //ex: Model 3
 
-  const [activeFormVals, setActiveFormVals] = useState({});
+  const [activeFormVals, setActiveFormVals] = useState({leaseInterestRate: 4.85, loanApr: 2.49});
+  
+  useEffect(() => {
+    if (activeFormVals[vehicleName] !== "" || null) {
+      dispatch({
+        type: ACTIVE_FORM,
+        payload: activeFormVals,
+      });
+    }
+  }, [activeFormVals]);
+
   const [error, setFormError] = useState(false);
 
   const vehiclesRendered = useSelector(
     (state) => state.vehiclesReducer.vehiclesRendered
   );
-
-
-  useEffect(() => { 
-    setActiveFormVals({
-      ...activeFormVals,
-      leaseInterestRate:
-        vehicleContent.vehicle_render[name]["payment_object"]["lease"][
-          "leaseInterestRate"
-        ],
-      loanApr:
-        vehicleContent.vehicle_render[name]["payment_object"]["finance"][
-          "loanApr"
-        ],
-    });
-  }, [vehicleContent, name]);
 
   const handleClearField = (field) => {
     setActiveFormVals({
@@ -70,64 +70,69 @@ const VehicleConfigUserEntry = ({
   };
 
   const handlePaymentFormSubmit = async () => {
-    let formError = false; 
+    let formError = false;
 
     if (!activeFormVals["leaseInterestRate"]) {
       formError = true;
-    } 
+    }
     // console.log({activeFormVals})
+    // setFormError(formError);
 
+    const modelName = vehicleName;
 
-
-    setFormError(formError);
-
-
-    const modelName = vehicleName; 
-    
     // function below updates state with user entries
-    const vehicleContent = setUserPymtEntry(
-      activeFormVals,
-      modelName,
-      setTeslaModels
-    ); 
+    setUserPymtEntry(activeFormVals, modelName, setTeslaModels);
 
-    setTeslaModels(() => { 
+    setTeslaModels((teslaModels) => {
+      let vehicleContent = {
+        ...teslaModels,
+        vehicle_render: {
+          ...teslaModels["vehicle_render"],
+
+          [vehicleName]: {
+            ...teslaModels.vehicle_render[vehicleName],
+            ["payment_object"]: {
+              ...teslaModels.vehicle_render[vehicleName]["payment_object"],
+            },
+          },
+        },
+      };
+
       const configuredPrice =
         vehicleContent.vehicle_render[modelName].cash_price;
       const paymentObj =
-        vehicleContent.vehicle_render[modelName].payment_object; 
+        vehicleContent.vehicle_render[modelName].payment_object;
       const submittedCashDown = activeFormVals["cashDownPayment"];
       const submittedLeaseTerm = activeFormVals["leaseTerm"];
-      const submittedLoanTerm = activeFormVals["loanTerm"]; 
+      const submittedLoanTerm = activeFormVals["loanTerm"];
       const submittedAnnualMiles = activeFormVals["annualMiles"];
-      
+
       // function below runs all necessary lease, finance calculations
       vehicleContent.vehicle_render[
         modelName
       ].payment_object = populatePaymentObject(
-        configuredPrice, 
-        paymentObj, 
-        submittedCashDown, 
-        submittedLeaseTerm, 
-        submittedLoanTerm, 
+        configuredPrice,
+        paymentObj,
+        submittedCashDown,
+        submittedLeaseTerm,
+        submittedLoanTerm,
         submittedAnnualMiles
       );
+
+      // handleClearField()
 
       return vehicleContent;
     });
   };
 
-  console.log('>>vehicleContent.vehicle_render - ',vehicleContent.vehicle_render)
-  console.log('>>vehicleContent - ',vehicleContent)
-
-
-
   return (
     <div className="veicleConfig_userEntry_container">
-      <GrayBackground 
+      <GrayBackground
         runReset={runReset}
-        runApplyAll={runApplyAll} 
+        runApplyAll={runApplyAll}
         setTeslaModels={setTeslaModels}
+        activeFormVals={activeFormVals}
+        setActiveFormVals={setActiveFormVals}
       />
       <div className="veicleConfig_userEntry_subcontainer">
         <div className="app_displayFlex app_Solar_selectPymt_div">
@@ -175,6 +180,7 @@ const VehicleConfigUserEntry = ({
               handleFormChange={handleFormChange}
               error={error}
               handleClearField={handleClearField}
+              vehicleName={vehicleName}
             />
           ) : (
             ""
@@ -209,16 +215,23 @@ const VehicleConfigUserEntry = ({
       <div className="vehicleConfig_submit_btn_container">
         <button
           onClick={() => {
-            if(currentUser && currentUser["apply_all_warning_on"] === 'false'){
+            if (
+              currentUser &&
+              currentUser["apply_all_warning_on"] === "false"
+            ) {
               handlePaymentFormSubmit();
               runApplyAll(
                 spacedVehicleName,
-                vehiclesRendered, 
+                vehicleContent,
+                vehiclesRendered,
                 vehicleName,
-                setTeslaModels
-              ); 
-            } else {
-              showApplyAllWarning(dispatch, vehicleName);
+                setTeslaModels,
+                activeFormVals,
+                setActiveFormVals,
+              );
+            } else { 
+              handlePaymentFormSubmit();
+              showApplyAllWarning(dispatch, vehicleName, activeFormVals);
             }
           }}
           className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_setAll_btn app_cursorPointer"
@@ -226,9 +239,8 @@ const VehicleConfigUserEntry = ({
           APPLY ALL
         </button>
         <button
-          onClick={() => {
-            if(currentUser && currentUser["reset_warning_on"] === 'false'){
-              console.log('ran here')
+          onClick={() => { 
+            if (currentUser && currentUser["reset_warning_on"] === "false") { 
               runReset(vehicleName, vehicleContent.vehicle_render);
             } else {
               showResetWarning(dispatch, vehicleName);

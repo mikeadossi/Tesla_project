@@ -1,26 +1,35 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import "./DisplayApplyAllWarning.css";
+import {
+  GET_VEHICLE_CONTENT 
+} from "../../../config/actions/types";
+import {runApp} from "../../../containers/VehiclePanel/VehiclePanelMethods/moduleExports" 
 
 const DisplayApplyAllWarning = ({ 
   closeApplyAllWarning, 
   runApplyAll,
   setTeslaModels, 
+  currentUser, 
+  activeFormVals,
+  setActiveFormVals,
 }) => {
-  const vehicleRenderData = useSelector(
-    (state) => state.vehiclesReducer.vehicleRenderData
-  );
+
   const currentModelName = useSelector(
     (state) => state.navReducer.currentModelName
   ); 
   const vehiclesRendered = useSelector(
     (state) => state.vehiclesReducer.vehiclesRendered
   );
+  const vehicleContent = useSelector(
+    (state) => state.vehiclesReducer.vehicleContent
+  );
 
   const vehicleName = currentModelName["name"] // model3 
   const spacedVehicleName = currentModelName["renderedTesla"]["model"] // Model 3 
 
-  console.log('**vehiclesRendered - ',vehiclesRendered)
+  // console.log(vehicleName+' adj 1- '+vehicleRenderData["vehicle_render"][vehicleName]["payment_object"]["adjustments"]) 
+
 
   return (
     <div className="displayApplyAllWarning">
@@ -37,7 +46,8 @@ const DisplayApplyAllWarning = ({
         <div className="warningApplyAllText">
           This action will apply certain configuration options to all vehicle
           models.
-        </div>
+        </div> 
+        {currentUser ? (
         <div className="reminderContainer">
           <div className="reminderText">Don't show this again</div>
           <input 
@@ -49,7 +59,7 @@ const DisplayApplyAllWarning = ({
 
             }}
           />
-        </div>
+        </div>) : ""}
         <div className="app_inline-block warningBtnContainer">
           <div
             className="warningBtn cancelWarningModal"
@@ -61,9 +71,12 @@ const DisplayApplyAllWarning = ({
             onClick={() => {
               runApplyAll(
                 spacedVehicleName,
+                vehicleContent,
                 vehiclesRendered, 
                 vehicleName,
-                setTeslaModels
+                setTeslaModels, 
+                activeFormVals,
+                setActiveFormVals,
               )
               closeApplyAllWarning()}
             }
