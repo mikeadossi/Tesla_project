@@ -6,7 +6,7 @@ const Vehicle_userEntry_financing = ({
   handleFormChange,
   usStateVehicleOrder,
   error,
-  handleClearField,
+  handleClearField, 
 }) => {
   return (
     <div className="vehicle_userEntry_financing_container">
@@ -29,7 +29,9 @@ const Vehicle_userEntry_financing = ({
           <label>Finance Term: </label>
           <select
             className="vehicleConfig_userSelect vehicleConfig_userSelect_miles"
-            onChange={(e) => handleFormChange("loanTerm", e.target.value)}
+            onChange={(e) => {
+              handleFormChange("loanTerm", e.target.value)
+            }}
             value={activeFormVals["loanTerm"]}
           >
             <option value="72">72 months</option>

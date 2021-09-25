@@ -27,6 +27,8 @@ const GrayBackground = ({
   currentUser,
   setCurrentUser,  
   setTeslaModels, 
+  activeFormVals,
+  setActiveFormVals,
 }) => {
   
   if (!displayMobileMenu && !displayResetWarning && !displayApplyAllWarning && !displayLocations) {
@@ -52,6 +54,7 @@ const GrayBackground = ({
         <DisplayResetWarning
           closeResetWarning={closeResetWarning} 
           runReset={runReset}
+          currentUser={currentUser}
         />
       )}
       {displayApplyAllWarning && (
@@ -59,6 +62,9 @@ const GrayBackground = ({
           closeApplyAllWarning={closeApplyAllWarning} 
           runApplyAll={runApplyAll}
           setTeslaModels={setTeslaModels}  
+          currentUser={currentUser}
+          activeFormVals={activeFormVals}
+          setActiveFormVals={setActiveFormVals}
         />
       )}
       {displayLocations && (
@@ -69,7 +75,7 @@ const GrayBackground = ({
     </div>
   );
 };
-// REDUX TODO - how does mapStat work here? It seems to be assigning values, but how does it toggle?
+
 const mapStateToProps = (state) => {
   return {
     displayMobileMenu: state.navReducer.displayMobileMenu,

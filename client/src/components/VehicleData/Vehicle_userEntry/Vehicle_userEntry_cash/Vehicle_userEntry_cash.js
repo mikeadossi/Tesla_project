@@ -6,7 +6,8 @@ const Vehicle_userEntry_cash = ({
     handleFormChange,
     usStateVehicleOrder,
     error,
-    handleClearField
+    handleClearField,
+    vehicleName
 }) => {
 
   return (
@@ -77,7 +78,7 @@ const Vehicle_userEntry_cash = ({
                 </div>
                 <button 
                   className="vehicleConfig_clearBtn"
-                  onClick={() => handleClearField("adjustments")}
+                  onClick={() => handleClearField("adjustments")} 
                 >
                     Clear
                 </button> 

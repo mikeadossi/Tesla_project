@@ -8,6 +8,7 @@ const populatePaymentObject = (
   submittedLoanTerm,
   submittedAnnualMiles
   ) => { 
+
   // handle deep copy on all (relevant) nested objects w/ spread operator
   let modelPaymentObj = {
     ...paymentObj,
@@ -22,14 +23,14 @@ const populatePaymentObject = (
 
   const docFee = modelPaymentObj["docFee"];
   const adjustments = modelPaymentObj["adjustments"];
-  const stateTotalFees = modelPaymentObj["stateTotalFees"]; // TODO: how do we get this #?
+  const stateTotalFees = modelPaymentObj["stateTotalFees"];
   const stateTaxRate = modelPaymentObj["taxRate"];
   const modelTax = (stateTaxRate / 100) * configuredPrice;
   const orderPymt = modelPaymentObj["orderPymt"];
   const orderFeeTax = (stateTaxRate / 100) * orderPymt;
   const stateDestinationFee = modelPaymentObj["stateDestinationFee"];
   const stateDocumentationFee = modelPaymentObj["stateDocumentationFee"];
-  const tradeInEquity = modelPaymentObj["tradeInEquity"];
+  const tradeInEquity = modelPaymentObj["tradeInEquity"]; 
 
   // get non cash credit sum
   const nonCashCreditsArr = modelPaymentObj["nonCashCreditsArr"];
@@ -44,12 +45,12 @@ const populatePaymentObject = (
   // get cashDueAtDelivery
   let stateSalesTax =
     modelTax + orderFeeTax + stateDestinationFee + stateDocumentationFee;
-  stateSalesTax = Math.floor(stateSalesTax * 100) / 100;
+  stateSalesTax = Math.floor(stateSalesTax * 100) / 100; 
   let cashDueAtDelivery =
-    configuredPrice + docFee + stateTotalFees + stateSalesTax;
+    configuredPrice + docFee + stateTotalFees + stateSalesTax; 
   cashDueAtDelivery =
-    cashDueAtDelivery - credits - orderPymt - tradeInEquity - adjustments;
-  cashDueAtDelivery = Math.floor(cashDueAtDelivery);
+    cashDueAtDelivery - credits - orderPymt - tradeInEquity - adjustments; 
+  cashDueAtDelivery = Math.floor(cashDueAtDelivery); 
 
   modelPaymentObj["modelTax"] = modelTax;
   modelPaymentObj["orderFeeTax"] = orderFeeTax;
@@ -57,9 +58,9 @@ const populatePaymentObject = (
   modelPaymentObj["cashDueAtDelivery"] = cashDueAtDelivery;
 
   // get loan monthly payment
-  let cashDownPymt = configuredPrice / 100;
+  let cashDownPymt = configuredPrice / 100; 
   if(submittedCashDown && JSON.parse(submittedCashDown) > cashDownPymt){ 
-    cashDownPymt = JSON.parse(submittedCashDown); 
+    cashDownPymt = JSON.parse(submittedCashDown);
   }
 
 

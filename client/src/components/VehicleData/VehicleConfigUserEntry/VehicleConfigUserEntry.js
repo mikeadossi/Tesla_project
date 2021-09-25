@@ -8,8 +8,7 @@ import { useSelector } from "react-redux";
 import {
   showApplyAllWarning,
   showResetWarning,
-} from "../../../config/actions/navActions";
-import { runApp } from "../../../containers/VehiclePanel/VehiclePanelMethods/moduleExports";
+} from "../../../config/actions/navActions"; 
 import { ACTIVE_FORM } from "../../../config/actions/types";
 
 const VehicleConfigUserEntry = ({
@@ -39,7 +38,7 @@ const VehicleConfigUserEntry = ({
     ]; //ex: Model 3
 
   const [activeFormVals, setActiveFormVals] = useState({leaseInterestRate: 4.85, loanApr: 2.49});
-  
+
   useEffect(() => {
     if (activeFormVals[vehicleName] !== "" || null) {
       dispatch({

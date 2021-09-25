@@ -34,6 +34,8 @@ const VehicleConfigContainer = ({
     })
     .join("");
 
+    // selectedVehicle - Model S
+    // name - modelS
   const renderedTesla = vehicleContent.vehicle_render[name]; 
   const vehicleBattery = renderedTesla["battery"][1]; // ex: "long_range"
   const teslaDetails = vehicleContent.vehicle_details[name];
@@ -111,7 +113,7 @@ const VehicleConfigContainer = ({
           batteryObjectKeys={batteryObjectKeys}
           activeBattery={activeBattery}
           setActiveBattery={setActiveBattery}
-          currentUser={currentUser} 
+          currentUser={currentUser}
         />
       ) : (
         ""

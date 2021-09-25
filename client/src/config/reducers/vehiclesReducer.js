@@ -4,7 +4,9 @@ const initialState = {
   vehicle: {},
   error: "",
   vehicleRenderData: {},
-  vehiclesRendered: [],
+  vehiclesRendered: [], 
+  vehicleContent: {},
+  form: {},
 };
 
 export default function state(state = initialState, action) {
@@ -38,6 +40,18 @@ export default function state(state = initialState, action) {
         ...state,
         vehiclesRendered: action.payload,
       };
+    case types.GET_VEHICLE_CONTENT:
+      initialState.vehicleContent = {};
+      return {
+        ...state,
+        vehicleContent: action.payload,
+      };
+      case types.ACTIVE_FORM:
+        initialState.activeFormVals = {};
+        return {
+          ...state,
+          activeFormVals: action.payload,
+        };
     default:
       return state;
   }

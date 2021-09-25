@@ -1,10 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import "./DisplayApplyAllWarning.css";
-import {
-  GET_VEHICLE_CONTENT 
-} from "../../../config/actions/types";
-import {runApp} from "../../../containers/VehiclePanel/VehiclePanelMethods/moduleExports" 
+import "./DisplayApplyAllWarning.css"; 
 
 const DisplayApplyAllWarning = ({ 
   closeApplyAllWarning, 
@@ -55,8 +51,7 @@ const DisplayApplyAllWarning = ({
             type="checkbox" 
             onChange={(e) => {
               const value = e.target.value;
-              // currentUser["apply_all_warning_on"] = 'false';
-
+              // currentUser["apply_all_warning_on"] = 'false'; 
             }}
           />
         </div>) : ""}

@@ -15,8 +15,7 @@ const InfoPanel_locations_nearby = ({
   closeLocations,
   showLocations,
 }) => {
-  const dispatch = useDispatch(); 
-  console.log(')))) ',allShowrooms);
+  const dispatch = useDispatch();  
 
   return (
     <div className="InfoPanel_charging_container">

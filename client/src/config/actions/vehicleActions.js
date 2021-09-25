@@ -40,13 +40,13 @@ export const addCurrentPrice = (newPrice) => async (dispatch) => {
   } catch (e) {}
 };
 
-export const viewRenderedOptions = (vehicleData) => async (dispatch) => {
-  try {
-    dispatch({
-      type: types.VIEW_RENDERED_OPTIONS,
-      payload: vehicleData,
-    });
-  } catch (e) {
-    console.log(e)
-  }
-}
+// export const viewRenderedOptions = (vehicleData) => async (dispatch) => {
+//   try {
+//     dispatch({
+//       type: types.VIEW_RENDERED_OPTIONS,
+//       payload: vehicleData,
+//     });
+//   } catch (e) {
+//     console.log(e)
+//   }
+// }

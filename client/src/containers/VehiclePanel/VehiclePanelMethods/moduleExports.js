@@ -3,7 +3,7 @@ import setSelectedVehicleName from "./setSelectedVehicleName";
 import populatePaymentObject from "./populatePaymentObject"; 
 import getTeslaData from "./getTeslaData"; 
 import populateMenu from "./populateMenu";
-import runApplyAll from "./runApplyAll";
+import runApplyAll from "./runApplyAll"; 
 import setUserPymtEntry from "./setUserPymtEntry";
 import changeVehicleColor from "./changeVehicleColor";
 import changeVehicleWheel from "./changeVehicleWheel";
@@ -13,6 +13,7 @@ import changeVehicleLayout from "./changeVehicleLayout";
 import addTowHitch from "./addTowHitch";
 import toggleFSD from "./toggleFSD";
 import selectOffMenuAutopilot from "./selectOffMenuAutopilot";
+import setFormInputs from "./setFormInputs";
 
 export {
     removeModel,
@@ -20,7 +21,7 @@ export {
     populatePaymentObject,
     getTeslaData,
     populateMenu,
-    runApplyAll,
+    runApplyAll, 
     setUserPymtEntry,
     changeVehicleColor,
     changeVehicleWheel,
@@ -30,4 +31,5 @@ export {
     addTowHitch,
     toggleFSD,
     selectOffMenuAutopilot,
+    setFormInputs,
 }

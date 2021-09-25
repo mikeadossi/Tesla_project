@@ -20,13 +20,11 @@ export const getMyZipcodeData = (zip) => async (dispatch) => {
   }
 }; 
 
-export const showApplyAllWarning = (dispatch, modelName) => () => { // action creator - creates and returns action object
-  console.log('hey there - ',modelName)
-  // debugger
+export const showApplyAllWarning = (dispatch, modelName, activeFormVals) => () => { // action creator - creates and returns action object
   dispatch({ // action - plain JavaScript object that has a type field.
     type: types.TOGGLE_APPLY_ALL_WARNING,
     payload: modelName,
-  });
+  }); 
 };
 
 export const showResetWarning = (dispatch, modelName) => () => { 

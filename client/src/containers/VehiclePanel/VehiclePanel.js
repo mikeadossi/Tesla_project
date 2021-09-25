@@ -31,6 +31,7 @@ import {
   VIEW_RENDERED_OPTIONS,
   TOGGLE_RESET_WARNING,
   TOGGLE_APPLY_ALL_WARNING,
+  GET_VEHICLE_CONTENT,
 } from "../../config/actions/types";
 
 const VehiclePanel = ({
@@ -38,17 +39,38 @@ const VehiclePanel = ({
   getAllStateData,
   metaVehicleObj,
   zipcode_data,
-  usStatesData, 
-  teslaModels,
-  changeRegion, 
+  usStatesData,
+  // teslaModels,
+  changeRegion,
   currentUser,
 }) => {
+  const dispatch = useDispatch();
+
+    // const setTeslaModels = (value) => { 
+  //   if (typeof value === "function") {
+  //     value = value(teslaModels);
+  //   }
+  //   dispatch({
+  //     type: UPDATE_VEHICLE_RENDER_DATA,
+  //     payload: value,
+  //   });
+
+  //   return value;
+  // };
+
+  const [teslaModels, setTeslaModels] = useState({});
+
+  dispatch({
+    type: UPDATE_VEHICLE_RENDER_DATA,
+    payload: teslaModels,
+  });
+
   const [vehicleData, setVehicleData] = useState([]);
   const [menuOptions, setMenuOptions] = useState("");
   const [usStateVehicleOrder, setUsStateVehicleOrder] = useState("");
   const [loadTeslaData, setLoadTeslaData] = useState(false);
   const vehicleContainerRef = useRef();
-  const dispatch = useDispatch();
+  
 
   useEffect(() => {
     dispatch({
@@ -56,6 +78,13 @@ const VehiclePanel = ({
       payload: vehicleData,
     });
   }, [vehicleData]);
+
+  useEffect(() => {
+    dispatch({
+      type: GET_VEHICLE_CONTENT,
+      payload: teslaModels,
+    });
+  }, [teslaModels]);
 
   useEffect(() => {
     if (zipcode_data.id) {
@@ -93,17 +122,7 @@ const VehiclePanel = ({
     }
   }, [metaVehicleObj, usStateVehicleOrder, loadTeslaData]);
 
-  const setTeslaModels = (value) => {
-    if (typeof value === "function") {
-      value = value(teslaModels);
-    }
-    dispatch({
-      type: UPDATE_VEHICLE_RENDER_DATA,
-      payload: value,
-    });
 
-    return value;
-  };
 
   const runReset = (vehicleName, detailsAndRender) => {
     let selectedModelDetailsObj =
@@ -163,6 +182,8 @@ const VehiclePanel = ({
       },
     };
 
+    console.log('runReset was called- ',newDetailsAndRender)
+    setTeslaModels(newDetailsAndRender);
     dispatch(updateRenderData(newDetailsAndRender));
 
     // toggleResetWarning(vehicleName);
@@ -253,12 +274,12 @@ const VehiclePanel = ({
           usStateVehicleOrder={usStateVehicleOrder}
           populatePaymentObject={populatePaymentObject}
           setUserPymtEntry={(activeFormValues, value) => {
-            return setUserPymtEntry(activeFormValues, value, setTeslaModels);
+            return setUserPymtEntry(activeFormValues, value, setTeslaModels, teslaModels);
           }}
           setTeslaModels={setTeslaModels}
           runReset={runReset}
           runApplyAll={runApplyAll}
-          currentUser={currentUser} 
+          currentUser={currentUser}
         />
       ))}
     </div>

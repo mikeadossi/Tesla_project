@@ -1,9 +1,8 @@
 const setUserPymtEntry = (activeFormValues, model, setTeslaModels) => { 
   // console.log('$activeFormValues: ',activeFormValues);
-  const formValuesObj = { ...activeFormValues }; 
+  const formValuesObj = { ...activeFormValues };
 
-  const vehicleContent = setTeslaModels((metaVehicles) => { 
-    console.log('???!')
+  setTeslaModels((metaVehicles) => {
     // handle deep copy on all (relevant) nested objects w/ spread operator
     let newTeslaModels = {
       ...metaVehicles,
@@ -14,11 +13,6 @@ const setUserPymtEntry = (activeFormValues, model, setTeslaModels) => {
           ...metaVehicles.vehicle_render[model],
           ["payment_object"]: {
             ...metaVehicles.vehicle_render[model]["payment_object"],
-            ["tradeInEquity"]: {
-              ...metaVehicles.vehicle_render[model]["payment_object"][
-                "tradeInEquity"
-              ],
-            },
           },
         },
       },
@@ -26,8 +20,7 @@ const setUserPymtEntry = (activeFormValues, model, setTeslaModels) => {
 
     let pymtObj = newTeslaModels["vehicle_render"][model]["payment_object"];
 
-    let inputValues = ["tradeInValue", "tradeInPayoff", "cashDownPayment"];
-
+    let inputValues = ["tradeInValue", "tradeInPayoff", "cashDownPayment"]; 
     for(let y = 0; y < inputValues.length; y++){
       if(formValuesObj[inputValues[y]] === "" || formValuesObj[inputValues[y]] === undefined){
         formValuesObj[inputValues[y]] = "0";
@@ -54,12 +47,10 @@ const setUserPymtEntry = (activeFormValues, model, setTeslaModels) => {
           i
         ] = JSON.parse(formValuesObj[i]);
       }
-    }
+    } 
 
     return newTeslaModels;
-  });
-
-  return vehicleContent;
+  }); 
 };
 
 export default setUserPymtEntry;
