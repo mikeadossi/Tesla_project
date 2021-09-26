@@ -7,21 +7,16 @@ const VehicleConfigAutopilot = ({
     selectOffMenuAutopilot,
     vehicleContent,
     toggleFSD,
+    activeFSDSetting,
+    setActiveFSDSetting,
+    activeOffMenuAutopilot,
+    setActiveOffMenuAutopilot,
+    setTeslaModels, 
+    populatePaymentObject,
 }) => {
-
-  const [activeFSDSetting, setActiveFSDSetting] = useState("autopilot");
-  const [activeOffMenuAutopilot, setActiveOffMenuAutopilot] = useState(
-    "no_autopilot"
-  );
 
   const offMenuObj = vehicleContent.vehicle_details["model3"]["off_menu"]["autopilot"];
 
-  useEffect(() => {
-    const autopilotSetting = vehicleContent.vehicle_render[name]["autopilot"][0];
-    setActiveOffMenuAutopilot(autopilotSetting);
-    const activeFSDSetting = vehicleContent.vehicle_render[name]["autopilot"][0]; 
-    setActiveFSDSetting(activeFSDSetting); 
-  })
 
   return (
     <div className="vehicleConfig_selectLayout_and_autopilot_container">
@@ -45,7 +40,7 @@ const VehicleConfigAutopilot = ({
                     className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_noAutopilot_radio"
                     ></input>
                     <span className="vehicleConfig_autopilot">
-                    No autopilot
+                        No autopilot
                     </span>
                 </div>
                 <div>
@@ -100,7 +95,7 @@ const VehicleConfigAutopilot = ({
                     <input
                     onChange={(e) => {
                         const value = e.target.value;
-                        toggleFSD(vehicleBattery, selectedVehicle);
+                        toggleFSD(vehicleBattery, selectedVehicle, activeFSDSetting, setTeslaModels, populatePaymentObject);
                         setActiveFSDSetting(
                         value === "fsd" ? "autopilot" : "fsd"
                         );

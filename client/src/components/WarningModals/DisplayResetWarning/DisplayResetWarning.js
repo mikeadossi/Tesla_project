@@ -2,11 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import "./DisplayResetWarning.css";
 
-const DisplayResetWarning = ({ 
-  closeResetWarning, 
-  runReset,
-  currentUser
-}) => {
+const DisplayResetWarning = ({ closeResetWarning, runReset, currentUser }) => {
   const currentModelName = useSelector(
     (state) => state.navReducer.currentModelName["name"]
   );
@@ -31,19 +27,16 @@ const DisplayResetWarning = ({
           This action will return all selected vehicle options to base options.
         </div>
         {currentUser ? (
-        <div className="reminderContainer">
-          
-          <div className="reminderText">Don't show this again</div>
-          
-          <input
-            className="resetReminderToggle"
-            type="checkbox"
-            onChange={(e) => {
-              const value = e.target.value;
-              // currentUser["reset_warning_on"] = 'false';
-            }}
-          />
-        </div>) : ""}
+          <div className="reminderContainer">
+            <div className="reminderText">Don't show this again</div>
+            <input
+              className="resetReminderToggle"
+              type="checkbox"
+            />
+          </div>
+        ) : (
+          ""
+        )}
         <div className="app_inline-block warningBtnContainer">
           <div
             className="warningBtn cancelWarningModal"

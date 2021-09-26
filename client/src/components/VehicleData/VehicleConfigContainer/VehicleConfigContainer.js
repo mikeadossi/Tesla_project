@@ -23,6 +23,10 @@ const VehicleConfigContainer = ({
   runReset,
   runApplyAll,
   currentUser,
+  activeFSDSetting,
+  setActiveFSDSetting,
+  activeOffMenuAutopilot,
+  setActiveOffMenuAutopilot,
 }) => {
   const name = `${selectedVehicle}`
     .split(" ")
@@ -114,6 +118,10 @@ const VehicleConfigContainer = ({
           activeBattery={activeBattery}
           setActiveBattery={setActiveBattery}
           currentUser={currentUser}
+          activeFSDSetting={activeFSDSetting}
+          setActiveFSDSetting={setActiveFSDSetting}
+          activeOffMenuAutopilot={activeOffMenuAutopilot}
+          setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
         />
       ) : (
         ""

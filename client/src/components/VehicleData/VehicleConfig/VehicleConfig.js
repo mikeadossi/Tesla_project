@@ -34,6 +34,10 @@ const VehicleConfig = ({
   activeBattery,
   setActiveBattery,
   currentUser, 
+  activeFSDSetting,
+  setActiveFSDSetting,
+  activeOffMenuAutopilot,
+  setActiveOffMenuAutopilot,
 }) => {
   
   const showComponent = (value) => {
@@ -160,6 +164,12 @@ const VehicleConfig = ({
               selectOffMenuAutopilot={selectOffMenuAutopilot} 
               vehicleContent={vehicleContent}
               toggleFSD={toggleFSD}
+              activeFSDSetting={activeFSDSetting}
+              setActiveFSDSetting={setActiveFSDSetting}
+              activeOffMenuAutopilot={activeOffMenuAutopilot}
+              setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
+              setTeslaModels={setTeslaModels} 
+              populatePaymentObject={populatePaymentObject}
           />
 
           <VehicleConfigTowHitch

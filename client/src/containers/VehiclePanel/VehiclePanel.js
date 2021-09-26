@@ -59,6 +59,10 @@ const VehiclePanel = ({
   // };
 
   const [teslaModels, setTeslaModels] = useState({});
+  const [activeFSDSetting, setActiveFSDSetting] = useState("autopilot");
+  const [activeOffMenuAutopilot, setActiveOffMenuAutopilot] = useState(
+    "no_autopilot"
+  );
 
   dispatch({
     type: UPDATE_VEHICLE_RENDER_DATA,
@@ -255,20 +259,23 @@ const VehiclePanel = ({
               batterySelected,
               value,
               setTeslaModels,
-              populatePaymentObject
+              populatePaymentObject,
+              setActiveFSDSetting,
+              setActiveOffMenuAutopilot,
             );
           }}
           addTowHitch={(trim, value) => {
             addTowHitch(trim, value, setTeslaModels, populatePaymentObject);
           }}
           toggleFSD={(trim, value) => {
-            toggleFSD(trim, value, setTeslaModels, populatePaymentObject);
+            toggleFSD(trim, value, activeFSDSetting, setTeslaModels, populatePaymentObject);
           }}
           selectOffMenuAutopilot={(selectedOption) => {
             selectOffMenuAutopilot(
               selectedOption,
               setTeslaModels,
-              populatePaymentObject
+              populatePaymentObject,
+              activeFSDSetting,
             );
           }}
           usStateVehicleOrder={usStateVehicleOrder}
@@ -280,6 +287,10 @@ const VehiclePanel = ({
           runReset={runReset}
           runApplyAll={runApplyAll}
           currentUser={currentUser}
+          activeFSDSetting={activeFSDSetting}
+          setActiveFSDSetting={setActiveFSDSetting}
+          activeOffMenuAutopilot={activeOffMenuAutopilot}
+          setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
         />
       ))}
     </div>
