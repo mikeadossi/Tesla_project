@@ -11,7 +11,15 @@ const LocationDetails = ({
   currentTime,
 }) => {
 
+  let sunroofLink = "";
+  let weatherLink = "";
 
+  if(zipcodeData.city){
+    let city = zipcodeData.city;
+    city = city.replace(" ","_");
+    sunroofLink = "https://www.google.com/get/sunroof/building/"+zipcodeData.latitude+"/"+zipcodeData.longitude+"/#?f=buy";
+    weatherLink = "https://www.wunderground.com/weather/us/"+zipcodeData.state_abbr+"/"+city+"/"+zipcodeData.id;
+  }
 
   return zipcodeData.id ? (
     <div className="locationDetails_container app_displayFlex">
@@ -85,7 +93,7 @@ const LocationDetails = ({
       <div className="locationDetails_subcontainers locationDetails_subcontainer_5">
         <a
           className="app_textdecorationNone locationDetails_icons locationDetails_projectSun_container"
-          href="https://www.google.com/get/sunroof/building/42.399692/-71.128802/#?f=buy"
+          href={sunroofLink}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -98,7 +106,7 @@ const LocationDetails = ({
         </a>
         <a
           className="app_textdecorationNone locationDetails_icons"
-          href="https://www.wunderground.com/weather/us/ca/fremont/94555"
+          href={weatherLink}
           target="_blank"
           rel="noopener noreferrer"
         >
