@@ -45,17 +45,10 @@ const DisplayApplyAllWarning = ({
           This action will apply certain configuration options to all vehicle
           models.
         </div>
-        {currentUser ? (
-          <div className="reminderContainer">
-            <div className="reminderText">Don't show this again</div>
-            <input
-              className="applyAllReminderToggle"
-              type="checkbox"
-            />
-          </div>
-        ) : (
-          ""
-        )}
+        <div className="reminderContainer">
+          <div className="reminderText">Don't show this again</div>
+          <input className="applyAllReminderToggle" type="checkbox" />
+        </div>
         <div className="app_inline-block warningBtnContainer">
           <div
             className="warningBtn cancelWarningModal"

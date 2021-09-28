@@ -1,23 +1,19 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./DynamicMenu.css";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 const DynamicMenu = ({
-  zipcodeData: {
-    id,
-    city,
-    state_abbr,
-    state_name,
-    state_data_id,
-    area_codes,
-    county,
-    longitude,
-    latitude
-  }
+  ourRegion,
+  counties, 
+  timeZone,
+  today,
+  areaCodes,
+  zipcodeData,
+  currentTime,
 }) => {
   const [sticky, setSticky] = useState(false);
   const [show, setShow] = useState(false);
+
 
   useEffect(() => {
     let lastScroll;
@@ -27,13 +23,10 @@ const DynamicMenu = ({
       const scrollingUp = scroll < lastScroll;
       lastScroll = scroll;
 
-      // console.log({ show });
-      // console.log({ scroll, scrollingUp, show: scrollingUp && scroll > 139 });
-
       const element1 = document.querySelector(".sticky_productMenu").clientHeight;
       let element2 = 0;
 
-      if(id){
+      if(zipcodeData.id){
         element2 = document.querySelector(".locationDetails_container").clientHeight;
       }
 
@@ -45,11 +38,9 @@ const DynamicMenu = ({
     window.addEventListener("scroll", onScroll);
 
     return () => window.removeEventListener("scroll", onScroll);
-  }, [sticky,id]);
+  }, [sticky,zipcodeData.id]);
 
-  // console.log("updated sticky", show);
-
-  return id ? (
+  return zipcodeData.id ? (
     <div
       className={`app_displayFlex dynamicMenu_container app_sticky_nav ${
         !show ? "hidden-menu" : ""
@@ -58,20 +49,20 @@ const DynamicMenu = ({
       <div className="app_displayFlex dynamicMenu_locationDetails_section">
         <div className="dynamicMenu_containers">
           <div className="dynamicMenu_zipcode LocationDetails_element">
-            90210
+          {zipcodeData.id}
           </div>
           <div className="dynamicMenu_city LocationDetails_element">
-            Beverly Hills, CA
+          {zipcodeData.city}, {zipcodeData.state_abbr}
           </div>
           <div className="dynamicMenu_county LocationDetails_element">
-            Los Angeles county
+          {counties[0]}
           </div>
         </div>
 
         <div className="app_locationDetails_border"></div>
 
         <div className="dynamicMenu_containers dynamicMenu_container_2">
-          <div className="dynamicMenu_areacode">(213)</div>
+          <div className="dynamicMenu_areacode">({areaCodes[0]} )</div>
           <div className="dynamicMenu_areacode_subcontainer">
             <div className="dynamicMenu_areacode_subtext">area</div>
             <div className="dynamicMenu_areacode_subtext">code</div>
@@ -81,21 +72,21 @@ const DynamicMenu = ({
         <div className="app_locationDetails_border"></div>
 
         <div className="dynamicMenu_containers">
-          <div className="dynamicMenu_time_digital">12:39 PM</div>
-          <div className="dynamicMenu_timezone">Pacific Time</div>
+          <div className="dynamicMenu_time_digital">{currentTime}</div>
+          <div className="dynamicMenu_timezone">{timeZone}</div>
         </div>
 
         <div className="app_locationDetails_border"></div>
 
         <div className="dynamicMenu_containers">
-          <div className="locationDetails_day">Monday</div>
-          <div className="locationDetails_date">Oct. 26, 2020</div>
+          <div className="locationDetails_day">{today[0]}</div>
+          <div className="locationDetails_date">{today[1]}</div>
         </div>
 
         <div className="app_locationDetails_border"></div>
 
         <div className="dynamicMenu_containers">
-          <div className="dynamicMenu_region_name">BAY AREA</div>
+          <div className="dynamicMenu_region_name">{ourRegion}</div>
           <div className="dynamicMenu_region_tag">Region</div>
         </div>
 
@@ -186,11 +177,5 @@ const DynamicMenu = ({
   ): null;
 };
 
-function mapStateToProps(state) {
-  return {
-    error: state.navReducer.error,
-    zipcodeData: state.navReducer.zipcode_data,
-  };
-} 
 
-export default connect(mapStateToProps)(DynamicMenu);
+export default DynamicMenu;

@@ -29,7 +29,6 @@ const InfoModalData_locations = () => {
                     )
                   )}
                   <p>
-                    <span>Store: </span>
                     <span className="infoPanel_showroom1_phone">
                       {allLoc.allShowrooms.sObj[allLoc.allShowrooms.sSortedArr[0]][4]}
                     </span>
@@ -60,7 +59,6 @@ const InfoModalData_locations = () => {
                     )
                   )}
                   <p>
-                    <span>Store: </span>
                     <span className="infoPanel_showroom1_phone">
                       {allLoc.allShowrooms.sObj[allLoc.allShowrooms.sSortedArr[1]][4]}
                     </span>
@@ -105,7 +103,6 @@ const InfoModalData_locations = () => {
                     </p>
                   ))}
                   <p>
-                    <span>Store: </span>
                     <span className="infoPanel_showroom1_phone">
                       {
                         allLoc.allServiceCenters.scObj[
@@ -148,7 +145,6 @@ const InfoModalData_locations = () => {
                     </p>
                   ))}
                   <p>
-                    <span>Store: </span>
                     <span className="infoPanel_showroom1_phone">
                       {
                         allLoc.allServiceCenters.scObj[

@@ -1,143 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import "./LocationDetails.css";
-import moment from "moment-timezone";
 
 const LocationDetails = ({ 
-  zipcodeData, 
-  statedata,
+  zipcodeData,
   ourRegion,
-  changeRegion,
+  counties, 
+  timeZone,
+  today,
+  areaCodes, 
+  currentTime,
 }) => {
-  const counties = zipcodeData.county && zipcodeData.county.split(","); 
-  const [currentTime, setCurrentTime] = useState("");
-  const [timeZone, setTimeZone] = useState("");
-  const [today, setToday] = useState([]); 
-
-  const areaCodes = zipcodeData.area_codes && zipcodeData.area_codes.split(" / ");
-
-  const checkTimezone = () => {
-    let timeZ = zipcodeData.time_zone; 
-    if(timeZ.indexOf("Pacific") > -1){
-      return 'Pacific';
-    } else if(timeZ.indexOf("Eastern") > -1){
-      return 'Eastern';
-    } else if(timeZ.indexOf("Mountain") > -1){
-      return 'Mountain';
-    } else if(timeZ.indexOf("Alaska") > -1){
-      return 'Alaska';
-    } else if(timeZ.indexOf("Hawaii") > -1){
-      return 'Hawaii';
-    } else if(timeZ.indexOf("Central") > -1){
-      return 'Central';
-    } else {
-      return 'n/a';
-    }
-  };
-
-  const getTime = {
-    Pacific: "America/Los_Angeles",
-    Eastern: "America/New_York",
-    Mountain: "America/Pheonix",
-    Alaska: "America/Juneau",
-    Hawaii: "Pacific/Honolulu",
-    Central: "America/Kentucky/Louisville",
-  };
-
-  function calculateTime(ourDate, ourTime) {
-    let tz =  checkTimezone();
-    tz = getTime[tz];
-
-    let myDate = { date: ourDate+" "+ourTime, timezone_type: 3, timezone: tz}
-    let dt = moment(myDate.date, "YYYY-MM-DD")
-    let day = dt.format('dddd') // Monday
-    let dateFull = dt.format('ll'); // Sep 17, 2021
-    setToday([day, dateFull]);
-  }
-
-  function convertOffsetToDate(offset){
-    // create Date object for current location
-    var d = new Date();
-
-    // convert to msec
-    // subtract local time zone offset
-    // get UTC time in msec
-    var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-
-    // create new Date object for different city
-    // using supplied offset
-    var nd = new Date(utc + (3600000*offset));
-
-    return nd.toLocaleString(); // 9/17/2021, 1:45:10 AM 
-  };
-
-  function getDateStr(dateStr){ 
-    let justDate = dateStr.split(',')[0];
-    let justDateArr = justDate.split('/');
-
-    // we need a 2 digit month, so for September - 09 > 9
-    let checkNum = Number(justDateArr[0]);
-    if(checkNum <= 10){
-      justDateArr[0] = '0'+justDateArr[0];
-    }
-    
-    let newArr = [justDateArr[2], justDateArr[0], justDateArr[1]];
-    justDate = newArr.join('-'); // 2021-09-17
-
-    return justDate;
-  }
-
-  function getTimeStr(dateStr){
-    let timeStr = dateStr.split(', ')[1];
-    timeStr = timeStr.split(' AM')[0];
-    timeStr = timeStr.split(' PM')[0];
-    let timeArr = timeStr.split(':');
-    let num = Number(timeArr[0]) + 12
-    timeArr[0] = num;
-    timeStr = timeArr.join(":"); 
-    return timeStr; // 13:45:10
-  }
-
-  function calc(offset) {
-    let str = convertOffsetToDate(offset); // 9/17/2021, 1:45:10 AM
-    let date = getDateStr(str);
-    let time = getTimeStr(str);
-    calculateTime(date, time);
-  }
-
-  useEffect(() => {
-    if(zipcodeData.city){ 
-      let timeZ =  checkTimezone();
-      if(timeZ === 'n/a'){
-        setCurrentTime("N/A");
-        setTimeZone("");
-      } else {
-        setCurrentTime(moment().tz( getTime[timeZ] ).format("LT"));
-        setTimeZone(timeZ);
-      }
-    }
-  }, [zipcodeData.city]);
-
-  useEffect(() => {
-    if(statedata[0] && statedata[0].vehicle_order){
-      const vehicle_order = JSON.parse(statedata[0]["vehicle_order"]) 
-      // changeRegion(zipcodeData.state_name, zipcodeData.county, vehicle_order);
-    }
-  }, [statedata]);
-
-  useEffect(() => {
-    if(zipcodeData.city){ 
-      let roughOffset = zipcodeData.time_zone; // "Pacific (GMT -08:00)" 
-      let offset = roughOffset.split('(GMT ');
-      offset = offset[1].split(')');
-      offset = offset[0]; // -08.00
-      offset = offset.split('-0').join('-');
-      offset = offset.split(':00')[0]; 
-      calc(offset);
-    }
-  }, [zipcodeData.city]);
-
-
 
 
 
@@ -242,12 +114,4 @@ const LocationDetails = ({
   ) : null;
 };
 
-function mapStateToProps(state) {
-  return {
-    error: state.navReducer.error,
-    zipcodeData: state.navReducer.zipcode_data, 
-    statedata: state.usStateReducer.usStatesData,
-  };
-}
-
-export default connect(mapStateToProps)(LocationDetails);
+export default LocationDetails;
