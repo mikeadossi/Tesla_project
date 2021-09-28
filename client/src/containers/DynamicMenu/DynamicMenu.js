@@ -18,6 +18,8 @@ const DynamicMenu = ({
   setZipcode,
   toggleMobileMenu,
   getMyZipcodeData,
+  weatherLink,
+  sunroofLink,
   getAllStateData,
 }) => {
   const [sticky, setSticky] = useState(false);
@@ -104,7 +106,7 @@ const DynamicMenu = ({
         <div className="dynamicMenu_extra_links">
           <a 
             className="dynamicMenu_projectSun app_textdecorationNone"
-            href="https://www.google.com/get/sunroof/building/42.399692/-71.128802/#?f=buy"
+            href={sunroofLink}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -112,7 +114,7 @@ const DynamicMenu = ({
           </a>
           <a 
             className="dynamicMenu_weather app_textdecorationNone"
-            href="https://www.wunderground.com/weather/us/ca/fremont/94555"
+            href={weatherLink}
             target="_blank"
             rel="noopener noreferrer"
           >

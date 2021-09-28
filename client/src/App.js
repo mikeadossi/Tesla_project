@@ -41,6 +41,8 @@ const App = ({ zipcodeData }) => {
   const counties = zipcodeData.county && zipcodeData.county.split(",");
   const areaCodes =
     zipcodeData.area_codes && zipcodeData.area_codes.split(" / ");
+  const [sunroofLink, setSunroofLink] = useState("");
+  const [weatherLink, setWeatherLink] = useState("");
 
   const closeMobileMenu = () => {
     setMenuVisibility({
@@ -284,6 +286,15 @@ const App = ({ zipcodeData }) => {
   }, [zipcodeData.city]);
 
   useEffect(() => {
+    if(zipcodeData.city){
+      let city = zipcodeData.city;
+      city = city.replace(" ","_");
+      setSunroofLink("https://www.google.com/get/sunroof/building/"+zipcodeData.latitude+"/"+zipcodeData.longitude+"/#?f=buy");
+      setWeatherLink("https://www.wunderground.com/weather/us/"+zipcodeData.state_abbr+"/"+city+"/"+zipcodeData.id);
+    }
+  }, [zipcodeData.city]);
+
+  useEffect(() => {
     if (zipcodeData.city) {
       let roughOffset = zipcodeData.time_zone; // "Pacific (GMT -08:00)"
       let offset = roughOffset.split("(GMT ");
@@ -320,6 +331,8 @@ const App = ({ zipcodeData }) => {
           areaCodes={areaCodes}
           zipcodeData={zipcodeData}
           currentTime={currentTime}
+          sunroofLink={sunroofLink}
+          weatherLink={weatherLink}
         />
         <DynamicMenu
           ourRegion={ourRegion}
@@ -331,6 +344,8 @@ const App = ({ zipcodeData }) => {
           currentTime={currentTime}
           zipcode={zipcode}
           setZipcode={setZipcode}
+          sunroofLink={sunroofLink}
+          weatherLink={weatherLink}
         />
         <ProductMenu />
         <Switch>
@@ -369,7 +384,7 @@ const App = ({ zipcodeData }) => {
                 changeRegion={changeRegion}
                 zipcode={zipcode}
                 currentUser={currentUser}
-                handleWarning={handleWarning}
+                handleWarning={handleWarning} 
               />
             )}
           />

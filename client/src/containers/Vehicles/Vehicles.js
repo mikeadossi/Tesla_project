@@ -12,10 +12,10 @@ const Vehicles = ({
   zipcode, 
   zipcode_data, 
   currentUser,
-  handleWarning,
+  handleWarning, 
 }) => { 
 
-  const [allShowrooms, setAllShowrooms] = useState({});
+  const [allShowrooms, setAllShowrooms] = useState({}); 
   const [allServiceCenters, setAllServiceCenters] = useState({});
   const [allChargingLocations, setAllChargingLocations] = useState({});
   

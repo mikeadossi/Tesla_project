@@ -9,17 +9,9 @@ const LocationDetails = ({
   today,
   areaCodes, 
   currentTime,
+  weatherLink,
+  sunroofLink,
 }) => {
-
-  let sunroofLink = "";
-  let weatherLink = "";
-
-  if(zipcodeData.city){
-    let city = zipcodeData.city;
-    city = city.replace(" ","_");
-    sunroofLink = "https://www.google.com/get/sunroof/building/"+zipcodeData.latitude+"/"+zipcodeData.longitude+"/#?f=buy";
-    weatherLink = "https://www.wunderground.com/weather/us/"+zipcodeData.state_abbr+"/"+city+"/"+zipcodeData.id;
-  }
 
   return zipcodeData.id ? (
     <div className="locationDetails_container app_displayFlex">

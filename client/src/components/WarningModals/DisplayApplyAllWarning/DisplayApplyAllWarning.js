@@ -63,7 +63,7 @@ const DisplayApplyAllWarning = ({
             <input
               className="applyAllReminderToggle"
               type="checkbox"
-              onChange={(e) => changeApplyAllBool(e.target.value)}
+              onChange={(e) => changeApplyAllBool()}
               checked={applyAllBool === "true"}
             />
           </div>

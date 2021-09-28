@@ -48,7 +48,7 @@ const DisplayResetWarning = ({
             <input
               className="resetReminderToggle"
               type="checkbox"
-              onChange={(e) => changeResetBool(e.target.value)}
+              onChange={(e) => changeResetBool()}
               checked={resetBool === "true"}
             />
           </div>

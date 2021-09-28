@@ -43,10 +43,8 @@ const ScrollUp = ({ vehicleData, vehicleContainerRef }) => {
             <div
               className="scrollUp_button"
               onClick={(e) => handleClick(e, i + 1)}
-            >
-              {/* <a href={`#${option}`}> */}
-              {option.split(" ")[1]}
-              {/* </a> */}
+            > 
+              {option.split(" ")[1]} 
             </div>
           );
         })}
