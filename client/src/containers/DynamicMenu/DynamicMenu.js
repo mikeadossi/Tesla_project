@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./DynamicMenu.css";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux"; 
+import { getMyZipcodeData } from "../../config/actions/navActions";
+import { getAllStateData } from "../../config/actions/usStateActions";
+import { TOGGLE_MOBILE_MENU } from "../../config/actions/types"; 
 
 const DynamicMenu = ({
   ourRegion,
@@ -10,6 +14,11 @@ const DynamicMenu = ({
   areaCodes,
   zipcodeData,
   currentTime,
+  zipcode,
+  setZipcode,
+  toggleMobileMenu,
+  getMyZipcodeData,
+  getAllStateData,
 }) => {
   const [sticky, setSticky] = useState(false);
   const [show, setShow] = useState(false);
@@ -118,8 +127,17 @@ const DynamicMenu = ({
               <input
                 className="dynamicMenu_input app_main_submit_input"
                 placeholder="enter zip/area code"
-              ></input>
+                onChange={(e) => setZipcode(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") { 
+                    getMyZipcodeData(zipcode); 
+                  }
+                }}
+              />
               <img
+                onClick={() => {
+                  getMyZipcodeData(zipcode); 
+                }}
                 className="app_search_icon dynamicMenu_search_icon"
                 src="../../../../images/Nav/search_icon.png"
                 alt="search icon"
@@ -137,6 +155,7 @@ const DynamicMenu = ({
               className="headerRight_hamburger"
               src="../../../../images/Nav/hamburger.png"
               alt="menu" 
+              onClick={() => toggleMobileMenu()}
             />
           </div>
         </div>
@@ -178,4 +197,12 @@ const DynamicMenu = ({
 };
 
 
-export default DynamicMenu;
+function mapDispatchToProps(dispatch) {
+  return {
+    toggleMobileMenu: () => {
+      dispatch({ type: TOGGLE_MOBILE_MENU });
+    },
+  };
+}
+
+export default connect( mapDispatchToProps, { getMyZipcodeData, getAllStateData })(DynamicMenu);  

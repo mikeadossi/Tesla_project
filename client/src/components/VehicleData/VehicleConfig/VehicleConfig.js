@@ -38,6 +38,7 @@ const VehicleConfig = ({
   setActiveFSDSetting,
   activeOffMenuAutopilot,
   setActiveOffMenuAutopilot,
+  handleWarning,
 }) => {
   
   const showComponent = (value) => {
@@ -198,6 +199,7 @@ const VehicleConfig = ({
               runReset={runReset}
               runApplyAll={runApplyAll}
               currentUser={currentUser}
+              handleWarning={handleWarning}
           />
 
         </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import "./DisplayApplyAllWarning.css";
 
@@ -9,6 +9,7 @@ const DisplayApplyAllWarning = ({
   currentUser,
   activeFormVals,
   setActiveFormVals,
+  handleWarning,
 }) => {
   const currentModelName = useSelector(
     (state) => state.navReducer.currentModelName
@@ -23,7 +24,18 @@ const DisplayApplyAllWarning = ({
   const vehicleName = currentModelName["name"]; // model3
   const spacedVehicleName = currentModelName["renderedTesla"]["model"]; // Model 3
 
-  // console.log(vehicleName+' adj 1- '+vehicleRenderData["vehicle_render"][vehicleName]["payment_object"]["adjustments"])
+  const [applyAllBool, setApplyAllBool] = useState("false");
+
+  const changeApplyAllBool = () => {
+    let bool;
+    if (applyAllBool === "false") {
+      bool = "true";
+    } else if (applyAllBool === "true") {
+      bool = "false";
+    }
+    setApplyAllBool(bool); 
+  };
+
 
   if (currentUser) {
     console.log("currentUser here- ", currentUser);
@@ -45,14 +57,26 @@ const DisplayApplyAllWarning = ({
           This action will apply certain configuration options to all vehicle
           models.
         </div>
-        <div className="reminderContainer">
-          <div className="reminderText">Don't show this again</div>
-          <input className="applyAllReminderToggle" type="checkbox" />
-        </div>
+        {applyAllBool ? ( // TODO: this should search for dontShowApplyAllWarning cookie or currentUser not applyAllBool
+          <div className="reminderContainer">
+            <div className="reminderText">Don't show this again</div>
+            <input
+              className="applyAllReminderToggle"
+              type="checkbox"
+              onChange={(e) => changeApplyAllBool(e.target.value)}
+              checked={applyAllBool === "true"}
+            />
+          </div>
+        ) : (
+          ""
+        )}
         <div className="app_inline-block warningBtnContainer">
           <div
             className="warningBtn cancelWarningModal"
-            onClick={() => closeApplyAllWarning()}
+            onClick={() => {
+              closeApplyAllWarning();
+              setApplyAllBool("false");
+            }}
           >
             Cancel
           </div>
@@ -68,6 +92,7 @@ const DisplayApplyAllWarning = ({
                 setActiveFormVals
               );
               closeApplyAllWarning();
+              handleWarning(["applyAll", applyAllBool]);
             }}
             className="warningBtn continueToApplyAll"
           >

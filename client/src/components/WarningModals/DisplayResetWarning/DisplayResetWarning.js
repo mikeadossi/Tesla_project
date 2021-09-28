@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import "./DisplayResetWarning.css";
 
-const DisplayResetWarning = ({ closeResetWarning, runReset, currentUser }) => {
+const DisplayResetWarning = ({
+  closeResetWarning,
+  runReset,
+  handleWarning, 
+}) => {
   const currentModelName = useSelector(
     (state) => state.navReducer.currentModelName["name"]
   );
@@ -10,6 +14,18 @@ const DisplayResetWarning = ({ closeResetWarning, runReset, currentUser }) => {
   const vehicleRenderData = useSelector(
     (state) => state.vehiclesReducer.vehicleRenderData
   );
+
+  const [resetBool, setResetBool] = useState("false");
+
+  const changeResetBool = () => {
+    let bool;
+    if (resetBool === "false") {
+      bool = "true";
+    } else if (resetBool === "true") {
+      bool = "false";
+    }
+    setResetBool(bool); 
+  };
 
   return (
     <div className="displayApplyAllWarning">
@@ -26,14 +42,26 @@ const DisplayResetWarning = ({ closeResetWarning, runReset, currentUser }) => {
         <div className="warningApplyAllText">
           This action will return all selected vehicle options to base options.
         </div>
-        <div className="reminderContainer">
-          <div className="reminderText">Don't show this again</div>
-          <input className="resetReminderToggle" type="checkbox" />
-        </div>
+        {resetBool ? ( // TODO: this should search for dontShowResetWarning cookie or currentUser not resetBool
+          <div className="reminderContainer">
+            <div className="reminderText">Don't show this again</div>
+            <input
+              className="resetReminderToggle"
+              type="checkbox"
+              onChange={(e) => changeResetBool(e.target.value)}
+              checked={resetBool === "true"}
+            />
+          </div>
+        ) : (
+          ""
+        )}
         <div className="app_inline-block warningBtnContainer">
           <div
             className="warningBtn cancelWarningModal"
-            onClick={() => closeResetWarning()}
+            onClick={() => {
+              closeResetWarning();
+              setResetBool("false");
+            }}
           >
             Cancel
           </div>
@@ -41,6 +69,7 @@ const DisplayResetWarning = ({ closeResetWarning, runReset, currentUser }) => {
             onClick={() => {
               runReset(currentModelName, vehicleRenderData);
               closeResetWarning();
+              handleWarning(["reset", resetBool]);
             }}
             className="warningBtn continueToApplyAll"
           >

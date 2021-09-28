@@ -40,23 +40,11 @@ const VehiclePanel = ({
   metaVehicleObj,
   zipcode_data,
   usStatesData,
-  // teslaModels,
   changeRegion,
   currentUser,
+  handleWarning,
 }) => {
   const dispatch = useDispatch();
-
-    // const setTeslaModels = (value) => { 
-  //   if (typeof value === "function") {
-  //     value = value(teslaModels);
-  //   }
-  //   dispatch({
-  //     type: UPDATE_VEHICLE_RENDER_DATA,
-  //     payload: value,
-  //   });
-
-  //   return value;
-  // };
 
   const [teslaModels, setTeslaModels] = useState({});
   const [activeFSDSetting, setActiveFSDSetting] = useState("autopilot");
@@ -291,6 +279,7 @@ const VehiclePanel = ({
           setActiveFSDSetting={setActiveFSDSetting}
           activeOffMenuAutopilot={activeOffMenuAutopilot}
           setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
+          handleWarning={handleWarning}
         />
       ))}
     </div>

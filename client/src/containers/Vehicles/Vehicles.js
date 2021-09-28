@@ -12,6 +12,7 @@ const Vehicles = ({
   zipcode, 
   zipcode_data, 
   currentUser,
+  handleWarning,
 }) => { 
 
   const [allShowrooms, setAllShowrooms] = useState({});
@@ -52,6 +53,7 @@ const Vehicles = ({
         <VehiclePanel 
           changeRegion={changeRegion} 
           currentUser={currentUser} 
+          handleWarning={handleWarning}
         />
       </div>
     </div>

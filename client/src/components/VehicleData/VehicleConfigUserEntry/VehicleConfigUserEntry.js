@@ -29,6 +29,7 @@ const VehicleConfigUserEntry = ({
   runReset,
   runApplyAll,
   currentUser, 
+  handleWarning,
 }) => {
   const dispatch = useDispatch();
   const vehicleName = name; //ex: model3
@@ -132,6 +133,7 @@ const VehicleConfigUserEntry = ({
         setTeslaModels={setTeslaModels}
         activeFormVals={activeFormVals}
         setActiveFormVals={setActiveFormVals}
+        handleWarning={handleWarning}
       />
       <div className="veicleConfig_userEntry_subcontainer">
         <div className="app_displayFlex app_Solar_selectPymt_div">

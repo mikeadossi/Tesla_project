@@ -1,5 +1,5 @@
-import React from "react";
-import "./GrayBackground.css"; 
+import React, { useState } from "react";
+import "./GrayBackground.css";
 import HeaderMobileMenu from "../Header/HeaderMobileMenu/HeaderMobileMenu.js";
 import DisplayResetWarning from "../WarningModals/DisplayResetWarning/DisplayResetWarning.js";
 import DisplayApplyAllWarning from "../WarningModals/DisplayApplyAllWarning/DisplayApplyAllWarning.js";
@@ -21,17 +21,22 @@ const GrayBackground = ({
   displayMobileMenu,
   displayResetWarning,
   displayApplyAllWarning,
-  displayLocations, 
+  displayLocations,
   runReset,
   runApplyAll,
   currentUser,
-  setCurrentUser,  
-  setTeslaModels, 
+  setCurrentUser,
+  setTeslaModels,
   activeFormVals,
   setActiveFormVals,
+  handleWarning,
 }) => {
-  
-  if (!displayMobileMenu && !displayResetWarning && !displayApplyAllWarning && !displayLocations) {
+  if (
+    !displayMobileMenu &&
+    !displayResetWarning &&
+    !displayApplyAllWarning &&
+    !displayLocations
+  ) {
     return null;
   }
 
@@ -40,7 +45,6 @@ const GrayBackground = ({
   const closeApplyAllWarning = () => toggleApplyAllWarning();
   const closeLocations = () => toggleLocations();
 
-  
   return (
     <div className="grayBackground app_marginTop">
       {displayMobileMenu && (
@@ -52,26 +56,24 @@ const GrayBackground = ({
       )}
       {displayResetWarning && (
         <DisplayResetWarning
-          closeResetWarning={closeResetWarning} 
+          closeResetWarning={closeResetWarning}
           runReset={runReset}
           currentUser={currentUser}
+          handleWarning={handleWarning}
         />
       )}
       {displayApplyAllWarning && (
         <DisplayApplyAllWarning
-          closeApplyAllWarning={closeApplyAllWarning} 
+          closeApplyAllWarning={closeApplyAllWarning}
           runApplyAll={runApplyAll}
-          setTeslaModels={setTeslaModels}  
+          setTeslaModels={setTeslaModels}
           currentUser={currentUser}
           activeFormVals={activeFormVals}
           setActiveFormVals={setActiveFormVals}
+          handleWarning={handleWarning}
         />
       )}
-      {displayLocations && (
-        <InfoModal
-          closeLocations={closeLocations}
-        />
-      )}
+      {displayLocations && <InfoModal closeLocations={closeLocations} />}
     </div>
   );
 };

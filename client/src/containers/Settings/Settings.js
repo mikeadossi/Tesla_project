@@ -9,6 +9,7 @@ const Settings = ({
     setNotifications, 
     warnings,
     setWarnings,
+    handleWarning,
 }) => { 
     const currentPasswRef = useRef();
     const newPasswRef = useRef();
@@ -24,36 +25,6 @@ const Settings = ({
           history.push("/lost"); 
         }
     }, [currentUser]);
-
-
-    const handleWarning = async (ObjKey) => {
-        let newWarnings = {...warnings} 
-        let newCurrentUser = {...currentUser};
-
-        if(newWarnings[ObjKey] === 'true' ){ 
-            newWarnings[ObjKey] = 'false';
-            newCurrentUser[ObjKey] = 'false';
-        } else if(newWarnings[ObjKey] === 'false') { 
-            newWarnings[ObjKey] = 'true';
-            newCurrentUser[ObjKey] = 'true';
-        }
-        setWarnings(newWarnings);
-        setCurrentUser(newCurrentUser);
-        
-        let axiosConfig = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-
-        const parcel = {
-            id: newCurrentUser.id,
-            ourKey: ObjKey,
-            ourValue: newCurrentUser[ObjKey],
-        }
-          
-        await axios.post(`http://localhost:3002/updateUserData`, parcel, axiosConfig); 
-    }
 
     const closeAccount = async () => { 
         let newCurrentUser = {...currentUser};
