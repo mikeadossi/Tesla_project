@@ -4,10 +4,10 @@ import HeaderLeft from "../../components/Header/HeaderLeft/HeaderLeft.js";
 import HeaderRight from "../../components/Header/HeaderRight/HeaderRight.js";
 import HeaderCenter from "../../components/Header/HeaderCenter/HeaderCenter.js";
 import GrayBackground from "../../components/GrayBackground/GrayBackground.js";
-import HeaderCookiePermission from "../../components/Header/HeaderCookiePermission/HeaderCookiePermission.js"; 
+import HeaderCookiePermission from "../../components/Header/HeaderCookiePermission/HeaderCookiePermission.js";
 
 const Nav = ({
-  menuVisibility, 
+  menuVisibility,
   closeMobileMenu,
   displayMobileMenu,
   currentUser,
@@ -16,18 +16,19 @@ const Nav = ({
   warnings,
   changeRegion,
   zipcode,
-  setZipcode,
+  setzipcode,
+  acceptZipOrAreacode,
 }) => {
-  
   return (
     <div className="nav_container">
       <HeaderLeft />
       <HeaderCenter
-        changeRegion={changeRegion} 
+        changeRegion={changeRegion}
         zipcode={zipcode}
-        setZipcode={setZipcode}
+        setzipcode={setzipcode}
+        acceptZipOrAreacode={acceptZipOrAreacode}
       />
-      <HeaderRight 
+      <HeaderRight
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
         notifications={notifications}
@@ -39,12 +40,11 @@ const Nav = ({
         closeMobileMenu={closeMobileMenu}
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
-      /> 
+      />
 
       <HeaderCookiePermission />
     </div>
   );
 };
-
 
 export default Nav;

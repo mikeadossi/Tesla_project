@@ -20,6 +20,24 @@ export const getMyZipcodeData = (zip) => async (dispatch) => {
   }
 }; 
 
+export const getStateAbbrWithAreacode = (areacode) => async (dispatch) => {
+  try { 
+    const res = await axios.get(`http://localhost:3002/stateabbr?areacode=${areacode}`);
+    dispatch({
+      type: types.GET_STATE_ABBR,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    if (hasAValue(err.response) && hasAValue(err.response.data)) {
+      dispatch({
+        type: types.GET_STATE_ABBR_ERROR,
+        payload: err.response.data,
+      });
+    }
+  }
+}
+
 export const showApplyAllWarning = (dispatch, modelName, activeFormVals) => () => { // action creator - creates and returns action object
   dispatch({ // action - plain JavaScript object that has a type field.
     type: types.TOGGLE_APPLY_ALL_WARNING,

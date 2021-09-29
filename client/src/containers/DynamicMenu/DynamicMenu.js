@@ -2,29 +2,25 @@ import React, { useState, useEffect } from "react";
 import "./DynamicMenu.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux"; 
-import { getMyZipcodeData } from "../../config/actions/navActions";
-import { getAllStateData } from "../../config/actions/usStateActions";
-import { TOGGLE_MOBILE_MENU } from "../../config/actions/types"; 
+import { TOGGLE_MOBILE_MENU } from "../../config/actions/types";
 
 const DynamicMenu = ({
   ourRegion,
-  counties, 
+  counties,
   timeZone,
   today,
   areaCodes,
   zipcodeData,
   currentTime,
   zipcode,
-  setZipcode,
-  toggleMobileMenu,
-  getMyZipcodeData,
+  setzipcode,
+  toggleMobileMenu, 
   weatherLink,
   sunroofLink,
-  getAllStateData,
+  acceptZipOrAreacode, 
 }) => {
   const [sticky, setSticky] = useState(false);
   const [show, setShow] = useState(false);
-
 
   useEffect(() => {
     let lastScroll;
@@ -34,14 +30,16 @@ const DynamicMenu = ({
       const scrollingUp = scroll < lastScroll;
       lastScroll = scroll;
 
-      const element1 = document.querySelector(".sticky_productMenu").clientHeight;
+      const element1 = document.querySelector(".sticky_productMenu")
+        .clientHeight;
       let element2 = 0;
 
-      if(zipcodeData.id){
-        element2 = document.querySelector(".locationDetails_container").clientHeight;
+      if (zipcodeData.id) {
+        element2 = document.querySelector(".locationDetails_container")
+          .clientHeight;
       }
 
-      const headerHeight = element1 + element2; 
+      const headerHeight = element1 + element2;
 
       setShow((sticky || scrollingUp) && scroll > headerHeight);
     };
@@ -49,7 +47,8 @@ const DynamicMenu = ({
     window.addEventListener("scroll", onScroll);
 
     return () => window.removeEventListener("scroll", onScroll);
-  }, [sticky,zipcodeData.id]);
+  }, [sticky, zipcodeData.id]);
+
 
   return zipcodeData.id ? (
     <div
@@ -60,13 +59,13 @@ const DynamicMenu = ({
       <div className="app_displayFlex dynamicMenu_locationDetails_section">
         <div className="dynamicMenu_containers">
           <div className="dynamicMenu_zipcode LocationDetails_element">
-          {zipcodeData.id}
+            {zipcodeData.id}
           </div>
           <div className="dynamicMenu_city LocationDetails_element">
-          {zipcodeData.city}, {zipcodeData.state_abbr}
+            {zipcodeData.city}, {zipcodeData.state_abbr}
           </div>
           <div className="dynamicMenu_county LocationDetails_element">
-          {counties[0]}
+            {counties[0]}
           </div>
         </div>
 
@@ -104,7 +103,7 @@ const DynamicMenu = ({
         <div className="app_locationDetails_border"></div>
 
         <div className="dynamicMenu_extra_links">
-          <a 
+          <a
             className="dynamicMenu_projectSun app_textdecorationNone"
             href={sunroofLink}
             target="_blank"
@@ -112,7 +111,7 @@ const DynamicMenu = ({
           >
             Proj. Sun
           </a>
-          <a 
+          <a
             className="dynamicMenu_weather app_textdecorationNone"
             href={weatherLink}
             target="_blank"
@@ -129,16 +128,16 @@ const DynamicMenu = ({
               <input
                 className="dynamicMenu_input app_main_submit_input"
                 placeholder="enter zip/area code"
-                onChange={(e) => setZipcode(e.target.value)}
+                onChange={(e) => setzipcode(e.target.value)}
                 onKeyPress={(e) => {
-                  if (e.key === "Enter") { 
-                    getMyZipcodeData(zipcode); 
+                  if (e.key === "Enter") {
+                    acceptZipOrAreacode(zipcode);
                   }
                 }}
               />
               <img
                 onClick={() => {
-                  getMyZipcodeData(zipcode); 
+                  acceptZipOrAreacode(zipcode);
                 }}
                 className="app_search_icon dynamicMenu_search_icon"
                 src="../../../../images/Nav/search_icon.png"
@@ -156,7 +155,7 @@ const DynamicMenu = ({
             <img
               className="headerRight_hamburger"
               src="../../../../images/Nav/hamburger.png"
-              alt="menu" 
+              alt="menu"
               onClick={() => toggleMobileMenu()}
             />
           </div>
@@ -195,9 +194,8 @@ const DynamicMenu = ({
         </div>
       </div>
     </div>
-  ): null;
+  ) : null;
 };
-
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -207,4 +205,5 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect( mapDispatchToProps, { getMyZipcodeData, getAllStateData })(DynamicMenu);  
+export default connect(mapDispatchToProps)(DynamicMenu);
+

@@ -18,10 +18,19 @@ import Lost from "./containers/Lost/Lost";
 import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
 import { connect } from "react-redux";
 import { getMyZipcodeData } from "./config/actions/navActions";
+import { getStateAbbrWithAreacode } from "./config/actions/navActions";
+import { getAllStateData } from "./config/actions/usStateActions"; 
 import moment from "moment-timezone";
 import axios from "axios";
 
-const App = ({ zipcodeData }) => {
+const App = ({ 
+  zipcodeData,
+  stateAbbr,
+  stateData,
+  getMyZipcodeData, 
+  getStateAbbrWithAreacode, 
+  getAllStateData,
+}) => {
   const [menuVisibility, setMenuVisibility] = useState({
     mobileMenu: false,
     applyAllWarning: false,
@@ -34,7 +43,7 @@ const App = ({ zipcodeData }) => {
   const [notifications, setNotifications] = useState(2);
   const [warnings, setWarnings] = useState({});
   const [ourRegion, setOurRegion] = useState("--");
-  const [zipcode, setZipcode] = useState("83211");
+  const [zipcode, setzipcode] = useState("83211");
   const [currentTime, setCurrentTime] = useState("");
   const [timeZone, setTimeZone] = useState("");
   const [today, setToday] = useState([]);
@@ -219,7 +228,7 @@ const App = ({ zipcodeData }) => {
       // val is returned as an array, ex: ["reset","true"] or ["applyAll","true"]
       if (val[1] === "true") {
         // set cookie for val[0] to val[1]
-        console.log(val[0]+' is set to true!')
+        console.log(val[0] + " is set to true!");
       }
       return;
     }
@@ -256,6 +265,33 @@ const App = ({ zipcodeData }) => {
     );
   };
 
+  const getDefaultZip = () => {
+      let result = stateData[0]["vehicle_order"];
+      result = JSON.parse(result)
+      result = result["default_zipcode"]
+      return result;
+  };
+
+  const acceptZipOrAreacode = (val) => { 
+    if (val.length === 3 && Number(val)) {
+      getStateAbbrWithAreacode(val);
+      console.log('App.js stateAbbr- ',stateAbbr);
+      
+      getAllStateData(stateAbbr);
+      if(stateData){ console.log('App.js stateData- ',stateData);}
+
+      // let defaultZip = getDefaultZip();
+      // console.log('dz- ',defaultZip);
+      // getMyZipcodeData(defaultZip);
+    } else if (val.length < 6 && val.length > 3 && Number(val)) {
+      // 1001 and 90210 are both valid zip codes, so we must allow for 4/5 digit zip codes 
+      getMyZipcodeData(val); 
+    } else {
+      console.log('ERROR! Enter valid 3 digit area code or 4/5 digit zip code')
+    }
+  };
+
+
   useEffect(() => {
     // write code to pull notifications from DB (check for updates)
     // if there are updates use setNotifications
@@ -286,11 +322,24 @@ const App = ({ zipcodeData }) => {
   }, [zipcodeData.city]);
 
   useEffect(() => {
-    if(zipcodeData.city){
+    if (zipcodeData.city) {
       let city = zipcodeData.city;
-      city = city.replace(" ","_");
-      setSunroofLink("https://www.google.com/get/sunroof/building/"+zipcodeData.latitude+"/"+zipcodeData.longitude+"/#?f=buy");
-      setWeatherLink("https://www.wunderground.com/weather/us/"+zipcodeData.state_abbr+"/"+city+"/"+zipcodeData.id);
+      city = city.replace(" ", "_");
+      setSunroofLink(
+        "https://www.google.com/get/sunroof/building/" +
+          zipcodeData.latitude +
+          "/" +
+          zipcodeData.longitude +
+          "/#?f=buy"
+      );
+      setWeatherLink(
+        "https://www.wunderground.com/weather/us/" +
+          zipcodeData.state_abbr +
+          "/" +
+          city +
+          "/" +
+          zipcodeData.id
+      );
     }
   }, [zipcodeData.city]);
 
@@ -319,7 +368,8 @@ const App = ({ zipcodeData }) => {
           warnings={warnings}
           changeRegion={changeRegion}
           zipcode={zipcode}
-          setZipcode={setZipcode}
+          setzipcode={setzipcode}
+          acceptZipOrAreacode={acceptZipOrAreacode}
         />
         <LandingPageNav />
         <LocationDetails
@@ -343,9 +393,10 @@ const App = ({ zipcodeData }) => {
           zipcodeData={zipcodeData}
           currentTime={currentTime}
           zipcode={zipcode}
-          setZipcode={setZipcode}
+          setzipcode={setzipcode}
           sunroofLink={sunroofLink}
           weatherLink={weatherLink}
+          acceptZipOrAreacode={acceptZipOrAreacode}
         />
         <ProductMenu />
         <Switch>
@@ -384,7 +435,7 @@ const App = ({ zipcodeData }) => {
                 changeRegion={changeRegion}
                 zipcode={zipcode}
                 currentUser={currentUser}
-                handleWarning={handleWarning} 
+                handleWarning={handleWarning}
               />
             )}
           />
@@ -425,7 +476,9 @@ function mapStateToProps(state) {
   return {
     error: state.navReducer.error,
     zipcodeData: state.navReducer.zipcode_data,
+    stateAbbr: state.navReducer.stateAbbr,
+    stateData: state.usStateReducer.usStatesData,
   };
 }
 
-export default connect(mapStateToProps, { getMyZipcodeData })(App);
+export default connect(mapStateToProps, { getMyZipcodeData, getStateAbbrWithAreacode, getAllStateData })(App);

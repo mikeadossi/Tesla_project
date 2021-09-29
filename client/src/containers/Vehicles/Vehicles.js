@@ -3,37 +3,36 @@ import "./Vehicles.css";
 import InfoPanel from "../InfoPanel/InfoPanel.js";
 import VehiclePanel from "../VehiclePanel/VehiclePanel.js";
 import { getMyZipcodeData } from "../../config/actions/navActions";
-import { getLocations } from "./VehiclesMethods/moduleExports"; 
-import { connect } from "react-redux"; 
+import { getLocations } from "./VehiclesMethods/moduleExports";
+import { connect } from "react-redux";
 
-const Vehicles = ({ 
-  statedata, 
-  changeRegion, 
-  zipcode, 
-  zipcode_data, 
+const Vehicles = ({
+  statedata,
+  changeRegion,
+  zipcode,
+  zipcode_data,
   currentUser,
-  handleWarning, 
-}) => { 
-
-  const [allShowrooms, setAllShowrooms] = useState({}); 
+  handleWarning,
+}) => {
+  const [allShowrooms, setAllShowrooms] = useState({});
   const [allServiceCenters, setAllServiceCenters] = useState({});
   const [allChargingLocations, setAllChargingLocations] = useState({});
-  
+
   useEffect(() => {
-    if (zipcode_data) { 
+    if (zipcode_data) {
       let zipLong = zipcode_data.longitude;
-      let zipLat = zipcode_data.latitude;  
-        setAllShowrooms(
-          getLocations("all_showrooms", zipLong, zipLat, statedata)
-        );  
-        setAllServiceCenters(
-          getLocations("all_service_centers", zipLong, zipLat, statedata)
-        );  
-        setAllChargingLocations(
-          getLocations("all_charging_locations", zipLong, zipLat, statedata)
-        ); 
+      let zipLat = zipcode_data.latitude;
+      setAllShowrooms(
+        getLocations("all_showrooms", zipLong, zipLat, statedata)
+      );
+      setAllServiceCenters(
+        getLocations("all_service_centers", zipLong, zipLat, statedata)
+      );
+      setAllChargingLocations(
+        getLocations("all_charging_locations", zipLong, zipLat, statedata)
+      );
     }
-  }, [zipcode_data]); 
+  }, [zipcode_data]);
 
   return (
     <div className="vehicles_container app_pageHeight">
@@ -41,7 +40,7 @@ const Vehicles = ({
         <InfoPanel
           whichComponent={"vehicles"}
           stateData={statedata}
-          zipcode={zipcode} 
+          zipcode={zipcode}
           setAllShowrooms={setAllShowrooms}
           setAllServiceCenters={setAllServiceCenters}
           setAllChargingLocations={setAllChargingLocations}
@@ -50,9 +49,9 @@ const Vehicles = ({
           allChargingLocations={allChargingLocations}
           zipcode_data={zipcode_data}
         />
-        <VehiclePanel 
-          changeRegion={changeRegion} 
-          currentUser={currentUser} 
+        <VehiclePanel
+          changeRegion={changeRegion}
+          currentUser={currentUser}
           handleWarning={handleWarning}
         />
       </div>

@@ -8,6 +8,7 @@ const initialState = {
   displayApplyAllWarning: false,
   displayLocations: false,
   getLocations: {},
+  stateAbbr: "",
 };
 
 export default function (state = initialState, action) {
@@ -56,6 +57,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         getLocations: action.payload, 
+      };
+    case types.GET_STATE_ABBR:
+      initialState.stateAbbr = "";
+      return {
+        ...state,
+        stateAbbr: action.payload, 
       };
     default:
       return state;

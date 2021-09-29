@@ -12,12 +12,10 @@ import InfoPanel_vehicle_container from "../../components/InfoPanelData/InfoPane
 import InfoPanel_neutral_container from "../../components/InfoPanelData/InfoPanel_neutral_container/InfoPanel_neutral_container";
 import GrayBackground from "../../components/GrayBackground/GrayBackground";
 import { getMyZipcodeData } from "../../config/actions/navActions";
-import { connect, useDispatch } from "react-redux"; 
-import {
-  GET_LOCATIONS
-} from "../../config/actions/types"; 
+import { connect, useDispatch } from "react-redux";
+import { GET_LOCATIONS } from "../../config/actions/types";
 
-const InfoPanel = (props) => { 
+const InfoPanel = (props) => {
   const dispatch = useDispatch();
   const allLocations = {
     allShowrooms: props.allShowrooms,
@@ -32,7 +30,6 @@ const InfoPanel = (props) => {
       payload: allLocations,
     });
   }, [allLocations]);
-
 
   const [visibility, setVisibility] = useState({
     InfoPanel_locations_nearby: false,
@@ -63,7 +60,6 @@ const InfoPanel = (props) => {
   const solarIncentives = props.stateData.length
     ? props.stateData[0].solar_incentives
     : null;
-
 
   return (
     <div className="infoPanel_container">
