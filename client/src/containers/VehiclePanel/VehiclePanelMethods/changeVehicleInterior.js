@@ -1,91 +1,88 @@
 const changeVehicleInterior = (
-    trim, 
-    interiorSelected, 
-    value, 
-    setTeslaModels, 
-    populatePaymentObject,
+  trim,
+  interiorSelected,
+  value,
+  teslaModels,
+  setTeslaModels,
+  populatePaymentObject
 ) => {
-    const model = `${value}`
-      .split(" ")
-      .map((iv, i) => {
-        if (i === 0) {
-          return iv.toLowerCase();
-        }
-        return iv;
-      })
-      .join("");
+  const model = `${value}`
+    .split(" ")
+    .map((iv, i) => {
+      if (i === 0) {
+        return iv.toLowerCase();
+      }
+      return iv;
+    })
+    .join("");
 
-    setTeslaModels((metaVehicles) => {
-      // handle deep copy on all (relevant) nested objects w/ spread operator
-      let newTeslaModels = {
-        ...metaVehicles,
-        vehicle_details: {
-          ...metaVehicles["vehicle_details"],
+  // handle deep copy on all (relevant) nested objects w/ spread operator
+  let newTeslaModels = {
+    ...teslaModels,
+    vehicle_details: {
+      ...teslaModels["vehicle_details"],
 
-          [model]: {
-            ...metaVehicles.vehicle_details[model],
-            [trim]: {
-              ...metaVehicles.vehicle_details[model][trim],
-              ["interior"]: {
-                ...metaVehicles.vehicle_details[model][trim]["interior"],
-                [interiorSelected]: {
-                  ...metaVehicles.vehicle_details[model][trim]["interior"][
-                    interiorSelected
-                  ],
-                },
-              },
+      [model]: {
+        ...teslaModels.vehicle_details[model],
+        [trim]: {
+          ...teslaModels.vehicle_details[model][trim],
+          ["interior"]: {
+            ...teslaModels.vehicle_details[model][trim]["interior"],
+            [interiorSelected]: {
+              ...teslaModels.vehicle_details[model][trim]["interior"][
+                interiorSelected
+              ],
             },
           },
         },
-        vehicle_render: {
-          ...metaVehicles["vehicle_render"],
+      },
+    },
+    vehicle_render: {
+      ...teslaModels["vehicle_render"],
 
-          [model]: {
-            ...metaVehicles.vehicle_render[model],
-            ["interior"]: [...metaVehicles.vehicle_render[model]["interior"]],
-            ["payment_object"]: {
-              ...metaVehicles.vehicle_render[model]["payment_object"],
-            },
-          },
+      [model]: {
+        ...teslaModels.vehicle_render[model],
+        ["interior"]: [...teslaModels.vehicle_render[model]["interior"]],
+        ["payment_object"]: {
+          ...teslaModels.vehicle_render[model]["payment_object"],
         },
-      };
+      },
+    },
+  };
 
-      let renderedVehicle = newTeslaModels.vehicle_render[model];
-      let interiorOptionsObj =
-        newTeslaModels.vehicle_details[model][trim]["interior"][
-          interiorSelected
-        ];
+  let renderedVehicle = newTeslaModels.vehicle_render[model];
+  let interiorOptionsObj =
+    newTeslaModels.vehicle_details[model][trim]["interior"][interiorSelected];
 
-      let newPrice = interiorOptionsObj.price;
-      let img = interiorOptionsObj.image;
-      let currentInteriorPrice = renderedVehicle["interior"][2];
+  let newPrice = interiorOptionsObj.price;
+  let img = interiorOptionsObj.image;
+  let currentInteriorPrice = renderedVehicle["interior"][2];
 
-      let currentVehiclePrice = renderedVehicle["cash_price"];
+  let currentVehiclePrice = renderedVehicle["cash_price"];
 
-      if (currentInteriorPrice !== "included") {
-        currentVehiclePrice -= currentInteriorPrice;
-      }
+  if (currentInteriorPrice !== "included") {
+    currentVehiclePrice -= currentInteriorPrice;
+  }
 
-      if (newPrice !== "included") {
-        currentVehiclePrice += newPrice;
-      }
+  if (newPrice !== "included") {
+    currentVehiclePrice += newPrice;
+  }
 
-      newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
-      newTeslaModels.vehicle_render[model]["interior"] = [
-        interiorSelected,
-        img,
-        newPrice,
-      ];
+  newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
+  newTeslaModels.vehicle_render[model]["interior"] = [
+    interiorSelected,
+    img,
+    newPrice,
+  ];
 
-      let paymentObj = renderedVehicle["payment_object"];
-      newTeslaModels.vehicle_render[model][
-        "payment_object"
-      ] = populatePaymentObject(currentVehiclePrice, paymentObj);
+  let paymentObj = renderedVehicle["payment_object"];
+  newTeslaModels.vehicle_render[model][
+    "payment_object"
+  ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
-      // details should remain unchanged, with render changing (also vehicles should remain unchanged)
+  // details should remain unchanged, with render changing (also vehicles should remain unchanged)
 
-      return newTeslaModels;
-    });
+  setTeslaModels(newTeslaModels);
 }; // handled deep cpy!
 
 export default changeVehicleInterior;

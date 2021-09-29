@@ -9,7 +9,7 @@ import {
   addTowHitch,
   toggleFSD,
   setFormInputs,
-} from "../VehiclePanelMethods/moduleExports"; 
+} from "../VehiclePanelMethods/moduleExports";
 
 const runApplyAll = (
   spacedVehicleName,
@@ -29,6 +29,7 @@ const runApplyAll = (
 
   const submitData = (modelName) => {
     // function below updates state with user entries
+    console.log("called- ", modelName);
 
     modelName = modelName
       .split(" ")
@@ -53,70 +54,63 @@ const runApplyAll = (
       tradeInValue: paymentObj["tradeInValue"],
     };
 
-    setUserPymtEntry(formObj, modelName, setTeslaModels);
+    setUserPymtEntry(formObj, modelName, teslaModels, setTeslaModels);
 
     setFormInputs(
       activeFormVals,
-      setActiveFormVals, 
+      setActiveFormVals,
       formObj.annualMiles,
       formObj.leaseTerm,
-      formObj.loanTerm,
-    )
+      formObj.loanTerm
+    );
 
-    setTeslaModels((teslaModels) => {
-      let vehicleContent = {
-        ...teslaModels,
-        vehicle_render: {
-          ...teslaModels["vehicle_render"],
+    let vehicleContent = {
+      ...teslaModels,
+      vehicle_render: {
+        ...teslaModels["vehicle_render"],
 
-          [vehicleName]: {
-            ...teslaModels.vehicle_render[vehicleName],
-            ["payment_object"]: {
-              ...teslaModels.vehicle_render[vehicleName]["payment_object"],
-            },
+        [vehicleName]: {
+          ...teslaModels.vehicle_render[vehicleName],
+          ["payment_object"]: {
+            ...teslaModels.vehicle_render[vehicleName]["payment_object"],
           },
         },
-      };
+      },
+    };
 
-      const configuredPrice =
-        vehicleContent.vehicle_render[modelName].cash_price;
-      const submittedCashDown = formObj["cashDownPayment"];
-      const submittedLeaseTerm = formObj["leaseTerm"];
-      const submittedLoanTerm = formObj["loanTerm"];
-      const submittedAnnualMiles = formObj["annualMiles"]; 
+    const configuredPrice = vehicleContent.vehicle_render[modelName].cash_price;
+    const submittedCashDown = formObj["cashDownPayment"];
+    const submittedLeaseTerm = formObj["leaseTerm"];
+    const submittedLoanTerm = formObj["loanTerm"];
+    const submittedAnnualMiles = formObj["annualMiles"];
 
-      // function below runs all necessary lease, finance calculations
-      vehicleContent.vehicle_render[
-        modelName
-      ].payment_object = populatePaymentObject(
-        configuredPrice,
-        paymentObj,
-        submittedCashDown,
-        submittedLeaseTerm,
-        submittedLoanTerm,
-        submittedAnnualMiles
-      );
+    // function below runs all necessary lease, finance calculations
+    vehicleContent.vehicle_render[
+      modelName
+    ].payment_object = populatePaymentObject(
+      configuredPrice,
+      paymentObj,
+      submittedCashDown,
+      submittedLeaseTerm,
+      submittedLoanTerm,
+      submittedAnnualMiles
+    );
 
-      return vehicleContent;
-
-    });
+    setTeslaModels(vehicleContent);
   };
 
   submitData(spacedVehicleName);
 
   vehicleList.map((v) => {
-    console.log(
-      "++-----------------------------------------------------------------------"
-    );
+    let preferredPaint = teslaModels["vehicle_render"][vehicleName]["paint"][0];
+    submitData(v);
     changeVehicleColor(
-      teslaModels["vehicle_render"][vehicleName]["paint"][0],
+      preferredPaint,
       v,
       teslaModels,
       setTeslaModels,
       populatePaymentObject
     );
-
-    submitData(v);
   });
 };
 

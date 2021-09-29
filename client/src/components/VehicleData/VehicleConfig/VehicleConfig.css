@@ -261,6 +261,8 @@
 
 .vehicleConfig_select_srAndoff {
   margin-top: 10px;
+  list-style-type: none;
+  padding-left: 0px;
 }
 
 .vehicleConfig_userInput {

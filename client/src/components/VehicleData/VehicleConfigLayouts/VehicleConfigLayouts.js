@@ -27,10 +27,11 @@ const VehicleConfigLayouts = ({
                 <div className="vehicleConfig_selectLayout_container">
                 <div className="app_textalign">Select Layout: </div>
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectlayout_ul">
-                    {seatingObjectKeys.map((s) => {
+                    {seatingObjectKeys.map((s, index) => {
                     if (seatingObjectKeys.length > 1) {
                         return (
                         <li
+                            key={index}
                             onClick={(event) => {
                             changeVehicleLayout(
                                 vehicleBattery,

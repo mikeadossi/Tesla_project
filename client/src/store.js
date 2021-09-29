@@ -24,6 +24,8 @@ store = createStore(
   )
 );
 
+window.store = store;
+
 const persistor = persistStore(store);
 
 export { store, persistor };

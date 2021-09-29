@@ -1,8 +1,9 @@
 import * as types from "./types";
 import axios from "axios";
 import { hasAValue } from "../../helpers/helper";
+import {  connect } from "react-redux"
 
-export const getMyZipcodeData = (zip) => async (dispatch) => { 
+export const getMyZipcodeData = (zip) => async (dispatch) => {
   try {
     const res = await axios.get(`http://localhost:3002/zipcode?zipcode=${zip}`);
     dispatch({
@@ -38,14 +39,14 @@ export const getStateAbbrWithAreacode = (areacode) => async (dispatch) => {
   }
 }
 
-export const showApplyAllWarning = (dispatch, modelName, activeFormVals) => () => { // action creator - creates and returns action object
+export const showApplyAllWarning = () => async (modelName, dispatch) => { // action creator - creates and returns action object
   dispatch({ // action - plain JavaScript object that has a type field.
     type: types.TOGGLE_APPLY_ALL_WARNING,
     payload: modelName,
   }); 
 };
 
-export const showResetWarning = (dispatch, modelName) => () => { 
+export const showResetWarning = () => async (modelName, dispatch) => { 
   dispatch({
     type: types.TOGGLE_RESET_WARNING,
     payload: modelName,

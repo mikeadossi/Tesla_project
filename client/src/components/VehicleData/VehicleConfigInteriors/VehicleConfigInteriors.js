@@ -23,8 +23,9 @@ const VehicleConfigInteriors = ({
     <div className="vehicleConfig_selectInteriorColor_container">
         <div>Select Interior Color: </div>
         <ul className="vehicleConfig_select_ul vehicleConfig_selectInteriorColor_ul">
-            {interiorObjectKeys.map((i) => (
+            {interiorObjectKeys.map((i, index) => (
                 <div
+                key={index}
                 onClick={(event) => {
                     changeVehicleInterior(
                     vehicleBattery,
@@ -56,7 +57,7 @@ const VehicleConfigInteriors = ({
                 renderedTesla.interior[2]
             }
             className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectInteriorColor_input"
-            readonly="readonly"
+            readOnly
         />
     </div>
   );

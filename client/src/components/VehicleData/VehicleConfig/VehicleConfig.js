@@ -10,6 +10,10 @@ import VehicleConfigAutopilot from "../../VehicleData/VehicleConfigAutopilot/Veh
 import VehicleConfigTowHitch from "../../VehicleData/VehicleConfigTowHitch/VehicleConfigTowHitch";
 import VehicleConfigLayouts from "../../VehicleData/VehicleConfigLayouts/VehicleConfigLayouts";
 import VehicleMenu from "../VehicleMenu/VehicleMenu";
+import { connect } from "react-redux";
+import {
+  UPDATE_VEHICLE_RENDER_DATA,
+} from "../../../config/actions/types";
 
 const VehicleConfig = ({
   selectedVehicle,
@@ -26,6 +30,7 @@ const VehicleConfig = ({
   populatePaymentObject,
   setUserPymtEntry,
   modelInfo,
+  teslaModels,
   setTeslaModels, 
   runReset,
   runApplyAll,
@@ -169,6 +174,7 @@ const VehicleConfig = ({
               setActiveFSDSetting={setActiveFSDSetting}
               activeOffMenuAutopilot={activeOffMenuAutopilot}
               setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
+              teslaModels={teslaModels}
               setTeslaModels={setTeslaModels} 
               populatePaymentObject={populatePaymentObject}
           />
@@ -195,6 +201,7 @@ const VehicleConfig = ({
               populatePaymentObject={populatePaymentObject}
               setUserPymtEntry={setUserPymtEntry}
               modelInfo={modelInfo}
+              teslaModels={teslaModels}
               setTeslaModels={setTeslaModels} 
               runReset={runReset}
               runApplyAll={runApplyAll}
@@ -208,4 +215,26 @@ const VehicleConfig = ({
   );
 };
 
-export default VehicleConfig;
+// export default VehicleConfig;
+
+const mapStateToProps = (state) => {
+  return {
+    teslaModels: state.vehiclesReducer.vehicleRenderData,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setTeslaModels: (teslaModels) =>
+      dispatch({
+        type: UPDATE_VEHICLE_RENDER_DATA,
+        payload: teslaModels,
+      })
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(VehicleConfig);
+

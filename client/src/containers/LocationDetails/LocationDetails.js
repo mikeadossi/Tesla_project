@@ -25,7 +25,7 @@ const LocationDetails = ({
         <div className="LocationDetails_county LocationDetails_element">
           <select className="locationDetails_content app_removeBlue">
             {counties.map((county) => (
-              <option value={county}>{county}</option>
+              <option key={county} value={county}>{county}</option>
             ))}
           </select>
         </div>
@@ -40,7 +40,7 @@ const LocationDetails = ({
               (
               <select className="locationDetails_content locationDetails_content_areacode app_removeBlue">
                 {areaCodes.map((areaCode) => (
-                  <option value={areaCode}>{areaCode}</option>
+                  <option key={areaCode} value={areaCode}>{areaCode}</option>
                 ))}
               </select>
               )

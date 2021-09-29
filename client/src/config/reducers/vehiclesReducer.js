@@ -7,6 +7,8 @@ const initialState = {
   vehiclesRendered: [], 
   vehicleContent: {},
   form: {},
+  activeFSDSetting: "autopilot",
+  activeOffMenuAutopilot: "no_autopilot",
 };
 
 export default function state(state = initialState, action) {
@@ -51,6 +53,18 @@ export default function state(state = initialState, action) {
         return {
           ...state,
           activeFormVals: action.payload,
+        };
+      case types.FSD_SETTING:
+        initialState.activeFSDSetting = "autopilot";
+        return {
+          ...state,
+          activeFSDSetting: action.payload,
+        };
+      case types.OFFMENU_AUTOPILOT:
+        initialState.activeOffMenuAutopilot = "no_autopilot";
+        return {
+          ...state,
+          activeOffMenuAutopilot: action.payload,
         };
     default:
       return state;

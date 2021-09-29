@@ -20,7 +20,8 @@ export const getAllVehicles = () => async (dispatch) => {
   }
 };
 
-export const updateRenderData = (newData) => async (dispatch) => {
+export const updateRenderData = () => async (newData, dispatch) => {
+  console.trace()
   try {
     dispatch({
       type: types.UPDATE_VEHICLE_RENDER_DATA,

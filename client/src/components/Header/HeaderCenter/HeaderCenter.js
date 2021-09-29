@@ -4,8 +4,9 @@ import "./HeaderCenter.css";
 const HeaderCenter = ({
   zipcode,
   setzipcode,
-  acceptZipOrAreacode, 
+  acceptZipOrAreacode,
 }) => {
+
 
   return (
     <div className="headerCenter app_removeBlue">
@@ -30,5 +31,7 @@ const HeaderCenter = ({
     </div>
   );
 };
+
+
 
 export default HeaderCenter;

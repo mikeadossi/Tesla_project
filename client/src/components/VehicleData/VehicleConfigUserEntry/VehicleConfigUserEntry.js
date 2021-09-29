@@ -4,12 +4,17 @@ import Vehicle_userEntry_leasing from "../../VehicleData/Vehicle_userEntry/Vehic
 import Vehicle_userEntry_cash from "../../VehicleData/Vehicle_userEntry/Vehicle_userEntry_cash/Vehicle_userEntry_cash";
 import GrayBackground from "../../GrayBackground/GrayBackground";
 import { connect, useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux"; 
+import { setUserPymtEntry } from "../../../containers/VehiclePanel//VehiclePanelMethods/moduleExports";
 import {
   showApplyAllWarning,
   showResetWarning,
-} from "../../../config/actions/navActions"; 
-import { ACTIVE_FORM } from "../../../config/actions/types";
+} from "../../../config/actions/navActions";
+import {
+  ACTIVE_FORM,
+  TOGGLE_APPLY_ALL_WARNING,
+  UPDATE_VEHICLE_RENDER_DATA,
+} from "../../../config/actions/types";
 
 const VehicleConfigUserEntry = ({
   showComponent,
@@ -21,16 +26,18 @@ const VehicleConfigUserEntry = ({
   vehicleContent,
   usStateVehicleOrder,
   populatePaymentObject,
-  setUserPymtEntry,
+  // setUserPymtEntry,
   modelInfo,
+  teslaModels,
   setTeslaModels,
   showApplyAllWarning,
   showResetWarning,
   runReset,
   runApplyAll,
-  currentUser, 
+  currentUser,
   handleWarning,
-}) => {
+}) => { 
+
   const dispatch = useDispatch();
   const vehicleName = name; //ex: model3
   const spacedVehicleName =
@@ -38,7 +45,10 @@ const VehicleConfigUserEntry = ({
       "model"
     ]; //ex: Model 3
 
-  const [activeFormVals, setActiveFormVals] = useState({leaseInterestRate: 4.85, loanApr: 2.49});
+  const [activeFormVals, setActiveFormVals] = useState({
+    leaseInterestRate: 4.85,
+    loanApr: 2.49,
+  });
 
   useEffect(() => {
     if (activeFormVals[vehicleName] !== "" || null) {
@@ -70,59 +80,53 @@ const VehicleConfigUserEntry = ({
   };
 
   const handlePaymentFormSubmit = async () => {
-    let formError = false;
+    // let formError = false;
 
-    if (!activeFormVals["leaseInterestRate"]) {
-      formError = true;
-    }
-    // console.log({activeFormVals})
+    // if (!activeFormVals["leaseInterestRate"]) {
+    //   formError = true;
+    // }
+
     // setFormError(formError);
 
-    const modelName = vehicleName;
-
     // function below updates state with user entries
-    setUserPymtEntry(activeFormVals, modelName, setTeslaModels);
+    teslaModels = setUserPymtEntry(activeFormVals, vehicleName, teslaModels, setTeslaModels);
+    
+    let vehicleContent = {
+      ...teslaModels,
+      vehicle_render: {
+        ...teslaModels["vehicle_render"],
 
-    setTeslaModels((teslaModels) => {
-      let vehicleContent = {
-        ...teslaModels,
-        vehicle_render: {
-          ...teslaModels["vehicle_render"],
-
-          [vehicleName]: {
-            ...teslaModels.vehicle_render[vehicleName],
-            ["payment_object"]: {
-              ...teslaModels.vehicle_render[vehicleName]["payment_object"],
-            },
+        [vehicleName]: {
+          ...teslaModels.vehicle_render[vehicleName],
+          ["payment_object"]: {
+            ...teslaModels.vehicle_render[vehicleName]["payment_object"],
           },
         },
-      };
+      },
+    };
 
-      const configuredPrice =
-        vehicleContent.vehicle_render[modelName].cash_price;
-      const paymentObj =
-        vehicleContent.vehicle_render[modelName].payment_object;
-      const submittedCashDown = activeFormVals["cashDownPayment"];
-      const submittedLeaseTerm = activeFormVals["leaseTerm"];
-      const submittedLoanTerm = activeFormVals["loanTerm"];
-      const submittedAnnualMiles = activeFormVals["annualMiles"];
+    const configuredPrice = vehicleContent.vehicle_render[vehicleName].cash_price;
+    const paymentObj = vehicleContent.vehicle_render[vehicleName].payment_object; 
+    const submittedCashDown = activeFormVals["cashDownPayment"];
+    const submittedLeaseTerm = activeFormVals["leaseTerm"];
+    const submittedLoanTerm = activeFormVals["loanTerm"];
+    const submittedAnnualMiles = activeFormVals["annualMiles"];
 
-      // function below runs all necessary lease, finance calculations
-      vehicleContent.vehicle_render[
-        modelName
-      ].payment_object = populatePaymentObject(
-        configuredPrice,
-        paymentObj,
-        submittedCashDown,
-        submittedLeaseTerm,
-        submittedLoanTerm,
-        submittedAnnualMiles
-      );
+    // function below runs all necessary lease, finance calculations
+    vehicleContent.vehicle_render[
+      vehicleName
+    ].payment_object = populatePaymentObject(
+      configuredPrice,
+      paymentObj,
+      submittedCashDown,
+      submittedLeaseTerm,
+      submittedLoanTerm,
+      submittedAnnualMiles
+    );
 
-      // handleClearField()
+    // handleClearField()
 
-      return vehicleContent;
-    });
+    setTeslaModels(vehicleContent);
   };
 
   return (
@@ -223,16 +227,16 @@ const VehicleConfigUserEntry = ({
               handlePaymentFormSubmit();
               runApplyAll(
                 spacedVehicleName,
-                vehicleContent,
+                teslaModels,
                 vehiclesRendered,
                 vehicleName,
                 setTeslaModels,
                 activeFormVals,
                 setActiveFormVals,
               );
-            } else { 
+            } else {
               handlePaymentFormSubmit();
-              showApplyAllWarning(dispatch, vehicleName, activeFormVals);
+              showApplyAllWarning(vehicleName, dispatch);
             }
           }}
           className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_setAll_btn app_cursorPointer"
@@ -240,11 +244,11 @@ const VehicleConfigUserEntry = ({
           APPLY ALL
         </button>
         <button
-          onClick={() => { 
-            if (currentUser && currentUser["reset_warning_on"] === "false") { 
+          onClick={() => {
+            if (currentUser && currentUser["reset_warning_on"] === "false") {
               runReset(vehicleName, vehicleContent.vehicle_render);
             } else {
-              showResetWarning(dispatch, vehicleName);
+              showResetWarning(vehicleName, dispatch);
             }
           }}
           className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_reset_btn app_cursorPointer"
@@ -262,9 +266,11 @@ const VehicleConfigUserEntry = ({
   );
 };
 
+
 const mapDispatchToProps = (dispatch, modelName) => ({
-  showApplyAllWarning: showApplyAllWarning(dispatch, modelName),
-  showResetWarning: showResetWarning(dispatch, modelName),
+  showApplyAllWarning: showApplyAllWarning(modelName, dispatch),
+  showResetWarning: showResetWarning(modelName, dispatch),
 });
 
 export default connect(null, mapDispatchToProps)(VehicleConfigUserEntry);
+

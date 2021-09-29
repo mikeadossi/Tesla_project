@@ -41,6 +41,7 @@ const ScrollUp = ({ vehicleData, vehicleContainerRef }) => {
         {renderedVehiclesArr.map((option, i) => {
           return (
             <div
+              key={i}
               className="scrollUp_button"
               onClick={(e) => handleClick(e, i + 1)}
             > 

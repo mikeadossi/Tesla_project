@@ -25,8 +25,9 @@ const VehicleConfigWheels = ({
     <div className="vehicleConfig_selectWheel_container">
         <div>Select Wheel: </div>
         <ul className="vehicleConfig_select_ul vehicleConfig_selectwheel_ul">
-        {wheelObjectKeys.map((w) => (
+        {wheelObjectKeys.map((w, index) => (
             <div
+            key={index}
             onClick={(event) => {
                 changeVehicleWheel(vehicleBattery, w, selectedVehicle);
                 setActiveWheel(w);
@@ -55,7 +56,7 @@ const VehicleConfigWheels = ({
             renderedTesla.wheel[1]
             }
             className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectWheel_input"
-            readonly="readonly"
+            readOnly
         />
         </div>
     </div>

@@ -33,83 +33,88 @@ const VehicleBatteryAndPaint = ({
     <div className="vehicleConfig_selectCarAndColor_container">
         <div className="vehicleConfig_selectCar_container">
             <div>Select Battery: </div>
-            <ul className="vehicleConfig_select_ul vehicleConfig_selectCar_ul">
-            <li className="vehicleConfig_select_srAndoff">
-                {batteryObjectKeys.map((batt) => {
-                if (batt === "off_menu" && batteryObject[batt] !== null) {
-                    return (
-                    <span
-                        onClick={(event) => {
-                        changeVehicleBattery(batt, selectedVehicle);
-                        setActiveBattery(batt);
-                        }}
-                        className={`app_noSelect vehicleConfig_select vehicleConfig_select_off ${
-                        activeBattery == batt && "selected_btn_alt"
-                        }`}
-                    >
-                        Off
-                    </span>
-                    );
-                } else if (
-                    batt === "standard_battery" &&
-                    batteryObject[batt] !== null &&
-                    batteryObjectKeys.includes("off_menu")
-                ) {
-                    return (
-                    <span
-                        onClick={(event) => {
-                        changeVehicleBattery(batt, selectedVehicle);
-                        setActiveBattery(batt);
-                        }}
-                        className={`app_noSelect vehicleConfig_select vehicleConfig_select_sr ${
-                        activeBattery == batt && "selected_btn"
-                        }`}
-                    >
-                        Standard
-                    </span>
-                    );
-                } else if (batteryObject[batt] == null) {
-                    return;
-                } else {
-                    return (
-                    <li
-                        onClick={(event) => {
-                        changeVehicleBattery(batt, selectedVehicle);
-                        setActiveBattery(batt);
-                        }}
-                        className={`app_noSelect vehicleConfig_select vehicleConfig_select ${
-                        activeBattery == batt && "selected_btn"
-                        }`}
-                    >
-                        {batteryObject[batt]["specs"]["Battery"]}
-                    </li>
-                    );
-                }
+            <div className="vehicleConfig_select_ul vehicleConfig_selectCar_ul">
+            <ul className="vehicleConfig_select_srAndoff">
+                {batteryObjectKeys.map((batt, index) => {
+                    if (batt === "off_menu" && batteryObject[batt] !== null) {
+                        return (
+                        <span
+                            key={index}
+                            onClick={(event) => {
+                            changeVehicleBattery(batt, selectedVehicle);
+                            setActiveBattery(batt);
+                            }}
+                            className={`app_noSelect vehicleConfig_select vehicleConfig_select_off ${
+                            activeBattery == batt && "selected_btn_alt"
+                            }`}
+                        >
+                            Off
+                        </span>
+                        );
+                    } else if (
+                        batt === "standard_battery" &&
+                        batteryObject[batt] !== null &&
+                        batteryObjectKeys.includes("off_menu")
+                    ) {
+                        return (
+                            <span
+                                key={index}
+                                onClick={(event) => {
+                                    changeVehicleBattery(batt, selectedVehicle);
+                                    setActiveBattery(batt);
+                                }}
+                                className={`app_noSelect vehicleConfig_select vehicleConfig_select_sr ${
+                                activeBattery == batt && "selected_btn"
+                                }`}
+                            >
+                                Standard
+                            </span>
+                        );
+                    } else if (batteryObject[batt] == null) {
+                        return;
+                    } else {
+                        return (
+                            <li
+                                key={index}
+                                onClick={(event) => {
+                                changeVehicleBattery(batt, selectedVehicle);
+                                setActiveBattery(batt);
+                                }}
+                                className={`app_noSelect vehicleConfig_select vehicleConfig_select ${
+                                activeBattery == batt && "selected_btn"
+                                }`}
+                            >
+                                {batteryObject[batt]["specs"]["Battery"]}
+                            </li>
+                        );
+                    }
                 })}
-            </li>
             </ul>
+            </div>
         </div>
         <div className="vehicleConfig_selectColor_container">
             <div>Select Color: </div>
             <div className="vehicleConfig_select_ul vehicleConfig_selectColor_ul">
-            {paintObjectKeys.map((p) => (
+            {paintObjectKeys.map((p, index) => ( 
                 <div
-                onClick={(event) => {
-                    changeVehicleColor(p, selectedVehicle);
-                    setActiveColor(p);
-                }}
-                className={`app_noSelect app_inlineFlex color_select_container ${
-                    p === activeColor && "selected"
-                }`}
+                    key={index}
+                    onClick={(event) => {
+                        changeVehicleColor(p, selectedVehicle);
+                        setActiveColor(p);
+                    }}
+                    className={`app_noSelect app_inlineFlex color_select_container ${
+                        p === activeColor && "selected"
+                    }`}
                 >
-                <img
-                    className="color_select"
-                    src={
-                    `../../../../images/paint/` +
-                    paintObject[p]["image_paint"].substring(1) +
-                    `_paint.png`
-                    }
-                />
+                    <img
+                        key={p}
+                        className="color_select"
+                        src={
+                        `../../../../images/paint/` +
+                        paintObject[p]["image_paint"].substring(1) +
+                        `_paint.png`
+                        }
+                    />
                 </div>
             ))}
             </div>
@@ -119,7 +124,7 @@ const VehicleBatteryAndPaint = ({
                 renderedTesla.paint[0] + ` - ` + renderedTesla.paint[1]
             }
             className="app_noSelect app_removeBlue vehicleConfig_select_input vehicleConfig_selectColor_input"
-            readonly="readonly"
+            readOnly
             />
         </div>
     </div>

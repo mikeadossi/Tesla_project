@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import "./DisplayApplyAllWarning.css";
+import { connect } from "react-redux";
+import { UPDATE_VEHICLE_RENDER_DATA } from "../../../config/actions/types";
 
 const DisplayApplyAllWarning = ({
   closeApplyAllWarning,
   runApplyAll,
+  teslaModels,
   setTeslaModels,
   currentUser,
   activeFormVals,
   setActiveFormVals,
   handleWarning,
+  currentModelName,
 }) => {
-  const currentModelName = useSelector(
-    (state) => state.navReducer.currentModelName
-  );
+  // const currentModelName = useSelector(
+  //   (state) => state.navReducer.currentModelName
+  // );
   const vehiclesRendered = useSelector(
     (state) => state.vehiclesReducer.vehiclesRendered
   );
@@ -21,8 +25,8 @@ const DisplayApplyAllWarning = ({
     (state) => state.vehiclesReducer.vehicleContent
   );
 
-  const vehicleName = currentModelName["name"]; // model3
-  const spacedVehicleName = currentModelName["renderedTesla"]["model"]; // Model 3
+  const vehicleName = currentModelName; // model3
+  const spacedVehicleName = teslaModels["vehicle_render"][currentModelName]["model"]; // Model 3
 
   const [applyAllBool, setApplyAllBool] = useState("false");
 
@@ -84,12 +88,12 @@ const DisplayApplyAllWarning = ({
             onClick={() => {
               runApplyAll(
                 spacedVehicleName,
-                vehicleContent,
+                teslaModels,
                 vehiclesRendered,
                 vehicleName,
                 setTeslaModels,
                 activeFormVals,
-                setActiveFormVals
+                setActiveFormVals,
               );
               closeApplyAllWarning();
               handleWarning(["applyAll", applyAllBool]);
@@ -104,4 +108,21 @@ const DisplayApplyAllWarning = ({
   );
 };
 
-export default DisplayApplyAllWarning;
+const mapStateToProps = (state) => { 
+  return {
+    teslaModels: state.vehiclesReducer.vehicleRenderData,
+    currentModelName: state.navReducer.currentModelName,
+  };
+};
+
+
+export default connect(
+  mapStateToProps, 
+  {
+    setTeslaModels: (teslaModels) => (dispatch) =>
+    dispatch({
+      type: UPDATE_VEHICLE_RENDER_DATA,
+      payload: teslaModels,
+    }),
+  }
+)(DisplayApplyAllWarning);
