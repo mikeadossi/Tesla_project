@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./VehiclePanel.css";
 import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfigContainer from "../../components/VehicleData/VehicleConfigContainer/VehicleConfigContainer";
-import InfoModal from "../InfoModal/InfoModal.js";
-// import runReset from "./VehiclePanelMethods/runReset";
 import {
   removeModel,
   setSelectedVehicleName,
@@ -34,6 +32,9 @@ import {
   GET_VEHICLE_CONTENT,
   FSD_SETTING,
   OFFMENU_AUTOPILOT,
+  VEHICLE_ORDER,
+  LOAD_TESLA_DATA_BOOL,
+  MENU_OPTIONS,
 } from "../../config/actions/types";
 
 const VehiclePanel = ({
@@ -51,44 +52,20 @@ const VehiclePanel = ({
   setTeslaModels,
   activeFSDSetting,
   setActiveFSDSetting,
-  activeOffMenuAutopilot, 
+  activeOffMenuAutopilot,
   setActiveOffMenuAutopilot,
-  updateRenderData
+  updateRenderData,
+  usStateVehicleOrder,
+  setUsStateVehicleOrder,
+  loadTeslaData, 
+  setLoadTeslaData,
+  menuOptions, 
+  setMenuOptions,
 }) => {
   const dispatch = useDispatch();
 
-  // const [teslaModels, setTeslaModels] = useState({});
-  // const [activeFSDSetting, setActiveFSDSetting] = useState("autopilot");
-  // const [activeOffMenuAutopilot, setActiveOffMenuAutopilot] = useState(
-    // "no_autopilot"
-  // );
-
-  // useEffect(() => {
-  //   dispatch({
-  //     type: UPDATE_VEHICLE_RENDER_DATA,
-  //     payload: teslaModels,
-  //   });
-  // }, []);
-
-  // const [vehicleData, setVehicleData] = useState([]);
-  const [menuOptions, setMenuOptions] = useState("");
-  const [usStateVehicleOrder, setUsStateVehicleOrder] = useState("");
-  const [loadTeslaData, setLoadTeslaData] = useState(false);
   const vehicleContainerRef = useRef();
 
-  // useEffect(() => {
-  //   dispatch({
-  //     type: VIEW_RENDERED_OPTIONS,
-  //     payload: vehicleData,
-  //   });
-  // }, [vehicleData]);
-
-  // useEffect(() => {
-  //   dispatch({
-  //     type: GET_VEHICLE_CONTENT,
-  //     payload: teslaModels,
-  //   });
-  // }, [teslaModels]);
 
   useEffect(() => {
     if (zipcode_data.id) {
@@ -100,14 +77,12 @@ const VehiclePanel = ({
   useEffect(() => {
     if (usStatesData[0]) {
       let vehicle_order = JSON.parse(usStatesData[0]["vehicle_order"]);
-      setUsStateVehicleOrder(() => {
-        return [
-          usStatesData[0]["state_abbr"],
-          zipcode_data["id"],
-          JSON.parse(usStatesData[0]["vehicle_order"]),
-          JSON.parse(usStatesData[0]["payment_object"]),
-        ];
-      });
+      setUsStateVehicleOrder([
+        usStatesData[0]["state_abbr"],
+        zipcode_data["id"],
+        JSON.parse(usStatesData[0]["vehicle_order"]),
+        JSON.parse(usStatesData[0]["payment_object"]),
+      ]);
       return changeRegion(
         zipcode_data.state_name,
         zipcode_data.county,
@@ -127,10 +102,6 @@ const VehiclePanel = ({
   }, [metaVehicleObj, usStateVehicleOrder, loadTeslaData]);
 
   const runReset = (vehicleName, detailsAndRender) => {
-    console.log('vehicleName- ',vehicleName);
-    console.log('detailsAndRender- ',detailsAndRender);
-    console.log('detailsAndRender["vehicle_details"]- ',detailsAndRender["vehicle_details"]);
-    console.log('detailsAndRender["vehicle_details"][vehicleName]- ',detailsAndRender["vehicle_details"][vehicleName]);
     let selectedModelDetailsObj =
       detailsAndRender["vehicle_details"][vehicleName];
 
@@ -188,14 +159,10 @@ const VehiclePanel = ({
       },
     };
 
-    console.log("runReset was called- ", newDetailsAndRender);
     setTeslaModels(newDetailsAndRender);
-    dispatch(updateRenderData(newDetailsAndRender,));
-    // updateRenderData(newDetailsAndRender, dispatch);
-    
+    dispatch(updateRenderData(newDetailsAndRender));
   };
 
-  // console.log("VehiclePanel=", teslaModels);
 
   return (
     <div className="app_Panel_container">
@@ -322,9 +289,6 @@ const VehiclePanel = ({
   );
 };
 
-const mapDispatchToProps = (dispatch, newData) => ({
-  updateRenderData: updateRenderData(newData, dispatch),
-});
 
 function mapStateToProps(state) {
   return {
@@ -336,39 +300,55 @@ function mapStateToProps(state) {
     vehicleData: state.vehiclesReducer.vehiclesRendered,
     activeFSDSetting: state.vehiclesReducer.activeFSDSetting,
     activeOffMenuAutopilot: state.vehiclesReducer.activeOffMenuAutopilot,
+    usStateVehicleOrder: state.vehiclesReducer.vehicleOrderObject,
+    loadTeslaData: state.vehiclesReducer.loadTeslaDataBool,
+    menuOptions: state.vehiclesReducer.menuOptions,
   };
 }
 
-export default connect( 
-  mapStateToProps, 
-  {
-    getAllVehicles,
-    getAllStateData, 
-    updateRenderData: () => (newData, dispatch) => updateRenderData(newData, dispatch),
-    toggl: () => (dispatch) => dispatch({ type: TOGGLE_MOBILE_MENU }),
-    toggleResetWarning: (modelName) => (dispatch) =>
-      dispatch({ type: TOGGLE_RESET_WARNING, payload: modelName }),
-    toggleApplyAllWarning: () => (dispatch) =>
-      dispatch({ type: TOGGLE_APPLY_ALL_WARNING }),
-    setVehicleData: (vehicleData) => (dispatch) =>
-      dispatch({
-        type: VIEW_RENDERED_OPTIONS,
-        payload: vehicleData,
-      }),
-    setTeslaModels: (teslaModels) => (dispatch) =>
-      dispatch({
-        type: UPDATE_VEHICLE_RENDER_DATA,
-        payload: teslaModels,
-      }),
-    setActiveFSDSetting: (activeFSDSetting) => (dispatch) =>
-      dispatch({
-        type: FSD_SETTING,
-        payload: activeFSDSetting,
-      }),
-    setActiveOffMenuAutopilot: (activeOffMenuAutopilot) => (dispatch) =>
-      dispatch({
-        type: OFFMENU_AUTOPILOT,
-        payload: activeOffMenuAutopilot,
-      }),
-  }, 
-)(VehiclePanel);
+export default connect(mapStateToProps, {
+  getAllVehicles,
+  getAllStateData,
+  updateRenderData: () => (newData, dispatch) =>
+    updateRenderData(newData, dispatch),
+  toggl: () => (dispatch) => dispatch({ type: TOGGLE_MOBILE_MENU }),
+  toggleResetWarning: (modelName) => (dispatch) =>
+    dispatch({ type: TOGGLE_RESET_WARNING, payload: modelName }),
+  toggleApplyAllWarning: () => (dispatch) =>
+    dispatch({ type: TOGGLE_APPLY_ALL_WARNING }),
+  setVehicleData: (vehicleData) => (dispatch) =>
+    dispatch({
+      type: VIEW_RENDERED_OPTIONS,
+      payload: vehicleData,
+    }),
+  setTeslaModels: (teslaModels) => (dispatch) =>
+    dispatch({
+      type: UPDATE_VEHICLE_RENDER_DATA,
+      payload: teslaModels,
+    }),
+  setActiveFSDSetting: (activeFSDSetting) => (dispatch) =>
+    dispatch({
+      type: FSD_SETTING,
+      payload: activeFSDSetting,
+    }),
+  setActiveOffMenuAutopilot: (activeOffMenuAutopilot) => (dispatch) =>
+    dispatch({
+      type: OFFMENU_AUTOPILOT,
+      payload: activeOffMenuAutopilot,
+    }),
+  setUsStateVehicleOrder: (usStateVehicleOrder) => (dispatch) =>
+    dispatch({
+      type: VEHICLE_ORDER,
+      payload: usStateVehicleOrder,
+    }),
+  setLoadTeslaData: (loadTeslaData) => (dispatch) =>
+    dispatch({
+      type: LOAD_TESLA_DATA_BOOL,
+      payload: loadTeslaData,
+    }),
+  setMenuOptions: (menuOptions) => (dispatch) =>
+    dispatch({
+      type: MENU_OPTIONS,
+      payload: menuOptions,
+    }),
+})(VehiclePanel);

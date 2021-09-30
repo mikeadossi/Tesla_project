@@ -9,6 +9,9 @@ const initialState = {
   form: {},
   activeFSDSetting: "autopilot",
   activeOffMenuAutopilot: "no_autopilot",
+  vehicleOrderObject: [],
+  loadTeslaDataBool: false,
+  menuOptions: "",
 };
 
 export default function state(state = initialState, action) {
@@ -65,6 +68,24 @@ export default function state(state = initialState, action) {
         return {
           ...state,
           activeOffMenuAutopilot: action.payload,
+        };
+      case types.VEHICLE_ORDER:
+        initialState.vehicleOrderObject = [];
+        return {
+          ...state,
+          vehicleOrderObject: action.payload,
+        };
+      case types.LOAD_TESLA_DATA_BOOL:
+        initialState.loadTeslaDataBool = false;
+        return {
+          ...state,
+          loadTeslaDataBool: action.payload,
+        };
+      case types.MENU_OPTIONS:
+        initialState.menuOptions = "";
+        return {
+          ...state,
+          menuOptions: action.payload,
         };
     default:
       return state;
