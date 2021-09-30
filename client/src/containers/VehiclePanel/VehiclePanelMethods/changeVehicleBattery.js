@@ -4,6 +4,7 @@ const changeVehicleBattery = (
   teslaModels,
   setTeslaModels,
   populatePaymentObject,
+  activeFSDSetting,
   setActiveFSDSetting,
   setActiveOffMenuAutopilot,
   runSync,
@@ -186,7 +187,9 @@ const changeVehicleBattery = (
       "autopilot",
       "included",
     ];
-    setActiveFSDSetting("autopilot");
+    // setActiveFSDSetting.value("autopilot");
+    activeFSDSetting.value = "autopilot"
+    setActiveFSDSetting(activeFSDSetting);
   } else if (
     activeSettingName === "fsd_and_autopilot" &&
     batterySelected !== "off_menu"
@@ -196,7 +199,9 @@ const changeVehicleBattery = (
     currentVehiclePrice -= fsdAndAutopilotPrice;
     currentVehiclePrice += fsdPrice;
     newTeslaModels.vehicle_render[model]["autopilot"] = ["fsd", fsdPrice];
-    setActiveFSDSetting("fsd");
+    // setActiveFSDSetting.value("fsd");
+    activeFSDSetting.value = "fsd"
+    setActiveFSDSetting(activeFSDSetting);
   } else if (
     activeSettingName === "no_autopilot" &&
     batterySelected !== "off_menu"
@@ -205,13 +210,17 @@ const changeVehicleBattery = (
       "autopilot",
       "included",
     ];
-    setActiveFSDSetting("autopilot");
+    // setActiveFSDSetting.value("autopilot");
+    activeFSDSetting.value = "autopilot"
+    setActiveFSDSetting(activeFSDSetting);
   } else if (activeSettingName !== "fsd" && batterySelected !== "off_menu") {
     newTeslaModels.vehicle_render[model]["autopilot"] = [
       "autopilot",
       "included",
     ];
-    setActiveFSDSetting("autopilot");
+    // setActiveFSDSetting.value("autopilot");
+    activeFSDSetting.value = "autopilot";
+    setActiveFSDSetting(activeFSDSetting);
   }
 
   newTeslaModels.vehicle_render[model]["image_wheels"] =

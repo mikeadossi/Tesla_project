@@ -207,6 +207,8 @@ const VehicleConfig = ({
               runApplyAll={runApplyAll}
               currentUser={currentUser}
               handleWarning={handleWarning}
+              setActiveFSDSetting={setActiveFSDSetting}
+              setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
           />
 
         </div>

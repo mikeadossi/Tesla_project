@@ -41,6 +41,7 @@ const VehicleConfigContainer = ({
 
     // selectedVehicle - Model S
     // name - modelS
+  console.log('vc> ',vehicleContent)
   const renderedTesla = vehicleContent.vehicle_render[name]; 
   const vehicleBattery = renderedTesla["battery"][1]; // ex: "long_range"
   const teslaDetails = vehicleContent.vehicle_details[name];

@@ -1,10 +1,10 @@
 const toggleFSD = (
   trim,
   value,
-  active,
+  activeFSDSetting,
   teslaModels,
   setTeslaModels,
-  populatePaymentObject
+  populatePaymentObject, 
 ) => {
   //trim=long_range value=model3
   // this function only handles fsd/autopilot toggling
@@ -41,11 +41,12 @@ const toggleFSD = (
   let currentSettingName = renderedVehicle["autopilot"][0];
   let currentVehiclePrice = renderedVehicle["cash_price"];
 
-  if (active === "autopilot" && currentSettingName === "autopilot") {
+
+  if (activeFSDSetting[value] === "autopilot" && currentSettingName === "autopilot") {
     currentVehiclePrice += fsdPrice;
     newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
     newTeslaModels.vehicle_render[model]["autopilot"] = ["fsd", fsdPrice];
-  } else if (active === "fsd" && currentSettingName === "fsd") {
+  } else if (activeFSDSetting[value] === "fsd" && currentSettingName === "fsd") {
     currentVehiclePrice -= fsdPrice;
     newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
     newTeslaModels.vehicle_render[model]["autopilot"] = [
@@ -54,13 +55,14 @@ const toggleFSD = (
     ];
   } else {
     console.log(
-      "ERROR! Incorrect function called! - toggleFSD is being called! active:" +
-        active +
+      "ERROR! Incorrect function called! - toggleFSD is being called! activeFSDSetting[value]:" +
+        activeFSDSetting[value] +
         " currentSettingName: " +
         currentSettingName
     );
     return;
   }
+
 
   let paymentObj = renderedVehicle["payment_object"];
   newTeslaModels.vehicle_render[model][
@@ -68,7 +70,9 @@ const toggleFSD = (
   ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
   // details should remain unchanged, with render changing (also vehicles should remain unchanged)
-  setTeslaModels(newTeslaModels);
+
+  setTeslaModels(newTeslaModels)
+
 }; // handled deep cpy!
 
 export default toggleFSD;

@@ -1,5 +1,12 @@
 import * as types from "../actions/types"; 
 
+const fsdSettingsObj = {
+  "Model 3": "autopilot",
+  "Model S": "autopilot",
+  "Model X": "autopilot",
+  "Model Y": "autopilot",
+};
+
 const initialState = {
   vehicle: {},
   error: "",
@@ -7,7 +14,7 @@ const initialState = {
   vehiclesRendered: [], 
   vehicleContent: {},
   form: {},
-  activeFSDSetting: "autopilot",
+  activeFSDSetting: fsdSettingsObj,
   activeOffMenuAutopilot: "no_autopilot",
   vehicleOrderObject: [],
   loadTeslaDataBool: false,
@@ -58,7 +65,7 @@ export default function state(state = initialState, action) {
           activeFormVals: action.payload,
         };
       case types.FSD_SETTING:
-        initialState.activeFSDSetting = "autopilot";
+        initialState.activeFSDSetting = fsdSettingsObj;
         return {
           ...state,
           activeFSDSetting: action.payload,

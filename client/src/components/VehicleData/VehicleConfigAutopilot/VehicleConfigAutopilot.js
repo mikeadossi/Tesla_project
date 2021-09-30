@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; 
+import React from "react"; 
 
 const VehicleConfigAutopilot = ({ 
     selectedVehicle,
@@ -92,18 +92,17 @@ const VehicleConfigAutopilot = ({
             <div>
                 <div className="vehicleConfig_selectFSD_container">
                 <ul className="vehicleConfig_select_ul vehicleConfig_selectFSD_ul">
-                    <input
-                    onChange={(e) => {
-                        const value = e.target.value;
-                        toggleFSD(vehicleBattery, selectedVehicle, activeFSDSetting, setTeslaModels, populatePaymentObject);
-                        setActiveFSDSetting(
-                        value === "fsd" ? "autopilot" : "fsd"
-                        );
-                    }}
-                    type="checkbox"
-                    checked={activeFSDSetting === "fsd"}
-                    value={activeFSDSetting}
-                    className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_towHitch_checkbox"
+                    <input 
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            toggleFSD(vehicleBattery, selectedVehicle, activeFSDSetting, setTeslaModels, populatePaymentObject);
+                            activeFSDSetting[selectedVehicle] = value === "fsd" ? "autopilot" : "fsd"
+                            setActiveFSDSetting(activeFSDSetting);
+                        }}
+                        type="checkbox"
+                        checked={activeFSDSetting[selectedVehicle] === "fsd"}
+                        value={activeFSDSetting[selectedVehicle]}
+                        className="app_noSelect vehicleConfig_select vehicleConfig_accessory_select vehicleConfig_towHitch_checkbox"
                     ></input>
                     <span>Full Self Driving - $10,000</span>
                 </ul>

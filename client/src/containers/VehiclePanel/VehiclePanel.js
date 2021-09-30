@@ -66,7 +66,6 @@ const VehiclePanel = ({
 
   const vehicleContainerRef = useRef();
 
-
   useEffect(() => {
     if (zipcode_data.id) {
       getAllVehicles();
@@ -240,6 +239,7 @@ const VehiclePanel = ({
               teslaModels,
               setTeslaModels,
               populatePaymentObject,
+              activeFSDSetting,
               setActiveFSDSetting,
               setActiveOffMenuAutopilot
             );
@@ -260,7 +260,7 @@ const VehiclePanel = ({
               activeFSDSetting,
               teslaModels,
               setTeslaModels,
-              populatePaymentObject
+              populatePaymentObject, 
             );
           }}
           selectOffMenuAutopilot={(selectedOption) => {

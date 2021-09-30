@@ -14,6 +14,7 @@ import addTowHitch from "./addTowHitch";
 import toggleFSD from "./toggleFSD";
 import selectOffMenuAutopilot from "./selectOffMenuAutopilot";
 import setFormInputs from "./setFormInputs";
+import duplicateFSDSetting from "./duplicateFSDSetting";
 
 export {
     removeModel,
@@ -32,4 +33,5 @@ export {
     toggleFSD,
     selectOffMenuAutopilot,
     setFormInputs,
+    duplicateFSDSetting,
 }

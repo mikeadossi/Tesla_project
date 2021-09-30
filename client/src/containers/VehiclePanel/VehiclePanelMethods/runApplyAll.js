@@ -3,9 +3,9 @@ import {
   populatePaymentObject,
   changeVehicleColor, 
   changeVehicleInterior,
-  changeVehicleBattery, 
-  toggleFSD,
+  changeVehicleBattery,
   setFormInputs,
+  duplicateFSDSetting,
 } from "../VehiclePanelMethods/moduleExports";
 
 const runApplyAll = (
@@ -15,9 +15,10 @@ const runApplyAll = (
   vehicleName,
   setTeslaModels,
   activeFormVals,
+  activeFSDSetting,
   setActiveFormVals,
   setActiveFSDSetting,
-  setActiveOffMenuAutopilot
+  setActiveOffMenuAutopilot, 
 ) => {
   // function below applies vehicle attributes to all other vehicles (ramet) based on original (ortet)
   let vehicleList = [...vehiclesRendered];
@@ -117,10 +118,11 @@ const runApplyAll = (
   let result2;
   let result3;
   let result4; 
+  let result5;
 
   vehicleList.map((v) => {
-    if(result4 !== undefined){
-      result = result4;
+    if(result5 !== undefined){
+      result = result5;
     }
 
     result = submitData(v, result, true);
@@ -146,6 +148,7 @@ const runApplyAll = (
         result2,
         setTeslaModels,
         populatePaymentObject,
+        activeFSDSetting,
         setActiveFSDSetting,
         setActiveOffMenuAutopilot,
         true
@@ -157,6 +160,7 @@ const runApplyAll = (
         result2,
         setTeslaModels,
         populatePaymentObject,
+        activeFSDSetting,
         setActiveFSDSetting,
         setActiveOffMenuAutopilot,
         true
@@ -168,6 +172,7 @@ const runApplyAll = (
         result2,
         setTeslaModels,
         populatePaymentObject,
+        activeFSDSetting,
         setActiveFSDSetting,
         setActiveOffMenuAutopilot,
         true
@@ -200,9 +205,74 @@ const runApplyAll = (
       );
     }
 
+    // the model3 off menu vehicle is a special case and if it's our 'ortet' car we'll need the code below
+    if (preferredTrim !== "off_menu" && preferredTrim !== "standard_battery" && preferredTrim !== "plaid") {
+      result5 = duplicateFSDSetting(
+        preferredTrim,
+        v,
+        preferredAutopilotOption,
+        activeFSDSetting,
+        result4, 
+        populatePaymentObject,
+        setActiveFSDSetting, 
+      )
+    } else if (preferredTrim === "plaid") {
+      result5 = duplicateFSDSetting(
+        "performance",
+        v,
+        preferredAutopilotOption,
+        activeFSDSetting,
+        result4, 
+        populatePaymentObject,
+        setActiveFSDSetting, 
+      )
+    } else if (
+      preferredTrim === "off_menu" &&
+      v === "Model 3" &&
+      preferredAutopilotOption === "fsd_and_autopilot"
+    ) {
+      result5 = duplicateFSDSetting(
+        "long_range",
+        v,
+        preferredAutopilotOption,
+        activeFSDSetting,
+        result4, 
+        populatePaymentObject,
+        setActiveFSDSetting, 
+      )
+    } else if (
+      preferredTrim === "off_menu" &&
+      v === "Model 3" &&
+      preferredAutopilotOption === "autopilot_charge"
+    ) {
+      result5 = duplicateFSDSetting(
+        "long_range",
+        v,
+        preferredAutopilotOption,
+        activeFSDSetting,
+        result4, 
+        populatePaymentObject,
+        setActiveFSDSetting, 
+      )
+    } else if (
+      preferredTrim === "off_menu" &&
+      v === "Model 3" &&
+      preferredAutopilotOption === "no_autopilot"
+    ) {
+      result5 = duplicateFSDSetting(
+        "long_range",
+        v,
+        preferredAutopilotOption,
+        activeFSDSetting,
+        result4, 
+        populatePaymentObject,
+        setActiveFSDSetting, 
+      )
+    }
+
   });
 
-  setTeslaModels(result4);
+  setTeslaModels(result5);
 };
 
 export default runApplyAll;

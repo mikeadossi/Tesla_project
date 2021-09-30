@@ -36,6 +36,7 @@ const VehicleConfigUserEntry = ({
   runApplyAll,
   currentUser,
   handleWarning,
+  activeFSDSetting,
   setActiveFSDSetting,
   setActiveOffMenuAutopilot,
 }) => { 
@@ -236,6 +237,7 @@ const VehicleConfigUserEntry = ({
                 vehicleName,
                 setTeslaModels,
                 activeFormVals,
+                activeFSDSetting,
                 setActiveFormVals,
                 setActiveFSDSetting,
                 setActiveOffMenuAutopilot,
@@ -272,11 +274,16 @@ const VehicleConfigUserEntry = ({
   );
 };
 
+function mapStateToProps(state) {
+  return {
+    activeFSDSetting: state.vehiclesReducer.activeFSDSetting,
+  };
+}
 
 const mapDispatchToProps = (dispatch, modelName) => ({
   showApplyAllWarning: showApplyAllWarning(modelName, dispatch),
   showResetWarning: showResetWarning(modelName, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(VehicleConfigUserEntry);
+export default connect(mapStateToProps, mapDispatchToProps)(VehicleConfigUserEntry);
 

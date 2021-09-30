@@ -16,6 +16,7 @@ const DisplayApplyAllWarning = ({
   currentModelName,
   setActiveFSDSetting,
   setActiveOffMenuAutopilot,
+  activeFSDSetting,
 }) => {
   // const currentModelName = useSelector(
   //   (state) => state.navReducer.currentModelName
@@ -91,6 +92,7 @@ const DisplayApplyAllWarning = ({
                 vehicleName,
                 setTeslaModels,
                 activeFormVals,
+                activeFSDSetting,
                 setActiveFormVals,
                 setActiveFSDSetting,
                 setActiveOffMenuAutopilot,
@@ -112,6 +114,7 @@ const mapStateToProps = (state) => {
   return {
     teslaModels: state.vehiclesReducer.vehicleRenderData,
     currentModelName: state.navReducer.currentModelName,
+    activeFSDSetting: state.vehiclesReducer.activeFSDSetting,
   };
 };
 

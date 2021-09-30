@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./GrayBackground.css";
 import HeaderMobileMenu from "../Header/HeaderMobileMenu/HeaderMobileMenu.js";
 import DisplayResetWarning from "../WarningModals/DisplayResetWarning/DisplayResetWarning.js";
@@ -12,8 +12,7 @@ import {
   TOGGLE_LOCATIONS,
 } from "../../config/actions/types";
 
-const GrayBackground = ({
-  menuVisibility,
+const GrayBackground = ({ 
   toggleMobileMenu,
   toggleResetWarning,
   toggleApplyAllWarning,
@@ -30,6 +29,8 @@ const GrayBackground = ({
   activeFormVals,
   setActiveFormVals,
   handleWarning,
+  setActiveOffMenuAutopilot, 
+  setActiveFSDSetting,
 }) => {
   if (
     !displayMobileMenu &&
@@ -71,6 +72,8 @@ const GrayBackground = ({
           activeFormVals={activeFormVals}
           setActiveFormVals={setActiveFormVals}
           handleWarning={handleWarning}
+          setActiveFSDSetting={setActiveFSDSetting}
+          setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
         />
       )}
       {displayLocations && <InfoModal closeLocations={closeLocations} />}
