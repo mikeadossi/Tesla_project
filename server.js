@@ -53,8 +53,20 @@ app.get("/statedata", async (req, res) => {
   }
 });
 
-app.get("/userData", async (req, res) => {
-  console.log("called route /userData");
+app.get("/stateabbr", async (req, res) => { 
+  const {
+    query: { areacode },
+  } = req;
+  console.log('areacode is ----- ',typeof(areacode))
+  try {
+    const rows = await queries.getStateAbbrByAreacode(areacode);
+    return res.status(200).send(rows);
+  } catch (e) {
+    return res.status(500);
+  }
+})
+
+app.get("/userData", async (req, res) => { 
   const {
     query: { abbr },
   } = req;
@@ -81,8 +93,8 @@ app.post("/insertNewUser", async (req, res) => {
 
 app.post("/logUserIntoApp", async (req, res) => {
   const { email, password } = req.body;
-  const getUser = await queries.getUserQuery(email);
-  var result = await passwordHelper.compare(
+  const getUser = await queries.getUserQuery(email); 
+  const result = await passwordHelper.compare(
     password,
     getUser[0]["user_password"]
   );
@@ -91,7 +103,7 @@ app.post("/logUserIntoApp", async (req, res) => {
     let ob = {
       data: getUser,
       success: true,
-      msg: "User logged in successfully",
+      msg: "User logged in successfully"
     };
 
     return res.status(200).json(ob);
@@ -169,13 +181,13 @@ app.get("/allModels", async (req, res) => {
   }
 });
 
-app.post("/sendTempPassword", async (req, res) => {
+app.post("/sendNewPassword", async (req, res) => {
   const {
-    body: { email },
+    body: { email, passw },
   } = req;
-  console.log("Send email to: ", email);
+
   try {
-    const rows = await sendMail(email);
+    const rows = await sendMail(email, passw);
     return res.status(200).send(JSON.stringify(rows));
   } catch (e) {
     return res.status(500);

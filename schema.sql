@@ -32,7 +32,6 @@ CREATE TABLE user_details (
   apply_all_warning_on VARCHAR(255) DEFAULT NULL,
   reset_warning_on VARCHAR(255) DEFAULT NULL, 
   date_joined VARCHAR(255) DEFAULT NULL,
-  temp_password VARCHAR(255) DEFAULT NULL,
 )
 
 CREATE TABLE notifications (

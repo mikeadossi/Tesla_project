@@ -4,11 +4,7 @@ const zipCodes = require("./seed_folder/newestObject");
 const vehiclesObj = require("./seed_folder/vehicles_seedFile");
 const stateDataObj = require("./seed_folder/state_seedFile.js");
 const areaCodesObj = require("./seed_folder/area_codes"); 
-const notificationsArr = require("./seed_folder/notifications"); 
-// const showroomObj = require("./seed_folder/showroomData");
-// const serviceCenterObj = require(".seed_folder/serviceCenterData");
-// const showroomPhoneObj = require("./seed_folder/showroomPhoneNum");
-// const serviceCenterPhoneObj = require(".seed_folder/serviceCenterPhoneNum");
+const notificationsArr = require("./seed_folder/notifications");
 
 
 let queries = {
@@ -25,6 +21,18 @@ let queries = {
     return new Promise((resolve, reject) => {
       pool.query(
         `SELECT * from state_data where state_abbr="${abbr}"`,
+        (err, rows) => {
+          if (err) return reject(err);
+          return resolve(rows);
+        }
+      );
+    });
+  },
+
+  getStateAbbrByAreacode: function (areacode) { 
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `SELECT * from area_codes where id=${areacode}`,
         (err, rows) => {
           if (err) return reject(err);
           return resolve(rows);

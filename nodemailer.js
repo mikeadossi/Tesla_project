@@ -14,12 +14,12 @@ const transporter = nodemailer.createTransport({
   logger: true, 
 });
 
-const sendMail = (to, passw) => { 
+const sendMail = (to, passw) => {  
   const options = {
     from: process.env.MAIL_FROM,
     to,
     subject: "Tesla Sidekick Password",
-    html: "<p>Use this password to log into your account: "+passw+"</p>",
+    html: "<div>Use this password to log into your account: "+passw+"</div>",
   };
 
   return new Promise((resolve, reject) => {
@@ -27,8 +27,7 @@ const sendMail = (to, passw) => {
       if (err) {
         console.log("mailer err: ", err);
         reject(err);
-      } else {
-        console.log("Sent: ", info);
+      } else { 
         // also modify temp password on DB!
         resolve(info);
       }

@@ -314,5 +314,5 @@ module.exports = [{"Arizona":[["Scottsdale-Fashion Square","https://www.tesla.co
 ["2627 NE 46th Street\n","Seattle, WA 98105\n"]]],
 
 "Wisconsin":[["Milwaukee","https://www.tesla.com/findus/location/store/milwaukee",
-["12011 W Silver Spring Dr\n","Milwaukee, WI 53225-2913\n"]]
+["12011 W Silver Spring Dr\n","Milwaukee, WI 53225-2913\n"]]]
 }]
