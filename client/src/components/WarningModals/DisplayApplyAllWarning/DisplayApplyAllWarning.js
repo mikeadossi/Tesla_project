@@ -14,6 +14,8 @@ const DisplayApplyAllWarning = ({
   setActiveFormVals,
   handleWarning,
   currentModelName,
+  setActiveFSDSetting,
+  setActiveOffMenuAutopilot,
 }) => {
   // const currentModelName = useSelector(
   //   (state) => state.navReducer.currentModelName
@@ -40,10 +42,6 @@ const DisplayApplyAllWarning = ({
     setApplyAllBool(bool); 
   };
 
-
-  if (currentUser) {
-    console.log("currentUser here- ", currentUser);
-  }
 
   return (
     <div className="displayApplyAllWarning">
@@ -94,6 +92,8 @@ const DisplayApplyAllWarning = ({
                 setTeslaModels,
                 activeFormVals,
                 setActiveFormVals,
+                setActiveFSDSetting,
+                setActiveOffMenuAutopilot,
               );
               closeApplyAllWarning();
               handleWarning(["applyAll", applyAllBool]);

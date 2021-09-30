@@ -36,6 +36,8 @@ const VehicleConfigUserEntry = ({
   runApplyAll,
   currentUser,
   handleWarning,
+  setActiveFSDSetting,
+  setActiveOffMenuAutopilot,
 }) => { 
 
   const dispatch = useDispatch();
@@ -138,6 +140,8 @@ const VehicleConfigUserEntry = ({
         activeFormVals={activeFormVals}
         setActiveFormVals={setActiveFormVals}
         handleWarning={handleWarning}
+        setActiveFSDSetting={setActiveFSDSetting}
+        setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
       />
       <div className="veicleConfig_userEntry_subcontainer">
         <div className="app_displayFlex app_Solar_selectPymt_div">
@@ -233,6 +237,8 @@ const VehicleConfigUserEntry = ({
                 setTeslaModels,
                 activeFormVals,
                 setActiveFormVals,
+                setActiveFSDSetting,
+                setActiveOffMenuAutopilot,
               );
             } else {
               handlePaymentFormSubmit();
