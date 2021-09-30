@@ -4,8 +4,10 @@ const changeVehicleInterior = (
   value,
   teslaModels,
   setTeslaModels,
-  populatePaymentObject
+  populatePaymentObject,
+  runSync,
 ) => {
+
   const model = `${value}`
     .split(" ")
     .map((iv, i) => {
@@ -82,7 +84,11 @@ const changeVehicleInterior = (
 
   // details should remain unchanged, with render changing (also vehicles should remain unchanged)
 
-  setTeslaModels(newTeslaModels);
+  if(!runSync){
+    setTeslaModels(newTeslaModels)
+  } else {
+    return newTeslaModels;
+  };
 }; // handled deep cpy!
 
 export default changeVehicleInterior;

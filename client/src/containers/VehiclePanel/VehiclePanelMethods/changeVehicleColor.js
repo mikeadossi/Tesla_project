@@ -3,7 +3,8 @@ const changeVehicleColor = (
   value,
   teslaModels,
   setTeslaModels,
-  populatePaymentObject
+  populatePaymentObject,
+  runSync,
 ) => {
 
   const model = `${value}`
@@ -66,7 +67,13 @@ const changeVehicleColor = (
     "payment_object"
   ] = populatePaymentObject(currentVehiclePrice, paymentObj);
 
-  setTeslaModels(newTeslaModels);
+
+  if(!runSync){
+    setTeslaModels(newTeslaModels)
+  } else {
+    return newTeslaModels;
+  };
+
 }; // handled deep cpy!
 
 export default changeVehicleColor;

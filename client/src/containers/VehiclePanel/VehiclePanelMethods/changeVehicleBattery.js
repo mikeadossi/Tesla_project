@@ -5,7 +5,8 @@ const changeVehicleBattery = (
   setTeslaModels,
   populatePaymentObject,
   setActiveFSDSetting,
-  setActiveOffMenuAutopilot
+  setActiveOffMenuAutopilot,
+  runSync,
 ) => {
   const model = `${value}`
     .split(" ")
@@ -16,6 +17,7 @@ const changeVehicleBattery = (
       return iv;
     })
     .join("");
+
 
   // handle deep copy on all (relevant) nested objects w/ spread operator
   let newTeslaModels = {
@@ -237,7 +239,12 @@ const changeVehicleBattery = (
 
   // details should remain unchanged, with render changing (also vehicles should remain unchanged)
 
-  setTeslaModels(newTeslaModels);
+  if(!runSync){
+    setTeslaModels(newTeslaModels)
+  } else {
+    return newTeslaModels;
+  };
+  
 }; // handled deep cpy!
 
 export default changeVehicleBattery;

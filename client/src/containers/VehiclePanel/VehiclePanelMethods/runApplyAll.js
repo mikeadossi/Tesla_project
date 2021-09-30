@@ -26,7 +26,7 @@ const runApplyAll = (
   const paymentObj =
     teslaModels["vehicle_render"][vehicleName]["payment_object"];
 
-  const submitData = (modelName) => {
+  const submitData = (modelName, teslaModels, runSync) => {
     // function below updates state with user entries
 
     modelName = modelName
@@ -94,33 +94,44 @@ const runApplyAll = (
       submittedAnnualMiles
     );
 
-    setTeslaModels(vehicleContent);
+    if(!runSync){
+      setTeslaModels(vehicleContent)
+    } else {
+      return vehicleContent;
+    };
   };
 
-  submitData(spacedVehicleName);
+  submitData(spacedVehicleName, teslaModels, false);
 
   const preferredPaint = teslaModels["vehicle_render"][vehicleName]["paint"][0];
-  const preferredTrim = teslaModels["vehicle_render"][vehicleName]["battery"][1];
-  // const wheelSelected = teslaModels["vehicle_render"][vehicleName]["wheel"][0];
+  const preferredTrim = teslaModels["vehicle_render"][vehicleName]["battery"][1]; 
   const preferredInterior =
     teslaModels["vehicle_render"][vehicleName]["interior"][0];
   let preferredBattery =
-    teslaModels["vehicle_render"][vehicleName]["battery"][1];
-  // const layoutSelected = teslaModels["vehicle_render"][vehicleName]["layout"][0];
+    teslaModels["vehicle_render"][vehicleName]["battery"][1]; 
   const preferredAutopilotOption =
     teslaModels["vehicle_render"][vehicleName]["autopilot"][0];
   const universalTrims = ["long_range", "performance"];
 
+  let result = teslaModels;
+  let result2;
+  let result3;
+  let result4; 
 
   vehicleList.map((v) => {
-    submitData(v);
+    if(result4 !== undefined){
+      result = result4;
+    }
 
-    changeVehicleColor(
+    result = submitData(v, result, true);
+
+    result2 = changeVehicleColor(
       preferredPaint,
       v,
-      teslaModels,
+      result, //teslaModels
       setTeslaModels,
-      populatePaymentObject
+      populatePaymentObject,
+      true
     );
 
     // only the Model 3 has a standard/off menu trim option at this time
@@ -129,121 +140,69 @@ const runApplyAll = (
       preferredBattery === "off_menu" ||
       preferredBattery === "standard_battery"
     ) {
-      changeVehicleBattery(
+      result3 = changeVehicleBattery(
         "long_range",
         v,
-        teslaModels,
+        result2,
         setTeslaModels,
         populatePaymentObject,
         setActiveFSDSetting,
-        setActiveOffMenuAutopilot
+        setActiveOffMenuAutopilot,
+        true
       );
     } else if (preferredBattery === "plaid") {
-      changeVehicleBattery(
+      result3 = changeVehicleBattery(
         "performance",
         v,
-        teslaModels,
+        result2,
         setTeslaModels,
         populatePaymentObject,
         setActiveFSDSetting,
-        setActiveOffMenuAutopilot
+        setActiveOffMenuAutopilot,
+        true
       );
     } else { 
-      changeVehicleBattery(
+      result3 = changeVehicleBattery(
         preferredBattery,
         v,
-        teslaModels,
+        result2,
         setTeslaModels,
         populatePaymentObject,
         setActiveFSDSetting,
-        setActiveOffMenuAutopilot
+        setActiveOffMenuAutopilot,
+        true
       );
     }
+
 
     // the model3 and modelY do not have a Cream interior option
     if (preferredInterior === "Cream" && ( v === "Model S" || v === "Model X") ) {
       // this runs only on modelX or modelS
-      changeVehicleInterior(
+      result4 = changeVehicleInterior(
         preferredTrim,
         preferredInterior,
         v,
-        teslaModels,
+        result3,
         setTeslaModels,
-        populatePaymentObject
+        populatePaymentObject,
+        true
       );
     } else if (preferredInterior !== "Cream" && universalTrims.includes(preferredTrim)) {
       // this runs on all 4 vehicles, but ignores trims that are plaid, standard_range or off_menu since these are available on only one vehicle.
-      changeVehicleInterior(
+      result4 = changeVehicleInterior(
         preferredTrim,
         preferredInterior,
         v,
-        teslaModels,
+        result3,
         setTeslaModels,
-        populatePaymentObject
-      );
-    }
-
-    // the model3 off menu vehicle is a special case and if it's our 'ortet' car we'll need the code below
-    if (preferredTrim !== "off_menu" && preferredTrim !== "standard_battery" && preferredTrim !== "plaid") {
-      toggleFSD(
-        preferredTrim,
-        v,
-        preferredAutopilotOption,
-        teslaModels,
-        setTeslaModels,
-        populatePaymentObject
-      );
-    } else if (preferredTrim === "plaid") {
-      toggleFSD(
-        "performance",
-        v,
-        preferredAutopilotOption,
-        teslaModels,
-        setTeslaModels,
-        populatePaymentObject
-      );
-    } else if (
-      preferredTrim === "off_menu" &&
-      v === "Model 3" &&
-      preferredAutopilotOption === "fsd_and_autopilot"
-    ) {
-      toggleFSD(
-        "long_range",
-        v,
-        "fsd",
-        teslaModels,
-        setTeslaModels,
-        populatePaymentObject
-      );
-    } else if (
-      preferredTrim === "off_menu" &&
-      v === "Model 3" &&
-      preferredAutopilotOption === "autopilot_charge"
-    ) {
-      toggleFSD(
-        "long_range",
-        v,
-        "autopilot",
-        teslaModels,
-        setTeslaModels,
-        populatePaymentObject
-      );
-    } else if (
-      preferredTrim === "off_menu" &&
-      v === "Model 3" &&
-      preferredAutopilotOption === "no_autopilot"
-    ) {
-      toggleFSD(
-        "long_range",
-        v,
-        "autopilot",
-        teslaModels,
-        setTeslaModels,
-        populatePaymentObject
+        populatePaymentObject,
+        true
       );
     }
 
   });
+
+  setTeslaModels(result4);
 };
 
 export default runApplyAll;
