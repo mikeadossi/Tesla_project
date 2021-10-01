@@ -12,8 +12,8 @@ const SolarProductPanel = ({
   getAllStateData,
 }) => {
 
-  const [solarStateData, setSolarStateData] = useState("");
-  const [solarProductData, setSolarProductData] = useState("");
+  // const [solarStateData, setSolarStateData] = useState("");
+  // const [solarProductData, setSolarProductData] = useState("");
   const [showSolarConfig, setShowSolarConfig] = useState(false);
   const [recommendedProducts, setRecommendedProducts] = useState("");
   const [recommendedSize, setRecommendedSize] = useState("");
@@ -22,21 +22,7 @@ const SolarProductPanel = ({
     if (zipcode_data.id) { 
       getAllStateData(zipcode_data.state_abbr);
     }
-  }, [zipcode_data]); // this becomes available when we call action getMyZipcodeData()
-
-  useEffect(() => {
-    if (usStatesData[0]) {
-      // show Submit Energy Use options
-      setSolarStateData(() => {
-        return [
-          usStatesData[0]["state_abbr"],
-          zipcode_data["id"],
-          JSON.parse(usStatesData[0]["vehicle_order"]),
-          JSON.parse(usStatesData[0]["payment_object"]),
-        ];
-      });
-    }
-  }, [usStatesData]); // this becomes available when we call action getAllStateData()
+  }, [zipcode_data, getAllStateData]); // this becomes available when we call action getMyZipcodeData()
 
 
   const solarRecommendations = {

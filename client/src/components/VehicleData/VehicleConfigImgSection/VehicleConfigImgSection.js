@@ -20,7 +20,7 @@ const VehicleConfigImgSection = ({
                 renderedTeslaImg +
                 `.png`
             }
-            alt="model 3 image"
+            alt="model 3"
             ></img>
         </div>
 

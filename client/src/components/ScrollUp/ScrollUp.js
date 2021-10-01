@@ -18,7 +18,6 @@ const ScrollUp = ({ vehicleData, vehicleContainerRef }) => {
 
   const handleClick = (e, i) => {
     e.preventDefault();
-    const app_Panel_container = vehicleContainerRef.current;
     window.scroll(
       0,
       findPos(document.querySelector(".app_Panel_container").children[i]) - 165

@@ -93,7 +93,7 @@ const LocationDetails = ({
           <img
             className="locationDetails_projectSun"
             src="../../../../images/Nav/project_sunroof_icon.png"
-            alt="project sun icon"
+            alt="project sun"
           />
         </a>
         <a
@@ -106,7 +106,7 @@ const LocationDetails = ({
           <img
             className="locationDetails_weather"
             src="../../../../images/Nav/weather_icon.svg"
-            alt="weather icon"
+            alt="weather"
           />
         </a>
       </div>

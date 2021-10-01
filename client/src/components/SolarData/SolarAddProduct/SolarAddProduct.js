@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './SolarAddProduct.css';
 
 
 const SolarAddProduct = ({
   setActivePurchase,
   activePurchase,
-  addFutureUserPurchases,
   sumPurchases,
   removeFromActive,
 }) => {

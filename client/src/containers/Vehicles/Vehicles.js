@@ -32,7 +32,7 @@ const Vehicles = ({
         getLocations("all_charging_locations", zipLong, zipLat, statedata)
       );
     }
-  }, [zipcode_data]);
+  }, [zipcode_data, statedata]);
 
   return (
     <div className="vehicles_container app_pageHeight">

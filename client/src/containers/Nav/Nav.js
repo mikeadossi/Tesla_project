@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Nav.css";
 import HeaderLeft from "../../components/Header/HeaderLeft/HeaderLeft.js";
 import HeaderRight from "../../components/Header/HeaderRight/HeaderRight.js";

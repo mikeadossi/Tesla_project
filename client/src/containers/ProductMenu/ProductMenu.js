@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useRef } from "react";
+import React from "react";
 import "./ProductMenu.css";
 import { Link } from "react-router-dom";
 
@@ -11,6 +11,7 @@ const ProductMenu = () => {
             <img
               className="productMenu_hamburger_btn"
               src="../../../../images/Nav/hamburger_grey.png"
+              alt="menu"
             />
           </div>
           <div className="productMenu_btn_container">

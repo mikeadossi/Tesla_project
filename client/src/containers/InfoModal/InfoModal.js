@@ -1,12 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./InfoModal.css";
-import InfoModalData_locations from "../../components/InfoModalData/InfoModalData_locations/InfoModalData_locations"; 
+import InfoModalDataLocations from "../../components/InfoModalData/InfoModalDataLocations/InfoModalDataLocations";
 
-const InfoModal = ({
-  closeLocations,
-}) => { 
-
-
+const InfoModal = ({ closeLocations }) => {
   return (
     <div className="infoModal_backing">
       <div className="infoModal_container">
@@ -23,8 +19,7 @@ const InfoModal = ({
           ></img>
         </div>
 
-        <InfoModalData_locations />
-
+        <InfoModalDataLocations />
       </div>
     </div>
   );

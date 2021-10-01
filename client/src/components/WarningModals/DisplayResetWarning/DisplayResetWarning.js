@@ -11,7 +11,6 @@ const DisplayResetWarning = ({
     (state) => state.navReducer.currentModelName
   );
 
-  const getAllVehicles = useSelector((state) => state.vehiclesReducer.vehicle);
   const vehicleRenderData = useSelector(
     (state) => state.vehiclesReducer.vehicleRenderData
   );

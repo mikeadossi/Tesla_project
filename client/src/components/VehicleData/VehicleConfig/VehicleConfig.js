@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./VehicleConfig.css"; 
 import VehicleConfigPricing from "../../VehicleData/VehicleConfigPricing/VehicleConfigPricing";
 import VehicleConfigUserEntry from "../../VehicleData/VehicleConfigUserEntry/VehicleConfigUserEntry";
@@ -9,7 +9,6 @@ import VehicleConfigInteriors from "../../VehicleData/VehicleConfigInteriors/Veh
 import VehicleConfigAutopilot from "../../VehicleData/VehicleConfigAutopilot/VehicleConfigAutopilot";
 import VehicleConfigTowHitch from "../../VehicleData/VehicleConfigTowHitch/VehicleConfigTowHitch";
 import VehicleConfigLayouts from "../../VehicleData/VehicleConfigLayouts/VehicleConfigLayouts";
-import VehicleMenu from "../VehicleMenu/VehicleMenu";
 import { connect } from "react-redux";
 import {
   UPDATE_VEHICLE_RENDER_DATA,

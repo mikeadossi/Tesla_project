@@ -1,0 +1,13 @@
+.InfoPanelLinks_container div {
+  padding: 5px;
+}
+
+.InfoPanelLinks {
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.InfoPanelLinks:hover {
+  color: steelblue;
+}

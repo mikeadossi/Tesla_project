@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./InfoPanel.css";
-import InfoPanel_locations_nearby from "../../components/InfoPanelData/InfoPanel_locations_nearby/InfoPanel_locations_nearby";
-import InfoPanel_payments from "../../components/InfoPanelData/InfoPanel_payments/InfoPanel_payments";
-import InfoPanel_incentives from "../../components/InfoPanelData/InfoPanel_incentives/InfoPanel_incentives";
-import InfoPanel_warranty from "../../components/InfoPanelData/InfoPanel_warranty/InfoPanel_warranty";
-import InfoPanel_links from "../../components/InfoPanelData/InfoPanel_links/InfoPanel_links";
-import InfoPanel_installation from "../../components/InfoPanelData/InfoPanel_installation/InfoPanel_installation";
-import InfoPanel_roofTypes from "../../components/InfoPanelData/InfoPanel_roofTypes/InfoPanel_roofTypes";
-import InfoPanel_solar_container from "../../components/InfoPanelData/InfoPanel_solar_container/InfoPanel_solar_container";
-import InfoPanel_vehicle_container from "../../components/InfoPanelData/InfoPanel_vehicle_container/InfoPanel_vehicle_container";
-import InfoPanel_neutral_container from "../../components/InfoPanelData/InfoPanel_neutral_container/InfoPanel_neutral_container";
+import InfoPanelLocationsNearby from "../../components/InfoPanelData/InfoPanelLocationsNearby/InfoPanelLocationsNearby";
+import InfoPanelPayments from "../../components/InfoPanelData/InfoPanelPayments/InfoPanelPayments";
+import InfoPanelIncentives from "../../components/InfoPanelData/InfoPanelIncentives/InfoPanelIncentives";
+import InfoPanelWarranty from "../../components/InfoPanelData/InfoPanelWarranty/InfoPanelWarranty";
+import InfoPanelLinks from "../../components/InfoPanelData/InfoPanelLinks/InfoPanelLinks";
+import InfoPanelInstallation from "../../components/InfoPanelData/InfoPanelInstallation/InfoPanelInstallation";
+import InfoPanelRoofTypes from "../../components/InfoPanelData/InfoPanelRoofTypes/InfoPanelRoofTypes";
+import InfoPanelSolarContainer from "../../components/InfoPanelData/InfoPanelSolarContainer/InfoPanelSolarContainer";
+import InfoPanelVehicleContainer from "../../components/InfoPanelData/InfoPanelVehicleContainer/InfoPanelVehicleContainer";
+import InfoPanelNeutralContainer from "../../components/InfoPanelData/InfoPanelNeutralContainer/InfoPanelNeutralContainer";
 import GrayBackground from "../../components/GrayBackground/GrayBackground";
 import { getMyZipcodeData } from "../../config/actions/navActions";
 import { connect, useDispatch } from "react-redux";
@@ -29,16 +29,16 @@ const InfoPanel = (props) => {
       type: GET_LOCATIONS,
       payload: allLocations,
     });
-  }, [allLocations]);
+  }, [allLocations, dispatch]);
 
   const [visibility, setVisibility] = useState({
-    InfoPanel_locations_nearby: false,
-    InfoPanel_payments: false,
-    InfoPanel_links: false,
-    InfoPanel_incentives: false,
-    InfoPanel_warranty: false,
-    InfoPanel_installation: false,
-    InfoPanel_roofTypes: false,
+    InfoPanelLocationsNearby: false,
+    InfoPanelPayments: false,
+    InfoPanelLinks: false,
+    InfoPanelIncentives: false,
+    InfoPanelWarranty: false,
+    InfoPanelInstallation: false,
+    InfoPanelRoofTypes: false,
   });
 
   const showComponent = (value) => {
@@ -66,29 +66,29 @@ const InfoPanel = (props) => {
       <GrayBackground />
       <div className="infoPanel_subcontainer sticky_infoPanel">
         <h3 className="infoPanel_title">INFORMATION</h3>
-        {props.whichComponent == "vehicles" && (
+        {props.whichComponent === "vehicles" && (
           <>
-            <InfoPanel_vehicle_container
+            <InfoPanelVehicleContainer
               showComponent={showComponent}
               vOrder={vOrder}
             />
-            <InfoPanel_neutral_container
+            <InfoPanelNeutralContainer
               showComponent={showComponent}
               vOrder={vOrder}
             />
           </>
         )}
-        {props.whichComponent == "solar" && (
+        {props.whichComponent === "solar" && (
           <>
-            <InfoPanel_solar_container showComponent={showComponent} />
-            <InfoPanel_neutral_container showComponent={showComponent} />
+            <InfoPanelSolarContainer showComponent={showComponent} />
+            <InfoPanelNeutralContainer showComponent={showComponent} />
           </>
         )}
 
         <div>
-          {visibility.InfoPanel_locations_nearby ? (
+          {visibility.InfoPanelLocationsNearby ? (
             <>
-              <InfoPanel_locations_nearby
+              <InfoPanelLocationsNearby
                 vehicleOrder={vOrder}
                 stateAbbr={stateAbbreviation}
                 allShowrooms={props.allShowrooms}
@@ -99,9 +99,9 @@ const InfoPanel = (props) => {
           ) : (
             ""
           )}
-          {visibility.InfoPanel_payments ? (
+          {visibility.InfoPanelPayments ? (
             <>
-              <InfoPanel_payments
+              <InfoPanelPayments
                 vehicleOrder={vOrder}
                 stateAbbr={stateAbbreviation}
                 whichComponent={props.whichComponent}
@@ -110,9 +110,9 @@ const InfoPanel = (props) => {
           ) : (
             ""
           )}
-          {visibility.InfoPanel_links ? (
+          {visibility.InfoPanelLinks ? (
             <>
-              <InfoPanel_links
+              <InfoPanelLinks
                 vehicleOrder={vOrder}
                 stateAbbr={stateAbbreviation}
                 whichComponent={props.whichComponent}
@@ -122,9 +122,9 @@ const InfoPanel = (props) => {
           ) : (
             ""
           )}
-          {visibility.InfoPanel_warranty ? (
+          {visibility.InfoPanelWarranty ? (
             <>
-              <InfoPanel_warranty
+              <InfoPanelWarranty
                 stateAbbr={stateAbbreviation}
                 whichComponent={props.whichComponent}
               />
@@ -132,9 +132,9 @@ const InfoPanel = (props) => {
           ) : (
             ""
           )}
-          {visibility.InfoPanel_incentives ? (
+          {visibility.InfoPanelIncentives ? (
             <>
-              <InfoPanel_incentives
+              <InfoPanelIncentives
                 vehicleOrder={vOrder}
                 vehicleIncentives={vehicleIncentives}
                 solarIncentives={solarIncentives}
@@ -145,9 +145,9 @@ const InfoPanel = (props) => {
           ) : (
             ""
           )}
-          {visibility.InfoPanel_installation ? (
+          {visibility.InfoPanelInstallation ? (
             <>
-              <InfoPanel_installation
+              <InfoPanelInstallation
                 vehicleOrder={vOrder}
                 stateAbbr={stateAbbreviation}
               />
@@ -155,9 +155,9 @@ const InfoPanel = (props) => {
           ) : (
             ""
           )}
-          {visibility.InfoPanel_roofTypes ? (
+          {visibility.InfoPanelRoofTypes ? (
             <>
-              <InfoPanel_roofTypes
+              <InfoPanelRoofTypes
                 vehicleOrder={vOrder}
                 stateAbbr={stateAbbreviation}
               />

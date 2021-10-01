@@ -8,7 +8,7 @@ class SolarRoof extends Component {
           <div className="app_configTitle">Solar Roof</div> 
           <div className="app_Solar_Img_container">
               <div className="vehicleConfig_image_container app_solar_image_container">
-                <img src="../../public/images/model3.png" alt="solar roof image"></img>
+                <img src="../../public/images/model3.png" alt="solar roof"></img>
               </div>
 
               <div className="app_Config_specs_container app_Solar_specs_container">

@@ -17,7 +17,7 @@ const VehicleConfigInteriors = ({
     useEffect(() => {
       const interior = vehicleContent.vehicle_render[name]["interior"][0];
       setActiveInterior(interior); 
-    })
+    }, [name, vehicleContent.vehicle_render])
 
   return (
     <div className="vehicleConfig_selectInteriorColor_container">

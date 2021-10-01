@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./LandingPageRight.css";  
 import { connect } from "react-redux";
 import { TOGGLE_MOBILE_MENU } from "../../../config/actions/types";

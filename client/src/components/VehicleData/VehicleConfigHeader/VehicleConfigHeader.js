@@ -35,7 +35,7 @@ const VehicleConfigHeader = ({
             >
               Specs
             </div> 
-            <a className="app_options_btn app_textdecorationNone" target="_blank" href={inventoryUrl} >Inventory</a>
+            <a className="app_options_btn app_textdecorationNone" target="_blank" rel="noopener noreferrer" href={inventoryUrl} >Inventory</a>
             <div
               className="vehicleConfig_close_container"
               onClick={() => removeModel(selectedVehicle)}

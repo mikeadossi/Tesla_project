@@ -7,7 +7,7 @@ const changeVehicleBattery = (
   activeFSDSetting,
   setActiveFSDSetting,
   setActiveOffMenuAutopilot,
-  runSync,
+  runSync
 ) => {
   const model = `${value}`
     .split(" ")
@@ -18,7 +18,6 @@ const changeVehicleBattery = (
       return iv;
     })
     .join("");
-
 
   // handle deep copy on all (relevant) nested objects w/ spread operator
   let newTeslaModels = {
@@ -141,7 +140,7 @@ const changeVehicleBattery = (
   const newWheelSize = batteryOptionsObj["wheel"][wheelName]["image_wheel"];
   vehicleImage = vehicleImage.split("_");
   vehicleImage[2] = img.split("_")[1]; // ex: "perf"
-  if (model === "modelS" && vehicleImage[2] == "plaid") {
+  if (model === "modelS" && vehicleImage[2] === "plaid") {
     vehicleImage[2] = "lr";
   }
   vehicleImage[3] = newWheelSize.split("_")[1];
@@ -188,7 +187,7 @@ const changeVehicleBattery = (
       "included",
     ];
     // setActiveFSDSetting.value("autopilot");
-    activeFSDSetting.value = "autopilot"
+    activeFSDSetting.value = "autopilot";
     setActiveFSDSetting(activeFSDSetting);
   } else if (
     activeSettingName === "fsd_and_autopilot" &&
@@ -200,7 +199,7 @@ const changeVehicleBattery = (
     currentVehiclePrice += fsdPrice;
     newTeslaModels.vehicle_render[model]["autopilot"] = ["fsd", fsdPrice];
     // setActiveFSDSetting.value("fsd");
-    activeFSDSetting.value = "fsd"
+    activeFSDSetting.value = "fsd";
     setActiveFSDSetting(activeFSDSetting);
   } else if (
     activeSettingName === "no_autopilot" &&
@@ -211,7 +210,7 @@ const changeVehicleBattery = (
       "included",
     ];
     // setActiveFSDSetting.value("autopilot");
-    activeFSDSetting.value = "autopilot"
+    activeFSDSetting.value = "autopilot";
     setActiveFSDSetting(activeFSDSetting);
   } else if (activeSettingName !== "fsd" && batterySelected !== "off_menu") {
     newTeslaModels.vehicle_render[model]["autopilot"] = [
@@ -248,12 +247,11 @@ const changeVehicleBattery = (
 
   // details should remain unchanged, with render changing (also vehicles should remain unchanged)
 
-  if(!runSync){
-    setTeslaModels(newTeslaModels)
+  if (!runSync) {
+    setTeslaModels(newTeslaModels);
   } else {
     return newTeslaModels;
-  };
-  
+  }
 }; // handled deep cpy!
 
 export default changeVehicleBattery;

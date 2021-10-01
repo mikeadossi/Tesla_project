@@ -8,8 +8,7 @@ const DisplayApplyAllWarning = ({
   closeApplyAllWarning,
   runApplyAll,
   teslaModels,
-  setTeslaModels,
-  currentUser,
+  setTeslaModels, 
   activeFormVals,
   setActiveFormVals,
   handleWarning,
@@ -18,14 +17,9 @@ const DisplayApplyAllWarning = ({
   setActiveOffMenuAutopilot,
   activeFSDSetting,
 }) => {
-  // const currentModelName = useSelector(
-  //   (state) => state.navReducer.currentModelName
-  // );
+  
   const vehiclesRendered = useSelector(
     (state) => state.vehiclesReducer.vehiclesRendered
-  );
-  const vehicleContent = useSelector(
-    (state) => state.vehiclesReducer.vehicleContent
   );
 
   const vehicleName = currentModelName; // model3

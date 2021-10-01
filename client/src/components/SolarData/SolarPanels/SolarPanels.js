@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./SolarPanels.css";
-import SolarCash from "../../SolarData/Solar_pymt/SolarCash/SolarCash.js";
-import SolarFinance from "../../SolarData/Solar_pymt/SolarFinance/SolarFinance.js";
+import SolarCash from "../../SolarData/SolarPymt/SolarCash/SolarCash.js";
+import SolarFinance from "../../SolarData/SolarPymt/SolarFinance/SolarFinance.js";
 
 const SolarPanels = ({
   recommendedProducts,
@@ -9,8 +9,7 @@ const SolarPanels = ({
   setRecommendedProducts,
   panelOptions,
   recommendedSize,
-  loan_pymts,
-  calculate_loan_pymts,
+  loan_pymts, 
 }) => {
   const [activeSolarBtn, setActiveSolarBtn] = useState("");
   const products = { ...recommendedProducts };
@@ -54,7 +53,7 @@ const SolarPanels = ({
           <img
             className="solar_img"
             src="../../../../images/solar/solar_panels.png"
-            alt="solar panel image"
+            alt="solar panel"
           ></img>
         </div>
 
@@ -83,7 +82,7 @@ const SolarPanels = ({
               userSelectedProduct("4 kW");
             }}
             className={`app_seeMore_btn app_noSelect app_Solar_select_kw_btn select_4kw 
-                  ${activeSolarBtn == "select_4kW" && "solarbtn_selected"}`}
+                  ${activeSolarBtn === "select_4kW" && "solarbtn_selected"}`}
           >
             4.08 kW
           </div>
@@ -93,7 +92,7 @@ const SolarPanels = ({
               userSelectedProduct("8 kW");
             }}
             className={`app_seeMore_btn app_noSelect app_Solar_select_kw_btn select_8kw 
-                  ${activeSolarBtn == "select_8kW" && "solarbtn_selected"}`}
+                  ${activeSolarBtn === "select_8kW" && "solarbtn_selected"}`}
           >
             8.16 kW
           </div>
@@ -103,7 +102,7 @@ const SolarPanels = ({
               userSelectedProduct("12 kW");
             }}
             className={`app_seeMore_btn app_noSelect app_Solar_select_kw_btn select_12kw 
-                  ${activeSolarBtn == "select_12kW" && "solarbtn_selected"}`}
+                  ${activeSolarBtn === "select_12kW" && "solarbtn_selected"}`}
           >
             12.24 kW
           </div>
@@ -113,7 +112,7 @@ const SolarPanels = ({
               userSelectedProduct("16 kW");
             }}
             className={`app_seeMore_btn app_noSelect app_Solar_select_kw_btn select_16kw 
-                  ${activeSolarBtn == "select_16kW" && "solarbtn_selected"}`}
+                  ${activeSolarBtn === "select_16kW" && "solarbtn_selected"}`}
           >
             16.32 kW
           </div>
@@ -160,7 +159,7 @@ const SolarPanels = ({
               setActiveSPPayment("Cash");
             }}
             className={`app_Solar_selectPymt_btn ${
-              activeSPPayment == "Cash" && "selected_payment"
+              activeSPPayment === "Cash" && "selected_payment"
             }`}
           >
             Cash
@@ -171,7 +170,7 @@ const SolarPanels = ({
               setActiveSPPayment("Loan");
             }}
             className={`app_Solar_selectPymt_btn ${
-              activeSPPayment == "Loan" && "selected_payment"
+              activeSPPayment === "Loan" && "selected_payment"
             }`}
           >
             Loan
@@ -181,8 +180,7 @@ const SolarPanels = ({
         {sPVisibility.Loan ? (
           <SolarFinance
             products={products}
-            loan_pymts={loan_pymts}
-            calculate_loan_pymts={calculate_loan_pymts}
+            loan_pymts={loan_pymts} 
           />
         ) : (
           ""

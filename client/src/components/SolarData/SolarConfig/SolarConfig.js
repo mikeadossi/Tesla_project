@@ -153,24 +153,17 @@ const SolarConfig = ({
           panelOptions={panelOptions}
           recommendedSize={recommendedSize}
           loan_pymts={loan_pymts}
-          calculate_loan_pymts={calculate_loan_pymts}
         />
         <div className="app_config_border"></div>
         <SolarPowerWall
-          recommendedProducts={recommendedProducts}
-          activePurchase={activePurchase}
-          setActivePurchase={setActivePurchase}
-          sumPurchases={sumPurchases}
-          powerwallPricing={powerwallPricing}
-          recommendedSize={recommendedSize} 
+          recommendedProducts={recommendedProducts} 
+          powerwallPricing={powerwallPricing} 
           loan_pymts={loan_pymts}
-          calculate_loan_pymts={calculate_loan_pymts}
         />
       </div>
       <SolarAddProduct
         setActivePurchase={setActivePurchase}
         activePurchase={activePurchase}
-        addFutureUserPurchases={addFutureUserPurchases}
         sumPurchases={sumPurchases}
         removeFromActive={removeFromActive}
       />

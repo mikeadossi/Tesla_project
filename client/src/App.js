@@ -18,46 +18,19 @@ import Lost from "./containers/Lost/Lost";
 import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
 import { connect } from "react-redux";
 import { getMyZipcodeData } from "./config/actions/navActions";
-import { getStateAbbrWithAreacode } from "./config/actions/navActions";
-import { getAllStateData } from "./config/actions/usStateActions";
+import { getZipDataWithAreaCode } from "./config/actions/navActions";
 import moment from "moment-timezone";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import axios from "axios"; 
 
 const App = ({
   zipcodeData,
   getMyZipcodeData,
-  stateData,
-  stateAbbr,
-  getStateAbbrWithAreacode,
-  getAllStateData,
+  getZipDataWithAreaCode, 
 }) => {
-
-
-
-
-
-  const getDefaultZip = () => {
-    // let result = stateData[0]["vehicle_order"];
-    // result = JSON.parse(result)
-    // result = result["default_zipcode"]
-    // return result;
-  };
-
-
-
 
   const acceptZipOrAreacode = (val) => {
     if (val.length === 3 && Number(val)) {
-      // getStateAbbrWithAreacode(val);
-      // console.log('App.js stateAbbr- ',stateAbbr);
-
-      // getAllStateData(stateAbbr);
-      // if(stateData){ console.log('App.js stateData- ',stateData);}
-
-      // let defaultZip = getDefaultZip();
-      // console.log('dz- ',defaultZip);
-      // getMyZipcodeData(defaultZip);
+      getZipDataWithAreaCode(val);
     } else if (val.length < 6 && val.length > 3 && Number(val)) {
       // 1001 and 90210 are both valid zip codes, so we must allow for 4/5 digit zip codes
       getMyZipcodeData(val);
@@ -65,14 +38,6 @@ const App = ({
       console.log('ERROR! Enter valid 3 digit area code or 4/5 digit zip code')
     };
   };
-
-
-
-
-
-
-
-
 
   const [menuVisibility, setMenuVisibility] = useState({
     mobileMenu: false,
@@ -308,11 +273,6 @@ const App = ({
     );
   };
 
-  // useEffect(() => {
-  //   // write code to pull notifications from DB (check for updates)
-  //   // if there are updates use setNotifications
-  //   console.log("check for notifications");
-  // }, []);
 
   useEffect(() => {
     if (currentUser) {
@@ -322,7 +282,7 @@ const App = ({
         notifications_on: currentUser["notifications_on"],
       });
     }
-  }, [currentUser]);
+  }, [currentUser, setWarnings]);
 
   useEffect(() => {
     if (zipcodeData.city) {
@@ -491,15 +451,11 @@ const App = ({
 function mapStateToProps(state) {
   return {
     error: state.navReducer.error,
-    zipcodeData: state.navReducer.zipcode_data,
-    // stateAbbr: state.navReducer.stateAbbr,
-    // stateData: state.usStateReducer.usStatesData,
+    zipcodeData: state.navReducer.zipcode_data, 
   };
 }
 
 export default connect(mapStateToProps, {
   getMyZipcodeData,
-  getStateAbbrWithAreacode,
-  getAllStateData,
-})(App);
-// export default connect(mapStateToProps, { getMyZipcodeData })(App);
+  getZipDataWithAreaCode,
+})(App); 

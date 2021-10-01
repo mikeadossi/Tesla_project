@@ -9,17 +9,16 @@ const Notifications = ({ currentUser, setCurrentUser }) => {
     if (!currentUser) {
       history.push("/lost");
     }
-  }, [currentUser]);
+  }, [currentUser, history]);
 
   useEffect(() => {
     return () => {
       setCurrentUser({
         ...currentUser,
         notifications_last_viewed_on: new Date(),
-      });
-      console.log('last viewed notifications:--- ',currentUser["notifications_last_viewed_on"])
+      }); 
     };
-  }, []);
+  }, [setCurrentUser, currentUser]);
 
 
   return (
@@ -49,6 +48,7 @@ const Notifications = ({ currentUser, setCurrentUser }) => {
             <a
               href="https://electrek.co/2021/08/25/tesla-releases-new-mobile-app-ui-refresh-tons-features/"
               target="_blank"
+              rel="noopener noreferrer"
               className="app_textdecorationNone app_options_btn app_padding_left"
             >
               electrek
@@ -62,6 +62,7 @@ const Notifications = ({ currentUser, setCurrentUser }) => {
             <a
               href="https://electrek.co/2021/08/30/tesla-pushes-new-software-update-to-improve-model-s-suspension-autopark/"
               target="_blank"
+              rel="noopener noreferrer"
               className="app_textdecorationNone app_options_btn app_padding_left"
             >
               electrek
@@ -75,6 +76,7 @@ const Notifications = ({ currentUser, setCurrentUser }) => {
             <a
               href="https://www.tesla.com/blog/model-y-achieves-5-star-overall-safety-rating-nhtsa"
               target="_blank"
+              rel="noopener noreferrer"
               className="app_textdecorationNone app_options_btn app_padding_left"
             >
               Tesla Blog

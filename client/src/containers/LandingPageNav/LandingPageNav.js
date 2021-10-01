@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./LandingPageNav.css";
 import LandingPageCenter from "../../components/LandingPage/LandingPageCenter/LandingPageCenter.js";
 import LandingPageRight from "../../components/LandingPage/LandingPageRight/LandingPageRight.js";

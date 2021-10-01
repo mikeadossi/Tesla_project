@@ -1,7 +1,6 @@
 import * as types from "./types";
 import axios from "axios";
-import { hasAValue } from "../../helpers/helper";
-import {  connect } from "react-redux"
+import { hasAValue } from "../../helpers/helper"; 
 
 export const getMyZipcodeData = (zip) => async (dispatch) => {
   try {
@@ -21,23 +20,6 @@ export const getMyZipcodeData = (zip) => async (dispatch) => {
   }
 }; 
 
-export const getStateAbbrWithAreacode = (areacode) => async (dispatch) => {
-  try { 
-    const res = await axios.get(`http://localhost:3002/stateabbr?areacode=${areacode}`);
-    dispatch({
-      type: types.GET_STATE_ABBR,
-      payload: res.data,
-    });
-  } catch (err) {
-    console.log(err);
-    if (hasAValue(err.response) && hasAValue(err.response.data)) {
-      dispatch({
-        type: types.GET_STATE_ABBR_ERROR,
-        payload: err.response.data,
-      });
-    }
-  }
-}
 
 export const showApplyAllWarning = () => async (modelName, dispatch) => { // action creator - creates and returns action object
   dispatch({ // action - plain JavaScript object that has a type field.
@@ -58,4 +40,22 @@ export const showLocations = (dispatch, locations) => () => {
     type: types.TOGGLE_LOCATIONS, 
     payload: locations,
   });
+}; 
+
+export const getZipDataWithAreaCode = (areacode) => async (dispatch) => {
+  try {
+    const res = await axios.get(`http://localhost:3002/areacode?areacode=${areacode}`);
+    dispatch({
+      type: types.GET_ALL_ZIPCODE_DATA,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    if (hasAValue(err.response) && hasAValue(err.response.data)) {
+      dispatch({
+        type: types.GET_ALL_ZIPCODE_DATA_ERROR,
+        payload: err.response.data,
+      });
+    }
+  }
 }; 

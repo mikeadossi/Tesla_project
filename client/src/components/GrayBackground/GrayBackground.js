@@ -67,8 +67,7 @@ const GrayBackground = ({
         <DisplayApplyAllWarning
           closeApplyAllWarning={closeApplyAllWarning}
           runApplyAll={runApplyAll}
-          setTeslaModels={setTeslaModels}
-          currentUser={currentUser}
+          setTeslaModels={setTeslaModels} 
           activeFormVals={activeFormVals}
           setActiveFormVals={setActiveFormVals}
           handleWarning={handleWarning}

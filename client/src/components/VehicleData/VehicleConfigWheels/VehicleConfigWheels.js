@@ -19,7 +19,7 @@ const VehicleConfigWheels = ({
   useEffect(() => {
     const wheel = vehicleContent.vehicle_render[name]["wheel"][0];
     setActiveWheel(wheel);
-  })
+  }, [name, vehicleContent.vehicle_render])
 
   return (
     <div className="vehicleConfig_selectWheel_container">
@@ -38,6 +38,7 @@ const VehicleConfigWheels = ({
             >
             <img
                 className="app_noSelect vehicleConfig_wheel_select vehicleConfig_18_inch_aero_wheels"
+                alt="wheel"
                 src={
                 `../../../../images/wheels/` +
                 wheelObject[w]["image_source"] +

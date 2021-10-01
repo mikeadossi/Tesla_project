@@ -15,7 +15,7 @@ const VehicleConfigTowHitch = ({
   useEffect(() => {
     const activeTowHitch = vehicleContent.vehicle_render[name]["tow_hitch"];
     setActiveTowHitch(activeTowHitch);
-  });
+  }, [name, vehicleContent.vehicle_render]);
 
   let towHitchPrice = teslaDetails[vehicleBattery]["tow_hitch"];
   if (towHitchPrice !== null) {

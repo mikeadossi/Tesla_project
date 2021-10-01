@@ -24,7 +24,7 @@ const Settings = ({
         if(!currentUser){
           history.push("/lost"); 
         }
-    }, [currentUser]);
+    }, [currentUser, history]);
 
     const closeAccount = async () => { 
         let newCurrentUser = {...currentUser};

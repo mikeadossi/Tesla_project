@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "./LandingPageCenter.css"; 
 import { Link }  from 'react-router-dom';
 
-const LandingPageCenter = ({}) => {
+const LandingPageCenter = () => {
     
     return (
       <div className="landingPageCenter_container"> 

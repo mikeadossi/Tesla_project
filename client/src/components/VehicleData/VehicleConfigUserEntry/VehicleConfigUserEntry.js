@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
-import Vehicle_userEntry_financing from "../../VehicleData/Vehicle_userEntry/Vehicle_userEntry_financing/Vehicle_userEntry_financing";
-import Vehicle_userEntry_leasing from "../../VehicleData/Vehicle_userEntry/Vehicle_userEntry_leasing/Vehicle_userEntry_leasing";
-import Vehicle_userEntry_cash from "../../VehicleData/Vehicle_userEntry/Vehicle_userEntry_cash/Vehicle_userEntry_cash";
+import VehicleUserEntryFinancing from "../VehicleUserEntry/VehicleUserEntryFinancing/VehicleUserEntryFinancing";
+import VehicleUserEntryLeasing from "../VehicleUserEntry/VehicleUserEntryLeasing/VehicleUserEntryLeasing";
+import VehicleUserEntryCash from "../VehicleUserEntry/VehicleUserEntryCash/VehicleUserEntryCash";
 import GrayBackground from "../../GrayBackground/GrayBackground";
 import { connect, useDispatch } from "react-redux";
-import { useSelector } from "react-redux"; 
+import { useSelector } from "react-redux";
 import { setUserPymtEntry } from "../../../containers/VehiclePanel//VehiclePanelMethods/moduleExports";
 import {
   showApplyAllWarning,
   showResetWarning,
 } from "../../../config/actions/navActions";
-import {
-  ACTIVE_FORM,
-  TOGGLE_APPLY_ALL_WARNING,
-  UPDATE_VEHICLE_RENDER_DATA,
-} from "../../../config/actions/types";
+import { ACTIVE_FORM } from "../../../config/actions/types";
 
 const VehicleConfigUserEntry = ({
   showComponent,
@@ -39,8 +35,7 @@ const VehicleConfigUserEntry = ({
   activeFSDSetting,
   setActiveFSDSetting,
   setActiveOffMenuAutopilot,
-}) => { 
-
+}) => {
   const dispatch = useDispatch();
   const vehicleName = name; //ex: model3
   const spacedVehicleName =
@@ -92,8 +87,13 @@ const VehicleConfigUserEntry = ({
     // setFormError(formError);
 
     // function below updates state with user entries
-    teslaModels = setUserPymtEntry(activeFormVals, vehicleName, teslaModels, setTeslaModels);
-    
+    teslaModels = setUserPymtEntry(
+      activeFormVals,
+      vehicleName,
+      teslaModels,
+      setTeslaModels
+    );
+
     let vehicleContent = {
       ...teslaModels,
       vehicle_render: {
@@ -108,8 +108,10 @@ const VehicleConfigUserEntry = ({
       },
     };
 
-    const configuredPrice = vehicleContent.vehicle_render[vehicleName].cash_price;
-    const paymentObj = vehicleContent.vehicle_render[vehicleName].payment_object; 
+    const configuredPrice =
+      vehicleContent.vehicle_render[vehicleName].cash_price;
+    const paymentObj =
+      vehicleContent.vehicle_render[vehicleName].payment_object;
     const submittedCashDown = activeFormVals["cashDownPayment"];
     const submittedLeaseTerm = activeFormVals["leaseTerm"];
     const submittedLoanTerm = activeFormVals["loanTerm"];
@@ -152,7 +154,7 @@ const VehicleConfigUserEntry = ({
               setActivePayment("Cash");
             }}
             className={`app_Solar_selectPymt_btn ${
-              activePayment == "Cash" && "selected_payment"
+              activePayment === "Cash" && "selected_payment"
             }`}
           >
             Cash
@@ -163,7 +165,7 @@ const VehicleConfigUserEntry = ({
               setActivePayment("Loan");
             }}
             className={`app_Solar_selectPymt_btn ${
-              activePayment == "Loan" && "selected_payment"
+              activePayment === "Loan" && "selected_payment"
             }`}
           >
             Loan
@@ -174,7 +176,7 @@ const VehicleConfigUserEntry = ({
               setActivePayment("Lease");
             }}
             className={`app_Solar_selectPymt_btn ${
-              activePayment == "Lease" && "selected_payment"
+              activePayment === "Lease" && "selected_payment"
             }`}
           >
             Lease
@@ -183,7 +185,7 @@ const VehicleConfigUserEntry = ({
 
         <div className="vehicleConfig_userEntry_containers">
           {visibility.Cash ? (
-            <Vehicle_userEntry_cash
+            <VehicleUserEntryCash
               usStateVehicleOrder={usStateVehicleOrder}
               modelInfo={modelInfo}
               activeFormVals={activeFormVals}
@@ -196,7 +198,7 @@ const VehicleConfigUserEntry = ({
             ""
           )}
           {visibility.Loan ? (
-            <Vehicle_userEntry_financing
+            <VehicleUserEntryFinancing
               usStateVehicleOrder={usStateVehicleOrder}
               modelInfo={modelInfo}
               activeFormVals={activeFormVals}
@@ -208,7 +210,7 @@ const VehicleConfigUserEntry = ({
             ""
           )}
           {visibility.Lease ? (
-            <Vehicle_userEntry_leasing
+            <VehicleUserEntryLeasing
               usStateVehicleOrder={usStateVehicleOrder}
               modelInfo={modelInfo}
               activeFormVals={activeFormVals}
@@ -240,7 +242,7 @@ const VehicleConfigUserEntry = ({
                 activeFSDSetting,
                 setActiveFormVals,
                 setActiveFSDSetting,
-                setActiveOffMenuAutopilot,
+                setActiveOffMenuAutopilot
               );
             } else {
               handlePaymentFormSubmit();
@@ -285,5 +287,7 @@ const mapDispatchToProps = (dispatch, modelName) => ({
   showResetWarning: showResetWarning(modelName, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(VehicleConfigUserEntry);
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(VehicleConfigUserEntry);

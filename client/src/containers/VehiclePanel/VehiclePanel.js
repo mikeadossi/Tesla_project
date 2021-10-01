@@ -28,8 +28,7 @@ import {
   UPDATE_VEHICLE_RENDER_DATA,
   VIEW_RENDERED_OPTIONS,
   TOGGLE_RESET_WARNING,
-  TOGGLE_APPLY_ALL_WARNING,
-  GET_VEHICLE_CONTENT,
+  TOGGLE_APPLY_ALL_WARNING, 
   FSD_SETTING,
   OFFMENU_AUTOPILOT,
   VEHICLE_ORDER,
@@ -71,7 +70,7 @@ const VehiclePanel = ({
       getAllVehicles();
       getAllStateData(zipcode_data.state_abbr);
     }
-  }, [zipcode_data.state_abbr]);
+  }, [zipcode_data.id, zipcode_data.state_abbr, getAllVehicles, getAllStateData]);
 
   useEffect(() => {
     if (usStatesData[0]) {
@@ -89,7 +88,7 @@ const VehiclePanel = ({
         usStatesData[0]
       );
     }
-  }, [usStatesData[0]]);
+  }, [usStatesData[0], changeRegion, setUsStateVehicleOrder, usStatesData, zipcode_data]);
 
   useEffect(() => {
     const payload = usStateVehicleOrder && usStateVehicleOrder[3];
@@ -98,7 +97,7 @@ const VehiclePanel = ({
       setLoadTeslaData(true);
       populateMenu(metaVehicleObj, setMenuOptions);
     }
-  }, [metaVehicleObj, usStateVehicleOrder, loadTeslaData]);
+  }, [metaVehicleObj, usStateVehicleOrder, loadTeslaData, setLoadTeslaData, setMenuOptions, setTeslaModels]);
 
   const runReset = (vehicleName, detailsAndRender) => {
     let selectedModelDetailsObj =
