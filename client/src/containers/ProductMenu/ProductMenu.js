@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ProductMenu.css";
 import { Link } from "react-router-dom";
 
 const ProductMenu = () => {
+  const [alertUser, setAlertUser] = useState([]);
+  // [{"background-color": "darkseagreen"},"You are logged in!"]
+
   return (
     <div className="sticky_productMenu">
       <div className="productMenu_container">
@@ -24,8 +27,8 @@ const ProductMenu = () => {
           </div>
         </div>
       </div>
-      <div className="productMenu_loggedIn_container">
-        <div className="productMenu_loggedIn">You are logged in!</div>
+      <div className="productMenu_loggedIn_container" style={alertUser[0]}>
+        <div className="productMenu_loggedIn">{alertUser[1]}</div>
       </div>
     </div>
   );

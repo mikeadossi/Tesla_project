@@ -32,8 +32,6 @@
 }
 
 .productMenu_loggedIn {
-  background-color: darkseagreen;
-  border: 1px solid seagreen;
   padding: 10px;
   width: 300px;
   border-radius: 6px;
@@ -41,7 +39,6 @@
   text-align: center;
   margin: auto;
   font-weight: bold;
-  display: none;
 }
 
 .productMenu_hamburger_btn {
