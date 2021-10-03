@@ -3,18 +3,18 @@ import "./LogIn.css";
 import { Link, useHistory } from "react-router-dom";  
 import axios from "axios";
 
-const LogIn = ({
-  errorMessage,
-  setErrorMessage,
+const LogIn = ({ 
   loading,
   setLoading, 
   setCurrentUser,
+  alertUser, 
+  setAlertUser,
 }) => {
   const emailLogInRef = useRef();
   const passwordLogInRef = useRef(); 
   const history = useHistory();
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const email = emailLogInRef.current.value;
     const password = passwordLogInRef.current.value;
@@ -49,14 +49,18 @@ const LogIn = ({
 
       if(loggedInUser.data.success){
         setCurrentUser(userObj);
-        setErrorMessage(loggedInUser.data.msg);
+        setAlertUser([{"background-color": "darkseagreen"},loggedInUser.data.msg, "loggedIn_container"])
+        setTimeout(function(){
+          setAlertUser([]);
+        }, 3000); 
         history.push("/");
-      } else {
-        setErrorMessage("Failed to log in! ");
       }
 
-    } catch (e) {
-      setErrorMessage("Failed to log in! ");
+    } catch (e) { 
+      setAlertUser([{"color": "red"},"Email / password is incorrect. Please try again.", "register_login"])
+      setTimeout(function(){
+        setAlertUser([]);
+      }, 7000); 
     }
     setLoading(false);
   }
@@ -106,13 +110,11 @@ const LogIn = ({
               />
             </div>
           </div>
-          {errorMessage ? (
-            <div className="register_alert register_alert_password">
-              {errorMessage}
+          {alertUser[2] === "register_login" ? (
+            <div style={alertUser[0]} className="register_alert register_alert_password">
+              {alertUser[1]}
             </div>
-          ) : (
-            ""
-          )}
+          ) : ""}
           <button
             className="app_register_submit_btn logIn_submit_btn"
             type="submit"

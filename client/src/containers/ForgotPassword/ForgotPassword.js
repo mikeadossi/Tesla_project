@@ -1,53 +1,73 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import "./ForgotPassword.css";
 import axios from "axios";
 
-const ForgotPassword = () => {
-  const [loading, setLoading] = useState(false);
-  const [theResult, setTheResult] = useState("");
+const ForgotPassword = ({
+  alertUser,
+  setAlertUser,
+  loading,
+  setLoading,
+}) => { 
   const emailRef = useRef();
 
   const generatePassword = async () => {
     var length = 10,
-        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-        retVal = "";
+      charset =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+      retVal = "";
     for (var i = 0, n = charset.length; i < length; i++) {
-        retVal += charset.charAt(Math.floor(Math.random() * n));
+      retVal += charset.charAt(Math.floor(Math.random() * n));
     }
     return retVal;
-  }
+  };
 
   async function getTempPassword(e) {
     e.preventDefault();
+    setLoading(true);
     const email = emailRef.current.value;
 
-    const checkEmail = await axios.get(`http://localhost:3002/isUserRegistered?email=${email}`); 
+    const checkEmail = await axios.get(
+      `http://localhost:3002/isUserRegistered?email=${email}`
+    ); 
 
-    if(checkEmail.data.success){
+    if (checkEmail.data.success) {
       const passw = await generatePassword();
       const body = { email, passw };
       const id = checkEmail.data.data[0].id;
 
       let axiosConfig = {
         headers: {
-            'Content-Type': 'application/json'
-        }
+          "Content-Type": "application/json",
+        },
       };
-      await axios.post(`http://localhost:3002/sendNewPassword`, body, axiosConfig);
+      await axios.post(
+        `http://localhost:3002/sendNewPassword`,
+        body,
+        axiosConfig
+      );
 
       const parcel = {
         id,
         ourKey: "user_password",
         ourValue: passw,
-      }
-      await axios.post(`http://localhost:3002/updateUserData`, parcel, axiosConfig);
-
-      setTheResult("SUCCESS! Your new password will arrive in 5 minutes!"); 
-
+      };
+      await axios.post(
+        `http://localhost:3002/updateUserData`,
+        parcel,
+        axiosConfig
+      );
+      setAlertUser([{"color": "green"},"SUCCESS! Your new password will arrive in 5 minutes!", "forgot_password"])
+      setTimeout(function(){
+        setAlertUser([]);
+      }, 4000);
     } else {
-      setTheResult("Email not found"); 
-    }
 
+      setAlertUser([{"color": "red"},"Email not found", "forgot_password"])
+      setTimeout(function(){
+        setAlertUser([]);
+      }, 4000); 
+    }
+    setLoading(false);
   }
 
   return (
@@ -59,37 +79,25 @@ const ForgotPassword = () => {
         </div>
         <div className="forgotPassword_email_container settings_subsection app_displayFlex">
           <div className="settings_text">Enter user email</div>
-          <input className="fogotPassword_email" type="email" ref={emailRef} required />
+          <input
+            className="fogotPassword_email"
+            type="email"
+            ref={emailRef}
+            required
+          />
         </div>
-        {theResult && theResult === "Email not found" ?(
-            <div className="forgotPassword_not_found">
-              {theResult}
-            </div>
-          ) : ""
-        }
-        {theResult && theResult === "SUCCESS! Your new password will arrive in 5 minutes!" ? (
-            <div className="forgotPassword_success">
-              {theResult}
-            </div>
-          ) : ""
-        }
-        {theResult && theResult === "SUCCESS! Your new password will arrive in 5 minutes!" ? (
-          <button
-            className="forgotPassword_close forgotPassword_disable"
-            type="submit"
-            disabled
-          >
-            SUBMIT
-          </button>
+        {alertUser[2] === "forgot_password" ? (
+          <div style={alertUser[0]}>{alertUser[1]}</div>
         ) : (
-          <button
-            className="forgotPassword_close"
-            type="submit"
-            disabled={loading}
-          >
-            SUBMIT
-          </button>
+          ""
         )}
+        <button
+          className="forgotPassword_close"
+          type="submit"
+          disabled={loading}
+        >
+          SUBMIT
+        </button> 
       </form>
     </div>
   );

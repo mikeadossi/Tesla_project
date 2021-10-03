@@ -3,11 +3,11 @@ import "./SignUp.css";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios"; 
 
-const SignUp = ({
-  errorMessage,
-  setErrorMessage,
+const SignUp = ({ 
   loading,
   setLoading, 
+  alertUser, 
+  setAlertUser,
 }) => {
   const emailSignupRef = useRef();
   const passwordSignupRef = useRef();
@@ -20,7 +20,12 @@ const SignUp = ({
     if (
       passwordSignupRef.current.value !== passwordConfirmSignupRef.current.value
     ) {
-      return setErrorMessage("Passwords do not match!");
+      setAlertUser([{"color": "red"},"Passwords do not match! Please try again.", "register_signup"])
+      setTimeout(function(){
+        setAlertUser([]);
+      }, 7000);
+      setLoading(false);
+      return;
     } 
     const email = emailSignupRef.current.value;
     const password = passwordConfirmSignupRef.current.value;
@@ -28,9 +33,14 @@ const SignUp = ({
       setLoading(true); 
       const checkEmail = await axios.get(`http://localhost:3002/isUserRegistered?email=${email}`);
 
-      if (checkEmail.success) {
-        setErrorMessage(`${email} is already used`);
-      } else {
+      if (checkEmail.data.success) { 
+        setAlertUser([{"color": "red"},`${email} is already in use. Try again.`, "register_signup"])
+        setTimeout(function(){
+          setAlertUser([]);
+        }, 5000);
+        setLoading(false);
+        return;
+      } else { 
         let axiosConfig = {
           headers: {
               'Content-Type': 'application/json'
@@ -48,11 +58,19 @@ const SignUp = ({
         } 
         
         await axios.post(`http://localhost:3002/insertNewUser`, body, axiosConfig); 
-        history.push("/userLogIn");
+        setAlertUser([{"color": "green"}, "Your Account has been created!", "register_signup"])
+        setTimeout(function(){
+          setAlertUser([]);
+          history.push("/userLogIn");
+        }, 3000);
+        setLoading(false);
       }
 
-    } catch (e) {
-      setErrorMessage(`${email} is already used`); 
+    } catch (e) { 
+      setAlertUser([{"color": "red"},"ERROR signing up!", "register_signup"])
+      setTimeout(function(){
+        setAlertUser([]);
+      }, 4000); 
     }
     setLoading(false);
   }
@@ -91,7 +109,7 @@ const SignUp = ({
             <div className="signUp_password">
               <input
                 className="app_register_input_box "
-                placeholder="enter password"
+                placeholder="enter 6+ digit password"
                 type="password"
                 ref={passwordSignupRef}
                 required
@@ -107,13 +125,11 @@ const SignUp = ({
               />
             </div>
           </div>
-          {errorMessage ? (
-            <div className="register_alert register_alert_password">
-              {errorMessage}
+          {alertUser[2] === "register_signup" ? (
+            <div style={alertUser[0]}>
+              {alertUser[1]}
             </div>
-          ) : (
-            ""
-          )}
+          ) : ""}
           <button
             className="app_register_submit_btn signUp_submit_btn"
             type="submit"

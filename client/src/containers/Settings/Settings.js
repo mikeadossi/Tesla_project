@@ -1,21 +1,25 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Settings.css";
-import { useHistory } from "react-router-dom"; 
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { emptyZipcodeData } from "../../config/actions/navActions";
 
 const Settings = ({  
     currentUser,
-    setCurrentUser,
-    setNotifications, 
-    warnings,
-    setWarnings,
+    setCurrentUser, 
+    warnings, 
     handleWarning,
+    alertUser, 
+    setAlertUser,
+    loading,
+    setLoading,
+    emptyZipcodeData, 
 }) => { 
     const currentPasswRef = useRef();
     const newPasswRef = useRef();
     const newPasswConfirmRef = useRef();
 
-    const [settingsError, setSettingsError] = useState("");
     const [settingsSuccessMsg, setSettingsSuccessMsg] = useState(""); 
 
     const history = useHistory(); 
@@ -42,16 +46,25 @@ const Settings = ({
         
         if(window.confirm("Are you sure you want to delete your account?")){
             await axios.post(`http://localhost:3002/deleteUserData`, parcel, axiosConfig); 
+            emptyZipcodeData(); 
+            setAlertUser([{"background-color": "grey"},"Account closed succesfully.", "loggedIn_container"])
             history.push("/");
+            setTimeout(function(){
+              setAlertUser([]);
+            }, 4000);
+            
             setCurrentUser({});
         } 
     } 
 
     const changePassword = async (e) => {
         e.preventDefault();
-
-        if(newPasswConfirmRef.current.value !== newPasswRef.current.value){
-            setSettingsError("Passwords do not match!");
+        setLoading(true);
+        if(newPasswConfirmRef.current.value !== newPasswRef.current.value){ 
+            setAlertUser([{"color": "red"},"Passwords do not match!", "register_settings"])
+            setTimeout(function(){
+              setAlertUser([]);
+            }, 4000); 
         } else {
             // confirm submitted "current password" matches users account password
             const axiosConfig = {
@@ -83,11 +96,15 @@ const Settings = ({
                     currentPasswRef.current.value = ''; 
                     setSettingsSuccessMsg("Password has been changed!");
                 }
-            } else {
-                setSettingsError("Incorrect Current Password given!");
+            } else { 
+                setAlertUser([{"color": "red"},"Incorrect Current Password given!", "register_settings"])
+                setTimeout(function(){
+                  setAlertUser([]);
+                }, 4000); 
             }
             
-        } 
+        };
+        setLoading(false);
     }
 
 
@@ -185,13 +202,11 @@ const Settings = ({
                         ref={newPasswConfirmRef} 
                     />
                 </div> 
-                {settingsError ? (
-                    <div className="register_alert register_alert_password">
-                        {settingsError}
+                {alertUser[2] === "register_settings" ? (
+                    <div style={alertUser[0]}>
+                    {alertUser[1]}
                     </div>
-                ) : (
-                    ""
-                )}
+                ) : ""}
                 {settingsSuccessMsg ? (
                     <div className="register_alert_success register_alert_password">
                         {settingsSuccessMsg}
@@ -203,6 +218,7 @@ const Settings = ({
             <button 
                 className="settings_close"
                 type="submit" 
+                disabled={loading}
             >
                 Change Password
             </button>
@@ -221,4 +237,7 @@ const Settings = ({
     </div>
 }
 
-export default Settings;
+
+export default connect(null, {
+    emptyZipcodeData, 
+})(Settings); 
