@@ -23,14 +23,14 @@ const GrayBackground = ({
   displayLocations,
   runReset,
   runApplyAll,
-  currentUser,
-  setCurrentUser,
+  currentUser, 
   setTeslaModels,
   activeFormVals,
   setActiveFormVals,
   handleWarning,
   setActiveOffMenuAutopilot, 
-  setActiveFSDSetting,
+  setActiveFSDSetting, 
+  handleLogOut,
 }) => {
   if (
     !displayMobileMenu &&
@@ -51,8 +51,8 @@ const GrayBackground = ({
       {displayMobileMenu && (
         <HeaderMobileMenu
           closeMobileMenu={closeMobileMenu}
-          currentUser={currentUser}
-          setCurrentUser={setCurrentUser}
+          currentUser={currentUser} 
+          handleLogOut={handleLogOut}
         />
       )}
       {displayResetWarning && (

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import { Route, BrowserRouter, Switch, useHistory } from "react-router-dom";
 import Nav from "./containers/Nav/Nav";
-import LandingPageNav from "./containers/LandingPageNav/LandingPageNav";
+import MobileNav from "./containers/MobileNav/MobileNav";
 import LogIn from "./containers/LogIn/LogIn";
 import SignUp from "./containers/SignUp/SignUp";
 import LocationDetails from "./containers/LocationDetails/LocationDetails";
@@ -21,26 +21,28 @@ import { getMyZipcodeData } from "./config/actions/navActions";
 import { getZipDataWithAreaCode } from "./config/actions/navActions";
 import moment from "moment-timezone";
 import axios from "axios"; 
+import { emptyZipcodeData } from "./config/actions/navActions";
 
-const App = ({
-  zipcodeData,
-  getMyZipcodeData,
-  getZipDataWithAreaCode, 
-}) => {
+const App = ({ zipcodeData, getMyZipcodeData, getZipDataWithAreaCode, emptyZipcodeData }) => {
 
+  const history = useHistory();
 
   const acceptZipOrAreacode = (val) => {
     if (val.length === 3 && Number(val)) {
-      getZipDataWithAreaCode(val); 
+      getZipDataWithAreaCode(val);
     } else if (val.length < 6 && val.length > 3 && Number(val)) {
       // 1001 and 90210 are both valid zip codes, so we must allow for 4/5 digit zip codes
       getMyZipcodeData(val);
-    } else { 
-      setAlertUser([{"background-color": "indianred"},`${val} is an invalid zipcode/areacode`, "loggedIn_container"])
-      setTimeout(function(){
+    } else {
+      setAlertUser([
+        { "background-color": "indianred" },
+        `${val} is an invalid zipcode/areacode`,
+        "loggedIn_container",
+      ]);
+      setTimeout(function () {
         setAlertUser([]);
       }, 4000);
-    };
+    }
   };
 
   const [menuVisibility, setMenuVisibility] = useState({
@@ -280,16 +282,34 @@ const App = ({
 
   const submitZipOrAreacode = (zipcode) => {
     setzipcode("");
-    if(Number(zipcode)){
+    if (Number(zipcode)) {
       acceptZipOrAreacode(zipcode);
-    } else { 
-      setAlertUser([{"background-color": "indianred"},`${zipcode} is not a number`, "loggedIn_container"])
-      setTimeout(function(){
+    } else {
+      setAlertUser([
+        { "background-color": "indianred" },
+        `${zipcode} is not a number`,
+        "loggedIn_container",
+      ]);
+      setTimeout(function () {
         setAlertUser([]);
       }, 4000);
     }
-  }
+  };
 
+  const handleLogOut = () => {
+    try{
+      setCurrentUser(null);
+      setAlertUser([{"background-color": "skyblue"},"You are successfully logged out", "loggedIn_container"]);
+      emptyZipcodeData();
+      setTimeout(function(){
+        setAlertUser([]);
+        console.log('Huhh??')
+      }, 3000);
+      history.push("/");
+    } catch(e){
+      console.log(e)
+    }
+  }
 
   useEffect(() => {
     if (currentUser) {
@@ -353,19 +373,26 @@ const App = ({
       <BrowserRouter>
         <Nav
           menuVisibility={menuVisibility}
-          closeMobileMenu={closeMobileMenu} 
-          currentUser={currentUser}
-          setCurrentUser={setCurrentUser}
+          closeMobileMenu={closeMobileMenu}
+          currentUser={currentUser} 
           notifications={notifications}
           warnings={warnings}
           changeRegion={changeRegion}
           zipcode={zipcode}
-          setzipcode={setzipcode} 
+          setzipcode={setzipcode}
           submitZipOrAreacode={submitZipOrAreacode}
           alertUser={alertUser}
           setAlertUser={setAlertUser}
+          handleLogOut={handleLogOut}
         />
-        <LandingPageNav />
+        <MobileNav
+          menuVisibility={menuVisibility}
+          closeMobileMenu={closeMobileMenu}
+          currentUser={currentUser} 
+          alertUser={alertUser}
+          setAlertUser={setAlertUser}
+          handleLogOut={handleLogOut}
+        />
         <LocationDetails
           ourRegion={ourRegion}
           changeRegion={changeRegion}
@@ -389,12 +416,10 @@ const App = ({
           zipcode={zipcode}
           setzipcode={setzipcode}
           sunroofLink={sunroofLink}
-          weatherLink={weatherLink} 
+          weatherLink={weatherLink}
           submitZipOrAreacode={submitZipOrAreacode}
         />
-        <ProductMenu
-          alertUser={alertUser} 
-        />
+        <ProductMenu alertUser={alertUser} />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route
@@ -413,26 +438,26 @@ const App = ({
             component={() => (
               <Settings
                 currentUser={currentUser}
-                setCurrentUser={setCurrentUser} 
-                warnings={warnings} 
+                setCurrentUser={setCurrentUser}
+                warnings={warnings}
                 handleWarning={handleWarning}
                 alertUser={alertUser}
                 setAlertUser={setAlertUser}
                 loading={loading}
-                setLoading={setLoading} 
+                setLoading={setLoading}
               />
             )}
           />
           <Route exact path="/lost" component={Lost} />
-          <Route 
-            exact 
-            path="/forgotPassword" 
+          <Route
+            exact
+            path="/forgotPassword"
             component={() => (
               <ForgotPassword
                 alertUser={alertUser}
                 setAlertUser={setAlertUser}
               />
-            )} 
+            )}
           />
           <Route
             exact
@@ -489,4 +514,5 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
   getMyZipcodeData,
   getZipDataWithAreaCode,
-})(App); 
+  emptyZipcodeData,
+})(App);

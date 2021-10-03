@@ -1,22 +1,13 @@
 import React from 'react';
 import './HeaderMobileMenu.css';
-import { Link, useHistory }  from 'react-router-dom'; 
+import { Link }  from 'react-router-dom'; 
 
 const HeaderMobileMenu  = ({ 
   closeMobileMenu,
   currentUser,
-  setCurrentUser,
+  handleLogOut,
 }) => { 
-  const history = useHistory();
 
-  function handleLogOut(){
-    try{
-      setCurrentUser(null)
-      history.push("/");
-    } catch(e){
-      console.log(e)
-    }
-  }
 
   return (
     <div className="headerMobileMenu">

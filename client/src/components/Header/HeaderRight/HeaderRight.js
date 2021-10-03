@@ -7,16 +7,10 @@ import { TOGGLE_MOBILE_MENU } from "../../../config/actions/types";
 const HeaderRight = ({ 
   toggleMobileMenu,
   currentUser,
-  setCurrentUser,
   notifications,
-  warnings,
+  warnings, 
+  handleLogOut
 }) => { 
-  const history = useHistory(); 
-
-  function handleLogOut() {
-    setCurrentUser(null);
-    history.push("/");
-  } 
 
   return (
     <div className="headerRight app_marginTop"> 

@@ -17,7 +17,7 @@ const DynamicMenu = ({
   toggleMobileMenu, 
   weatherLink,
   sunroofLink,
-  acceptZipOrAreacode, 
+  submitZipOrAreacode,
 }) => {
   const [sticky, setSticky] = useState(false);
   const [show, setShow] = useState(false);
@@ -131,13 +131,13 @@ const DynamicMenu = ({
                 onChange={(e) => setzipcode(e.target.value)}
                 onKeyPress={(e) => {
                   if (e.key === "Enter") {
-                    acceptZipOrAreacode(zipcode);
+                    submitZipOrAreacode(zipcode)
                   }
                 }}
               />
               <img
                 onClick={() => {
-                  acceptZipOrAreacode(zipcode);
+                  submitZipOrAreacode(zipcode)
                 }}
                 className="app_search_icon dynamicMenu_search_icon"
                 src="../../../../images/Nav/search_icon.png"
