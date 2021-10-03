@@ -1,12 +1,10 @@
-.grayBackground{ 
-    /* background-color: rgba(0, 0, 0, 0.5); */
+.grayBackground{
     height: 100vh;
     z-index: 20;
     position: fixed;
     width: 100%;
     color: black;
     margin-top: 0px;
-    /* margin-left: -20px;  */
     top: 0;
     left: 0;
 }
@@ -14,6 +12,13 @@
 .exitGrayBackground{
     background-color: rgba(0, 0, 0, 0.5);
     width: 70.3%;
+    height: 100vh;
+    position:absolute;
+}
+
+.grayBacking{
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
     height: 100vh;
     position:absolute;
 }

@@ -54,6 +54,16 @@ const GrayBackground = ({
           onClick={() => {closeMobileMenu()}}
         ></div>
       )}
+      {displayResetWarning && (
+        <div 
+          className="grayBacking" 
+        ></div>
+      )}
+      {displayApplyAllWarning && (
+        <div 
+          className="grayBacking" 
+        ></div>
+      )}
       {displayMobileMenu && (
         <HeaderMobileMenu
           closeMobileMenu={closeMobileMenu}
