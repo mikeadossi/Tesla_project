@@ -20,6 +20,11 @@ export default function (state = initialState, action) {
         zipcode_data: action.payload,
         error: "",
       };
+    case types.EMPTY_ZIPCODE_DATA: 
+      return {
+        ...state,
+        zipcode_data: {}, 
+      };
     case types.GET_ALL_ZIPCODE_DATA_ERROR:
       return {
         ...state,

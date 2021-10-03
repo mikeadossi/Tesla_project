@@ -20,6 +20,23 @@ export const getMyZipcodeData = (zip) => async (dispatch) => {
   }
 }; 
 
+export const emptyZipcodeData = () => async (dispatch) => {
+  try { 
+    dispatch({
+      type: types.EMPTY_ZIPCODE_DATA,
+      payload: {},
+    });
+  } catch (err) {
+    console.log(err);
+    if (hasAValue(err.response) && hasAValue(err.response.data)) {
+      dispatch({
+        type: types.EMPTY_ZIPCODE_DATA_ERROR,
+        payload: err.response.data,
+      });
+    }
+  }
+}
+
 
 export const showApplyAllWarning = () => async (modelName, dispatch) => { // action creator - creates and returns action object
   dispatch({ // action - plain JavaScript object that has a type field.
