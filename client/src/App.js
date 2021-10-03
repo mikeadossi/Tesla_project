@@ -28,14 +28,18 @@ const App = ({
   getZipDataWithAreaCode, 
 }) => {
 
+
   const acceptZipOrAreacode = (val) => {
     if (val.length === 3 && Number(val)) {
-      getZipDataWithAreaCode(val);
+      getZipDataWithAreaCode(val); 
     } else if (val.length < 6 && val.length > 3 && Number(val)) {
       // 1001 and 90210 are both valid zip codes, so we must allow for 4/5 digit zip codes
       getMyZipcodeData(val);
-    } else {
-      console.log('ERROR! Enter valid 3 digit area code or 4/5 digit zip code')
+    } else { 
+      setAlertUser([{"background-color": "indianred"},`${val} is an invalid zipcode/areacode`, "loggedIn_container"])
+      setTimeout(function(){
+        setAlertUser([]);
+      }, 4000);
     };
   };
 
@@ -45,7 +49,6 @@ const App = ({
     resetWarning: false,
   });
 
-  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [notifications, setNotifications] = useState(2);
@@ -60,6 +63,8 @@ const App = ({
     zipcodeData.area_codes && zipcodeData.area_codes.split(" / ");
   const [sunroofLink, setSunroofLink] = useState("");
   const [weatherLink, setWeatherLink] = useState("");
+  const [alertUser, setAlertUser] = useState([]);
+  // All alerts: loggedIn_container, register_signup, register_login, register_settings, forgot_password
 
   const closeMobileMenu = () => {
     setMenuVisibility({
@@ -273,6 +278,18 @@ const App = ({
     );
   };
 
+  const submitZipOrAreacode = (zipcode) => {
+    setzipcode("");
+    if(Number(zipcode)){
+      acceptZipOrAreacode(zipcode);
+    } else { 
+      setAlertUser([{"background-color": "indianred"},`${zipcode} is not a number`, "loggedIn_container"])
+      setTimeout(function(){
+        setAlertUser([]);
+      }, 4000);
+    }
+  }
+
 
   useEffect(() => {
     if (currentUser) {
@@ -336,16 +353,17 @@ const App = ({
       <BrowserRouter>
         <Nav
           menuVisibility={menuVisibility}
-          closeMobileMenu={closeMobileMenu}
-          setErrorMessage={setErrorMessage}
+          closeMobileMenu={closeMobileMenu} 
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
           notifications={notifications}
           warnings={warnings}
           changeRegion={changeRegion}
           zipcode={zipcode}
-          setzipcode={setzipcode}
-          acceptZipOrAreacode={acceptZipOrAreacode}
+          setzipcode={setzipcode} 
+          submitZipOrAreacode={submitZipOrAreacode}
+          alertUser={alertUser}
+          setAlertUser={setAlertUser}
         />
         <LandingPageNav />
         <LocationDetails
@@ -371,10 +389,12 @@ const App = ({
           zipcode={zipcode}
           setzipcode={setzipcode}
           sunroofLink={sunroofLink}
-          weatherLink={weatherLink}
-          acceptZipOrAreacode={acceptZipOrAreacode}
+          weatherLink={weatherLink} 
+          submitZipOrAreacode={submitZipOrAreacode}
         />
-        <ProductMenu />
+        <ProductMenu
+          alertUser={alertUser} 
+        />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route
@@ -393,16 +413,27 @@ const App = ({
             component={() => (
               <Settings
                 currentUser={currentUser}
-                setCurrentUser={setCurrentUser}
-                setNotifications={setNotifications}
-                warnings={warnings}
-                setWarnings={setWarnings}
+                setCurrentUser={setCurrentUser} 
+                warnings={warnings} 
                 handleWarning={handleWarning}
+                alertUser={alertUser}
+                setAlertUser={setAlertUser}
+                loading={loading}
+                setLoading={setLoading} 
               />
             )}
           />
           <Route exact path="/lost" component={Lost} />
-          <Route exact path="/forgotPassword" component={ForgotPassword} />
+          <Route 
+            exact 
+            path="/forgotPassword" 
+            component={() => (
+              <ForgotPassword
+                alertUser={alertUser}
+                setAlertUser={setAlertUser}
+              />
+            )} 
+          />
           <Route
             exact
             path="/vehicles"
@@ -421,11 +452,11 @@ const App = ({
             path="/userLogin"
             component={() => (
               <LogIn
-                errorMessage={errorMessage}
-                setErrorMessage={setErrorMessage}
                 loading={loading}
                 setLoading={setLoading}
                 setCurrentUser={setCurrentUser}
+                alertUser={alertUser}
+                setAlertUser={setAlertUser}
               />
             )}
           />
@@ -434,10 +465,10 @@ const App = ({
             path="/userSignup"
             component={() => (
               <SignUp
-                errorMessage={errorMessage}
-                setErrorMessage={setErrorMessage}
                 loading={loading}
                 setLoading={setLoading}
+                alertUser={alertUser}
+                setAlertUser={setAlertUser}
               />
             )}
           />
@@ -451,7 +482,7 @@ const App = ({
 function mapStateToProps(state) {
   return {
     error: state.navReducer.error,
-    zipcodeData: state.navReducer.zipcode_data, 
+    zipcodeData: state.navReducer.zipcode_data,
   };
 }
 
