@@ -66,7 +66,7 @@ const App = ({ zipcodeData, getMyZipcodeData, getZipDataWithAreaCode, emptyZipco
   const [sunroofLink, setSunroofLink] = useState("");
   const [weatherLink, setWeatherLink] = useState("");
   const [alertUser, setAlertUser] = useState([]);
-  // All alerts: loggedIn_container, register_signup, register_login, register_settings, forgot_password
+  // All alerts: user_entry, loggedIn_container, register_signup, register_login, register_settings, forgot_password
 
   const closeMobileMenu = () => {
     setMenuVisibility({
@@ -468,6 +468,8 @@ const App = ({ zipcodeData, getMyZipcodeData, getZipDataWithAreaCode, emptyZipco
                 zipcode={zipcode}
                 currentUser={currentUser}
                 handleWarning={handleWarning}
+                alertUser={alertUser}
+                setAlertUser={setAlertUser}
               />
             )}
           />

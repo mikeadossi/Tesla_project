@@ -7,6 +7,11 @@ const fsdSettingsObj = {
   "Model Y": "autopilot",
 };
 
+const formValsStarter = {
+  leaseInterestRate: 4.80,
+  loanApr: 2.40,
+};
+
 const initialState = {
   vehicle: {},
   error: "",
@@ -19,6 +24,7 @@ const initialState = {
   vehicleOrderObject: [],
   loadTeslaDataBool: false,
   menuOptions: "",
+  activeFormVals: formValsStarter,
 };
 
 export default function state(state = initialState, action) {

@@ -35,21 +35,6 @@ export const emptyZipcodeData = () => async (dispatch) => {
       });
     }
   }
-}
-
-
-export const showApplyAllWarning = () => async (modelName, dispatch) => { // action creator - creates and returns action object
-  dispatch({ // action - plain JavaScript object that has a type field.
-    type: types.TOGGLE_APPLY_ALL_WARNING,
-    payload: modelName,
-  }); 
-};
-
-export const showResetWarning = () => async (modelName, dispatch) => { 
-  dispatch({
-    type: types.TOGGLE_RESET_WARNING,
-    payload: modelName,
-  });
 };
 
 export const showLocations = (dispatch, locations) => () => {

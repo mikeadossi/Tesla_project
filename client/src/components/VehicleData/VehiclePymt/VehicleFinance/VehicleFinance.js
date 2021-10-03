@@ -20,13 +20,13 @@ const VehicleFinance = ({usStateVehicleOrder, vehicleContent, modelInfo}) => {
                 <div>Monthly Pymt: </div>
                 $<input className="vehicleConfig_leasing_monthly app_removeBlue" readOnly value={teslaVC["finance"]["monthlyPymt"].toLocaleString("en-US")} />
             </div>
-            <div className="vehicleConfig_pricing vehicleConfig_customerCashDown">
-                <div>Cash Down: </div>
-                $<input className="vehicleConfig_returnInput app_removeBlue" readOnly value={teslaVC["cashDownPymt"].toLocaleString("en-US")} />
-            </div>
             <div className="vehicleConfig_pricing vehicleConfig_lease">
-                <div>Due at Delivery: </div>
+                <div>Downpayment: </div>
                 $<input className="vehicleConfig_returnInput app_removeBlue" readOnly value={teslaVC["finance"]["dueAtDelivery"].toLocaleString("en-US")} />
+            </div>
+            <div className="vehicleConfig_pricing vehicleConfig_customerCashDown">
+                <div>Amt financed: </div>
+                $<input className="vehicleConfig_returnInput app_removeBlue" readOnly value={teslaVC["finance"]["amtFinanced"].toLocaleString("en-US")} />
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_tradeinPayoff">
                 <div>Trade-in Equity: </div>
@@ -49,7 +49,7 @@ const VehicleFinance = ({usStateVehicleOrder, vehicleContent, modelInfo}) => {
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_stateTax">
                 <div>{usStateVehicleOrder[0]} Total Fees: </div>
-                $<input className="vehicleConfig_returnInput app_removeBlue" readOnly value={teslaVC["stateTotalFees"]} />
+                $<input className="vehicleConfig_returnInput app_removeBlue" readOnly value={teslaVC["stateSalesTax"].toLocaleString("en-US")} />
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_customerCashDown">
                 <div>Finance APR: </div>

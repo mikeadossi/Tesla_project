@@ -3,10 +3,7 @@ import getLoanMonthlyPymt from "./getLoanMonthlyPymt";
 const populatePaymentObject = (
   configuredPrice, 
   paymentObj, 
-  submittedCashDown, 
-  submittedLeaseTerm, 
-  submittedLoanTerm,
-  submittedAnnualMiles
+  submittedCashDown,
   ) => { 
 
   // handle deep copy on all (relevant) nested objects w/ spread operator
@@ -100,10 +97,6 @@ const populatePaymentObject = (
 
   // get lease monthly payment
   let leaseTerm = modelPaymentObj["lease"]["leaseTerm"]; // ex: 36 
-  if(submittedLeaseTerm){ 
-    leaseTerm = JSON.parse(submittedLeaseTerm); 
-  };
-
   let annualMiles = modelPaymentObj["lease"]["annualMiles"]; // ex: 10000
 
   const acquisitionFee = modelPaymentObj["lease"]["acquisitionFee"];

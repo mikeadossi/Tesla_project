@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./VehicleConfigUserEntry.css";
 import VehicleUserEntryFinancing from "../VehicleUserEntry/VehicleUserEntryFinancing/VehicleUserEntryFinancing";
 import VehicleUserEntryLeasing from "../VehicleUserEntry/VehicleUserEntryLeasing/VehicleUserEntryLeasing";
 import VehicleUserEntryCash from "../VehicleUserEntry/VehicleUserEntryCash/VehicleUserEntryCash";
@@ -8,9 +9,17 @@ import { useSelector } from "react-redux";
 import { setUserPymtEntry } from "../../../containers/VehiclePanel//VehiclePanelMethods/moduleExports";
 import {
   showApplyAllWarning,
-  showResetWarning,
+  showResetWarning, 
 } from "../../../config/actions/navActions";
-import { ACTIVE_FORM } from "../../../config/actions/types";
+import {
+  setActiveFormVals,
+} from "../../../config/actions/vehicleActions";
+import { 
+  ACTIVE_FORM,
+  TOGGLE_RESET_WARNING,
+  TOGGLE_APPLY_ALL_WARNING,
+} from "../../../config/actions/types";
+
 
 const VehicleConfigUserEntry = ({
   showComponent,
@@ -33,6 +42,10 @@ const VehicleConfigUserEntry = ({
   activeFSDSetting,
   setActiveFSDSetting,
   setActiveOffMenuAutopilot,
+  alertUser,
+  setAlertUser,
+  setActiveFormVals,
+  activeFormVals,
 }) => {
   const dispatch = useDispatch();
   const vehicleName = name; //ex: model3
@@ -41,10 +54,6 @@ const VehicleConfigUserEntry = ({
       "model"
     ]; //ex: Model 3
 
-  const [activeFormVals, setActiveFormVals] = useState({
-    leaseInterestRate: 4.85,
-    loanApr: 2.49,
-  });
 
   useEffect(() => {
     if (activeFormVals[vehicleName] !== "" || null) {
@@ -73,59 +82,95 @@ const VehicleConfigUserEntry = ({
     });
   };
 
+  const validateInputs = (vehiclePrice) => {
+    const formArr = Object.keys(activeFormVals);
+    let bool = true;
+    let msg = "";
+    let downPymtLimit = Number(vehiclePrice)/3;
+    downPymtLimit = Math.floor(downPymtLimit);
+    let downPymtLimitString = downPymtLimit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    formArr.map((v) => { 
+      if(activeFormVals[v] !== "" && activeFormVals[v] !== null && activeFormVals[v] !== undefined){ 
+        if(isNaN(activeFormVals[v])){
+          bool = false; 
+          msg = "Values must be numbers";
+        };
+        if(Number(activeFormVals["adjustments"]) > 1000){ 
+          bool = false; 
+          msg = "Adjustments must be under $1,000.";
+        };
+        if(Number(activeFormVals["cashDownPayment"]) > downPymtLimit){ 
+          bool = false; 
+          msg = `Down payment can't exceed $${downPymtLimitString}`;
+        };
+      }
+    });
+    console.log(activeFormVals)
+
+    return [bool, msg];
+  }
+
   const handlePaymentFormSubmit = async () => {
     // function below updates state with user entries
-    teslaModels = setUserPymtEntry(
-      activeFormVals,
-      vehicleName,
-      teslaModels,
-      setTeslaModels
-    );
-
-    let vehicleContent = {
-      ...teslaModels,
-      vehicle_render: {
-        ...teslaModels["vehicle_render"],
-
-        [vehicleName]: {
-          ...teslaModels.vehicle_render[vehicleName],
-          ["payment_object"]: {
-            ...teslaModels.vehicle_render[vehicleName]["payment_object"],
-          },
-        },
-      },
-    };
+    setAlertUser([]);
 
     const configuredPrice =
-      vehicleContent.vehicle_render[vehicleName].cash_price;
-    const paymentObj =
-      vehicleContent.vehicle_render[vehicleName].payment_object;
-    const submittedCashDown = activeFormVals["cashDownPayment"];
-    const submittedLeaseTerm = activeFormVals["leaseTerm"];
-    const submittedLoanTerm = activeFormVals["loanTerm"];
-    const submittedAnnualMiles = activeFormVals["annualMiles"];
+      teslaModels.vehicle_render[vehicleName].cash_price;
 
-    // function below runs all necessary lease, finance calculations
-    vehicleContent.vehicle_render[
-      vehicleName
-    ].payment_object = populatePaymentObject(
-      configuredPrice,
-      paymentObj,
-      submittedCashDown,
-      submittedLeaseTerm,
-      submittedLoanTerm,
-      submittedAnnualMiles
-    );
+    const validated = validateInputs(configuredPrice);
 
-    setActiveFormVals({
-      ...activeFormVals,
-      adjustments: "",
-      cashDownPayment: "",
-      tradeInPayoff: "",
-      tradeInValue: ""
-    });
+    if(validated[0] === false){ 
+      console.log('validated[1] msg- ',validated[1])
+      setAlertUser([{}, validated[1], "user_entry"]);
 
-    setTeslaModels(vehicleContent);
+    } else {
+      teslaModels = setUserPymtEntry(
+        activeFormVals,
+        vehicleName,
+        teslaModels,
+        setTeslaModels
+      );
+  
+      let vehicleContent = {
+        ...teslaModels,
+        vehicle_render: {
+          ...teslaModels["vehicle_render"],
+  
+          [vehicleName]: {
+            ...teslaModels.vehicle_render[vehicleName],
+            ["payment_object"]: {
+              ...teslaModels.vehicle_render[vehicleName]["payment_object"],
+            },
+          },
+        },
+      };
+  
+      const configuredPrice =
+        vehicleContent.vehicle_render[vehicleName].cash_price;
+      const paymentObj =
+        vehicleContent.vehicle_render[vehicleName].payment_object;
+      const submittedCashDown = activeFormVals["cashDownPayment"];
+  
+      // function below runs all necessary lease, finance calculations
+      vehicleContent.vehicle_render[
+        vehicleName
+      ].payment_object = populatePaymentObject(
+        configuredPrice,
+        paymentObj,
+        submittedCashDown, 
+      );
+  
+      // setActiveFormVals({
+      //   ...activeFormVals,
+      //   adjustments: "",
+      //   cashDownPayment: "",
+      //   tradeInPayoff: "",
+      //   tradeInValue: ""
+      // });
+  
+      setTeslaModels(vehicleContent);
+    };
   };
 
   return (
@@ -261,6 +306,9 @@ const VehicleConfigUserEntry = ({
         >
           SUBMIT
         </button>
+        {alertUser[2] === "user_entry" ? (
+          <div className="vehicleConfig_error">{alertUser[1]}</div>
+        ) : ""}
       </div>
     </div>
   );
@@ -269,15 +317,25 @@ const VehicleConfigUserEntry = ({
 function mapStateToProps(state) {
   return {
     activeFSDSetting: state.vehiclesReducer.activeFSDSetting,
+    activeFormVals: state.vehiclesReducer.activeFormVals,
   };
 }
 
-const mapDispatchToProps = (dispatch, modelName) => ({
-  showApplyAllWarning: showApplyAllWarning(modelName, dispatch),
-  showResetWarning: showResetWarning(modelName, dispatch),
-});
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(VehicleConfigUserEntry);
+  mapStateToProps, {
+    showApplyAllWarning: (modelName) => (dispatch) =>
+      dispatch({ 
+        type: TOGGLE_APPLY_ALL_WARNING,
+        payload: modelName,
+      }),
+    showResetWarning: (modelName) => (dispatch) =>
+      dispatch({
+        type: TOGGLE_RESET_WARNING,
+        payload: modelName,
+      }),
+    setActiveFormVals: (field) => (dispatch) =>
+    dispatch({
+      type: ACTIVE_FORM,
+      payload: field,
+    }),
+})(VehicleConfigUserEntry);

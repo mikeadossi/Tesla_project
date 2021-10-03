@@ -13,6 +13,8 @@ const Vehicles = ({
   zipcode_data,
   currentUser,
   handleWarning,
+  alertUser,
+  setAlertUser,
 }) => {
   const [allShowrooms, setAllShowrooms] = useState({});
   const [allServiceCenters, setAllServiceCenters] = useState({});
@@ -53,6 +55,8 @@ const Vehicles = ({
           changeRegion={changeRegion}
           currentUser={currentUser}
           handleWarning={handleWarning}
+          alertUser={alertUser}
+          setAlertUser={setAlertUser}
         />
       </div>
     </div>

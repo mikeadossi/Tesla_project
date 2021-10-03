@@ -52,7 +52,7 @@ const VehicleLeasing = ({usStateVehicleOrder, vehicleContent, modelInfo}) => {
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_stateTax">
                 <div>{usStateVehicleOrder[0]} Total Fees: </div>
-                $<input className="vehicleConfig_returnInput app_removeBlue" readOnly value={teslaVC["stateTotalFees"]} />
+                $<input className="vehicleConfig_returnInput app_removeBlue" readOnly value={teslaVC["stateSalesTax"].toLocaleString("en-US")} />
             </div>
             <div className="vehicleConfig_pricing vehicleConfig_customerCashDown">
                 <div>Ann. Miles: </div>

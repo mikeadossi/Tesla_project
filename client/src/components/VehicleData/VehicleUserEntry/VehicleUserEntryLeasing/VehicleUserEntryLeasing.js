@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./VehicleUserEntryLeasing.css";
 
 const VehicleUserEntryLeasing = ({
@@ -8,9 +8,9 @@ const VehicleUserEntryLeasing = ({
   error,
   handleClearField,
 }) => {
+
   return (
-    <div className="VehicleUserEntryLeasing_container">
-      {error && <b>FORM ERROR</b>}
+    <div className="VehicleUserEntryLeasing_container"> 
       <div className="vehicleConfig_userEntry_container1">
         <div className="vehicleConfig_pricing vehicleConfig_pricing_grey vehicleConfig_loanAmtDue">
           <label>Order Payment </label>

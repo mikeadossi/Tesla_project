@@ -28,6 +28,8 @@ const VehicleConfigContainer = ({
   activeOffMenuAutopilot,
   setActiveOffMenuAutopilot,
   handleWarning,
+  alertUser,
+  setAlertUser,
 }) => {
   const name = `${selectedVehicle}`
     .split(" ")
@@ -123,6 +125,8 @@ const VehicleConfigContainer = ({
           activeOffMenuAutopilot={activeOffMenuAutopilot}
           setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
           handleWarning={handleWarning}
+          alertUser={alertUser}
+          setAlertUser={setAlertUser}
         />
       ) : (
         ""

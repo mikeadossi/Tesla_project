@@ -89,10 +89,7 @@ const runApplyAll = (
     ].payment_object = populatePaymentObject(
       configuredPrice,
       paymentObj,
-      submittedCashDown,
-      submittedLeaseTerm,
-      submittedLoanTerm,
-      submittedAnnualMiles
+      submittedCashDown, 
     );
 
     if(!runSync){

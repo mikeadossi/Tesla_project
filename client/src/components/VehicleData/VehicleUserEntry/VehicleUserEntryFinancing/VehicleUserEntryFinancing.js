@@ -54,7 +54,7 @@ const VehicleUserEntryFinancing = ({
           </span>
         </div>
         <div className="vehicleConfig_pricing vehicleConfig_customerCashDown">
-          <label>Cash Down pymt: </label>
+          <label>Downpayment: </label>
           <span className="vehicleConfig_userInput_container">
             <div className="vehicleConfig_userInput_subcontainer">
               $
