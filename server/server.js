@@ -91,19 +91,11 @@ app.post("/logUserIntoApp", async (req, res) => {
     let ob = {
       data: getUser,
       success: true,
-      msg: "User logged in successfully"
+      msg: `${email} logged in successfully`
     };
 
     return res.status(200).json(ob);
-  } else {
-    let ob = {
-      data: {},
-      success: false,
-      msg: "Email / password doesn't match",
-    };
-
-    return res.status(200).json(ob);
-  }
+  };
 });
 
 app.post("/updateUserData", async (req, res) => {
