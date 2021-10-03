@@ -49,6 +49,12 @@ const GrayBackground = ({
   return (
     <div className="grayBackground app_marginTop">
       {displayMobileMenu && (
+        <div 
+          className="exitGrayBackground"
+          onClick={() => {closeMobileMenu()}}
+        ></div>
+      )}
+      {displayMobileMenu && (
         <HeaderMobileMenu
           closeMobileMenu={closeMobileMenu}
           currentUser={currentUser} 
