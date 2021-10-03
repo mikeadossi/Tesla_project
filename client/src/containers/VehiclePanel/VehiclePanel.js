@@ -60,6 +60,8 @@ const VehiclePanel = ({
   setLoadTeslaData,
   menuOptions, 
   setMenuOptions,
+  alertUser,
+  setAlertUser,
 }) => {
   const dispatch = useDispatch();
 
@@ -282,6 +284,8 @@ const VehiclePanel = ({
           activeOffMenuAutopilot={activeOffMenuAutopilot}
           setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
           handleWarning={handleWarning}
+          alertUser={alertUser}
+          setAlertUser={setAlertUser}
         />
       ))}
     </div>

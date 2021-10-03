@@ -25,7 +25,8 @@ const populatePaymentObject = (
   const adjustments = modelPaymentObj["adjustments"];
   const stateTotalFees = modelPaymentObj["stateTotalFees"];
   const stateTaxRate = modelPaymentObj["taxRate"];
-  const modelTax = (stateTaxRate / 100) * configuredPrice;
+  let modelTax = (stateTaxRate / 100) * configuredPrice;
+  modelTax = Math.floor(modelTax);
   const orderPymt = modelPaymentObj["orderPymt"];
   const orderFeeTax = (stateTaxRate / 100) * orderPymt;
   const stateDestinationFee = modelPaymentObj["stateDestinationFee"];
@@ -43,56 +44,53 @@ const populatePaymentObject = (
   modelPaymentObj["nonCashCredit"] = credits;
 
   // get cashDueAtDelivery
-  let stateSalesTax =
-    modelTax + orderFeeTax + stateDestinationFee + stateDocumentationFee;
-  stateSalesTax = Math.floor(stateSalesTax * 100) / 100; 
-  let cashDueAtDelivery =
-    configuredPrice + docFee + stateTotalFees + stateSalesTax; 
-  cashDueAtDelivery =
-    cashDueAtDelivery - credits - orderPymt - tradeInEquity - adjustments; 
-  cashDueAtDelivery = Math.floor(cashDueAtDelivery); 
+  let allFees =
+    modelTax + orderFeeTax + stateDestinationFee + stateDocumentationFee + stateTotalFees;
+  let carCostB4Credits =
+    configuredPrice + docFee + allFees;
+  let carCost =
+    carCostB4Credits - credits - orderPymt - adjustments - tradeInEquity; 
+  carCost = Math.floor(carCost);
 
   modelPaymentObj["modelTax"] = modelTax;
   modelPaymentObj["orderFeeTax"] = orderFeeTax;
-  modelPaymentObj["stateSalesTax"] = stateSalesTax;
-  modelPaymentObj["cashDueAtDelivery"] = cashDueAtDelivery;
+  modelPaymentObj["stateSalesTax"] = Math.floor(allFees); // stateSalesTax is badly named
+  modelPaymentObj["cashDueAtDelivery"] = carCost;
 
   // get loan monthly payment
-  let cashDownPymt = configuredPrice / 100; 
-  if(submittedCashDown && JSON.parse(submittedCashDown) > cashDownPymt){ 
-    cashDownPymt = JSON.parse(submittedCashDown);
-  }
+  let downPymt; 
+  if(submittedCashDown){ 
+    downPymt = JSON.parse(submittedCashDown);
+  } else {
+    downPymt = configuredPrice / 10;
+  };
 
+  let amtFinanced;
 
-  let financeDueAtDelivery = stateTotalFees + stateSalesTax + cashDownPymt;
-  financeDueAtDelivery =
-    financeDueAtDelivery - orderPymt - credits - tradeInEquity;
-  financeDueAtDelivery = Math.floor(financeDueAtDelivery);
-  let equity = 0;
+  if(carCost > 0 && downPymt > carCost){
+    downPymt = carCost; // ensures amtFinanced equals 0
+  } else if(carCost < 0){
+    downPymt = 0;
+    amtFinanced = 0;
+  } else {
+    amtFinanced = carCost - downPymt;
+  };
 
-  if (financeDueAtDelivery <= 0) {
-    equity = financeDueAtDelivery; // this occurs if trade-in equity exceeds amt due
-    financeDueAtDelivery = 0;
-  }
-
-  const amtFinanced = cashDueAtDelivery - financeDueAtDelivery - equity;
   const loanApr = modelPaymentObj["finance"]["loanApr"];
-  let loanTerm = modelPaymentObj["finance"]["loanTerm"]; 
-
-  if(submittedLoanTerm && JSON.parse(submittedLoanTerm) > loanTerm){ 
-    loanTerm = JSON.parse(submittedLoanTerm); 
-  }
+  let loanTerm = modelPaymentObj["finance"]["loanTerm"];
 
   modelPaymentObj["finance"]["monthlyPymt"] = getLoanMonthlyPymt(
     amtFinanced,
     loanApr,
     loanTerm
   );
-  modelPaymentObj["finance"]["dueAtDelivery"] = financeDueAtDelivery;
+  modelPaymentObj["finance"]["dueAtDelivery"] = downPymt; 
   modelPaymentObj["finance"]["amtFinanced"] = amtFinanced;
 
+
+
   // get lease cash down payment
-  modelPaymentObj["cashDownPymt"] = cashDownPymt;
+  modelPaymentObj["cashDownPymt"] = downPymt;
 
   // get lease money factor
   let leaseIntRate = modelPaymentObj["lease"]["leaseInterestRate"];
@@ -102,42 +100,47 @@ const populatePaymentObject = (
 
   // get lease monthly payment
   let leaseTerm = modelPaymentObj["lease"]["leaseTerm"]; // ex: 36 
-  if(submittedLeaseTerm && JSON.parse(submittedLeaseTerm) > leaseTerm){ 
+  if(submittedLeaseTerm){ 
     leaseTerm = JSON.parse(submittedLeaseTerm); 
-  }
+  };
 
   let annualMiles = modelPaymentObj["lease"]["annualMiles"]; // ex: 10000
-  if(submittedAnnualMiles && JSON.parse(submittedAnnualMiles) > annualMiles){ 
-    annualMiles = JSON.parse(submittedAnnualMiles); 
-  }
 
   const acquisitionFee = modelPaymentObj["lease"]["acquisitionFee"];
-  let residualValue = cashDueAtDelivery * 0.64; 
-  if(annualMiles === 12000){  
+  let residualValue = carCostB4Credits * 0.64; 
+  if(annualMiles === 12000){
     residualValue *= 0.9889; // arbitrary 
   } else if(annualMiles === 15000){ 
-    residualValue *= 0.981; // arbitrary 
+    residualValue *= 0.981; // arbitrary
   }
 
-  let netCapitalizedCost =
-    configuredPrice + docFee + acquisitionFee + stateTotalFees;
-  netCapitalizedCost = netCapitalizedCost - cashDownPymt - credits - orderPymt;
+  let netCapitalizedCost = 
+    (configuredPrice - tradeInEquity) + docFee + acquisitionFee + stateTotalFees;
+  netCapitalizedCost = netCapitalizedCost - downPymt - credits - orderPymt;
   const depreciationFee = (netCapitalizedCost - residualValue) / leaseTerm;
   const financeFee = (netCapitalizedCost + residualValue) * moneyFactor;
   const salesTax = (depreciationFee + financeFee) * stateTaxRate;
   let monthlyLeasePymt = depreciationFee + financeFee + salesTax;
 
+  if(monthlyLeasePymt < 0){
+    monthlyLeasePymt = 0;
+  };
+  
   modelPaymentObj["lease"]["monthlyPymt"] = monthlyLeasePymt;
 
   // get lease due at delivery
   const upfrontSalesTax = modelPaymentObj["lease"]["upfrontTaxAmt"];
   let leaseDueAtDelivery =
-    cashDownPymt +
+    downPymt +
     monthlyLeasePymt +
     acquisitionFee +
     upfrontSalesTax +
     stateTotalFees;
   leaseDueAtDelivery = leaseDueAtDelivery - orderPymt - credits;
+
+  if(leaseDueAtDelivery < 0){
+    leaseDueAtDelivery = 0;
+  };
 
   modelPaymentObj["lease"]["dueAtDelivery"] = leaseDueAtDelivery;
   modelPaymentObj["lease"]["residualValue"] = residualValue;
