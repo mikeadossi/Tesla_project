@@ -16,13 +16,11 @@ const VehicleConfigUserEntry = ({
   showComponent,
   visibility,
   setActivePayment,
-  activePayment,
-  renderedTesla,
+  activePayment, 
   name,
   vehicleContent,
   usStateVehicleOrder,
-  populatePaymentObject,
-  // setUserPymtEntry,
+  populatePaymentObject, 
   modelInfo,
   teslaModels,
   setTeslaModels,
@@ -57,8 +55,6 @@ const VehicleConfigUserEntry = ({
     }
   }, [activeFormVals]);
 
-  const [error, setFormError] = useState(false);
-
   const vehiclesRendered = useSelector(
     (state) => state.vehiclesReducer.vehiclesRendered
   );
@@ -78,14 +74,6 @@ const VehicleConfigUserEntry = ({
   };
 
   const handlePaymentFormSubmit = async () => {
-    // let formError = false;
-
-    // if (!activeFormVals["leaseInterestRate"]) {
-    //   formError = true;
-    // }
-
-    // setFormError(formError);
-
     // function below updates state with user entries
     teslaModels = setUserPymtEntry(
       activeFormVals,
@@ -129,7 +117,13 @@ const VehicleConfigUserEntry = ({
       submittedAnnualMiles
     );
 
-    // handleClearField()
+    setActiveFormVals({
+      ...activeFormVals,
+      adjustments: "",
+      cashDownPayment: "",
+      tradeInPayoff: "",
+      tradeInValue: ""
+    });
 
     setTeslaModels(vehicleContent);
   };
@@ -189,10 +183,8 @@ const VehicleConfigUserEntry = ({
               usStateVehicleOrder={usStateVehicleOrder}
               modelInfo={modelInfo}
               activeFormVals={activeFormVals}
-              handleFormChange={handleFormChange}
-              error={error}
-              handleClearField={handleClearField}
-              vehicleName={vehicleName}
+              handleFormChange={handleFormChange} 
+              handleClearField={handleClearField} 
             />
           ) : (
             ""
@@ -202,8 +194,7 @@ const VehicleConfigUserEntry = ({
               usStateVehicleOrder={usStateVehicleOrder}
               modelInfo={modelInfo}
               activeFormVals={activeFormVals}
-              handleFormChange={handleFormChange}
-              error={error}
+              handleFormChange={handleFormChange} 
               handleClearField={handleClearField}
             />
           ) : (
@@ -214,8 +205,7 @@ const VehicleConfigUserEntry = ({
               usStateVehicleOrder={usStateVehicleOrder}
               modelInfo={modelInfo}
               activeFormVals={activeFormVals}
-              handleFormChange={handleFormChange}
-              error={error}
+              handleFormChange={handleFormChange} 
               handleClearField={handleClearField}
             />
           ) : (

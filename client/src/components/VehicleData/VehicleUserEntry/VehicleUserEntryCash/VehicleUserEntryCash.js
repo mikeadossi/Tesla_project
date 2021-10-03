@@ -6,8 +6,7 @@ const VehicleUserEntryCash = ({
   handleFormChange,
   usStateVehicleOrder,
   error,
-  handleClearField,
-  vehicleName,
+  handleClearField, 
 }) => {
   return (
     <div className="VehicleUserEntryCash_container">

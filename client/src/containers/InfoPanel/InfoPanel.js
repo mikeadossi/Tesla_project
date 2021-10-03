@@ -21,7 +21,7 @@ const InfoPanel = (props) => {
     allShowrooms: props.allShowrooms,
     allServiceCenters: props.allServiceCenters,
     allChargingLocations: props.allChargingLocations,
-  };
+  }; 
 
   useEffect(() => {
     // here we pass our state data to our redux store
@@ -116,7 +116,7 @@ const InfoPanel = (props) => {
                 vehicleOrder={vOrder}
                 stateAbbr={stateAbbreviation}
                 whichComponent={props.whichComponent}
-                zipcode={props.zipcode}
+                zipcode={props.zipcode_data.id}
               />
             </>
           ) : (
