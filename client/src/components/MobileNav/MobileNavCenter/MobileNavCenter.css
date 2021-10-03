@@ -1,0 +1,17 @@
+.mobileNavCenter_link {
+  text-align: center;
+  color: white;
+}
+
+.mobileNavCenter_brandname {
+  font-size: 17px;
+  font-weight: bold;
+  padding-top: 15px;
+  text-align: center;
+}
+
+.mobileNavCenter_container {
+  width: 96%;
+  float: right;
+  text-align: right;
+}
