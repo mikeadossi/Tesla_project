@@ -1,17 +1,13 @@
 import React from "react";
 import "./VehicleUserEntryCash.css";
-import { ACTIVE_FORM } from "../../../../config/actions/types";
-import { connect, useDispatch } from "react-redux";
 
 const VehicleUserEntryCash = ({
   activeFormVals,
   handleFormChange,
   usStateVehicleOrder,
   error,
-  handleClearField, 
-  setActiveFormVals, 
+  handleClearField,
 }) => {
-  const dispatch = useDispatch();
 
   return (
     <div className="VehicleUserEntryCash_container">
@@ -98,10 +94,4 @@ const VehicleUserEntryCash = ({
   );
 };
 
-function mapStateToProps(state) {
-  return { 
-    activeFormVals: state.vehiclesReducer.activeFormVals,
-  };
-};
-
-export default connect(mapStateToProps)(VehicleUserEntryCash);
+export default VehicleUserEntryCash;

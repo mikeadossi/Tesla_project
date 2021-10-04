@@ -161,12 +161,31 @@ div{
   border-radius: 25px;
 }
 
+.app_anti_submit_btn{
+  cursor: pointer; 
+  border: none;
+  padding: 9px;
+  background-color: papayawhip;
+  border-radius: 25px;
+  margin-left: 15px;
+  color: black;
+}
+
 .app_submit_btn:hover{
   background-color: rgb(54, 90, 175);
 }
 
+.app_anti_submit_btn:hover{
+  background-color: grey;
+  color: white;
+}
+
 .app_submit_btn:active{
   background-color: rgb(70,110,200);
+}
+
+.app_anti_submit_btn:active{
+  background-color: gainsboro;
 }
 
 .app_main_submit_input{

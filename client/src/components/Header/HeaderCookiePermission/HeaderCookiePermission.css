@@ -4,12 +4,11 @@
     bottom: 0;
     left: 0;
     padding: 2rem 5rem;
-    background-color: #f9f9f9;
+    background-color: papayawhip;
     opacity: .90;
     box-shadow: 0 -8px 20px 0 rgba(0,0,0,.2);
     margin: auto;
-    z-index: 3;
-    display: none;
+    z-index: 3; 
 }
 
 .headerCookiePermission_container div{

@@ -22,10 +22,15 @@ import { getZipDataWithAreaCode } from "./config/actions/navActions";
 import moment from "moment-timezone";
 import axios from "axios"; 
 import { emptyZipcodeData } from "./config/actions/navActions";
+import Cookies from 'universal-cookie';
+import HeaderCookiePermission from "./components/Header/HeaderCookiePermission/HeaderCookiePermission.js";
 
 const App = ({ zipcodeData, getMyZipcodeData, getZipDataWithAreaCode, emptyZipcodeData }) => {
 
   const history = useHistory();
+  const cookies = new Cookies();
+
+
 
   const acceptZipOrAreacode = (val) => {
     if (val.length === 3 && Number(val)) {
@@ -67,6 +72,15 @@ const App = ({ zipcodeData, getMyZipcodeData, getZipDataWithAreaCode, emptyZipco
   const [weatherLink, setWeatherLink] = useState("");
   const [alertUser, setAlertUser] = useState([]);
   // All alerts: user_entry, loggedIn_container, register_signup, register_login, register_settings, forgot_password
+  const [showCookieAsk, setShowCookieAsk] = useState("");
+
+  const cookieStart = () => {
+    if(cookies.get('doNotSetCookie')){
+      return;
+    } else if(!cookies.get('showResetWarning') && !cookies.get('showApplyAllWarning')){
+      setShowCookieAsk(true);
+    } 
+  };
 
   const closeMobileMenu = () => {
     setMenuVisibility({
@@ -76,7 +90,7 @@ const App = ({ zipcodeData, getMyZipcodeData, getZipDataWithAreaCode, emptyZipco
     });
   };
 
-  function inNorCalifornia(county) {
+  const inNorCalifornia = (county) => {
     const norCal = [
       "ALAMEDA",
       "ALPINE",
@@ -312,6 +326,11 @@ const App = ({ zipcodeData, getMyZipcodeData, getZipDataWithAreaCode, emptyZipco
   }
 
   useEffect(() => {
+    cookieStart();
+  });
+
+
+  useEffect(() => {
     if (currentUser) {
       setWarnings({
         apply_all_warning_on: currentUser["apply_all_warning_on"],
@@ -383,7 +402,7 @@ const App = ({ zipcodeData, getMyZipcodeData, getZipDataWithAreaCode, emptyZipco
           submitZipOrAreacode={submitZipOrAreacode}
           alertUser={alertUser}
           setAlertUser={setAlertUser}
-          handleLogOut={handleLogOut}
+          handleLogOut={handleLogOut} 
         />
         <MobileNav
           menuVisibility={menuVisibility}
@@ -500,6 +519,10 @@ const App = ({ zipcodeData, getMyZipcodeData, getZipDataWithAreaCode, emptyZipco
             )}
           />
         </Switch>
+        <HeaderCookiePermission 
+          showCookieAsk={showCookieAsk} 
+          setShowCookieAsk={setShowCookieAsk}
+        />
         <Footer currentUser={currentUser} />
       </BrowserRouter>
     </div>
