@@ -5,21 +5,23 @@ import Cookies from 'universal-cookie';
 const HeaderCookiePermission = ({ showCookieAsk, setShowCookieAsk }) => {
   const cookies = new Cookies();
 
-  const installCookie = (bool) => {
+  const installCookie = (bool) => { 
     if(bool){
-      cookies.set('showResetWarning', true, { path: '/' });
-      cookies.set('showApplyAllWarning', true, { path: '/' });
-      setShowCookieAsk(false);
+      cookies.set('hideResetWarning', "false", { path: '/' });
+      cookies.set('hideApplyAllWarning', "false", { path: '/' });
+      cookies.set('doNotSetCookie', "false", { path: '/' });
+      
+      setShowCookieAsk("false");
     } else {
-      cookies.set('doNotSetCookie', 'are u missing out? u may never know...', { path: '/' });
-      setShowCookieAsk(false);
+      cookies.set('doNotSetCookie', "true", { path: '/' });
+      setShowCookieAsk("false");
     };
   };
 
 
   return (
     <div>
-      {showCookieAsk ? (
+      {showCookieAsk === "true" ? (
         <div className="headerCookiePermission_container app_inlineFlex">
             <div>
               <span className="headerCookiePermission_text">This site uses cookies to help deliver a better experience.</span> 

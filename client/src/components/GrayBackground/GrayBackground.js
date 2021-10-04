@@ -89,6 +89,7 @@ const GrayBackground = ({
           handleWarning={handleWarning}
           setActiveFSDSetting={setActiveFSDSetting}
           setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
+          currentUser={currentUser}
         />
       )}
       {displayLocations && <InfoModal closeLocations={closeLocations} />}

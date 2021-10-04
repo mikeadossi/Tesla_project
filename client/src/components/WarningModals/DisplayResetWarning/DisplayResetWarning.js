@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import "./DisplayResetWarning.css";
+import Cookies from 'universal-cookie';
 
 const DisplayResetWarning = ({
   closeResetWarning,
   runReset,
+  currentUser,
   handleWarning, 
 }) => {
+  const cookies = new Cookies();
+  const [resetBool, setResetBool] = useState("false");
+  const [showToggle, setShowToggle] = useState("");
+
   const currentModelName = useSelector(
     (state) => state.navReducer.currentModelName
   );
@@ -14,8 +20,6 @@ const DisplayResetWarning = ({
   const vehicleRenderData = useSelector(
     (state) => state.vehiclesReducer.vehicleRenderData
   );
-
-  const [resetBool, setResetBool] = useState("false");
 
   const changeResetBool = () => {
     let bool;
@@ -26,6 +30,27 @@ const DisplayResetWarning = ({
     }
     setResetBool(bool); 
   };
+  
+  const permitToShowToggle = () => {
+    // if user is logged in always show toggle, if user is not logged in adhere to cookie settings
+    const resetCookie = cookies.get('hideResetWarning');
+    const doNotSetCookie = cookies.get('doNotSetCookie');
+    if(!currentUser){ 
+      if(doNotSetCookie && doNotSetCookie === "true"){
+        setShowToggle("false");
+        return;
+      } else if(resetCookie && resetCookie === "true" || resetCookie === "false"){
+        setShowToggle("true");
+        return;
+      }
+    };
+    setShowToggle("true");
+  };
+
+  useEffect(() => {
+    permitToShowToggle();
+  }, []);
+  
 
   return (
     <div className="displayApplyAllWarning">
@@ -42,7 +67,7 @@ const DisplayResetWarning = ({
         <div className="warningApplyAllText">
           This action will return all selected vehicle options to base options.
         </div>
-        {resetBool ? ( // TODO: this should search for dontShowResetWarning cookie or currentUser not resetBool
+        {showToggle === "true" ? (
           <div className="reminderContainer">
             <div className="reminderText">Don't show this again</div>
             <input
@@ -81,4 +106,3 @@ const DisplayResetWarning = ({
   );
 };
 export default DisplayResetWarning;
-// display render data

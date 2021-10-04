@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import "./DisplayApplyAllWarning.css";
 import { connect } from "react-redux";
 import { UPDATE_VEHICLE_RENDER_DATA } from "../../../config/actions/types";
+import Cookies from 'universal-cookie';
 
 const DisplayApplyAllWarning = ({
   closeApplyAllWarning,
@@ -16,8 +17,11 @@ const DisplayApplyAllWarning = ({
   setActiveFSDSetting,
   setActiveOffMenuAutopilot,
   activeFSDSetting,
+  currentUser,
 }) => {
-  
+  const cookies = new Cookies();
+  const [showToggle, setShowToggle] = useState("");
+
   const vehiclesRendered = useSelector(
     (state) => state.vehiclesReducer.vehiclesRendered
   );
@@ -37,6 +41,27 @@ const DisplayApplyAllWarning = ({
     setApplyAllBool(bool); 
   };
 
+  const permitToShowToggle = () => {
+    // users who disallow cookies lose the option to toggle reset and apply all warnings
+    // if user is logged in always show toggle, if user is not logged in adhere to cookie settings
+    const applyAllCookie = cookies.get('hideApplyAllWarning');
+    const doNotSetCookie = cookies.get('doNotSetCookie');
+    if(!currentUser){ 
+      if(doNotSetCookie && doNotSetCookie === "true"){
+        setShowToggle("false");
+        return;
+      } else if(applyAllCookie && applyAllCookie === "true" || applyAllCookie === "false"){
+        setShowToggle("true");
+        return;
+      }
+    };
+    setShowToggle("true");
+  };
+
+  useEffect(() => {
+    permitToShowToggle();
+  }, []);
+
 
   return (
     <div className="displayApplyAllWarning">
@@ -54,7 +79,7 @@ const DisplayApplyAllWarning = ({
           This action will apply certain configuration options to all vehicle
           models.
         </div>
-        {applyAllBool ? ( // TODO: this should search for dontShowApplyAllWarning cookie or currentUser not applyAllBool
+        {showToggle === "true" ? (
           <div className="reminderContainer">
             <div className="reminderText">Don't show this again</div>
             <input

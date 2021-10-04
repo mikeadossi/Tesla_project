@@ -28,8 +28,7 @@ const SolarPanels = ({
     setActiveSolarBtn(products["selected_btn"]);
   }, [products]);
 
-  const userSelectedProduct = (v) => {
-    console.log("user selected:", v)
+  const userSelectedProduct = (v) => { 
     setActiveSolarBtn("select_" + v.substring(0, 2) + "kW");
     setRecommendedProducts(solarRecommendations[panelOptions[v]]);
   };
@@ -124,8 +123,7 @@ const SolarPanels = ({
           activeSolarBtn === "select_32kW" ? (
             <select
               className={`app_Solar_select app_removeBlue select_20kW select_24kW select_28kW select_32kW solarbtn_selected`}
-              onChange={(event) => {
-                console.log("ev: ", event);
+              onChange={(event) => { 
                 userSelectedProduct(event.target.value);
               }}
               value={selectValue}

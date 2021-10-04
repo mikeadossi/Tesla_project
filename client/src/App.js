@@ -25,7 +25,12 @@ import { emptyZipcodeData } from "./config/actions/navActions";
 import Cookies from 'universal-cookie';
 import HeaderCookiePermission from "./components/Header/HeaderCookiePermission/HeaderCookiePermission.js";
 
-const App = ({ zipcodeData, getMyZipcodeData, getZipDataWithAreaCode, emptyZipcodeData }) => {
+const App = ({ 
+  zipcodeData, 
+  getMyZipcodeData, 
+  getZipDataWithAreaCode, 
+  emptyZipcodeData,
+}) => {
 
   const history = useHistory();
   const cookies = new Cookies();
@@ -77,8 +82,8 @@ const App = ({ zipcodeData, getMyZipcodeData, getZipDataWithAreaCode, emptyZipco
   const cookieStart = () => {
     if(cookies.get('doNotSetCookie')){
       return;
-    } else if(!cookies.get('showResetWarning') && !cookies.get('showApplyAllWarning')){
-      setShowCookieAsk(true);
+    } else if(!cookies.get('hideResetWarning') && !cookies.get('hideApplyAllWarning')){
+      setShowCookieAsk("true");
     } 
   };
 
@@ -253,45 +258,56 @@ const App = ({ zipcodeData, getMyZipcodeData, getZipDataWithAreaCode, emptyZipco
   };
 
   const handleWarning = async (val) => {
+    // this function tells redux whether to show one of 2 warning modals or not.
+    // val is an array, ex: ["reset","true"] or ["applyAll","true"]
+    
     if (!currentUser) {
-      // val is returned as an array, ex: ["reset","true"] or ["applyAll","true"]
-      if (val[1] === "true") {
-        // set cookie for val[0] to val[1]
-        console.log(val[0] + " is set to true!");
+      
+      const hideResetWarning = cookies.get('hideResetWarning');
+      const hideApplyAllWarning = cookies.get('hideApplyAllWarning');
+      const cookieOne = hideResetWarning === "true" || hideResetWarning === "false";
+      const cookieTwo = hideApplyAllWarning === "true" || hideApplyAllWarning === "false";
+
+      if(hideResetWarning && cookieOne && cookieTwo){ 
+
+        if(val[0] === "reset"){  cookies.set('hideResetWarning', val[1], { path: '/' }); };
+        if(val[0] === "applyAll"){  cookies.set('hideApplyAllWarning', val[1], { path: '/' }); };
+
+      };       
+    
+    } else if (currentUser) {
+
+      let newWarnings = { ...warnings };
+      let newCurrentUser = { ...currentUser }; 
+
+      if (newWarnings[val] === "true") {
+        newWarnings[val] = "false";
+        newCurrentUser[val] = "false";
+      } else if (newWarnings[val] === "false") {
+        newWarnings[val] = "true";
+        newCurrentUser[val] = "true";
       }
-      return;
-    }
+      setWarnings(newWarnings);
+      setCurrentUser(newCurrentUser);
 
-    let newWarnings = { ...warnings };
-    let newCurrentUser = { ...currentUser };
+      let axiosConfig = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
 
-    if (newWarnings[val] === "true") {
-      newWarnings[val] = "false";
-      newCurrentUser[val] = "false";
-    } else if (newWarnings[val] === "false") {
-      newWarnings[val] = "true";
-      newCurrentUser[val] = "true";
-    }
-    setWarnings(newWarnings);
-    setCurrentUser(newCurrentUser);
+      const parcel = {
+        id: newCurrentUser.id,
+        ourKey: val,
+        ourValue: newCurrentUser[val],
+      };
 
-    let axiosConfig = {
-      headers: {
-        "Content-Type": "application/json",
-      },
+      await axios.post(
+        `http://localhost:3002/updateUserData`,
+        parcel,
+        axiosConfig
+      );
     };
-
-    const parcel = {
-      id: newCurrentUser.id,
-      ourKey: val,
-      ourValue: newCurrentUser[val],
-    };
-
-    await axios.post(
-      `http://localhost:3002/updateUserData`,
-      parcel,
-      axiosConfig
-    );
   };
 
   const submitZipOrAreacode = (zipcode) => {
@@ -317,18 +333,41 @@ const App = ({ zipcodeData, getMyZipcodeData, getZipDataWithAreaCode, emptyZipco
       emptyZipcodeData();
       setTimeout(function(){
         setAlertUser([]);
-        console.log('Huhh??')
       }, 3000);
       history.push("/");
     } catch(e){
       console.log(e)
-    }
-  }
+    };
+  };
+
 
   useEffect(() => {
     cookieStart();
   });
 
+
+  useEffect(() => {
+    // if user isn't logged in ensure redux adheres to cookie settings
+    if(!currentUser || currentUser === {}){ 
+
+      const hideResetWarning = cookies.get('hideResetWarning');
+      const hideApplyAllWarning = cookies.get('hideApplyAllWarning');
+      const cookieOne = hideResetWarning === "true" || hideResetWarning === "false";
+      const cookieTwo = hideApplyAllWarning === "true" || hideApplyAllWarning === "false";
+
+      if(hideResetWarning && cookieOne && cookieTwo){ 
+
+        const makeshiftWarningObj = { 
+          apply_all_warning_on: cookies.get('hideApplyAllWarning'),
+          notifications_on: null, // restricted to logged in users
+          reset_warning_on: cookies.get('hideResetWarning'),
+        }; 
+
+        // setWarnings(makeshiftWarningObj);
+        
+      }; 
+    }
+  },[]);
 
   useEffect(() => {
     if (currentUser) {
@@ -540,4 +579,8 @@ export default connect(mapStateToProps, {
   getMyZipcodeData,
   getZipDataWithAreaCode,
   emptyZipcodeData,
-})(App);
+  // toggleResetWarning: (modelName) => (dispatch) =>
+  // dispatch({ type: TOGGLE_RESET_WARNING, payload: modelName }),
+  // toggleApplyAllWarning: () => (dispatch) =>
+  //   dispatch({ type: TOGGLE_APPLY_ALL_WARNING }),
+})(App); 

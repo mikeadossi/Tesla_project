@@ -6,7 +6,6 @@ const PowerwallFinance = ({
     loan_pymts, 
 }) => {
 
-    console.log('userPreferredPW -- ',userPreferredPW)
 
     return (
         <div className="powerwallFinance_container"> 

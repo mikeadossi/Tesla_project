@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./VehicleConfigUserEntry.css";
 import VehicleUserEntryFinancing from "../VehicleUserEntry/VehicleUserEntryFinancing/VehicleUserEntryFinancing";
 import VehicleUserEntryLeasing from "../VehicleUserEntry/VehicleUserEntryLeasing/VehicleUserEntryLeasing";
@@ -7,13 +7,7 @@ import GrayBackground from "../../GrayBackground/GrayBackground";
 import { connect, useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setUserPymtEntry } from "../../../containers/VehiclePanel//VehiclePanelMethods/moduleExports";
-import {
-  showApplyAllWarning,
-  showResetWarning, 
-} from "../../../config/actions/navActions";
-import {
-  setActiveFormVals,
-} from "../../../config/actions/vehicleActions";
+import Cookies from 'universal-cookie';
 import { 
   ACTIVE_FORM,
   TOGGLE_RESET_WARNING,
@@ -53,6 +47,7 @@ const VehicleConfigUserEntry = ({
     vehicleContent["vehicle_details"][vehicleName]["default_optioned_vehicle"][
       "model"
     ]; //ex: Model 3
+  const cookies = new Cookies();
 
 
   useEffect(() => {
@@ -105,8 +100,7 @@ const VehicleConfigUserEntry = ({
           msg = `Down payment can't exceed $${downPymtLimitString}`;
         };
       }
-    });
-    console.log(activeFormVals)
+    }); 
 
     return [bool, msg];
   }
@@ -120,8 +114,7 @@ const VehicleConfigUserEntry = ({
 
     const validated = validateInputs(configuredPrice);
 
-    if(validated[0] === false){ 
-      console.log('validated[1] msg- ',validated[1])
+    if(validated[0] === false){
       setAlertUser([{}, validated[1], "user_entry"]);
 
     } else {
@@ -172,6 +165,27 @@ const VehicleConfigUserEntry = ({
       setTeslaModels(vehicleContent);
     };
   };
+
+  const hideCookieWarning = (warning) => {
+    if(warning === 'reset'){
+      return cookies.get('hideResetWarning'); 
+    } else if(warning === 'applyAll') { 
+      return cookies.get('hideApplyAllWarning');
+    }
+  }
+
+  const checkForCookies = () => {
+    const hideResetWarning = cookies.get('hideResetWarning');
+    const hideApplyAllWarning = cookies.get('hideApplyAllWarning');
+    const cookieOne = hideResetWarning === "true" || hideResetWarning === "false";
+    const cookieTwo = hideApplyAllWarning === "true" || hideApplyAllWarning === "false";
+    if(hideResetWarning && cookieOne && cookieTwo){
+      return true;
+    };
+    return false;
+  };
+
+  const cookiesExist = checkForCookies();
 
   return (
     <div className="veicleConfig_userEntry_container">
@@ -279,6 +293,29 @@ const VehicleConfigUserEntry = ({
                 setActiveFSDSetting,
                 setActiveOffMenuAutopilot
               );
+
+            } else if (!currentUser && cookiesExist) { 
+
+              const hide = hideCookieWarning('applyAll');
+              if(hide === "true"){
+                handlePaymentFormSubmit();
+                runApplyAll(
+                  spacedVehicleName,
+                  teslaModels,
+                  vehiclesRendered,
+                  vehicleName,
+                  setTeslaModels,
+                  activeFormVals,
+                  activeFSDSetting,
+                  setActiveFormVals,
+                  setActiveFSDSetting,
+                  setActiveOffMenuAutopilot
+                );
+              } else {
+                handlePaymentFormSubmit();
+                showApplyAllWarning(vehicleName, dispatch);
+              }
+
             } else {
               handlePaymentFormSubmit();
               showApplyAllWarning(vehicleName, dispatch);
@@ -290,8 +327,16 @@ const VehicleConfigUserEntry = ({
         </button>
         <button
           onClick={() => {
-            if (currentUser && currentUser["reset_warning_on"] === "false") {
-              runReset(vehicleName, vehicleContent.vehicle_render);
+            if (currentUser && currentUser["reset_warning_on"] === "false") { 
+              runReset(vehicleName, vehicleContent);
+            } else if (!currentUser && cookiesExist) {  
+              const hide = hideCookieWarning('reset');
+              if(hide === "true"){ 
+                runReset(vehicleName, vehicleContent);
+              } else {
+                showResetWarning(vehicleName, dispatch);
+              }
+
             } else {
               showResetWarning(vehicleName, dispatch);
             }

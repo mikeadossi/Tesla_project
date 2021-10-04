@@ -102,6 +102,7 @@ const VehiclePanel = ({
   }, [metaVehicleObj, usStateVehicleOrder, loadTeslaData, setLoadTeslaData, setMenuOptions, setTeslaModels]);
 
   const runReset = (vehicleName, detailsAndRender) => {
+
     let selectedModelDetailsObj =
       detailsAndRender["vehicle_details"][vehicleName];
 
