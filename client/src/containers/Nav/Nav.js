@@ -4,6 +4,7 @@ import HeaderLeft from "../../components/Header/HeaderLeft/HeaderLeft.js";
 import HeaderRight from "../../components/Header/HeaderRight/HeaderRight.js";
 import HeaderCenter from "../../components/Header/HeaderCenter/HeaderCenter.js";
 import GrayBackground from "../../components/GrayBackground/GrayBackground.js"; 
+import NotificationDropdown from "../../components/NotificationDropdown/NotificationDropdown.js"; 
 
 
 const Nav = ({
@@ -44,6 +45,7 @@ const Nav = ({
         setAlertUser={setAlertUser}
         handleLogOut={handleLogOut}
       /> 
+      <NotificationDropdown />
     </div>
   );
 };

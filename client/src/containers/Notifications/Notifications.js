@@ -20,6 +20,9 @@ const Notifications = ({ currentUser, setCurrentUser }) => {
     };
   }, [setCurrentUser, currentUser]);
 
+  if (currentUser){console.log('last viewed date:- ',currentUser.notifications_last_viewed_on)}
+  // Mon Oct 04 2021 17:07:04 GMT-0700 (Pacific Daylight Time)
+
 
   return (
     <div className="notifications_container app_pageHeight">

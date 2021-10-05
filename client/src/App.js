@@ -19,6 +19,7 @@ import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
 import { connect } from "react-redux";
 import { getMyZipcodeData } from "./config/actions/navActions";
 import { getZipDataWithAreaCode } from "./config/actions/navActions";
+import { getNotifications } from "./config/actions/navActions";
 import moment from "moment-timezone";
 import axios from "axios"; 
 import { emptyZipcodeData } from "./config/actions/navActions";
@@ -30,6 +31,7 @@ const App = ({
   getMyZipcodeData, 
   getZipDataWithAreaCode, 
   emptyZipcodeData,
+  getNotifications,
 }) => {
 
   const history = useHistory();
@@ -369,6 +371,16 @@ const App = ({
     }
   },[]);
 
+
+  useEffect(() => {
+    // if(cure)
+    console.log('getting notifications..')
+    // call getNotifications, set new notifications #, and save data to redux.
+    const lastVisited = "Mon Oct 04 2021 17:10:07 GMT-0700 (Pacific Daylight Time)";
+    const notifications = getNotifications(lastVisited).then((result) => {return result});
+    console.log('here they are:- ',notifications);
+  }, []);
+
   useEffect(() => {
     if (currentUser) {
       setWarnings({
@@ -579,6 +591,7 @@ export default connect(mapStateToProps, {
   getMyZipcodeData,
   getZipDataWithAreaCode,
   emptyZipcodeData,
+  getNotifications,
   // toggleResetWarning: (modelName) => (dispatch) =>
   // dispatch({ type: TOGGLE_RESET_WARNING, payload: modelName }),
   // toggleApplyAllWarning: () => (dispatch) =>

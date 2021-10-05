@@ -61,3 +61,21 @@ export const getZipDataWithAreaCode = (areacode) => async (dispatch) => {
     }
   }
 }; 
+
+export const getNotifications = (dateJoined) => async (dispatch) => {
+  try {
+    const res = await axios.get(`http://localhost:3002/userNotifications?dateJoined=${dateJoined}`);
+    dispatch({
+      type: types.GET_TAILORED_NOTIFICATIONS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    if (hasAValue(err.response) && hasAValue(err.response.data)) {
+      dispatch({
+        type: types.GET_TAILORED_NOTIFICATIONS_ERROR,
+        payload: err.response.data,
+      });
+    }
+  }
+}
