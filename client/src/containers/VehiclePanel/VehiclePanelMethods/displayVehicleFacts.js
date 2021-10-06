@@ -1,4 +1,7 @@
-const displayVehicleFacts = (x) => {
+const displayVehicleFacts = () => {
+    let randomNum =  Math.floor(Math.random() * 10);
+    let questionNum = randomNum + 1;
+    
     const vehicleFacts = [
         "Tesla may be one of the newer car companies in the country, but they are considered the second oldest publicly listed American Automaker (the first is Ford). This is because General Motors went bankrupt, and Chrysler is privately owned.",
         
@@ -22,7 +25,7 @@ const displayVehicleFacts = (x) => {
         
     ];
 
-    return vehicleFacts[x];
+    return [questionNum, vehicleFacts[randomNum]];
 }
 
 export default displayVehicleFacts;

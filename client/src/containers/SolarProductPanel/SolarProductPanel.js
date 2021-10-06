@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./SolarProductPanel.css";
 import SolarMenu from "../../components/SolarData/SolarMenu/SolarMenu";
 import SolarConfig from "../../components/SolarData/SolarConfig/SolarConfig";
+import displaySolarFacts from "../SolarProductPanel/SolarProductPanelMethods/displaySolarFacts";
 import { connect } from "react-redux";
 
 import { getAllStateData } from "../../config/actions/usStateActions";
@@ -201,6 +202,8 @@ const SolarProductPanel = ({
     },
   };
 
+  const sFactsArr = displaySolarFacts();
+
 
   return (
     <div className="app_Panel_container">
@@ -221,7 +224,17 @@ const SolarProductPanel = ({
           powerwallPricing={powerwallPricing}
         />
       ) : (
-        ""
+        <div className="spp_super_container">
+          <div className="spp_facts_container app_displayFlex">
+            <div className="spp_facts_img">
+              <div className="spp_img">SOLR IMAGE</div>
+            </div>
+            <div className="spp_facts_content">
+              <div className="spp_content_heading">FACT #{sFactsArr[0]}</div>
+              <div className="spp_content_text">{sFactsArr[1]}</div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

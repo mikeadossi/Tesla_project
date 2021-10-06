@@ -24,8 +24,7 @@
     text-align: left;
 }
 
-.notification{
-    padding: 5px;
+.notification{ 
     text-align: left; 
     padding: 20px 10px 20px 10px;
     display: flex;

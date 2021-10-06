@@ -1,3 +1,37 @@
 .solarProductPanel{
     background-color: white;
 }
+
+.spp_facts_img{
+    float: left;
+}
+
+.spp_facts_container{ 
+    text-align: left; 
+    padding: 20px 10px 20px 10px;
+    display: flex;
+}
+
+.spp_img{
+    background-color: green; 
+    height: 100%;
+}
+
+.spp_facts_content{
+    background-color: orange;
+}
+
+.spp_super_container{
+    background-color: skyblue;
+    width: 100%;
+    padding: 22px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spp_content_heading{
+    padding-bottom: 10px;
+    font-size: 15px;
+    font-weight: bold;
+}

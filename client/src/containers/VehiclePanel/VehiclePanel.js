@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import "./VehiclePanel.css";
 import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfigContainer from "../../components/VehicleData/VehicleConfigContainer/VehicleConfigContainer";
+import displayVehicleFacts from "../VehiclePanel/VehiclePanelMethods/displayVehicleFacts";
 import {
   removeModel,
   setSelectedVehicleName,
@@ -28,7 +29,7 @@ import {
   UPDATE_VEHICLE_RENDER_DATA,
   VIEW_RENDERED_OPTIONS,
   TOGGLE_RESET_WARNING,
-  TOGGLE_APPLY_ALL_WARNING, 
+  TOGGLE_APPLY_ALL_WARNING,
   FSD_SETTING,
   OFFMENU_AUTOPILOT,
   VEHICLE_ORDER,
@@ -56,9 +57,9 @@ const VehiclePanel = ({
   updateRenderData,
   usStateVehicleOrder,
   setUsStateVehicleOrder,
-  loadTeslaData, 
+  loadTeslaData,
   setLoadTeslaData,
-  menuOptions, 
+  menuOptions,
   setMenuOptions,
   alertUser,
   setAlertUser,
@@ -72,7 +73,12 @@ const VehiclePanel = ({
       getAllVehicles();
       getAllStateData(zipcode_data.state_abbr);
     }
-  }, [zipcode_data.id, zipcode_data.state_abbr, getAllVehicles, getAllStateData]);
+  }, [
+    zipcode_data.id,
+    zipcode_data.state_abbr,
+    getAllVehicles,
+    getAllStateData,
+  ]);
 
   useEffect(() => {
     if (usStatesData[0]) {
@@ -90,7 +96,13 @@ const VehiclePanel = ({
         usStatesData[0]
       );
     }
-  }, [usStatesData[0], changeRegion, setUsStateVehicleOrder, usStatesData, zipcode_data]);
+  }, [
+    usStatesData[0],
+    changeRegion,
+    setUsStateVehicleOrder,
+    usStatesData,
+    zipcode_data,
+  ]);
 
   useEffect(() => {
     const payload = usStateVehicleOrder && usStateVehicleOrder[3];
@@ -99,10 +111,16 @@ const VehiclePanel = ({
       setLoadTeslaData(true);
       populateMenu(metaVehicleObj, setMenuOptions);
     }
-  }, [metaVehicleObj, usStateVehicleOrder, loadTeslaData, setLoadTeslaData, setMenuOptions, setTeslaModels]);
+  }, [
+    metaVehicleObj,
+    usStateVehicleOrder,
+    loadTeslaData,
+    setLoadTeslaData,
+    setMenuOptions,
+    setTeslaModels,
+  ]);
 
   const runReset = (vehicleName, detailsAndRender) => {
-
     let selectedModelDetailsObj =
       detailsAndRender["vehicle_details"][vehicleName];
 
@@ -164,6 +182,7 @@ const VehiclePanel = ({
     dispatch(updateRenderData(newDetailsAndRender));
   };
 
+  const vFactsArr = displayVehicleFacts();
 
   return (
     <div className="app_Panel_container">
@@ -179,7 +198,22 @@ const VehiclePanel = ({
         vehicleData={vehicleData}
         vehicleContainerRef={vehicleContainerRef}
       />
-
+      {vehicleData.length === 0 ? (
+        <div className="vehiclePanel_super_container">
+          <div className="vehiclePanel_facts_container app_displayFlex">
+            <div className="vehiclePanel_facts_img">
+              <div className="vehiclePanel_img">VEHICLE IMAGE</div>
+            </div>
+            <div className="vehiclePanel_facts_content">
+              <div className="vpf_content_heading">FACT #{vFactsArr[0]}</div>
+              <div className="vpf_content_text">{vFactsArr[1]}</div>
+            </div>
+          </div>
+        </div>
+        ) 
+        : 
+        ""
+      }
       {vehicleData.map((ele, index) => (
         <VehicleConfigContainer
           key={index}
@@ -262,7 +296,7 @@ const VehiclePanel = ({
               activeFSDSetting,
               teslaModels,
               setTeslaModels,
-              populatePaymentObject, 
+              populatePaymentObject
             );
           }}
           selectOffMenuAutopilot={(selectedOption) => {
@@ -292,7 +326,6 @@ const VehiclePanel = ({
     </div>
   );
 };
-
 
 function mapStateToProps(state) {
   return {

@@ -8,3 +8,37 @@
     margin: 20px 10px 20px 10px; 
     border-radius: 5px 5px 5px 5px; 
 }
+
+.vehiclePanel_facts_img{
+    float: left;
+}
+
+.vehiclePanel_facts_container{ 
+    text-align: left; 
+    padding: 20px 10px 20px 10px;
+    display: flex;
+}
+
+.vehiclePanel_img{
+    background-color: green; 
+    height: 100%;
+}
+
+.vehiclePanel_facts_content{
+    background-color: orange;
+}
+
+.vehiclePanel_super_container{
+    background-color: skyblue;
+    width: 100%;
+    padding: 22px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vpf_content_heading{
+    padding-bottom: 10px;
+    font-size: 15px;
+    font-weight: bold;
+}
