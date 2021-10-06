@@ -1,82 +1,77 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Home.css'; 
 
-class Home extends Component {
-  render() {
-    return (
-      <div className="home_container app_pageHeight"> 
-        <h1 className="home_title">SIDEKICK</h1> 
-        <div className="home_section">
-          <h2>What it is</h2>
-          <p>Saidokikku is an efficiency tool that gives users instant access to relevant Tesla product and sales information.</p>
-          <p>It is a single page app that puts all your most needed (new car) sales tooling and data within easy reach.</p>
-          <p>Other than regional data, all content collected on Sidekick can be found on freely accessible and public facing websites, or are open knowledge.</p>
-          <p>Saidokikku does not allow for user entry of customer personal identifiable information, and sales related session data is never stored on a server.</p>
-          <p>Sidekick is updated daily, and all information you see is easy to quickly validate, often including a link to the source webpage.</p>
-          <p>Suggestions on ways to improve the app are welcome!</p>
-        </div> 
-        <div className="home_section home_reasons_container">
-          <h2>10+ reasons to use!</h2>
-          <div className="home_reasons_container">
-            <div className="home_reasons app_displayFlex">
-              <div className="home_reasons_number">1</div>
-              <p>Instant access to relevant location details using any zipcode or areacode, including timezone, county, region and more!</p>
-            </div>
-            <div className="home_reasons app_displayFlex">
-              <div className="home_reasons_number">2</div>
-              <p>Instant access to financing, leasing and cash payment information for almost all Tesla products.</p>
-            </div>
-            <div className="home_reasons app_displayFlex">
-              <div className="home_reasons_number">3</div>
-              <p>Ease of use and intuitive structure should make for improved productivity.</p>
-            </div>
-            <div className="home_reasons app_displayFlex">
-              <div className="home_reasons_number">4</div>
-              <p>Instant access to all vehicle pricing data.</p>
-            </div>
-            <div className="home_reasons app_displayFlex">
-              <div className="home_reasons_number">5</div>
-              <p>Instant access to relevant inventory and find us content.</p>
-            </div>
-            <div className="home_reasons app_displayFlex">
-              <div className="home_reasons_number">6</div>
-              <p>Instant access to state solar and vehicle incentives.</p>
-            </div>
-            <div className="home_reasons app_displayFlex">
-              <div className="home_reasons_number">7</div>
-              <p>Instant access to closest showroom service center and charging location data.</p>
-            </div>
-            <div className="home_reasons app_displayFlex">
-              <div className="home_reasons_number">8</div>
-              <p>Powerful charging tool to answer all charging questions.</p>
-            </div>
-            <div className="home_reasons app_displayFlex">
-              <div className="home_reasons_number">9</div>
-              <p>Required roof type info and installation details are just a click away.</p>
-            </div>
-            <div className="home_reasons app_displayFlex">
-              <div className="home_reasons_number">10</div>
-              <p>Solar Panel pricing for custom systems over 16.32 kW.</p>
-            </div>
-            <div className="home_reasons app_displayFlex">
-              <div className="home_reasons_number">11</div>
-              <p>Instantly ascertain perfect Solar system size w/ addition of fututre appliances, vehicles or other energy consuming item.</p>
-            </div>
-            <div className="home_reasons app_displayFlex">
-              <div className="home_reasons_number">12</div>
-              <p>Instant access to detailed breakdown of state taxes and fees.</p>
-            </div>
-            <div className="home_reasons app_displayFlex">
-              <div className="home_reasons_number">13</div>
-              <p>More coming soon.</p>
+const Home = () => {
+  return (
+    <div className="home_container app_pageHeight"> 
+      <h1 className="home_title">SIDEKICK</h1> 
+
+      <div className="home_hero_super">
+        <div className="home_hero_container app_displayFlex">
+          <div className="home_hero_text_container">
+            <div className="home_hero_text">
+              <div className="home_hero_heading">The <span className="home_underline">All-In-One</span> Tool for making your next Tesla Buying Decision.</div>
+              <div className="home_small_print">Sidekick is a fan site and not affiliated with Tesla</div>
             </div>
           </div>
-
+          <div className="home_hero_img_container">
+            <div className="home_img">The <span className="home_underline">All-In-One</span> Tool for making your next Car Buying Decision</div>
+          </div>
         </div>
-        
       </div>
-    );
-  }
+
+      <div className="home_feature_super">
+        <div className="home_hero_container app_displayFlex">
+          <div className="home_hero_img_container">
+            <div className="home_img">FEATURE IMG</div>
+          </div>
+          <div className="home_hero_text_container">
+            <div className="home_hero_text">Streamlined user experience provides easy access to everything you need to know to make a buying decision</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div className="home_feature_super">
+        <div className="home_hero_container app_displayFlex">
+          <div className="home_hero_img_container">
+            <div className="home_img">FEATURE IMG</div>
+          </div>
+          <div className="home_hero_text_container">
+            <div className="home_hero_text">Finding the ideal Tesla solar panel size has never been easier, really!</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div className="home_feature_super">
+        <div className="home_hero_container app_displayFlex">
+          <div className="home_hero_img_container">
+            <div className="home_img">FEATURE IMG</div>
+          </div>
+          <div className="home_hero_text_container">
+            <div className="home_hero_text">Keep up with major Tesla production and pricing news by becoming a member today</div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="home_subtext_container">
+        <div className="home_section">
+          <h2 className="home_subheading">Get Exploring!</h2>
+          <p className="home_subtext">Start using the app now by selecting between Vehicle or Solar just above.</p> 
+        </div> 
+        <div className="home_section home_reasons_container">
+          <h2 className="home_subheading">Questions or comments?</h2>
+          <p className="home_subtext"> Email: 
+            <span className="home_email">
+              tesla_sidekick@yahoo.com
+            </span>
+          </p>
+        </div>
+      </div>
+      
+    </div>
+  );
 }
 
 export default Home;
