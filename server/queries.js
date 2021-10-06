@@ -70,8 +70,7 @@ let queries = {
     return new Promise((resolve, reject) => {
       pool.query(
         `SELECT * from stateData where state_name=${stateName}`,
-        (err, rows) => {
-          // console.log("rows: ", rows);
+        (err, rows) => { 
           if (err) return reject(err);
           return resolve(rows);
         }
@@ -98,6 +97,7 @@ let queries = {
     notifications_on,
     apply_all_warning_on,
     reset_warning_on,
+    viewed_welcome_notification,
   }) {
     pool.query(
       `INSERT INTO user_details (
@@ -109,7 +109,8 @@ let queries = {
         gave_cookie_permission,
         notifications_on,
         apply_all_warning_on,
-        reset_warning_on
+        reset_warning_on,
+        viewed_welcome_notification
         ) VALUES (
           '${id}', 
           '${email}',
@@ -119,10 +120,12 @@ let queries = {
           '${gave_cookie_permission}',
           '${notifications_on}',
           '${apply_all_warning_on}',
-          '${reset_warning_on}'
+          '${reset_warning_on}',
+          '${viewed_welcome_notification}'
         )`,
       (err, rows) => {
-        if(err) { console.log("Got an error inserting row to user_details", err); 
+        if(err) { 
+          console.log("Got an error inserting row to user_details", err); 
         } else {
           console.log(`Row was inserted in user_details: ${email}`); 
         }
@@ -138,7 +141,8 @@ let queries = {
     pool.query(
       `UPDATE user_details SET ${ourKey} = '${ourValue}' WHERE id=${id}`, 
       (err, rows) => {
-        if (err){ console.log("Got an error inserting row to user_details", err);
+        if (err){ 
+          console.log("Got an error inserting row to user_details", err);
         } else {
           console.log(`Row was inserted in user_details at: ${id}`); 
         }
@@ -153,7 +157,8 @@ let queries = {
     pool.query( 
       `DELETE FROM user_details WHERE user_email='${email}' && id=${id}`,
       (err, rows) => {
-        if (err){ console.log("Got an error delete account from user_details", err);
+        if (err){ 
+          console.log("Got an error delete account from user_details", err);
         } else {
           console.log(`User deleted from DB: ${email}`); 
         }
@@ -164,7 +169,6 @@ let queries = {
   getZipcodeData: function (zipcode) {
     return new Promise((resolve, reject) => {
       pool.query(`SELECT * from zip_codes where id=${zipcode}`, (err, rows) => {
-        // console.log("rows: ", rows);
         if (err) return reject(err);
         return resolve(rows[0]);
       });
@@ -195,6 +199,16 @@ let queries = {
   getAllVehicleData: function () {
     return new Promise((resolve, reject) => {
       pool.query(`SELECT * from vehicles`, (err, rows) => {
+        if (err) return reject(err);
+        return resolve(rows);
+      });
+    });
+  },
+
+  getTailoredNotifications: function (dateUserJoined) {
+    return new Promise((resolve, reject) => {
+      // pool.query(`SELECT * FROM notifications WHERE notification_date >= ${dateUserJoined}`, (err, rows) => {
+      pool.query(`SELECT * FROM notifications`, (err, rows) => {
         if (err) return reject(err);
         return resolve(rows);
       });
@@ -339,7 +353,7 @@ let queries = {
     const notifications = [...notificationsArr];
     let dateCopy;
     let textCopy;
-    let linkCopy;console.log('notifications[0]: ',notifications[0]);
+    let linkCopy;
     for(let i = 0; i < notifications.length; i++){
       dateCopy = notifications[i]["notification_date"]; 
       textCopy = notifications[i]["text_content"];

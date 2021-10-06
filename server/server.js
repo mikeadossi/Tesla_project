@@ -79,24 +79,80 @@ app.post("/insertNewUser", async (req, res) => {
   }
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.post("/logUserIntoApp", async (req, res) => {
   const { email, password } = req.body;
-  const getUser = await queries.getUserQuery(email); 
-  const result = await passwordHelper.compare(
-    password,
-    getUser[0]["user_password"]
-  );
 
-  if (result) {
-    let ob = {
-      data: getUser,
-      success: true,
-      msg: `${email} logged in successfully`
+  const active = await queries.isEmailRegistered(email); 
+
+  try {
+    const getUser = await queries.getUserQuery(email); 
+
+    if(!getUser){ 
+      let ob = { 
+        success: false,
+        msg: `${email} not found`
+      } 
+      return res.status(500).json(ob);
     };
 
-    return res.status(200).json(ob);
-  };
+    const result = await passwordHelper.compare(
+      password,
+      getUser[0]["user_password"]
+    );
+
+    if (result) {
+      let ob = {
+        data: getUser,
+        success: true,
+        msg: `${email} logged in successfully`
+      } 
+      return res.status(200).json(ob);
+    } else {
+      let ob = {
+        data: getUser,
+        success: false,
+        msg: "passwords do not match"
+      } 
+      return res.status(200).json(ob);
+    }
+  } catch (e) {
+      return res.status(500);
+    }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.post("/updateUserData", async (req, res) => {
   const { body } = req;
@@ -182,6 +238,19 @@ app.post("/sendNewPassword", async (req, res) => {
   try {
     const rows = await sendMail(email, passw);
     return res.status(200).send(JSON.stringify(rows));
+  } catch (e) {
+    return res.status(500);
+  }
+});
+
+app.get("/userNotifications", async (req, res) => {
+  const {
+    query: { dateJoined },
+  } = req;
+
+  try {
+    const notifications = await queries.getTailoredNotifications(dateJoined);
+    return res.status(200).send(JSON.stringify(notifications));
   } catch (e) {
     return res.status(500);
   }

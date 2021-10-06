@@ -45,7 +45,7 @@ const SignUp = ({
           headers: {
               'Content-Type': 'application/json'
           }
-        };
+        }; 
         const body = {
           email,
           password, 
@@ -55,6 +55,7 @@ const SignUp = ({
           notifications_on : 'true',
           apply_all_warning_on : 'true',
           reset_warning_on : 'true',
+          viewed_welcome_notification : 'false',
         } 
         
         await axios.post(`http://localhost:3002/insertNewUser`, body, axiosConfig); 

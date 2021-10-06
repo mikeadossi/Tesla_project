@@ -1,31 +1,33 @@
 import React from "react";
 import "./HeaderRight.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { TOGGLE_MOBILE_MENU } from "../../../config/actions/types"; 
 
 const HeaderRight = ({ 
   toggleMobileMenu,
   currentUser,
-  notifications,
+  newNotificationsNum,
   warnings, 
-  handleLogOut
+  handleLogOut,
+  openNotification,
 }) => { 
 
   return (
     <div className="headerRight app_marginTop"> 
       {currentUser && currentUser.user_email ? (
         <div className="notification_bell_container"> 
-        {notifications && warnings["notifications_on"] === 'true' ? (
-          <div className="notifications_number">{notifications}</div> 
+        {newNotificationsNum && warnings["notifications_on"] === 'true' ? (
+          <div className="notifications_number">{newNotificationsNum}</div> 
         ) : ""}
-          <Link className="headerRight_links" to="/Notifications">
+          <div className="headerRight_links">
             <img
               className="notification_bell"
               src="../../../../images/Nav/bell_icon.png"
               alt="menu"
+              onClick={() => openNotification()}
             />
-          </Link>
+          </div>
         </div>
       ) : ("")}
       {currentUser && currentUser.user_email ? (

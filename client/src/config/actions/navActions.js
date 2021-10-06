@@ -60,7 +60,7 @@ export const getZipDataWithAreaCode = (areacode) => async (dispatch) => {
       });
     }
   }
-}; 
+};
 
 export const getNotifications = (dateJoined) => async (dispatch) => {
   try {

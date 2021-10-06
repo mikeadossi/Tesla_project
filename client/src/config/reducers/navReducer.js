@@ -9,7 +9,9 @@ const initialState = {
   displayLocations: false,
   getLocations: {},
   stateAbbr: "",
+  notifications: [],
 };
+
 
 export default function (state = initialState, action) {
   // reducers are similar to reduce callback and must not cause side effects
@@ -68,6 +70,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         stateAbbr: action.payload, 
+      };
+    case types.GET_TAILORED_NOTIFICATIONS:
+      initialState.notifications = [];
+      return {
+        ...state,
+        notifications: action.payload, 
       };
     default:
       return state;

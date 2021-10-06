@@ -29,6 +29,7 @@
     border-radius: 50%; 
     vertical-align: middle;
     padding: 1px;
+    cursor: pointer;
 }
 
 .notification_bell:hover{

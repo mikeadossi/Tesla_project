@@ -17,27 +17,27 @@ import Settings from "./containers/Settings/Settings";
 import Lost from "./containers/Lost/Lost";
 import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
 import { connect } from "react-redux";
-import { getMyZipcodeData } from "./config/actions/navActions";
-import { getZipDataWithAreaCode } from "./config/actions/navActions";
-import { getNotifications } from "./config/actions/navActions";
+import {
+  getZipDataWithAreaCode,
+  getNotifications,
+  getMyZipcodeData,
+  emptyZipcodeData,
+} from "./config/actions/navActions";
 import moment from "moment-timezone";
-import axios from "axios"; 
-import { emptyZipcodeData } from "./config/actions/navActions";
-import Cookies from 'universal-cookie';
+import axios from "axios";
+import Cookies from "universal-cookie";
 import HeaderCookiePermission from "./components/Header/HeaderCookiePermission/HeaderCookiePermission.js";
 
-const App = ({ 
-  zipcodeData, 
-  getMyZipcodeData, 
-  getZipDataWithAreaCode, 
+const App = ({
+  zipcodeData,
+  getMyZipcodeData,
+  getZipDataWithAreaCode,
   emptyZipcodeData,
   getNotifications,
+  notificationData,
 }) => {
-
   const history = useHistory();
   const cookies = new Cookies();
-
-
 
   const acceptZipOrAreacode = (val) => {
     if (val.length === 3 && Number(val)) {
@@ -65,7 +65,7 @@ const App = ({
 
   const [loading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [notifications, setNotifications] = useState(2);
+  const [newNotificationsNum, setNewNotificationsNum] = useState(2);
   const [warnings, setWarnings] = useState({});
   const [ourRegion, setOurRegion] = useState("--");
   const [zipcode, setzipcode] = useState("83211");
@@ -80,13 +80,18 @@ const App = ({
   const [alertUser, setAlertUser] = useState([]);
   // All alerts: user_entry, loggedIn_container, register_signup, register_login, register_settings, forgot_password
   const [showCookieAsk, setShowCookieAsk] = useState("");
+  const [toggleNotification, setToggleNotification] = useState("closed");
+  const [viewedNotifications, setViewedNotifications] = useState({});
 
   const cookieStart = () => {
-    if(cookies.get('doNotSetCookie')){
+    if (cookies.get("doNotSetCookie")) {
       return;
-    } else if(!cookies.get('hideResetWarning') && !cookies.get('hideApplyAllWarning')){
+    } else if (
+      !cookies.get("hideResetWarning") &&
+      !cookies.get("hideApplyAllWarning")
+    ) {
       setShowCookieAsk("true");
-    } 
+    }
   };
 
   const closeMobileMenu = () => {
@@ -149,7 +154,7 @@ const App = ({
       "YUBA",
     ];
     return norCal.includes(county);
-  }
+  };
 
   function changeRegion(state, county, vo, obj) {
     if (obj && obj["state_name"] === state) {
@@ -259,28 +264,49 @@ const App = ({
     calculateTime(date, time);
   };
 
+  const updateDB = async (x, user) => {
+    let axiosConfig = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const parcel = {
+      id: user.id,
+      ourKey: x,
+      ourValue: user[x],
+    };
+
+    await axios.post(
+      `http://localhost:3002/updateUserData`,
+      parcel,
+      axiosConfig
+    );
+  };
+
   const handleWarning = async (val) => {
     // this function tells redux whether to show one of 2 warning modals or not.
     // val is an array, ex: ["reset","true"] or ["applyAll","true"]
-    
+
     if (!currentUser) {
-      
-      const hideResetWarning = cookies.get('hideResetWarning');
-      const hideApplyAllWarning = cookies.get('hideApplyAllWarning');
-      const cookieOne = hideResetWarning === "true" || hideResetWarning === "false";
-      const cookieTwo = hideApplyAllWarning === "true" || hideApplyAllWarning === "false";
+      const hideResetWarning = cookies.get("hideResetWarning");
+      const hideApplyAllWarning = cookies.get("hideApplyAllWarning");
+      const cookieOne =
+        hideResetWarning === "true" || hideResetWarning === "false";
+      const cookieTwo =
+        hideApplyAllWarning === "true" || hideApplyAllWarning === "false";
 
-      if(hideResetWarning && cookieOne && cookieTwo){ 
-
-        if(val[0] === "reset"){  cookies.set('hideResetWarning', val[1], { path: '/' }); };
-        if(val[0] === "applyAll"){  cookies.set('hideApplyAllWarning', val[1], { path: '/' }); };
-
-      };       
-    
+      if (hideResetWarning && cookieOne && cookieTwo) {
+        if (val[0] === "reset") {
+          cookies.set("hideResetWarning", val[1], { path: "/" });
+        }
+        if (val[0] === "applyAll") {
+          cookies.set("hideApplyAllWarning", val[1], { path: "/" });
+        }
+      }
     } else if (currentUser) {
-
       let newWarnings = { ...warnings };
-      let newCurrentUser = { ...currentUser }; 
+      let newCurrentUser = { ...currentUser };
 
       if (newWarnings[val] === "true") {
         newWarnings[val] = "false";
@@ -292,24 +318,8 @@ const App = ({
       setWarnings(newWarnings);
       setCurrentUser(newCurrentUser);
 
-      let axiosConfig = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-
-      const parcel = {
-        id: newCurrentUser.id,
-        ourKey: val,
-        ourValue: newCurrentUser[val],
-      };
-
-      await axios.post(
-        `http://localhost:3002/updateUserData`,
-        parcel,
-        axiosConfig
-      );
-    };
+      updateDB(val, newCurrentUser);
+    }
   };
 
   const submitZipOrAreacode = (zipcode) => {
@@ -329,57 +339,170 @@ const App = ({
   };
 
   const handleLogOut = () => {
-    try{
+    try {
       setCurrentUser(null);
-      setAlertUser([{"background-color": "skyblue"},"You are successfully logged out", "loggedIn_container"]);
+      setAlertUser([
+        { "background-color": "skyblue" },
+        "You are successfully logged out",
+        "loggedIn_container",
+      ]);
       emptyZipcodeData();
-      setTimeout(function(){
+      setTimeout(function () {
         setAlertUser([]);
       }, 3000);
       history.push("/");
-    } catch(e){
-      console.log(e)
-    };
+    } catch (e) {
+      console.log(e);
+    }
   };
-
 
   useEffect(() => {
     cookieStart();
   });
 
-
   useEffect(() => {
     // if user isn't logged in ensure redux adheres to cookie settings
-    if(!currentUser || currentUser === {}){ 
+    if (!currentUser || currentUser === {}) {
+      const hideResetWarning = cookies.get("hideResetWarning");
+      const hideApplyAllWarning = cookies.get("hideApplyAllWarning");
+      const cookieOne =
+        hideResetWarning === "true" || hideResetWarning === "false";
+      const cookieTwo =
+        hideApplyAllWarning === "true" || hideApplyAllWarning === "false";
 
-      const hideResetWarning = cookies.get('hideResetWarning');
-      const hideApplyAllWarning = cookies.get('hideApplyAllWarning');
-      const cookieOne = hideResetWarning === "true" || hideResetWarning === "false";
-      const cookieTwo = hideApplyAllWarning === "true" || hideApplyAllWarning === "false";
-
-      if(hideResetWarning && cookieOne && cookieTwo){ 
-
-        const makeshiftWarningObj = { 
-          apply_all_warning_on: cookies.get('hideApplyAllWarning'),
+      if (hideResetWarning && cookieOne && cookieTwo) {
+        const makeshiftWarningObj = {
+          apply_all_warning_on: cookies.get("hideApplyAllWarning"),
           notifications_on: null, // restricted to logged in users
-          reset_warning_on: cookies.get('hideResetWarning'),
-        }; 
+          reset_warning_on: cookies.get("hideResetWarning"),
+        };
 
         // setWarnings(makeshiftWarningObj);
-        
-      }; 
+      }
     }
-  },[]);
+  }, []);
+
+
+
+
+
+
+
+
+
+
+const getDateString = (ourDate) => {
+  // ourDate may look like Tue Oct 05 2021 13:37:51 GMT-0700 (Pacific Daylight Time)
+  // ourDate may also look like 2021-10-06T20:21:04.847Z
+  let usefulDate;
+  
+  if(typeof(ourDate) !== "string"){
+    ourDate = ourDate.toString();
+  };
+
+  if(ourDate.split('').includes('Z')){ 
+    usefulDate = ourDate;
+  } else { 
+    const monthsArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let arr = [];
+    ourDate = ourDate.split(' ');
+    arr.push(ourDate[3]);
+    const monthNum = monthsArr.indexOf(ourDate[1]) + 1;
+    arr.push(monthNum);
+    arr.push(ourDate[2]);
+    usefulDate = arr.join('-'); // ex: 2021-10-06
+    usefulDate = usefulDate+'T'+ourDate[4]+'.000Z'; // ex: 2021-10-06T20:21:04.000Z
+  }
+  return usefulDate;
+}
+
+const getSixDigitDate = (givenDate) => {
+  // givenDate input = 2021-10-06T20:21:04.847Z
+  // output = 10/06/21
+  let result = []
+  givenDate = givenDate.split('-');
+  result.push(givenDate[1]);
+  let day = givenDate[2].split('T')[0];
+  result.push(day);
+  let fourDigitYear = givenDate[0];
+  let twoDigitYear = fourDigitYear.substr(fourDigitYear.length - 2)
+  result.push(twoDigitYear);
+  result = result.join('/');
+  return result;
+}
+
+const getDaysSinceLastVisit = (lastVisit) => {
+  let today = new Date();
+  today = getDateString(today);
+  today = getSixDigitDate(today);
+  lastVisit = getSixDigitDate(lastVisit);
+
+  today = new Date(today);
+  lastVisit = new Date(lastVisit);
+
+  // One day in milliseconds
+  const oneDay = 1000 * 60 * 60 * 24;
+
+  // Calculating the time difference between two dates
+  const diffInTime = today.getTime() - lastVisit.getTime();
+
+  // Calculating the no. of days between two dates
+  const diffInDays = Math.round(diffInTime / oneDay);
+
+  return diffInDays;
+}
+
+
+  const parseLocationData = (nd, user) => {
+    if (nd && user !== null) { 
+      const lastVisited = user.notifications_last_viewed_on;
+      console.log('lv-',lastVisited)
+      const dateJoined = getDateString(user.date_joined);
+      console.log('dj-',dateJoined)
+      let userVisit;
+      if(lastVisited === null || lastVisited === "null"){
+        userVisit = dateJoined; 
+      } else {
+        userVisit = getDateString(lastVisited); 
+      }; 
+      let notSeenNotifications = [];
+      let alreadySeenNotifications = []; 
+      nd.map((v) => { 
+        const ndDate = v["notification_date"]; 
+        if(ndDate > dateJoined){
+          if (ndDate > userVisit) {
+            v["daysSince"] = getDaysSinceLastVisit(userVisit);
+            notSeenNotifications.push(v);
+          } else if (ndDate <= userVisit) {
+            v["daysSince"] = getDaysSinceLastVisit(userVisit);
+            alreadySeenNotifications.push(v);
+          }
+        };
+      });
+
+      let num = notSeenNotifications.length;
+      if(currentUser["viewed_welcome_notification"] === "false"){
+        // every new user views 2 notifications upon visit
+        num += 2;
+      };
+
+      setNewNotificationsNum(num);
+      setViewedNotifications({notSeenNotifications, alreadySeenNotifications});
+    }
+  };
 
 
   useEffect(() => {
-    // if(cure)
-    console.log('getting notifications..')
-    // call getNotifications, set new notifications #, and save data to redux.
-    const lastVisited = "Mon Oct 04 2021 17:10:07 GMT-0700 (Pacific Daylight Time)";
-    const notifications = getNotifications(lastVisited).then((result) => {return result});
-    console.log('here they are:- ',notifications);
-  }, []);
+    if (currentUser) {
+      getNotifications();
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    if (notificationData) {
+      parseLocationData(notificationData, currentUser);
+    }
+  }, [notificationData]);
 
   useEffect(() => {
     if (currentUser) {
@@ -444,8 +567,8 @@ const App = ({
         <Nav
           menuVisibility={menuVisibility}
           closeMobileMenu={closeMobileMenu}
-          currentUser={currentUser} 
-          notifications={notifications}
+          currentUser={currentUser}
+          newNotificationsNum={newNotificationsNum}
           warnings={warnings}
           changeRegion={changeRegion}
           zipcode={zipcode}
@@ -453,12 +576,17 @@ const App = ({
           submitZipOrAreacode={submitZipOrAreacode}
           alertUser={alertUser}
           setAlertUser={setAlertUser}
-          handleLogOut={handleLogOut} 
+          handleLogOut={handleLogOut}
+          toggleNotification={toggleNotification}
+          setToggleNotification={setToggleNotification}
+          setCurrentUser={setCurrentUser}
+          updateDB={updateDB}
+          viewedNotifications={viewedNotifications}
         />
         <MobileNav
           menuVisibility={menuVisibility}
           closeMobileMenu={closeMobileMenu}
-          currentUser={currentUser} 
+          currentUser={currentUser}
           alertUser={alertUser}
           setAlertUser={setAlertUser}
           handleLogOut={handleLogOut}
@@ -570,8 +698,8 @@ const App = ({
             )}
           />
         </Switch>
-        <HeaderCookiePermission 
-          showCookieAsk={showCookieAsk} 
+        <HeaderCookiePermission
+          showCookieAsk={showCookieAsk}
           setShowCookieAsk={setShowCookieAsk}
         />
         <Footer currentUser={currentUser} />
@@ -584,6 +712,7 @@ function mapStateToProps(state) {
   return {
     error: state.navReducer.error,
     zipcodeData: state.navReducer.zipcode_data,
+    notificationData: state.navReducer.notifications,
   };
 }
 
@@ -596,4 +725,4 @@ export default connect(mapStateToProps, {
   // dispatch({ type: TOGGLE_RESET_WARNING, payload: modelName }),
   // toggleApplyAllWarning: () => (dispatch) =>
   //   dispatch({ type: TOGGLE_APPLY_ALL_WARNING }),
-})(App); 
+})(App);

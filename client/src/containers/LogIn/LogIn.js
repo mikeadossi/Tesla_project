@@ -31,30 +31,44 @@ const LogIn = ({
         email,
         password
       } 
-      
-      const loggedInUser = await axios.post(`http://localhost:3002/logUserIntoApp`, body, axiosConfig); 
-      const id = loggedInUser.data.data[0].id;
+     
+      const checkEmail = await axios.get(`http://localhost:3002/isUserRegistered?email=${email}`);
 
-      const userObj = { 
-        id,
-        user_email: loggedInUser.data.data[0].user_email, 
-        apply_all_warning_on: loggedInUser.data.data[0].apply_all_warning_on,
-        dark_theme_off: loggedInUser.data.data[0].dark_theme_off,
-        date_joined: loggedInUser.data.data[0].date_joined,
-        notifications_last_viewed_on: loggedInUser.data.data[0].notifications_last_viewed_on,
-        gave_cookie_permission: loggedInUser.data.data[0].gave_cookie_permission,
-        notifications_on: loggedInUser.data.data[0].notifications_on,
-        reset_warning_on: loggedInUser.data.data[0].reset_warning_on,
-      }
-
-      if(loggedInUser.data.success){
-        setCurrentUser(userObj);
-        setAlertUser([{"background-color": "darkseagreen"},loggedInUser.data.msg, "loggedIn_container"])
+      if (!checkEmail.data.success) {
+        setAlertUser([{"color": "red"},`${email} not found`, "register_login"])
         setTimeout(function(){
           setAlertUser([]);
-        }, 3000); 
-        history.push("/");
-      }
+        }, 5000);
+        setLoading(false);
+        return;
+      } else if (checkEmail.data.success) {
+        const loggedInUser = await axios.post(`http://localhost:3002/logUserIntoApp`, body, axiosConfig); 
+        console.log('loggedInUser success? >>> ',loggedInUser)
+        const id = loggedInUser.data.data[0].id;
+  
+        const userObj = {
+          id,
+          user_email: loggedInUser.data.data[0].user_email, 
+          apply_all_warning_on: loggedInUser.data.data[0].apply_all_warning_on,
+          dark_theme_off: loggedInUser.data.data[0].dark_theme_off,
+          date_joined: loggedInUser.data.data[0].date_joined,
+          notifications_last_viewed_on: loggedInUser.data.data[0].notifications_last_viewed_on,
+          gave_cookie_permission: loggedInUser.data.data[0].gave_cookie_permission,
+          notifications_on: loggedInUser.data.data[0].notifications_on,
+          reset_warning_on: loggedInUser.data.data[0].reset_warning_on,
+          viewed_welcome_notification: loggedInUser.data.data[0].viewed_welcome_notification,
+        }
+  
+        if(loggedInUser.data.success){
+          setCurrentUser(userObj);
+          setAlertUser([{"background-color": "darkseagreen"},loggedInUser.data.msg, "loggedIn_container"])
+          setTimeout(function(){
+            setAlertUser([]);
+          }, 3000); 
+          history.push("/");
+        }
+      };
+      
 
     } catch (e) { 
       setAlertUser([{"color": "red"},"Email / password is incorrect. Please try again.", "register_login"])
