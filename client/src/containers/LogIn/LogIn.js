@@ -36,9 +36,6 @@ const LogIn = ({
 
       if (!checkEmail.data.success) {
         setAlertUser([{"color": "red"},`${email} not found`, "register_login"])
-        setTimeout(function(){
-          setAlertUser([]);
-        }, 5000);
         setLoading(false);
         return;
       } else if (checkEmail.data.success) {
@@ -62,9 +59,6 @@ const LogIn = ({
         if(loggedInUser.data.success){
           setCurrentUser(userObj);
           setAlertUser([{"background-color": "darkseagreen"},loggedInUser.data.msg, "loggedIn_container"])
-          setTimeout(function(){
-            setAlertUser([]);
-          }, 3000); 
           history.push("/");
         }
       };
@@ -72,9 +66,6 @@ const LogIn = ({
 
     } catch (e) { 
       setAlertUser([{"color": "red"},"Email / password is incorrect. Please try again.", "register_login"])
-      setTimeout(function(){
-        setAlertUser([]);
-      }, 7000); 
     }
     setLoading(false);
   }

@@ -21,9 +21,6 @@ const SignUp = ({
       passwordSignupRef.current.value !== passwordConfirmSignupRef.current.value
     ) {
       setAlertUser([{"color": "red"},"Passwords do not match! Please try again.", "register_signup"])
-      setTimeout(function(){
-        setAlertUser([]);
-      }, 7000);
       setLoading(false);
       return;
     } 
@@ -35,9 +32,6 @@ const SignUp = ({
 
       if (checkEmail.data.success) { 
         setAlertUser([{"color": "red"},`${email} is already in use. Try again.`, "register_signup"])
-        setTimeout(function(){
-          setAlertUser([]);
-        }, 5000);
         setLoading(false);
         return;
       } else { 
@@ -59,7 +53,7 @@ const SignUp = ({
         } 
         
         await axios.post(`http://localhost:3002/insertNewUser`, body, axiosConfig); 
-        setAlertUser([{"color": "green"}, "Your Account has been created!", "register_signup"])
+        setAlertUser([{"color": "green"}, "Your Account has been created! Wait a moment...", "register_signup"])
         setTimeout(function(){
           setAlertUser([]);
           history.push("/userLogIn");

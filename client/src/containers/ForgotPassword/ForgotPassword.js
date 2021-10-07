@@ -57,15 +57,9 @@ const ForgotPassword = ({
         axiosConfig
       );
       setAlertUser([{"color": "green"},"SUCCESS! Your new password will arrive in 5 minutes!", "forgot_password"])
-      setTimeout(function(){
-        setAlertUser([]);
-      }, 4000);
     } else {
 
-      setAlertUser([{"color": "red"},"Email not found", "forgot_password"])
-      setTimeout(function(){
-        setAlertUser([]);
-      }, 4000); 
+      setAlertUser([{"color": "red"},`${email} not found, please try again.`, "forgot_password"])
     }
     setLoading(false);
   }

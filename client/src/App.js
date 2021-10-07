@@ -728,6 +728,8 @@ const parseLocationData = (nd, user) => {
               <ForgotPassword
                 alertUser={alertUser}
                 setAlertUser={setAlertUser}
+                loading={loading}
+                setLoading={setLoading}
               />
             )}
           />

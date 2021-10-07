@@ -62,9 +62,6 @@ const Settings = ({
         setLoading(true);
         if(newPasswConfirmRef.current.value !== newPasswRef.current.value){ 
             setAlertUser([{"color": "red"},"Passwords do not match!", "register_settings"])
-            setTimeout(function(){
-              setAlertUser([]);
-            }, 4000); 
         } else {
             // confirm submitted "current password" matches users account password
             const axiosConfig = {
@@ -98,9 +95,6 @@ const Settings = ({
                 }
             } else { 
                 setAlertUser([{"color": "red"},"Incorrect Current Password given!", "register_settings"])
-                setTimeout(function(){
-                  setAlertUser([]);
-                }, 4000); 
             }
             
         };
