@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './SolarRoof.css';
 
-class SolarRoof extends Component {
-  render() {
+const SolarRoof = () => {
     return (
       <div className="app_columns_width vehicleConfig_column1">
           <div className="app_configTitle">Solar Roof</div> 
@@ -104,7 +103,6 @@ class SolarRoof extends Component {
           </div>
       </div> 
     );
-  }
 }
 
 export default SolarRoof;

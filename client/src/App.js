@@ -39,11 +39,49 @@ const App = ({
   const history = useHistory();
   const cookies = new Cookies();
 
+  const [menuVisibility, setMenuVisibility] = useState({
+    mobileMenu: false,
+    applyAllWarning: false,
+    resetWarning: false,
+  });
+  const [loading, setLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [newNotificationsNum, setNewNotificationsNum] = useState(2);
+  const [warnings, setWarnings] = useState({});
+  const [ourRegion, setOurRegion] = useState("--");
+  const [zipcode, setzipcode] = useState("83211");
+  const [currentTime, setCurrentTime] = useState("");
+  const [timeZone, setTimeZone] = useState("");
+  const [today, setToday] = useState([]);
+  const counties = zipcodeData.county && zipcodeData.county.split(","); 
+  const areaCodes =
+    zipcodeData.area_codes && zipcodeData.area_codes.split(" / "); 
+  const [sunroofLink, setSunroofLink] = useState("");
+  const [weatherLink, setWeatherLink] = useState("");
+  const [alertUser, setAlertUser] = useState([]);
+  // All alerts: user_entry, loggedIn_container, register_signup, register_login, register_settings, forgot_password
+  const [showCookieAsk, setShowCookieAsk] = useState("");
+  const [toggleNotification, setToggleNotification] = useState("closed");
+  const [viewedNotifications, setViewedNotifications] = useState({});
+  const [activeAreacode, setActiveAreacode] = useState("");
+  const [activeCounty, setActiveCounty] = useState("");
+  const [areaCodeInteraction, setAreaCodeInteraction] = useState("false");
+  const [countyInteraction, setCountyInteraction] = useState("false");
+
+
   const acceptZipOrAreacode = (val) => {
     if (val.length === 3 && Number(val)) {
+      // 2 lines of code below ensures our DynamicMenu nav bar handles zip and areacode appropriately
+      setAreaCodeInteraction('false');
+      setCountyInteraction('false');
+
       getZipDataWithAreaCode(val);
     } else if (val.length < 6 && val.length > 3 && Number(val)) {
       // 1001 and 90210 are both valid zip codes, so we must allow for 4/5 digit zip codes
+
+      setAreaCodeInteraction('false');
+      setCountyInteraction('false');
+
       getMyZipcodeData(val);
     } else {
       setAlertUser([
@@ -56,32 +94,6 @@ const App = ({
       }, 4000);
     }
   };
-
-  const [menuVisibility, setMenuVisibility] = useState({
-    mobileMenu: false,
-    applyAllWarning: false,
-    resetWarning: false,
-  });
-
-  const [loading, setLoading] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [newNotificationsNum, setNewNotificationsNum] = useState(2);
-  const [warnings, setWarnings] = useState({});
-  const [ourRegion, setOurRegion] = useState("--");
-  const [zipcode, setzipcode] = useState("83211");
-  const [currentTime, setCurrentTime] = useState("");
-  const [timeZone, setTimeZone] = useState("");
-  const [today, setToday] = useState([]);
-  const counties = zipcodeData.county && zipcodeData.county.split(",");
-  const areaCodes =
-    zipcodeData.area_codes && zipcodeData.area_codes.split(" / ");
-  const [sunroofLink, setSunroofLink] = useState("");
-  const [weatherLink, setWeatherLink] = useState("");
-  const [alertUser, setAlertUser] = useState([]);
-  // All alerts: user_entry, loggedIn_container, register_signup, register_login, register_settings, forgot_password
-  const [showCookieAsk, setShowCookieAsk] = useState("");
-  const [toggleNotification, setToggleNotification] = useState("closed");
-  const [viewedNotifications, setViewedNotifications] = useState({});
 
   const cookieStart = () => {
     if (cookies.get("doNotSetCookie")) {
@@ -324,6 +336,7 @@ const App = ({
 
   const submitZipOrAreacode = (zipcode) => {
     setzipcode("");
+
     if (Number(zipcode)) {
       acceptZipOrAreacode(zipcode);
     } else {
@@ -355,6 +368,35 @@ const App = ({
       console.log(e);
     }
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     cookieStart();
@@ -499,10 +541,10 @@ const getDaysSinceLastVisit = (lastVisit) => {
   }, [currentUser]);
 
   useEffect(() => {
-    if (notificationData) {
+    if (currentUser && notificationData) {
       parseLocationData(notificationData, currentUser);
     }
-  }, [notificationData]);
+  }, [currentUser, notificationData]);
 
   useEffect(() => {
     if (currentUser) {
@@ -602,6 +644,12 @@ const getDaysSinceLastVisit = (lastVisit) => {
           currentTime={currentTime}
           sunroofLink={sunroofLink}
           weatherLink={weatherLink}
+          setActiveAreacode={setActiveAreacode}
+          setActiveCounty={setActiveCounty} 
+          areaCodeInteraction={areaCodeInteraction}
+          countyInteraction={countyInteraction}
+          setAreaCodeInteraction={setAreaCodeInteraction}
+          setCountyInteraction={setCountyInteraction}
         />
         <DynamicMenu
           ourRegion={ourRegion}
@@ -616,6 +664,8 @@ const getDaysSinceLastVisit = (lastVisit) => {
           sunroofLink={sunroofLink}
           weatherLink={weatherLink}
           submitZipOrAreacode={submitZipOrAreacode}
+          activeAreacode={activeAreacode}
+          activeCounty={activeCounty}
         />
         <ProductMenu alertUser={alertUser} />
         <Switch>

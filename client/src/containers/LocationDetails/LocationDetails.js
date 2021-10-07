@@ -1,17 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./LocationDetails.css";
 
-const LocationDetails = ({ 
+const LocationDetails = ({
   zipcodeData,
   ourRegion,
-  counties, 
+  counties,
   timeZone,
   today,
-  areaCodes, 
+  areaCodes,
   currentTime,
   weatherLink,
   sunroofLink,
+  setActiveAreacode,
+  setActiveCounty,
+  areaCodeInteraction,
+  countyInteraction,
+  setAreaCodeInteraction,
+  setCountyInteraction,
 }) => {
+  useEffect(() => {
+    if (areaCodes && areaCodeInteraction === "false") {
+      // we listen for areaCodeInteraction because we need the code below to run only on new zip/areacode search and noe onChange
+      setActiveAreacode(areaCodes[0]);
+    }
+  }, [areaCodes]);
+
+  useEffect(() => {
+    if (counties && countyInteraction === "false") {
+      // we listen for areaCodeInteraction because we need the code below to run only on new zip/areacode search and noe onChange
+      setActiveCounty(counties[0]);
+    }
+  }, [counties]);
 
   return zipcodeData.id ? (
     <div className="locationDetails_container app_displayFlex">
@@ -23,9 +42,17 @@ const LocationDetails = ({
           {zipcodeData.city}, {zipcodeData.state_abbr}
         </div>
         <div className="LocationDetails_county LocationDetails_element">
-          <select className="locationDetails_content app_removeBlue">
+          <select
+            className="locationDetails_content app_removeBlue"
+            onChange={(event) => {
+              setCountyInteraction("true");
+              setActiveCounty(event.target.value);
+            }}
+          >
             {counties.map((county) => (
-              <option key={county} value={county}>{county}</option>
+              <option key={county} value={county}>
+                {county}
+              </option>
             ))}
           </select>
         </div>
@@ -38,9 +65,17 @@ const LocationDetails = ({
           <div>
             <div className="locationDetails_content_areacode">
               (
-              <select className="locationDetails_content locationDetails_content_areacode app_removeBlue">
+              <select
+                className="locationDetails_content locationDetails_content_areacode app_removeBlue"
+                onChange={(event) => {
+                  setAreaCodeInteraction("true");
+                  setActiveAreacode(event.target.value);
+                }}
+              >
                 {areaCodes.map((areaCode) => (
-                  <option key={areaCode} value={areaCode}>{areaCode}</option>
+                  <option key={areaCode} value={areaCode}>
+                    {areaCode}
+                  </option>
                 ))}
               </select>
               )
@@ -50,11 +85,9 @@ const LocationDetails = ({
         ) : (
           <div>
             <div className="locationDetails_content_areacode">
-              (
-              <span className="locationDetails_areacode">{areaCodes[0]}</span>
-              )
+              (<span className="locationDetails_areacode">{areaCodes[0]}</span>)
             </div>
-            <div className="locationDetails_areacode_subtext">area code</div> 
+            <div className="locationDetails_areacode_subtext">area code</div>
           </div>
         )}
       </div>

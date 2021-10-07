@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './InfoModalData_table.css';
 
-class InfoModalData_charging_stations extends Component {
-  render() {
+const InfoModalData_charging_stations = () => {
+
     return ( 
       <div className="infoModalData_charging_stations_container">
         <div className="app_displayFlex">
@@ -86,7 +86,6 @@ class InfoModalData_charging_stations extends Component {
         </div>
       </div>
     );
-  }
 }
 
 export default InfoModalData_charging_stations;

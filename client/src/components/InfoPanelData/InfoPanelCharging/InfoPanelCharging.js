@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './InfoPanel_charging.css';
-{/* <div className="infoPanel_section_data">  */}
-class InfoPanel_charging extends Component {
-  render() {
+
+const InfoPanel_charging = () => {
     return (
       <div className="InfoPanel_charging_container">
         <div id="infoPanel_loaded_title">CHARGING</div>
@@ -12,7 +11,6 @@ class InfoPanel_charging extends Component {
         </div>
       </div>
     );
-  }
 }
 
 export default InfoPanel_charging;

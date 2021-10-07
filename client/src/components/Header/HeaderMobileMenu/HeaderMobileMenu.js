@@ -26,9 +26,6 @@ const HeaderMobileMenu  = ({
             <Link to="/Settings" onClick={() => closeMobileMenu()} className="headerMobileMenu_links app_textdecorationNone">
               <div className="headerMobileMenu_about headerMobileMenu_login_btn">SETTINGS</div>
             </Link>
-            <Link to="/Notifications" onClick={() => closeMobileMenu()} className="headerMobileMenu_links app_textdecorationNone">
-              <div className="headerMobileMenu_about headerMobileMenu_login_btn">NOTIFICATIONS</div>
-            </Link>
           </div>
         ) : (
           ""

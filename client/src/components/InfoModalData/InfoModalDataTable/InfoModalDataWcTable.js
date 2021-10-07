@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './InfoModalData_table.css';
 
-class InfoModalData_wc_table extends Component {
+const InfoModalData_wc_table = () => {
   render() {
     return ( 
       <div className="infoModalData_wc_table_container"> 

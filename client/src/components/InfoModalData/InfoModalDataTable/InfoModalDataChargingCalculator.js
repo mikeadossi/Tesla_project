@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './InfoModalData_table.css';
 
-class InfoModalData_charging_calculator extends Component {
-  render() {
+const InfoModalData_charging_calculator = () => {
+
     return ( 
       <div className="infoModalData_charging_calculator_container">
           <div className="app_displayFlex">
@@ -87,7 +87,6 @@ class InfoModalData_charging_calculator extends Component {
           <div className="app_source_footer"><a href="https://evcompare.io/charging-calculator/" target="_blank" rel="noopener noreferrer">Credit</a></div>
       </div>
     );
-  }
 }
 
 export default InfoModalData_charging_calculator;

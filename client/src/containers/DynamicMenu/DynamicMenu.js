@@ -18,6 +18,8 @@ const DynamicMenu = ({
   weatherLink,
   sunroofLink,
   submitZipOrAreacode,
+  activeCounty,
+  activeAreacode,
 }) => {
   const [sticky, setSticky] = useState(false);
   const [show, setShow] = useState(false);
@@ -65,14 +67,14 @@ const DynamicMenu = ({
             {zipcodeData.city}, {zipcodeData.state_abbr}
           </div>
           <div className="dynamicMenu_county LocationDetails_element">
-            {counties[0]}
+            {activeCounty}
           </div>
         </div>
 
         <div className="app_locationDetails_border"></div>
 
         <div className="dynamicMenu_containers dynamicMenu_container_2">
-          <div className="dynamicMenu_areacode">({areaCodes[0]} )</div>
+          <div className="dynamicMenu_areacode">({activeAreacode})</div>
           <div className="dynamicMenu_areacode_subcontainer">
             <div className="dynamicMenu_areacode_subtext">area</div>
             <div className="dynamicMenu_areacode_subtext">code</div>

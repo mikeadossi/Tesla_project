@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './InfoModalData_table.css';
 
-class InfoModalData_mc_table extends Component {
-  render() {
+const InfoModalData_mc_table = () => {
+
     return ( 
       <div className="infoModalData_mc_table_container">
           <table>
@@ -113,7 +113,7 @@ class InfoModalData_mc_table extends Component {
           <div className="app_source_footer"><a href="https://www.tesla.com/support/home-charging-installation/mobile-connector" target="_blank" rel="noopener noreferrer">Source</a></div>
       </div>
     );
-  }
+
 }
 
 export default InfoModalData_mc_table;

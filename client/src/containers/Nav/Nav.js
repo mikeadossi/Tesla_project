@@ -44,7 +44,7 @@ const Nav = ({
 
   return (
     <div className="nav_container">
-      <HeaderLeft />
+      <HeaderLeft currentUser={currentUser} />
       <HeaderCenter
         changeRegion={changeRegion}
         zipcode={zipcode}
