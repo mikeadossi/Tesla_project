@@ -1,4 +1,6 @@
 import * as types from "../actions/types";
+import displaySolarFacts from "../../containers/SolarProductPanel/SolarProductPanelMethods/displaySolarFacts";
+import displayVehicleFacts from "../../containers/VehiclePanel/VehiclePanelMethods/displayVehicleFacts";
 
 const initialState = {
   zipcode_data: {},
@@ -10,7 +12,11 @@ const initialState = {
   getLocations: {},
   stateAbbr: "",
   notifications: [],
+  sFactsArr: displaySolarFacts(),
+  vFactsArr: displayVehicleFacts(),
 };
+
+
 
 
 export default function (state = initialState, action) {

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./SolarProductPanel.css";
 import SolarMenu from "../../components/SolarData/SolarMenu/SolarMenu";
-import SolarConfig from "../../components/SolarData/SolarConfig/SolarConfig";
-import displaySolarFacts from "../SolarProductPanel/SolarProductPanelMethods/displaySolarFacts";
+import SolarConfig from "../../components/SolarData/SolarConfig/SolarConfig"; 
 import { connect } from "react-redux";
 
 const SolarProductPanel = ({ 
   zipcode_data, 
+  sFactsArr,
 }) => {
 
   const [showSolarConfig, setShowSolarConfig] = useState(false);
   const [recommendedProducts, setRecommendedProducts] = useState("");
-  const [recommendedSize, setRecommendedSize] = useState("");
+  const [recommendedSize, setRecommendedSize] = useState(""); 
 
 
   const solarRecommendations = {
@@ -192,8 +192,7 @@ const SolarProductPanel = ({
       price_after_incentives: 26270,
     },
   };
-
-  const sFactsArr = displaySolarFacts();
+  
 
 
   return (
@@ -235,6 +234,7 @@ function mapStateToProps(state) {
   return {
     error: state.vehiclesReducer.error, 
     zipcode_data: state.navReducer.zipcode_data,
+    sFactsArr: state.navReducer.sFactsArr
   };
 }
 

@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "./VehiclePanel.css";
 import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
-import VehicleConfigContainer from "../../components/VehicleData/VehicleConfigContainer/VehicleConfigContainer";
-import displayVehicleFacts from "../VehiclePanel/VehiclePanelMethods/displayVehicleFacts";
+import VehicleConfigContainer from "../../components/VehicleData/VehicleConfigContainer/VehicleConfigContainer"; 
 import {
   removeModel,
   setSelectedVehicleName,
@@ -55,6 +54,7 @@ const VehiclePanel = ({
   setMenuOptions,
   alertUser,
   setAlertUser,
+  vFactsArr,
 }) => {
   const dispatch = useDispatch();
 
@@ -139,7 +139,6 @@ const VehiclePanel = ({
     dispatch(updateRenderData(newDetailsAndRender));
   };
 
-  const vFactsArr = displayVehicleFacts();
 
   return (
     <div className="app_Panel_container">
@@ -293,6 +292,7 @@ function mapStateToProps(state) {
     activeOffMenuAutopilot: state.vehiclesReducer.activeOffMenuAutopilot,
     loadTeslaData: state.vehiclesReducer.loadTeslaDataBool,
     menuOptions: state.vehiclesReducer.menuOptions,
+    vFactsArr: state.navReducer.vFactsArr,
   };
 }
 
