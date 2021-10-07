@@ -18,11 +18,10 @@ import {
   changeVehicleLayout,
   addTowHitch,
   toggleFSD,
-  selectOffMenuAutopilot,
+  selectOffMenuAutopilot, 
 } from "./VehiclePanelMethods/moduleExports";
 import { connect, useDispatch } from "react-redux";
-import { getAllVehicles } from "../../config/actions/vehicleActions";
-import { getAllStateData } from "../../config/actions/usStateActions";
+import { getAllVehicles } from "../../config/actions/vehicleActions"; 
 import { updateRenderData } from "../../config/actions/vehicleActions";
 import {
   TOGGLE_MOBILE_MENU,
@@ -31,19 +30,13 @@ import {
   TOGGLE_RESET_WARNING,
   TOGGLE_APPLY_ALL_WARNING,
   FSD_SETTING,
-  OFFMENU_AUTOPILOT,
-  VEHICLE_ORDER,
+  OFFMENU_AUTOPILOT, 
   LOAD_TESLA_DATA_BOOL,
   MENU_OPTIONS,
 } from "../../config/actions/types";
 
-const VehiclePanel = ({
-  getAllVehicles,
-  getAllStateData,
+const VehiclePanel = ({ 
   metaVehicleObj,
-  zipcode_data,
-  usStatesData,
-  changeRegion,
   currentUser,
   handleWarning,
   vehicleData,
@@ -56,7 +49,6 @@ const VehiclePanel = ({
   setActiveOffMenuAutopilot,
   updateRenderData,
   usStateVehicleOrder,
-  setUsStateVehicleOrder,
   loadTeslaData,
   setLoadTeslaData,
   menuOptions,
@@ -69,46 +61,10 @@ const VehiclePanel = ({
   const vehicleContainerRef = useRef();
 
   useEffect(() => {
-    if (zipcode_data.id) {
-      getAllVehicles();
-      getAllStateData(zipcode_data.state_abbr);
-    }
-  }, [
-    zipcode_data.id,
-    zipcode_data.state_abbr,
-    getAllVehicles,
-    getAllStateData,
-  ]);
-
-  useEffect(() => {
-    if (usStatesData[0]) {
-      let vehicle_order = JSON.parse(usStatesData[0]["vehicle_order"]);
-      setUsStateVehicleOrder([
-        usStatesData[0]["state_abbr"],
-        zipcode_data["id"],
-        JSON.parse(usStatesData[0]["vehicle_order"]),
-        JSON.parse(usStatesData[0]["payment_object"]),
-      ]);
-      return changeRegion(
-        zipcode_data.state_name,
-        zipcode_data.county,
-        vehicle_order,
-        usStatesData[0]
-      );
-    }
-  }, [
-    usStatesData[0],
-    changeRegion,
-    setUsStateVehicleOrder,
-    usStatesData,
-    zipcode_data,
-  ]);
-
-  useEffect(() => {
-    const payload = usStateVehicleOrder && usStateVehicleOrder[3];
-    if (!loadTeslaData && metaVehicleObj.length > 0 && payload) {
+    const payload = usStateVehicleOrder && usStateVehicleOrder[3]; 
+    if (!loadTeslaData && metaVehicleObj.length > 0 && payload) { 
       getTeslaData(payload, metaVehicleObj, setTeslaModels);
-      setLoadTeslaData(true);
+      setLoadTeslaData(true); 
       populateMenu(metaVehicleObj, setMenuOptions);
     }
   }, [
@@ -120,6 +76,7 @@ const VehiclePanel = ({
     setTeslaModels,
   ]);
 
+  
   const runReset = (vehicleName, detailsAndRender) => {
     let selectedModelDetailsObj =
       detailsAndRender["vehicle_details"][vehicleName];
@@ -329,23 +286,18 @@ const VehiclePanel = ({
 
 function mapStateToProps(state) {
   return {
-    error: state.vehiclesReducer.error,
-    metaVehicleObj: state.vehiclesReducer.vehicle,
-    usStatesData: state.usStateReducer.usStatesData,
-    zipcode_data: state.navReducer.zipcode_data,
+    error: state.vehiclesReducer.error, 
     teslaModels: state.vehiclesReducer.vehicleRenderData,
     vehicleData: state.vehiclesReducer.vehiclesRendered,
     activeFSDSetting: state.vehiclesReducer.activeFSDSetting,
     activeOffMenuAutopilot: state.vehiclesReducer.activeOffMenuAutopilot,
-    usStateVehicleOrder: state.vehiclesReducer.vehicleOrderObject,
     loadTeslaData: state.vehiclesReducer.loadTeslaDataBool,
     menuOptions: state.vehiclesReducer.menuOptions,
   };
 }
 
 export default connect(mapStateToProps, {
-  getAllVehicles,
-  getAllStateData,
+  getAllVehicles, 
   updateRenderData: () => (newData, dispatch) =>
     updateRenderData(newData, dispatch),
   toggl: () => (dispatch) => dispatch({ type: TOGGLE_MOBILE_MENU }),
@@ -373,11 +325,6 @@ export default connect(mapStateToProps, {
       type: OFFMENU_AUTOPILOT,
       payload: activeOffMenuAutopilot,
     }),
-  setUsStateVehicleOrder: (usStateVehicleOrder) => (dispatch) =>
-    dispatch({
-      type: VEHICLE_ORDER,
-      payload: usStateVehicleOrder,
-    }),
   setLoadTeslaData: (loadTeslaData) => (dispatch) =>
     dispatch({
       type: LOAD_TESLA_DATA_BOOL,
@@ -387,5 +334,5 @@ export default connect(mapStateToProps, {
     dispatch({
       type: MENU_OPTIONS,
       payload: menuOptions,
-    }),
+    }),  
 })(VehiclePanel);

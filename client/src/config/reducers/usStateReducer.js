@@ -7,8 +7,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case types.GET_ALL_US_STATES_DATA: 
-    
+    case types.GET_ALL_US_STATES_DATA:
       return {
         ...state,
         usStatesData: action.payload,

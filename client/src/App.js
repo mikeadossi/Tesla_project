@@ -23,18 +23,38 @@ import {
   getMyZipcodeData,
   emptyZipcodeData,
 } from "./config/actions/navActions";
+import { getAllVehicles } from "./config/actions/vehicleActions";
+import { getAllStateData } from "./config/actions/usStateActions";
 import moment from "moment-timezone";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import HeaderCookiePermission from "./components/Header/HeaderCookiePermission/HeaderCookiePermission.js";
+import {
+  getTeslaData,
+  populateMenu, 
+} from "./containers/VehiclePanel/VehiclePanelMethods/moduleExports";
+import { 
+  UPDATE_VEHICLE_RENDER_DATA,
+  LOAD_TESLA_DATA_BOOL,
+  MENU_OPTIONS,
+  VEHICLE_ORDER,
+} from "./config/actions/types";
 
 const App = ({
   zipcodeData,
+  usStatesData,
   getMyZipcodeData,
   getZipDataWithAreaCode,
   emptyZipcodeData,
   getNotifications,
-  notificationData,
+  notificationData, 
+  // setUsStateVehicleOrder,
+  setTeslaModels,
+  setMenuOptions,
+  setLoadTeslaData,
+  loadTeslaData,
+  metaVehicleObj,
+  // usStateVehicleOrder,
 }) => {
   const history = useHistory();
   const cookies = new Cookies();
@@ -67,6 +87,8 @@ const App = ({
   const [activeCounty, setActiveCounty] = useState("");
   const [areaCodeInteraction, setAreaCodeInteraction] = useState("false");
   const [countyInteraction, setCountyInteraction] = useState("false");
+  const [metaVehicles, setMetaVehicles] = useState({});
+  const [usStateVehicleOrder, setUsStateVehicleOrder] = useState([]);
 
 
   const acceptZipOrAreacode = (val) => {
@@ -168,7 +190,7 @@ const App = ({
     return norCal.includes(county);
   };
 
-  function changeRegion(state, county, vo, obj) {
+  const changeRegion = (state, county, vo, obj) => {
     if (obj && obj["state_name"] === state) {
       if (state !== "California") {
         setOurRegion(vo.region);
@@ -181,7 +203,7 @@ const App = ({
         }
       }
     }
-  }
+  };
 
   const checkTimezone = () => {
     let timeZ = zipcodeData.time_zone;
@@ -370,37 +392,41 @@ const App = ({
   };
 
 
+async function getNeededStateData(abbr){ 
+  await axios.get(
+    `http://localhost:3002/statedata?abbr=${abbr}`
+  ).then((usStatesData) => {
+    const ussd = usStatesData.data[0];
+    const vo = JSON.parse(ussd["vehicle_order"]);
+    const po = JSON.parse(ussd["payment_object"]);
 
+    setUsStateVehicleOrder([
+      ussd["state_abbr"],
+      zipcodeData["id"],
+      vo,
+      po,
+    ]);
 
+    changeRegion(
+      zipcodeData.state_name,
+      zipcodeData.county,
+      vo,
+      ussd
+    );
+  }) 
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+async function getEveryModel(){
+  await axios.get(
+    `http://localhost:3002/allModels`
+  ).then((mv) => {
+    setMetaVehicles(mv.data);
+  }) 
+};
 
   useEffect(() => {
-    cookieStart();
-  });
+    cookieStart(); 
+  },[]);
 
   useEffect(() => {
     // if user isn't logged in ensure redux adheres to cookie settings
@@ -423,15 +449,6 @@ const App = ({
       }
     }
   }, []);
-
-
-
-
-
-
-
-
-
 
 const getDateString = (ourDate) => {
   // ourDate may look like Tue Oct 05 2021 13:37:51 GMT-0700 (Pacific Daylight Time)
@@ -495,43 +512,41 @@ const getDaysSinceLastVisit = (lastVisit) => {
 }
 
 
-  const parseLocationData = (nd, user) => {
-    if (nd && user !== null) { 
-      const lastVisited = user.notifications_last_viewed_on;
-      console.log('lv-',lastVisited)
-      const dateJoined = getDateString(user.date_joined);
-      console.log('dj-',dateJoined)
-      let userVisit;
-      if(lastVisited === null || lastVisited === "null"){
-        userVisit = dateJoined; 
-      } else {
-        userVisit = getDateString(lastVisited); 
-      }; 
-      let notSeenNotifications = [];
-      let alreadySeenNotifications = []; 
-      nd.map((v) => { 
-        const ndDate = v["notification_date"]; 
-        if(ndDate > dateJoined){
-          if (ndDate > userVisit) {
-            v["daysSince"] = getDaysSinceLastVisit(userVisit);
-            notSeenNotifications.push(v);
-          } else if (ndDate <= userVisit) {
-            v["daysSince"] = getDaysSinceLastVisit(userVisit);
-            alreadySeenNotifications.push(v);
-          }
-        };
-      });
-
-      let num = notSeenNotifications.length;
-      if(currentUser["viewed_welcome_notification"] === "false"){
-        // every new user views 2 notifications upon visit
-        num += 2;
+const parseLocationData = (nd, user) => {
+  if (nd && user !== null) { 
+    const lastVisited = user.notifications_last_viewed_on; 
+    const dateJoined = getDateString(user.date_joined); 
+    let userVisit;
+    if(lastVisited === null || lastVisited === "null"){
+      userVisit = dateJoined; 
+    } else {
+      userVisit = getDateString(lastVisited); 
+    }; 
+    let notSeenNotifications = [];
+    let alreadySeenNotifications = []; 
+    nd.map((v) => { 
+      const ndDate = v["notification_date"]; 
+      if(ndDate > dateJoined){
+        if (ndDate > userVisit) {
+          v["daysSince"] = getDaysSinceLastVisit(userVisit);
+          notSeenNotifications.push(v);
+        } else if (ndDate <= userVisit) {
+          v["daysSince"] = getDaysSinceLastVisit(userVisit);
+          alreadySeenNotifications.push(v);
+        }
       };
+    });
 
-      setNewNotificationsNum(num);
-      setViewedNotifications({notSeenNotifications, alreadySeenNotifications});
-    }
-  };
+    let num = notSeenNotifications.length;
+    if(currentUser["viewed_welcome_notification"] === "false"){
+      // every new user views 2 notifications upon visit
+      num += 2;
+    };
+
+    setNewNotificationsNum(num);
+    setViewedNotifications({notSeenNotifications, alreadySeenNotifications});
+  }
+};
 
 
   useEffect(() => {
@@ -603,6 +618,15 @@ const getDaysSinceLastVisit = (lastVisit) => {
     }
   }, [zipcodeData.city]);
 
+  useEffect(() => {
+    if(zipcodeData.state_abbr){
+      getNeededStateData(zipcodeData.state_abbr)
+      getEveryModel();
+    }
+  }, [zipcodeData.state_abbr])
+
+  
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -624,7 +648,7 @@ const getDaysSinceLastVisit = (lastVisit) => {
           setCurrentUser={setCurrentUser}
           updateDB={updateDB}
           viewedNotifications={viewedNotifications}
-        />
+        /> 
         <MobileNav
           menuVisibility={menuVisibility}
           closeMobileMenu={closeMobileMenu}
@@ -711,13 +735,15 @@ const getDaysSinceLastVisit = (lastVisit) => {
             exact
             path="/vehicles"
             component={() => (
-              <Vehicles
-                changeRegion={changeRegion}
+              <Vehicles 
                 zipcode={zipcode}
                 currentUser={currentUser}
                 handleWarning={handleWarning}
                 alertUser={alertUser}
                 setAlertUser={setAlertUser}
+                usStatesData={usStatesData} 
+                metaVehicleObj={metaVehicles}
+                usStateVehicleOrder={usStateVehicleOrder} 
               />
             )}
           />
@@ -763,6 +789,9 @@ function mapStateToProps(state) {
     error: state.navReducer.error,
     zipcodeData: state.navReducer.zipcode_data,
     notificationData: state.navReducer.notifications,
+    loadTeslaData: state.vehiclesReducer.loadTeslaDataBool,
+    metaVehicleObj: state.vehiclesReducer.everyVehicle,
+    usStatesData: state.usStateReducer.usStatesData, 
   };
 }
 
@@ -771,8 +800,24 @@ export default connect(mapStateToProps, {
   getZipDataWithAreaCode,
   emptyZipcodeData,
   getNotifications,
-  // toggleResetWarning: (modelName) => (dispatch) =>
-  // dispatch({ type: TOGGLE_RESET_WARNING, payload: modelName }),
-  // toggleApplyAllWarning: () => (dispatch) =>
-  //   dispatch({ type: TOGGLE_APPLY_ALL_WARNING }),
+
+  getAllStateData,
+
+
+  setTeslaModels: (teslaModels) => (dispatch) =>
+  dispatch({
+    type: UPDATE_VEHICLE_RENDER_DATA,
+    payload: teslaModels,
+  }),
+  setMenuOptions: (menuOptions) => (dispatch) =>
+  dispatch({
+    type: MENU_OPTIONS,
+    payload: menuOptions,
+  }),
+  setLoadTeslaData: (loadTeslaData) => (dispatch) =>
+  dispatch({
+    type: LOAD_TESLA_DATA_BOOL,
+    payload: loadTeslaData,
+  }),
+  
 })(App);

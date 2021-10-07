@@ -13,7 +13,7 @@ const formValsStarter = {
 };
 
 const initialState = {
-  vehicle: {},
+  everyVehicle: {},
   error: "",
   vehicleRenderData: {},
   vehiclesRendered: [], 
@@ -32,7 +32,7 @@ export default function state(state = initialState, action) {
     case types.GET_ALL_VEHICLES:
       return {
         ...state,
-        vehicle: action.payload,
+        everyVehicle: action.payload,
         error: "",
       };
     case "ADD_CURRENT":

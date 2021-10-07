@@ -7,14 +7,15 @@ import { getLocations } from "./VehiclesMethods/moduleExports";
 import { connect } from "react-redux";
 
 const Vehicles = ({
-  statedata,
-  changeRegion,
+  statedata, 
   zipcode,
   zipcode_data,
   currentUser,
   handleWarning,
   alertUser,
   setAlertUser,
+  metaVehicleObj,
+  usStateVehicleOrder,
 }) => {
   const [allShowrooms, setAllShowrooms] = useState({});
   const [allServiceCenters, setAllServiceCenters] = useState({});
@@ -51,19 +52,20 @@ const Vehicles = ({
           allChargingLocations={allChargingLocations}
           zipcode_data={zipcode_data}
         />
-        <VehiclePanel
-          changeRegion={changeRegion}
+        <VehiclePanel 
           currentUser={currentUser}
           handleWarning={handleWarning}
           alertUser={alertUser}
-          setAlertUser={setAlertUser}
+          setAlertUser={setAlertUser} 
+          metaVehicleObj={metaVehicleObj}
+          usStateVehicleOrder={usStateVehicleOrder}
         />
       </div>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({ 
   statedata: state.usStateReducer.usStatesData,
   zipcode_data: state.navReducer.zipcode_data,
 });

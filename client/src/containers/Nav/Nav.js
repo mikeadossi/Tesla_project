@@ -23,7 +23,7 @@ const Nav = ({
   setToggleNotification,
   setCurrentUser,
   updateDB,
-  viewedNotifications,
+  viewedNotifications, 
 }) => {
 
   const openNotification = () => {
@@ -41,6 +41,8 @@ const Nav = ({
       };
     };
   };
+
+
 
   return (
     <div className="nav_container">

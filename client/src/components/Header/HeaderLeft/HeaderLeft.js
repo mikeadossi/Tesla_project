@@ -3,7 +3,6 @@ import './HeaderLeft.css';
 import { Link }  from 'react-router-dom';
 
 
-
 const HeaderLeft = ({ currentUser }) => {
 
   let currentUserEmail;

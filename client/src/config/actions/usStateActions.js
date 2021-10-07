@@ -2,7 +2,7 @@ import * as types from "./types";
 import axios from "axios";
 
 
-export const getAllStateData = (abbr) => async (dispatch) => {
+export const getAllStateData = (abbr) => async (dispatch) => { 
     try {
       const res = await axios.get(`http://localhost:3002/statedata?abbr=${abbr}`); 
       dispatch({

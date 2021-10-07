@@ -5,22 +5,13 @@ import SolarConfig from "../../components/SolarData/SolarConfig/SolarConfig";
 import displaySolarFacts from "../SolarProductPanel/SolarProductPanelMethods/displaySolarFacts";
 import { connect } from "react-redux";
 
-import { getAllStateData } from "../../config/actions/usStateActions";
-
 const SolarProductPanel = ({ 
-  zipcode_data,
-  getAllStateData,
+  zipcode_data, 
 }) => {
 
   const [showSolarConfig, setShowSolarConfig] = useState(false);
   const [recommendedProducts, setRecommendedProducts] = useState("");
   const [recommendedSize, setRecommendedSize] = useState("");
-
-  useEffect(() => {
-    if (zipcode_data.id) { 
-      getAllStateData(zipcode_data.state_abbr);
-    }
-  }, [zipcode_data, getAllStateData]);
 
 
   const solarRecommendations = {
@@ -247,6 +238,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {
-  getAllStateData,
-})(SolarProductPanel);
+export default connect(mapStateToProps)(SolarProductPanel);
