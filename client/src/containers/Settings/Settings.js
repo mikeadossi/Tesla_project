@@ -14,7 +14,7 @@ const Settings = ({
     setAlertUser,
     loading,
     setLoading,
-    emptyZipcodeData, 
+    emptyZipcodeData,
 }) => { 
     const currentPasswRef = useRef();
     const newPasswRef = useRef();
@@ -233,5 +233,5 @@ const Settings = ({
 
 
 export default connect(null, {
-    emptyZipcodeData, 
+    emptyZipcodeData,
 })(Settings); 

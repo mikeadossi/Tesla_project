@@ -37,6 +37,7 @@ import {
   UPDATE_VEHICLE_RENDER_DATA,
   LOAD_TESLA_DATA_BOOL,
   MENU_OPTIONS,
+  VIEW_RENDERED_OPTIONS,
   VEHICLE_ORDER,
 } from "./config/actions/types";
 
@@ -55,6 +56,7 @@ const App = ({
   loadTeslaData,
   metaVehicleObj,
   // usStateVehicleOrder,
+  setVehicleData,
 }) => {
   const history = useHistory();
   const cookies = new Cookies();
@@ -340,6 +342,9 @@ const App = ({
         }
       }
     } else if (currentUser) {
+      // clear redux store! TODO GUCCI'
+      setVehicleData([]);
+
       let newWarnings = { ...warnings };
       let newCurrentUser = { ...currentUser };
 
@@ -829,6 +834,11 @@ export default connect(mapStateToProps, {
   dispatch({
     type: LOAD_TESLA_DATA_BOOL,
     payload: loadTeslaData,
+  }),
+  setVehicleData: (vehicleData) => (dispatch) =>
+  dispatch({
+    type: VIEW_RENDERED_OPTIONS,
+    payload: vehicleData,
   }),
   
 })(App);

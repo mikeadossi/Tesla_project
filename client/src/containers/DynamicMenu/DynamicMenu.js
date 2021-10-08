@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./DynamicMenu.css";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux"; 
+import { connect, useDispatch } from "react-redux"; 
 import { TOGGLE_MOBILE_MENU } from "../../config/actions/types";
 
 const DynamicMenu = ({
@@ -21,6 +21,7 @@ const DynamicMenu = ({
   activeCounty,
   activeAreacode,
 }) => {
+  const dispatch = useDispatch();
   const [sticky, setSticky] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -158,7 +159,7 @@ const DynamicMenu = ({
               className="headerRight_hamburger"
               src="../../../../images/Nav/hamburger.png"
               alt="menu"
-              onClick={() => toggleMobileMenu()}
+              onClick={() => toggleMobileMenu(dispatch)}
             />
           </div>
         </div>
@@ -201,7 +202,7 @@ const DynamicMenu = ({
 
 function mapDispatchToProps(dispatch) {
   return {
-    toggleMobileMenu: () => {
+    toggleMobileMenu: (dispatch) => {
       dispatch({ type: TOGGLE_MOBILE_MENU });
     },
   };
