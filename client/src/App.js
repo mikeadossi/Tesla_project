@@ -47,7 +47,7 @@ const App = ({
   getZipDataWithAreaCode,
   emptyZipcodeData,
   getNotifications,
-  notificationData, 
+  notificationData,
   // setUsStateVehicleOrder,
   setTeslaModels,
   setMenuOptions,
@@ -79,7 +79,8 @@ const App = ({
   const [sunroofLink, setSunroofLink] = useState("");
   const [weatherLink, setWeatherLink] = useState("");
   const [alertUser, setAlertUser] = useState([]);
-  // All alerts: user_entry, loggedIn_container, register_signup, register_login, register_settings, forgot_password
+  // All alerts: user_entry, loggedIn_container, register_signup, register_login, 
+  // register_settings, forgot_password, solarMenu, solarConfig
   const [showCookieAsk, setShowCookieAsk] = useState("");
   const [toggleNotification, setToggleNotification] = useState("closed");
   const [viewedNotifications, setViewedNotifications] = useState({});
@@ -749,7 +750,17 @@ const parseLocationData = (nd, user) => {
               />
             )}
           />
-          <Route exact path="/solar" component={() => <Solar />} />
+          <Route 
+            exact 
+            path="/solar" 
+            component={() => (
+              <Solar 
+                alertUser={alertUser} 
+                setAlertUser={setAlertUser} 
+                currentUser={currentUser} 
+              />
+            )} 
+          />
           <Route
             exact
             path="/userLogin"
@@ -802,10 +813,7 @@ export default connect(mapStateToProps, {
   getZipDataWithAreaCode,
   emptyZipcodeData,
   getNotifications,
-
-  getAllStateData,
-
-
+  getAllStateData, 
   setTeslaModels: (teslaModels) => (dispatch) =>
   dispatch({
     type: UPDATE_VEHICLE_RENDER_DATA,

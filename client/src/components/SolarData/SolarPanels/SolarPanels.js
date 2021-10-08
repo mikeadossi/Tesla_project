@@ -10,6 +10,7 @@ const SolarPanels = ({
   panelOptions,
   recommendedSize,
   loan_pymts, 
+  setAlertUser,
 }) => {
   const [activeSolarBtn, setActiveSolarBtn] = useState("");
   const products = { ...recommendedProducts };

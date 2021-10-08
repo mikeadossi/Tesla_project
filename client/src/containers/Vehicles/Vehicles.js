@@ -51,6 +51,7 @@ const Vehicles = ({
           allServiceCenters={allServiceCenters}
           allChargingLocations={allChargingLocations}
           zipcode_data={zipcode_data}
+          currentUser={currentUser}
         />
         <VehiclePanel 
           currentUser={currentUser}

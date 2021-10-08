@@ -7,7 +7,12 @@ const HeaderLeft = ({ currentUser }) => {
 
   let currentUserEmail;
 
-  if(currentUser){ currentUserEmail = currentUser["user_email"] }
+  if(currentUser){ 
+    currentUserEmail = currentUser["user_email"];
+    currentUserEmail = currentUserEmail.split("@")[0];
+    currentUserEmail = currentUserEmail.charAt(0).toUpperCase() + currentUserEmail.slice(1);
+    currentUserEmail = "Welcome "+currentUserEmail+"!"
+  }
 
   return (
     <div className="headerLeft app_marginTop">
@@ -16,7 +21,7 @@ const HeaderLeft = ({ currentUser }) => {
           <div className="headerLeft_brandname header_logo">
             SIDEKICK 
             <span className="headerLeft_brandname_beta">
-              BETA {currentUserEmail}
+              BETA <span className="headerLeft_usersName">{currentUserEmail}</span>
             </span>
           </div>
         </Link> 

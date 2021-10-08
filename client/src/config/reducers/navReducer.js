@@ -13,7 +13,7 @@ const initialState = {
   stateAbbr: "",
   notifications: [],
   sFactsArr: displaySolarFacts(),
-  vFactsArr: displayVehicleFacts(),
+  vFactsArr: displayVehicleFacts(), 
 };
 
 

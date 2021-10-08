@@ -12,6 +12,9 @@ const SolarConfig = ({
   panelOptions,
   recommendedSize,
   powerwallPricing,
+  alertUser,
+  setAlertUser,
+  currentUser,
 }) => {
   const [activePurchase, setActivePurchase] = useState([]);
   const [sumPurchases, setSumPurchases] = useState({
@@ -153,12 +156,18 @@ const SolarConfig = ({
           panelOptions={panelOptions}
           recommendedSize={recommendedSize}
           loan_pymts={loan_pymts}
+          alertUser={alertUser} 
+          setAlertUser={setAlertUser}
+          currentUser={currentUser}
         />
         <div className="app_config_border"></div>
         <SolarPowerWall
           recommendedProducts={recommendedProducts} 
           powerwallPricing={powerwallPricing} 
           loan_pymts={loan_pymts}
+          alertUser={alertUser} 
+          setAlertUser={setAlertUser}
+          currentUser={currentUser}
         />
       </div>
       <SolarAddProduct
@@ -166,6 +175,7 @@ const SolarConfig = ({
         activePurchase={activePurchase}
         sumPurchases={sumPurchases}
         removeFromActive={removeFromActive}
+        currentUser={currentUser}
       />
     </div>
   );

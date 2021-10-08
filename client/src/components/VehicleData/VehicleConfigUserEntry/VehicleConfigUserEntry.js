@@ -154,14 +154,6 @@ const VehicleConfigUserEntry = ({
         submittedCashDown, 
       );
   
-      // setActiveFormVals({
-      //   ...activeFormVals,
-      //   adjustments: "",
-      //   cashDownPayment: "",
-      //   tradeInPayoff: "",
-      //   tradeInValue: ""
-      // });
-  
       setTeslaModels(vehicleContent);
     };
   };
@@ -198,6 +190,7 @@ const VehicleConfigUserEntry = ({
         handleWarning={handleWarning}
         setActiveFSDSetting={setActiveFSDSetting}
         setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
+        currentUser={currentUser}
       />
       <div className="veicleConfig_userEntry_subcontainer">
         <div className="app_displayFlex app_Solar_selectPymt_div">
@@ -244,6 +237,7 @@ const VehicleConfigUserEntry = ({
               activeFormVals={activeFormVals}
               handleFormChange={handleFormChange} 
               handleClearField={handleClearField} 
+              currentUser={currentUser}
             />
           ) : (
             ""
@@ -255,6 +249,7 @@ const VehicleConfigUserEntry = ({
               activeFormVals={activeFormVals}
               handleFormChange={handleFormChange} 
               handleClearField={handleClearField}
+              currentUser={currentUser}
             />
           ) : (
             ""
@@ -266,6 +261,7 @@ const VehicleConfigUserEntry = ({
               activeFormVals={activeFormVals}
               handleFormChange={handleFormChange} 
               handleClearField={handleClearField}
+              currentUser={currentUser}
             />
           ) : (
             ""

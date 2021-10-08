@@ -6,14 +6,26 @@ const SolarMenu = ({
   setShowSolarConfig,
   solarRecommendations,
   setRecommendedProducts,
-  setRecommendedSize,
+  setRecommendedSize, 
+  alertUser,
+  setAlertUser,
 }) => {
   const [userEnergyCost, setUserEnergyCost] = useState(""); 
 
-  const openSolarConfig = (e, value) => {
-    e.preventDefault();
-    setShowSolarConfig(true);
-    submitEnergyCost(value); 
+  const validateMonthlyCost = (e, value) => { 
+    e.preventDefault(); 
+    if( isNaN(value) ){
+      setAlertUser([{"color": "red"},`${value} is not a number, please try again.`, "solarMenu"]); 
+    } else if( value >= 2000){
+      setAlertUser([{"color": "red"},`submission can't be more than $2,000, please try again.`, "solarMenu"]); 
+    } else { 
+      setAlertUser([]);
+      openSolarConfig(value); 
+    };
+  }
+  const openSolarConfig = (value) => {
+      setShowSolarConfig(true);
+      submitEnergyCost(value);
   };
 
   const submitEnergyCost = (v) => {
@@ -64,11 +76,15 @@ const SolarMenu = ({
                 </div>
                 <button
                   className="solarMenu_form_submit_btn app_submit_btn app_noSelect app_removeBlue"
-                  onClick={(e) => openSolarConfig(e, userEnergyCost)}
+                  onClick={(e) => {
+                    validateMonthlyCost(e, userEnergyCost);
+                  }}
+                  // onClick={(e) => openSolarConfig(e, userEnergyCost)}
                 >
                   Submit
                 </button>
               </div>
+              {alertUser[2] === "solarMenu" ? (<div style={alertUser[0]} className="solarMenu_alert">{alertUser[1]}</div>) : ""}
             </form>
           </div>
         ) : (

@@ -63,7 +63,7 @@ const InfoPanel = (props) => {
 
   return (
     <div className="infoPanel_container">
-      <GrayBackground />
+      <GrayBackground currentUser={props.currentUser} />
       <div className="infoPanel_subcontainer sticky_infoPanel">
         <h3 className="infoPanel_title">INFORMATION</h3>
         {props.whichComponent === "vehicles" && (
@@ -71,17 +71,19 @@ const InfoPanel = (props) => {
             <InfoPanelVehicleContainer
               showComponent={showComponent}
               vOrder={vOrder}
+              currentUser={props.currentUser}
             />
             <InfoPanelNeutralContainer
               showComponent={showComponent}
               vOrder={vOrder}
+              currentUser={props.currentUser}
             />
           </>
         )}
         {props.whichComponent === "solar" && (
           <>
-            <InfoPanelSolarContainer showComponent={showComponent} />
-            <InfoPanelNeutralContainer showComponent={showComponent} />
+            <InfoPanelSolarContainer showComponent={showComponent} currentUser={props.currentUser} />
+            <InfoPanelNeutralContainer showComponent={showComponent} currentUser={props.currentUser} />
           </>
         )}
 
@@ -94,6 +96,7 @@ const InfoPanel = (props) => {
                 allShowrooms={props.allShowrooms}
                 allServiceCenters={props.allServiceCenters}
                 allChargingLocations={props.allChargingLocations}
+                currentUser={props.currentUser}
               />
             </>
           ) : (
@@ -105,6 +108,7 @@ const InfoPanel = (props) => {
                 vehicleOrder={vOrder}
                 stateAbbr={stateAbbreviation}
                 whichComponent={props.whichComponent}
+                currentUser={props.currentUser}
               />
             </>
           ) : (
@@ -117,6 +121,7 @@ const InfoPanel = (props) => {
                 stateAbbr={stateAbbreviation}
                 whichComponent={props.whichComponent}
                 zipcode={props.zipcode_data.id}
+                currentUser={props.currentUser}
               />
             </>
           ) : (
@@ -127,6 +132,7 @@ const InfoPanel = (props) => {
               <InfoPanelWarranty
                 stateAbbr={stateAbbreviation}
                 whichComponent={props.whichComponent}
+                currentUser={props.currentUser}
               />
             </>
           ) : (
@@ -140,6 +146,7 @@ const InfoPanel = (props) => {
                 solarIncentives={solarIncentives}
                 stateAbbr={stateAbbreviation}
                 whichComponent={props.whichComponent}
+                currentUser={props.currentUser}
               />
             </>
           ) : (
@@ -150,6 +157,7 @@ const InfoPanel = (props) => {
               <InfoPanelInstallation
                 vehicleOrder={vOrder}
                 stateAbbr={stateAbbreviation}
+                currentUser={props.currentUser}
               />
             </>
           ) : (
@@ -160,6 +168,7 @@ const InfoPanel = (props) => {
               <InfoPanelRoofTypes
                 vehicleOrder={vOrder}
                 stateAbbr={stateAbbreviation}
+                currentUser={props.currentUser}
               />
             </>
           ) : (

@@ -118,8 +118,6 @@ const InfoPanelLocationsNearby = ({
   );
 };
 
-// export default InfoPanelLocationsNearby;
-
 const mapDispatchToProps = (dispatch, allShowrooms) => ({
   showLocations: showLocations(dispatch, allShowrooms),
 });

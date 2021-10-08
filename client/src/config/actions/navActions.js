@@ -42,7 +42,8 @@ export const showLocations = (dispatch, locations) => () => {
     type: types.TOGGLE_LOCATIONS, 
     payload: locations,
   });
-}; 
+};
+
 
 export const getZipDataWithAreaCode = (areacode) => async (dispatch) => {
   try {

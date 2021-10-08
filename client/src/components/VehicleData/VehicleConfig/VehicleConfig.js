@@ -97,6 +97,7 @@ const VehicleConfig = ({
 
           <VehicleConfigImgSection 
               renderedTesla={renderedTesla}
+              currentUser={currentUser}
           />
 
           <VehicleConfigPricing 
@@ -107,6 +108,7 @@ const VehicleConfig = ({
               vehicleContent={vehicleContent}
               usStateVehicleOrder={usStateVehicleOrder}
               modelInfo={modelInfo}
+              currentUser={currentUser}
           />
 
           <VehicleBatteryAndPaint
@@ -121,6 +123,7 @@ const VehicleConfig = ({
               batteryObjectKeys={batteryObjectKeys}
               activeBattery={activeBattery}
               setActiveBattery={setActiveBattery}
+              currentUser={currentUser}
           />
 
         </div>
@@ -140,6 +143,7 @@ const VehicleConfig = ({
                 vehicleBattery={vehicleBattery}
                 selectedVehicle={selectedVehicle}
                 renderedTesla={renderedTesla}
+                currentUser={currentUser}
             />
 
             <VehicleConfigInteriors
@@ -150,6 +154,7 @@ const VehicleConfig = ({
                 selectedVehicle={selectedVehicle}
                 vehicleContent={vehicleContent}
                 renderedTesla={renderedTesla}
+                currentUser={currentUser}
             />
 
             <div className="vehicleConfig_borderBottom"></div>
@@ -162,6 +167,7 @@ const VehicleConfig = ({
               selectedVehicle={selectedVehicle} 
               changeVehicleLayout={changeVehicleLayout} 
               vehicleContent={vehicleContent}
+              currentUser={currentUser}
           />
 
           <VehicleConfigAutopilot 
@@ -178,6 +184,7 @@ const VehicleConfig = ({
               teslaModels={teslaModels}
               setTeslaModels={setTeslaModels} 
               populatePaymentObject={populatePaymentObject}
+              currentUser={currentUser}
           />
 
           <VehicleConfigTowHitch
@@ -188,6 +195,7 @@ const VehicleConfig = ({
               selectedVehicle={selectedVehicle}
               teslaDetails={teslaDetails}
               renderedTesla={renderedTesla}
+              currentUser={currentUser}
               />
 
           <VehicleConfigUserEntry

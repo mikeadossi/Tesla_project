@@ -35,12 +35,11 @@ const LogIn = ({
       const checkEmail = await axios.get(`http://localhost:3002/isUserRegistered?email=${email}`);
 
       if (!checkEmail.data.success) {
-        setAlertUser([{"color": "red"},`${email} not found`, "register_login"])
+        setAlertUser([{"color": "red"},`${email} not found`, "register_login"]);
         setLoading(false);
         return;
       } else if (checkEmail.data.success) {
-        const loggedInUser = await axios.post(`http://localhost:3002/logUserIntoApp`, body, axiosConfig); 
-        console.log('loggedInUser success? >>> ',loggedInUser)
+        const loggedInUser = await axios.post(`http://localhost:3002/logUserIntoApp`, body, axiosConfig);  
         const id = loggedInUser.data.data[0].id;
   
         const userObj = {
@@ -60,9 +59,11 @@ const LogIn = ({
           setCurrentUser(userObj);
           setAlertUser([{"background-color": "darkseagreen"},loggedInUser.data.msg, "loggedIn_container"])
           history.push("/");
+          setTimeout(function () {
+            setAlertUser([]);
+          }, 5000);
         }
       };
-      
 
     } catch (e) { 
       setAlertUser([{"color": "red"},"Email / password is incorrect. Please try again.", "register_login"])

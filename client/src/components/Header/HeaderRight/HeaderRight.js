@@ -24,8 +24,9 @@ const HeaderRight = ({
             <img
               className="notification_bell"
               src="../../../../images/Nav/bell_icon.png"
-              alt="menu"
-              onClick={() => openNotification()}
+              alt="menu" 
+              onMouseOver={() => openNotification()}
+              onMouseLeave={() => openNotification()}
             />
           </div>
         </div>

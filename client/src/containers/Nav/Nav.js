@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Nav.css";
 import HeaderLeft from "../../components/Header/HeaderLeft/HeaderLeft.js";
 import HeaderRight from "../../components/Header/HeaderRight/HeaderRight.js";
@@ -26,10 +26,11 @@ const Nav = ({
   viewedNotifications, 
 }) => {
 
+
   const openNotification = () => {
-    if(toggleNotification === "closed"){
+    if(toggleNotification === "closed"){ 
       setToggleNotification("open");
-    } else if (toggleNotification === "open"){
+    } else if (toggleNotification === "open"){ 
       setToggleNotification("closed");
       let newCurrentUser = { ...currentUser };
       newCurrentUser["notifications_last_viewed_on"] = new Date();
@@ -53,7 +54,7 @@ const Nav = ({
         setzipcode={setzipcode}
         submitZipOrAreacode={submitZipOrAreacode}
       />
-      <HeaderRight
+      <HeaderRight 
         currentUser={currentUser}
         newNotificationsNum={newNotificationsNum}
         warnings={warnings}

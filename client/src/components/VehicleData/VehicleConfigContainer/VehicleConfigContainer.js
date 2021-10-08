@@ -94,6 +94,7 @@ const VehicleConfigContainer = ({
         modelInfo={modelInfo}
         usStateVehicleOrder={usStateVehicleOrder}
         makeVisible={makeVisible}
+        currentUser={currentUser}
       />
 
       {configVisibility.ConfigPage ? (
@@ -143,6 +144,7 @@ const VehicleConfigContainer = ({
           batteryObjectKeys={batteryObjectKeys} 
           setActiveBattery={setActiveBattery}
           activeBattery={activeBattery}
+          currentUser={currentUser}
         /> 
         : 
         ""

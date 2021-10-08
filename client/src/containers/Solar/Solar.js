@@ -13,8 +13,13 @@ const Solar = (props) => {
         <InfoPanel 
           whichComponent={"solar"} 
           stateData={statedata} 
+          currentUser={props.currentUser}
         />
-        <SolarProductPanel />
+        <SolarProductPanel 
+          alertUser={props.alertUser} 
+          setAlertUser={props.setAlertUser}
+          currentUser={props.currentUser}
+        />
       </div>
     </div>
   );
@@ -23,5 +28,6 @@ const Solar = (props) => {
 const mapStateToProps = (state) => ({
   statedata: state.usStateReducer.usStatesData,
 });
+
 export default connect(mapStateToProps)(Solar);
 

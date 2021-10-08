@@ -8,7 +8,6 @@ const HeaderMobileMenu  = ({
   handleLogOut,
 }) => { 
 
-
   return (
     <div className="headerMobileMenu">
         <div

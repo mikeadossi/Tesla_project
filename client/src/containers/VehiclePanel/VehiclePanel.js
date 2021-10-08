@@ -153,6 +153,7 @@ const VehiclePanel = ({
         menuOptions={menuOptions}
         vehicleData={vehicleData}
         vehicleContainerRef={vehicleContainerRef}
+        currentUser={currentUser}
       />
       {vehicleData.length === 0 ? (
         <div className="vehiclePanel_super_container">

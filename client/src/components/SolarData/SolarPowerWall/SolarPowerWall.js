@@ -7,6 +7,8 @@ const SolarPowerWall = ({
   recommendedProducts,
   powerwallPricing,
   loan_pymts,
+  setAlertUser,
+  currentUser,
 }) => {
   const products = { ...recommendedProducts };
   const [userPreferredPW, setUserPreferredPW] = useState(
@@ -243,7 +245,10 @@ const SolarPowerWall = ({
           </div>
         </div>
         {pWVisibility.Cash ? (
-          <PowerwallCash userPreferredPW={userPreferredPW} />
+          <PowerwallCash 
+            userPreferredPW={userPreferredPW} 
+            currentUser={currentUser}
+          />
         ) : (
           ""
         )}
@@ -251,6 +256,7 @@ const SolarPowerWall = ({
           <PowerwallFinance
             userPreferredPW={userPreferredPW}
             loan_pymts={loan_pymts}
+            currentUser={currentUser}
           />
         ) : (
           ""

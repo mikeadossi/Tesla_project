@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./SolarProductPanel.css";
 import SolarMenu from "../../components/SolarData/SolarMenu/SolarMenu";
 import SolarConfig from "../../components/SolarData/SolarConfig/SolarConfig"; 
@@ -7,6 +7,9 @@ import { connect } from "react-redux";
 const SolarProductPanel = ({ 
   zipcode_data, 
   sFactsArr,
+  alertUser,
+  setAlertUser,
+  currentUser
 }) => {
 
   const [showSolarConfig, setShowSolarConfig] = useState(false);
@@ -203,8 +206,11 @@ const SolarProductPanel = ({
         solarRecommendations={solarRecommendations}
         setRecommendedProducts={setRecommendedProducts}
         setRecommendedSize={setRecommendedSize}
+        alertUser={alertUser} 
+        setAlertUser={setAlertUser}
+        currentUser={currentUser}
       />
-      {showSolarConfig ? (
+      {showSolarConfig ? ( 
         <SolarConfig
           recommendedProducts={recommendedProducts}
           solarRecommendations={solarRecommendations}
@@ -212,6 +218,9 @@ const SolarProductPanel = ({
           panelOptions={panelOptions}
           recommendedSize={recommendedSize}
           powerwallPricing={powerwallPricing}
+          alertUser={alertUser} 
+          setAlertUser={setAlertUser}
+          currentUser={currentUser}
         />
       ) : (
         <div className="spp_super_container">
@@ -234,7 +243,7 @@ function mapStateToProps(state) {
   return {
     error: state.vehiclesReducer.error, 
     zipcode_data: state.navReducer.zipcode_data,
-    sFactsArr: state.navReducer.sFactsArr
+    sFactsArr: state.navReducer.sFactsArr,
   };
 }
 
