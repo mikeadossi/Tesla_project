@@ -786,6 +786,7 @@ const parseLocationData = (nd, user) => {
               />
             )}
           />
+          <Route exact path="*" component={Lost} />
         </Switch>
         <HeaderCookiePermission
           showCookieAsk={showCookieAsk}
