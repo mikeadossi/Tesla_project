@@ -57,8 +57,7 @@ const LogIn = ({
         const userObj = {
           id,
           user_email: loggedInUser.data.data[0].user_email, 
-          apply_all_warning_on: loggedInUser.data.data[0].apply_all_warning_on,
-          dark_theme_off: loggedInUser.data.data[0].dark_theme_off,
+          apply_all_warning_on: loggedInUser.data.data[0].apply_all_warning_on, 
           date_joined: loggedInUser.data.data[0].date_joined,
           notifications_last_viewed_on: loggedInUser.data.data[0].notifications_last_viewed_on,
           gave_cookie_permission: loggedInUser.data.data[0].gave_cookie_permission,

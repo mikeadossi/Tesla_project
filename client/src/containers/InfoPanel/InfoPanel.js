@@ -16,6 +16,7 @@ import { connect, useDispatch } from "react-redux";
 import { GET_LOCATIONS } from "../../config/actions/types";
 
 const InfoPanel = (props) => {
+  console.log('InfoPanel props->',props)
   const dispatch = useDispatch();
   const allLocations = {
     allShowrooms: props.allShowrooms,
@@ -45,21 +46,11 @@ const InfoPanel = (props) => {
     setVisibility({ [value]: true });
   };
 
-  const stateAbbreviation = props.stateData.length
-    ? props.stateData[0].state_abbr
-    : null;
+  const stateAbbreviation = props.stateData["state_abbr"] || null;
+  const vOrder = props.stateData["vehicle_order"] || null;
+  const vehicleIncentives = props.stateData["vehicle_incentives"] || null;
+  const solarIncentives = props.stateData["solar_incentives"] || null;
 
-  const vOrder = props.stateData.length
-    ? JSON.parse(props.stateData[0].vehicle_order)
-    : null;
-
-  const vehicleIncentives = props.stateData.length
-    ? props.stateData[0].vehicle_incentives
-    : null;
-
-  const solarIncentives = props.stateData.length
-    ? props.stateData[0].solar_incentives
-    : null;
 
   return (
     <div className="infoPanel_container">
@@ -180,7 +171,6 @@ const InfoPanel = (props) => {
   );
 };
 
-// export default InfoPanel;
 function mapStateToProps(state) {
   return {
     error: state.navReducer.error,

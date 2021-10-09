@@ -24,8 +24,8 @@ CREATE TABLE zip_codes (
 
 CREATE TABLE user_details (
   id SERIAL PRIMARY KEY,
-  user_email VARCHAR(255) DEFAULT NULL, 
-  dark_theme_off VARCHAR(255) DEFAULT NULL,
+  user_email VARCHAR(255) DEFAULT NULL,
+  user_password VARCHAR(255) DEFAULT NULL,
   gave_cookie_permission VARCHAR(255) DEFAULT NULL,
   notifications_last_viewed_on VARCHAR(255) DEFAULT NULL,
   notifications_on VARCHAR(255) DEFAULT NULL,

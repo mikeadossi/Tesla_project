@@ -18,12 +18,12 @@ const SolarMenu = ({
       setAlertUser([{"color": "red"},`${value} is not a number, please try again.`, "solarMenu"]); 
     } else if( value >= 2000){
       setAlertUser([{"color": "red"},`submission can't be more than $2,000, please try again.`, "solarMenu"]); 
-    } else { 
-      setAlertUser([]);
+    } else {
       openSolarConfig(value); 
     };
   }
   const openSolarConfig = (value) => {
+      setAlertUser([]);
       setShowSolarConfig(true);
       submitEnergyCost(value);
   };

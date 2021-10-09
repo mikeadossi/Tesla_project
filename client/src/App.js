@@ -36,7 +36,6 @@ import {
 
 const App = ({
   zipcodeData,
-  usStatesData,
   getMyZipcodeData,
   getZipDataWithAreaCode,
   emptyZipcodeData,
@@ -78,6 +77,7 @@ const App = ({
   const [countyInteraction, setCountyInteraction] = useState("false");
   const [metaVehicles, setMetaVehicles] = useState({});
   const [usStateVehicleOrder, setUsStateVehicleOrder] = useState([]);
+  const [usStateData, setUsStateData] = useState({});
 
 
   const acceptZipOrAreacode = (val) => {
@@ -406,7 +406,8 @@ async function getNeededStateData(abbr){
   await axios.get(
     `http://localhost:3002/statedata?abbr=${abbr}`
   ).then((usStatesData) => {
-    const ussd = usStatesData.data[0];
+    const ussd = usStatesData.data[0]; 
+    setUsStateData(ussd);
     const vo = JSON.parse(ussd["vehicle_order"]);
     const po = JSON.parse(ussd["payment_object"]);
 
@@ -536,8 +537,7 @@ const validateCookieSessionID = async () => {
     
     let email = cookies.get("userEmail");
     email = email.replace("%40","@");
-    let sessionID = cookies.get("userSessionId");
-    console.log('user exists in cookies!-',{email,sessionID})
+    let sessionID = cookies.get("userSessionId"); 
     const checkForSession = await axios.get(
       `http://localhost:3002/isSessionValid?credentials=${email}sessionID=${sessionID}`
     );
@@ -635,6 +635,7 @@ useEffect(() => {
       getEveryModel();
     }
   }, [zipcodeData.state_abbr])
+
 
   
 
@@ -747,7 +748,7 @@ useEffect(() => {
                 handleWarning={handleWarning}
                 alertUser={alertUser}
                 setAlertUser={setAlertUser}
-                usStatesData={usStatesData} 
+                statedata={usStateData} 
                 metaVehicleObj={metaVehicles}
                 usStateVehicleOrder={usStateVehicleOrder} 
               />
@@ -807,8 +808,7 @@ function mapStateToProps(state) {
     zipcodeData: state.navReducer.zipcode_data,
     notificationData: state.navReducer.notifications,
     loadTeslaData: state.vehiclesReducer.loadTeslaDataBool,
-    metaVehicleObj: state.vehiclesReducer.everyVehicle,
-    usStatesData: state.usStateReducer.usStatesData, 
+    metaVehicleObj: state.vehiclesReducer.everyVehicle, 
   };
 }
 

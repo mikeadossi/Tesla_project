@@ -22,9 +22,10 @@ const Vehicles = ({
   const [allChargingLocations, setAllChargingLocations] = useState({});
 
   useEffect(() => {
-    if (zipcode_data) {
+    if (zipcode_data && statedata) {
       let zipLong = zipcode_data.longitude;
       let zipLat = zipcode_data.latitude;
+
       setAllShowrooms(
         getLocations("all_showrooms", zipLong, zipLat, statedata)
       );
@@ -37,10 +38,11 @@ const Vehicles = ({
     }
   }, [zipcode_data, statedata]);
 
+
   return (
     <div className="vehicles_container app_pageHeight">
       <div className="vehicles_info_panel app_displayFlex">
-        <InfoPanel
+        <InfoPanel 
           whichComponent={"vehicles"}
           stateData={statedata}
           zipcode={zipcode}
@@ -67,7 +69,7 @@ const Vehicles = ({
 };
 
 const mapStateToProps = (state) => ({ 
-  statedata: state.usStateReducer.usStatesData,
+  // statedata: state.usStateReducer.usStatesData,
   zipcode_data: state.navReducer.zipcode_data,
 });
 export default connect(mapStateToProps, { getMyZipcodeData })(Vehicles);
