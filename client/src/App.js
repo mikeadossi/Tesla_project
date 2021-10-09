@@ -21,23 +21,17 @@ import {
   getNotifications,
   getMyZipcodeData,
   emptyZipcodeData,
-} from "./config/actions/navActions";
-import { getAllVehicles } from "./config/actions/vehicleActions";
+} from "./config/actions/navActions"; 
 import { getAllStateData } from "./config/actions/usStateActions";
 import moment from "moment-timezone";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import HeaderCookiePermission from "./components/Header/HeaderCookiePermission/HeaderCookiePermission.js";
-import {
-  getTeslaData,
-  populateMenu, 
-} from "./containers/VehiclePanel/VehiclePanelMethods/moduleExports";
 import { 
   UPDATE_VEHICLE_RENDER_DATA,
   LOAD_TESLA_DATA_BOOL,
   MENU_OPTIONS,
-  VIEW_RENDERED_OPTIONS,
-  VEHICLE_ORDER,
+  VIEW_RENDERED_OPTIONS, 
 } from "./config/actions/types";
 
 const App = ({
@@ -48,13 +42,6 @@ const App = ({
   emptyZipcodeData,
   getNotifications,
   notificationData,
-  // setUsStateVehicleOrder,
-  setTeslaModels,
-  setMenuOptions,
-  setLoadTeslaData,
-  loadTeslaData,
-  metaVehicleObj,
-  // usStateVehicleOrder,
   setVehicleData,
 }) => {
   const history = useHistory();
@@ -117,6 +104,22 @@ const App = ({
         setAlertUser([]);
       }, 4000);
     }
+  };
+
+  const openNotification = () => {
+    if(toggleNotification === "closed"){ 
+      setToggleNotification("open");
+    } else if (toggleNotification === "open"){ 
+      setToggleNotification("closed");
+      let newCurrentUser = { ...currentUser };
+      newCurrentUser["notifications_last_viewed_on"] = new Date();
+      setCurrentUser(newCurrentUser);
+      updateDB("notifications_last_viewed_on", newCurrentUser);
+      if(newCurrentUser["viewed_welcome_notification"] === "false"){
+        newCurrentUser["viewed_welcome_notification"] = "true";
+        updateDB("viewed_welcome_notification", newCurrentUser);
+      };
+    };
   };
 
   const cookieStart = () => {
@@ -515,7 +518,6 @@ const getDaysSinceLastVisit = (lastVisit) => {
   return diffInDays;
 }
 
-
 const parseLocationData = (nd, user) => {
   if (nd && user !== null) { 
     const lastVisited = user.notifications_last_viewed_on; 
@@ -652,6 +654,7 @@ const parseLocationData = (nd, user) => {
           setCurrentUser={setCurrentUser}
           updateDB={updateDB}
           viewedNotifications={viewedNotifications}
+          openNotification={openNotification}
         /> 
         <MobileNav
           menuVisibility={menuVisibility}
@@ -694,6 +697,8 @@ const parseLocationData = (nd, user) => {
           submitZipOrAreacode={submitZipOrAreacode}
           activeAreacode={activeAreacode}
           activeCounty={activeCounty}
+          openNotification={openNotification}
+          toggleNotification={toggleNotification}
         />
         <ProductMenu alertUser={alertUser} />
         <Switch>

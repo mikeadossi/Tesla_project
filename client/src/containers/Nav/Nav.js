@@ -24,24 +24,8 @@ const Nav = ({
   setCurrentUser,
   updateDB,
   viewedNotifications, 
+  openNotification,
 }) => {
-
-
-  const openNotification = () => {
-    if(toggleNotification === "closed"){ 
-      setToggleNotification("open");
-    } else if (toggleNotification === "open"){ 
-      setToggleNotification("closed");
-      let newCurrentUser = { ...currentUser };
-      newCurrentUser["notifications_last_viewed_on"] = new Date();
-      setCurrentUser(newCurrentUser);
-      updateDB("notifications_last_viewed_on", newCurrentUser);
-      if(newCurrentUser["viewed_welcome_notification"] === "false"){
-        newCurrentUser["viewed_welcome_notification"] = "true";
-        updateDB("viewed_welcome_notification", newCurrentUser);
-      };
-    };
-  };
 
 
 

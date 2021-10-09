@@ -20,14 +20,17 @@ const DynamicMenu = ({
   submitZipOrAreacode,
   activeCounty,
   activeAreacode,
+  openNotification,
+  toggleNotification,
 }) => {
   const dispatch = useDispatch();
   const [sticky, setSticky] = useState(false);
   const [show, setShow] = useState(false);
 
+
   useEffect(() => {
     let lastScroll;
-
+    
     const onScroll = () => {
       const scroll = window.scrollY;
       const scrollingUp = scroll < lastScroll;
@@ -44,13 +47,17 @@ const DynamicMenu = ({
 
       const headerHeight = element1 + element2;
 
+      if(toggleNotification === "open" && scroll > headerHeight){ 
+        openNotification();
+      }
+
       setShow((sticky || scrollingUp) && scroll > headerHeight);
     };
 
     window.addEventListener("scroll", onScroll);
 
     return () => window.removeEventListener("scroll", onScroll);
-  }, [sticky, zipcodeData.id]);
+  }, [sticky, zipcodeData.id, toggleNotification]);
 
 
   return zipcodeData.id ? (
