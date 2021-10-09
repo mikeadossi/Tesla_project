@@ -11,8 +11,7 @@ import Footer from "./containers/Footer/Footer";
 import Home from "./containers/Home/Home";
 import Vehicles from "./containers/Vehicles/Vehicles";
 import Solar from "./containers/Solar/Solar";
-import DynamicMenu from "./containers/DynamicMenu/DynamicMenu";
-import Notifications from "./containers/Notifications/Notifications";
+import DynamicMenu from "./containers/DynamicMenu/DynamicMenu"; 
 import Settings from "./containers/Settings/Settings";
 import Lost from "./containers/Lost/Lost";
 import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
@@ -699,16 +698,6 @@ const parseLocationData = (nd, user) => {
         <ProductMenu alertUser={alertUser} />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route
-            exact
-            path="/notifications"
-            component={() => (
-              <Notifications
-                currentUser={currentUser}
-                setCurrentUser={setCurrentUser}
-              />
-            )}
-          />
           <Route
             exact
             path="/settings"
