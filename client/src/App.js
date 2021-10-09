@@ -381,6 +381,9 @@ const App = ({
   };
 
   const handleLogOut = () => {
+    cookies.remove("userEmail", { path: "/" });
+    cookies.remove("userSessionId", { path: "/" });
+
     try {
       setCurrentUser(null);
       setAlertUser([
@@ -430,32 +433,6 @@ async function getEveryModel(){
     setMetaVehicles(mv.data);
   }) 
 };
-
-  useEffect(() => {
-    cookieStart(); 
-  },[]);
-
-  useEffect(() => {
-    // if user isn't logged in ensure redux adheres to cookie settings
-    if (!currentUser || currentUser === {}) {
-      const hideResetWarning = cookies.get("hideResetWarning");
-      const hideApplyAllWarning = cookies.get("hideApplyAllWarning");
-      const cookieOne =
-        hideResetWarning === "true" || hideResetWarning === "false";
-      const cookieTwo =
-        hideApplyAllWarning === "true" || hideApplyAllWarning === "false";
-
-      if (hideResetWarning && cookieOne && cookieTwo) {
-        const makeshiftWarningObj = {
-          apply_all_warning_on: cookies.get("hideApplyAllWarning"),
-          notifications_on: null, // restricted to logged in users
-          reset_warning_on: cookies.get("hideResetWarning"),
-        };
-
-        // setWarnings(makeshiftWarningObj);
-      }
-    }
-  }, []);
 
 const getDateString = (ourDate) => {
   // ourDate may look like Tue Oct 05 2021 13:37:51 GMT-0700 (Pacific Daylight Time)
@@ -554,6 +531,34 @@ const parseLocationData = (nd, user) => {
   }
 };
 
+const validateCookieSessionID = async () => {
+  if(!currentUser && cookies.get("userEmail") && cookies.get("userSessionId")){
+    
+    let email = cookies.get("userEmail");
+    email = email.replace("%40","@");
+    let sessionID = cookies.get("userSessionId");
+    console.log('user exists in cookies!-',{email,sessionID})
+    const checkForSession = await axios.get(
+      `http://localhost:3002/isSessionValid?credentials=${email}sessionID=${sessionID}`
+    );
+
+    if (checkForSession) {
+      // get currentUser info and log user in!  
+     const ourUserObj = checkForSession.data.data[0];
+     setCurrentUser(ourUserObj);
+    };
+    
+  };
+};
+
+useEffect(() => {
+  cookieStart(); 
+},[]);
+
+useEffect(() => {
+  // validate currentUser is logged in via cookies
+  validateCookieSessionID();
+},[]);
 
   useEffect(() => {
     if (currentUser) {

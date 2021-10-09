@@ -86,3 +86,20 @@ export const isUserRegistered = (email) => async (dispatch) => {
     }
   }
 };
+
+export const isSessionValid = (email) => async (dispatch) => { 
+  try {
+    const res = await axios.get(
+      `http://localhost:3002/isSessionValid?email=${email}`
+    );
+    return res;
+  } catch (err) {
+    console.log(err);
+    if (hasAValue(err.response) && hasAValue(err.response.data)) {
+      dispatch({
+        type: types.UPDATE_USER_DATA_ERROR,
+        payload: err.response.data,
+      });
+    }
+  }
+};

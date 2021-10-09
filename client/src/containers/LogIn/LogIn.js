@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import "./LogIn.css";
 import { Link, useHistory } from "react-router-dom";  
 import axios from "axios";
+import Cookies from "universal-cookie";
+
 
 const LogIn = ({ 
   loading,
@@ -10,9 +12,18 @@ const LogIn = ({
   alertUser, 
   setAlertUser,
 }) => {
+  const cookies = new Cookies();
   const emailLogInRef = useRef();
   const passwordLogInRef = useRef(); 
   const history = useHistory();
+  const crypto = require('crypto');
+
+  const createSessionID = () => {
+    const sess = new Date();
+    const hash = crypto.getHashes(); 
+    const hashSession = crypto.createHash('sha1').update(sess).digest('hex'); 
+    return hashSession;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,6 +52,7 @@ const LogIn = ({
       } else if (checkEmail.data.success) {
         const loggedInUser = await axios.post(`http://localhost:3002/logUserIntoApp`, body, axiosConfig);  
         const id = loggedInUser.data.data[0].id;
+
   
         const userObj = {
           id,
@@ -57,7 +69,24 @@ const LogIn = ({
   
         if(loggedInUser.data.success){
           setCurrentUser(userObj);
-          setAlertUser([{"background-color": "darkseagreen"},loggedInUser.data.msg, "loggedIn_container"])
+          setAlertUser([{"background-color": "darkseagreen"},loggedInUser.data.msg, "loggedIn_container"]) 
+          let sessionId = createSessionID();
+
+          // set userSessionId in db!
+          const parcel = {
+            id,
+            ourKey: "user_sessionID",
+            ourValue: sessionId,
+          };
+          await axios.post(
+            `http://localhost:3002/updateUserData`,
+            parcel,
+            axiosConfig
+          );
+
+          cookies.set("userSessionId", sessionId, { path: "/" });
+          cookies.set("userEmail", email, { path: "/" });
+          
           history.push("/");
           setTimeout(function () {
             setAlertUser([]);
