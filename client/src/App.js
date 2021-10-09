@@ -341,8 +341,7 @@ const App = ({
           cookies.set("hideApplyAllWarning", val[1], { path: "/" });
         }
       }
-    } else if (currentUser) {
-      // clear redux store! TODO GUCCI'
+    } else if (currentUser) { 
       setVehicleData([]);
 
       let newWarnings = { ...warnings };

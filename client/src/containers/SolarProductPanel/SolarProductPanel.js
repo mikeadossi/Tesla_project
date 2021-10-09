@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import "./SolarProductPanel.css";
 import SolarMenu from "../../components/SolarData/SolarMenu/SolarMenu";
 import SolarConfig from "../../components/SolarData/SolarConfig/SolarConfig"; 
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import {
+  SHOW_SOLAR_CONFIG,
+  RECOMMENDED_PRODUCTS,
+  RECOMMENDED_SIZE,
+} from "../../config/actions/types";
 
 const SolarProductPanel = ({ 
   zipcode_data, 
   sFactsArr,
   alertUser,
   setAlertUser,
-  currentUser
+  currentUser,
+  showSolarConfig,
+  recommendedProducts,
+  recommendedSize,
+  setShowSolarConfig,
+  setRecommendedSize,
+  setRecommendedProducts,
 }) => {
-
-  const [showSolarConfig, setShowSolarConfig] = useState(false);
-  const [recommendedProducts, setRecommendedProducts] = useState("");
-  const [recommendedSize, setRecommendedSize] = useState(""); 
-
+  const dispatch = useDispatch();
 
   const solarRecommendations = {
     101: {
@@ -244,7 +251,30 @@ function mapStateToProps(state) {
     error: state.vehiclesReducer.error, 
     zipcode_data: state.navReducer.zipcode_data,
     sFactsArr: state.navReducer.sFactsArr,
+    showSolarConfig: state.solarReducer.showSolarConfig,
+    recommendedProducts: state.solarReducer.recommendedProducts,
+    recommendedSize: state.solarReducer.recommendedSize,
   };
 }
 
-export default connect(mapStateToProps)(SolarProductPanel);
+export default connect(mapStateToProps, {
+  setShowSolarConfig: (bool) => (dispatch) =>
+    dispatch({
+      type: SHOW_SOLAR_CONFIG,
+      payload: bool,
+    }),
+  setRecommendedProducts: (prod) => (dispatch) =>
+    dispatch({
+      type: RECOMMENDED_PRODUCTS,
+      payload: prod,
+    }),
+  setRecommendedSize: (size) => (dispatch) =>
+    dispatch({
+      type: RECOMMENDED_SIZE,
+      payload: size,
+    }),
+})(SolarProductPanel);
+
+
+
+
