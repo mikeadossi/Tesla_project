@@ -49,7 +49,6 @@ const VehiclePanel = ({
   updateRenderData,
   usStateVehicleOrder,
   loadTeslaData,
-  setLoadTeslaData,
   menuOptions,
   setMenuOptions,
   alertUser,
@@ -61,17 +60,15 @@ const VehiclePanel = ({
   const vehicleContainerRef = useRef();
 
   useEffect(() => {
-    const payload = usStateVehicleOrder && usStateVehicleOrder[3]; 
-    if (!loadTeslaData && metaVehicleObj.length > 0 && payload) { 
+    const payload = usStateVehicleOrder && usStateVehicleOrder[3];
+    if (metaVehicleObj !== [] && payload) {
       getTeslaData(payload, metaVehicleObj, setTeslaModels);
-      setLoadTeslaData(true); 
       populateMenu(metaVehicleObj, setMenuOptions);
     }
   }, [
     metaVehicleObj,
     usStateVehicleOrder,
     loadTeslaData,
-    setLoadTeslaData,
     setMenuOptions,
     setTeslaModels,
   ]);
@@ -325,11 +322,6 @@ export default connect(mapStateToProps, {
     dispatch({
       type: OFFMENU_AUTOPILOT,
       payload: activeOffMenuAutopilot,
-    }),
-  setLoadTeslaData: (loadTeslaData) => (dispatch) =>
-    dispatch({
-      type: LOAD_TESLA_DATA_BOOL,
-      payload: loadTeslaData,
     }),
   setMenuOptions: (menuOptions) => (dispatch) =>
     dispatch({

@@ -16,7 +16,7 @@ import { connect, useDispatch } from "react-redux";
 import { GET_LOCATIONS } from "../../config/actions/types";
 
 const InfoPanel = (props) => {
-  console.log('InfoPanel props->',props)
+  
   const dispatch = useDispatch();
   const allLocations = {
     allShowrooms: props.allShowrooms,

@@ -4,7 +4,7 @@ import populatePaymentObject from "./populatePaymentObject";
 const getTeslaData = async (statePymtObj, metaVehicleObj, setTeslaModels) => {
 
   // this function converts DB data into useable state data for app: a 'details' object and a 'rendering' object.
-  const metaVehicles = [...metaVehicleObj]; // [...metaVehicleObj] is not iterable?
+  const metaVehicles = [...metaVehicleObj];
   const vehicleObj = {
     // vehicle_details should never be user modified, vehicle_render can be.
     vehicle_details: {},

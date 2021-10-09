@@ -42,6 +42,7 @@ const App = ({
   getNotifications,
   notificationData,
   setVehicleData,
+  setMenuOptions,
 }) => {
   const history = useHistory();
   const cookies = new Cookies();
@@ -75,7 +76,7 @@ const App = ({
   const [activeCounty, setActiveCounty] = useState("");
   const [areaCodeInteraction, setAreaCodeInteraction] = useState("false");
   const [countyInteraction, setCountyInteraction] = useState("false");
-  const [metaVehicles, setMetaVehicles] = useState({});
+  const [metaVehicles, setMetaVehicles] = useState([]);
   const [usStateVehicleOrder, setUsStateVehicleOrder] = useState([]);
   const [usStateData, setUsStateData] = useState({});
 
@@ -386,6 +387,8 @@ const App = ({
 
     try {
       setCurrentUser(null);
+      setUsStateData({}); 
+      setMetaVehicles([]);
       setAlertUser([
         { "background-color": "skyblue" },
         "You are successfully logged out",
@@ -827,11 +830,6 @@ export default connect(mapStateToProps, {
   dispatch({
     type: MENU_OPTIONS,
     payload: menuOptions,
-  }),
-  setLoadTeslaData: (loadTeslaData) => (dispatch) =>
-  dispatch({
-    type: LOAD_TESLA_DATA_BOOL,
-    payload: loadTeslaData,
   }),
   setVehicleData: (vehicleData) => (dispatch) =>
   dispatch({

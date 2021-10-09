@@ -27,6 +27,8 @@ const initialState = {
   activeFormVals: formValsStarter,
 };
 
+console.log('everyVehicle-',initialState.everyVehicle)
+
 export default function state(state = initialState, action) {
   switch (action.type) {
     case types.GET_ALL_VEHICLES:

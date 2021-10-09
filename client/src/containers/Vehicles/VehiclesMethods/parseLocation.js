@@ -3,8 +3,7 @@ const parseLocation = (x, stateData) => {
     if(data){ 
       data = data.replace("''","'"); 
       data = data.replace(/\s+/g, " "); // remove excess white space
-      data = JSON.parse(data); 
-      console.log('yes data...',data)
+      data = JSON.parse(data);
       return data;
     }
   }

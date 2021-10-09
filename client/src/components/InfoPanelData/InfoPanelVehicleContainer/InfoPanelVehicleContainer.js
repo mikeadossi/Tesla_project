@@ -2,7 +2,7 @@ import React from "react";
 import "./InfoPanelVehicleContainer.css";
 
 const InfoPanelVehicleContainer = (props) => {
-  console.log('proper props-',props)
+  
   return (
     <div className="InfoPanelVehicleContainer_div">
       {props.vOrder ? (

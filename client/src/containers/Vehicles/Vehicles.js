@@ -68,8 +68,7 @@ const Vehicles = ({
   );
 };
 
-const mapStateToProps = (state) => ({ 
-  // statedata: state.usStateReducer.usStatesData,
+const mapStateToProps = (state) => ({
   zipcode_data: state.navReducer.zipcode_data,
 });
 export default connect(mapStateToProps, { getMyZipcodeData })(Vehicles);
