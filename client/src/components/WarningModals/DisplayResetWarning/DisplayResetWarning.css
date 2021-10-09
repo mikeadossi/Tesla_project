@@ -1,3 +1,23 @@
 .resetReminderToggle:hover{
     cursor: pointer;
 }
+
+.displayResetWarning{
+    margin: auto;
+    position: relative;
+    text-align: center;
+    top: 25%;
+    width: 600px; 
+}
+
+.displayResetWarning_super{ 
+    height: 100vh;
+    z-index: 20;
+    position: fixed;
+    width: 100%;
+    color: black;
+    margin-top: 0px;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}

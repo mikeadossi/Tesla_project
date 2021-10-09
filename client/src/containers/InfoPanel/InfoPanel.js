@@ -10,19 +10,18 @@ import InfoPanelRoofTypes from "../../components/InfoPanelData/InfoPanelRoofType
 import InfoPanelSolarContainer from "../../components/InfoPanelData/InfoPanelSolarContainer/InfoPanelSolarContainer";
 import InfoPanelVehicleContainer from "../../components/InfoPanelData/InfoPanelVehicleContainer/InfoPanelVehicleContainer";
 import InfoPanelNeutralContainer from "../../components/InfoPanelData/InfoPanelNeutralContainer/InfoPanelNeutralContainer";
-import GrayBackground from "../../components/GrayBackground/GrayBackground";
+import InfoModal from "../../containers/InfoModal/InfoModal";
 import { getMyZipcodeData } from "../../config/actions/navActions";
 import { connect, useDispatch } from "react-redux";
-import { GET_LOCATIONS } from "../../config/actions/types";
+import { GET_LOCATIONS, TOGGLE_LOCATIONS } from "../../config/actions/types";
 
 const InfoPanel = (props) => {
-  
   const dispatch = useDispatch();
   const allLocations = {
     allShowrooms: props.allShowrooms,
     allServiceCenters: props.allServiceCenters,
     allChargingLocations: props.allChargingLocations,
-  }; 
+  };
 
   useEffect(() => {
     // here we pass our state data to our redux store
@@ -46,15 +45,16 @@ const InfoPanel = (props) => {
     setVisibility({ [value]: true });
   };
 
+  const closeLocations = () => props.toggleLocations();
+
   const stateAbbreviation = props.stateData["state_abbr"] || null;
   const vOrder = props.stateData["vehicle_order"] || null;
   const vehicleIncentives = props.stateData["vehicle_incentives"] || null;
   const solarIncentives = props.stateData["solar_incentives"] || null;
 
-
   return (
     <div className="infoPanel_container">
-      <GrayBackground currentUser={props.currentUser} />
+      {props.displayLocations && <InfoModal closeLocations={closeLocations} />}
       <div className="infoPanel_subcontainer sticky_infoPanel">
         <h3 className="infoPanel_title">INFORMATION</h3>
         {props.whichComponent === "vehicles" && (
@@ -73,8 +73,14 @@ const InfoPanel = (props) => {
         )}
         {props.whichComponent === "solar" && (
           <>
-            <InfoPanelSolarContainer showComponent={showComponent} currentUser={props.currentUser} />
-            <InfoPanelNeutralContainer showComponent={showComponent} currentUser={props.currentUser} />
+            <InfoPanelSolarContainer
+              showComponent={showComponent}
+              currentUser={props.currentUser}
+            />
+            <InfoPanelNeutralContainer
+              showComponent={showComponent}
+              currentUser={props.currentUser}
+            />
           </>
         )}
 
@@ -175,7 +181,11 @@ function mapStateToProps(state) {
   return {
     error: state.navReducer.error,
     zipcode_data: state.navReducer.zipcode_data,
+    displayLocations: state.navReducer.displayLocations,
   };
 }
 
-export default connect(mapStateToProps, { getMyZipcodeData })(InfoPanel);
+export default connect(mapStateToProps, {
+  getMyZipcodeData,
+  toggleLocations: () => (dispatch) => dispatch({ type: TOGGLE_LOCATIONS }),
+})(InfoPanel);

@@ -7,7 +7,8 @@ const DisplayResetWarning = ({
   closeResetWarning,
   runReset,
   currentUser,
-  handleWarning, 
+  handleWarning,
+  bkgClr,
 }) => {
   const cookies = new Cookies();
   const [resetBool, setResetBool] = useState("false");
@@ -53,52 +54,54 @@ const DisplayResetWarning = ({
   
 
   return (
-    <div className="displayApplyAllWarning">
-      <div className="warningContainer">
-        <div className="warningCloseContainer">
-          <div className="warningHeading">RESET CONFIGURATION</div>
-          <img
-            className="warningModalClose"
-            src="../../../../images/Nav/close_2.png"
-            alt="close"
-            onClick={() => closeResetWarning()}
-          ></img>
-        </div>
-        <div className="warningApplyAllText">
-          This action will return all selected vehicle options to base options.
-        </div>
-        {showToggle === "true" ? (
-          <div className="reminderContainer">
-            <div className="reminderText">Don't show this again</div>
-            <input
-              className="resetReminderToggle"
-              type="checkbox"
-              onChange={(e) => changeResetBool()}
-              checked={resetBool === "true"}
-            />
+    <div className="displayResetWarning_super" style={bkgClr} >
+      <div className="displayResetWarning">
+        <div className="warningContainer">
+          <div className="warningCloseContainer">
+            <div className="warningHeading">RESET CONFIGURATION</div>
+            <img
+              className="warningModalClose"
+              src="../../../../images/Nav/close_2.png"
+              alt="close"
+              onClick={() => closeResetWarning()}
+            ></img>
           </div>
-        ) : (
-          ""
-        )}
-        <div className="app_inline-block warningBtnContainer">
-          <div
-            className="warningBtn cancelWarningModal"
-            onClick={() => {
-              closeResetWarning();
-              setResetBool("false");
-            }}
-          >
-            Cancel
+          <div className="warningApplyAllText">
+            This action will return all selected vehicle options to base options.
           </div>
-          <div
-            onClick={() => {
-              runReset(currentModelName, vehicleRenderData);
-              closeResetWarning();
-              handleWarning(["reset", resetBool]);
-            }}
-            className="warningBtn continueToApplyAll"
-          >
-            Continue
+          {showToggle === "true" ? (
+            <div className="reminderContainer">
+              <div className="reminderText">Don't show this again</div>
+              <input
+                className="resetReminderToggle"
+                type="checkbox"
+                onChange={(e) => changeResetBool()}
+                checked={resetBool === "true"}
+              />
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="app_inline-block warningBtnContainer">
+            <div
+              className="warningBtn cancelWarningModal"
+              onClick={() => {
+                closeResetWarning();
+                setResetBool("false");
+              }}
+            >
+              Cancel
+            </div>
+            <div
+              onClick={() => {
+                runReset(currentModelName, vehicleRenderData);
+                closeResetWarning();
+                handleWarning(["reset", resetBool]);
+              }}
+              className="warningBtn continueToApplyAll"
+            >
+              Continue
+            </div>
           </div>
         </div>
       </div>

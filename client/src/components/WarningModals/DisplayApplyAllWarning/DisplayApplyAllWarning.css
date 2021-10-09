@@ -1,83 +1,95 @@
-.displayApplyAllWarning{ 
-    margin: auto;
-    position: relative;
-    text-align: center;
-    top: 25%;
-    width: 600px; 
+.warningContainer {
+  background-color: white;
+  padding: 16px 10px 16px 10px;
+  border-radius: 6px;
 }
 
-.warningContainer{
-    background-color: white; 
-    padding: 16px 10px 16px 10px;
-    border-radius: 6px;
+.warningHeading {
+  font-size: 18px;
+  width: 96%;
+  text-align: center;
 }
 
-.warningHeading{
-    font-size: 18px;
-    width: 96%;
-    text-align: center;
+.warningApplyAllText {
+  margin-top: 20px;
 }
 
-.warningApplyAllText{
-    margin-top: 20px;
+.warningBtn {
+  cursor: pointer;
+  padding: 8px;
+  width: 60px;
+  margin-top: 20px;
+  border-radius: 6px;
 }
 
-.warningBtn{
-    cursor: pointer;
-    padding: 8px;
-    width: 60px;
-    margin-top: 20px;
-    border-radius: 6px;
+.warningBtnContainer {
+  display: inline-flex;
 }
 
-.warningBtnContainer{ 
-    display: inline-flex; 
+.cancelWarningModal {
+  background-color: indianred;
+  color: white;
+  margin-right: 20px;
+  opacity: 0.9;
 }
 
-.cancelWarningModal{
-    background-color: indianred;
-    color: white;
-    margin-right: 20px;
-    opacity: 0.9;
+.continueToApplyAll {
+  background-color: grey;
+  color: white;
+  opacity: 0.9;
 }
 
-.continueToApplyAll{
-    background-color: grey;
-    color: white;
-    opacity: 0.9;
+.continueToApplyAll:hover {
+  opacity: 1;
 }
 
-.continueToApplyAll:hover{
-    opacity: 1;
+.cancelWarningModal:hover {
+  opacity: 1;
 }
 
-.cancelWarningModal:hover{
-    opacity: 1;
+.warningCloseContainer {
+  text-align: right;
+  display: flex;
 }
 
-.warningCloseContainer{
-    text-align: right;
-    display: flex;
+.warningModalClose:hover {
+  background-color: gainsboro;
+  padding: 5px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-.warningModalClose:hover{
-    background-color: gainsboro;
-    padding: 5px;
-    border-radius: 6px;
-    cursor: pointer;
+.warningModalClose {
+  height: 15px;
+  padding: 5px;
 }
 
-.warningModalClose{
-    height: 15px;
-    padding: 5px; 
+.reminderText {
+  display: inline-block;
+  margin-top: 15px;
+  color: grey;
 }
 
-.reminderText{
-    display: inline-block;
-    margin-top: 15px;
-    color: grey;
+.applyAllReminderToggle:hover {
+  cursor: pointer;
 }
 
-.applyAllReminderToggle:hover{
-    cursor: pointer;
+.displayApplyAllWarning_super {
+  height: 100vh;
+  z-index: 20;
+  position: fixed;
+  width: 100%;
+  color: black;
+  margin-top: 0px;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.displayApplyAllWarning {
+  margin: auto;
+  position: relative;
+  text-align: center;
+  top: 25%;
+  width: 600px;
 }

@@ -45,6 +45,7 @@ const VehicleConfig = ({
   handleWarning,
   alertUser,
   setAlertUser,
+  vehicleData,
 }) => {
   
   const showComponent = (value) => {
@@ -218,6 +219,7 @@ const VehicleConfig = ({
               setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
               alertUser={alertUser}
               setAlertUser={setAlertUser}
+              vehicleData={vehicleData}
           />
 
         </div>

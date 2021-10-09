@@ -30,6 +30,7 @@ const VehicleConfigContainer = ({
   handleWarning,
   alertUser,
   setAlertUser,
+  vehicleData,
 }) => {
   const name = `${selectedVehicle}`
     .split(" ")
@@ -128,6 +129,7 @@ const VehicleConfigContainer = ({
           handleWarning={handleWarning}
           alertUser={alertUser}
           setAlertUser={setAlertUser}
+          vehicleData={vehicleData}
         />
       ) : (
         ""

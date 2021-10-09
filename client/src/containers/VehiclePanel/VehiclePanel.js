@@ -54,6 +54,7 @@ const VehiclePanel = ({
   alertUser,
   setAlertUser,
   vFactsArr,
+  metaVehicles,
 }) => {
   const dispatch = useDispatch();
 
@@ -274,7 +275,8 @@ const VehiclePanel = ({
           setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
           handleWarning={handleWarning}
           alertUser={alertUser}
-          setAlertUser={setAlertUser}
+          setAlertUser={setAlertUser} 
+          vehicleData={vehicleData}
         />
       ))}
     </div>

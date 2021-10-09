@@ -11,27 +11,27 @@ import Footer from "./containers/Footer/Footer";
 import Home from "./containers/Home/Home";
 import Vehicles from "./containers/Vehicles/Vehicles";
 import Solar from "./containers/Solar/Solar";
-import DynamicMenu from "./containers/DynamicMenu/DynamicMenu"; 
+import DynamicMenu from "./containers/DynamicMenu/DynamicMenu";
 import Settings from "./containers/Settings/Settings";
 import Lost from "./containers/Lost/Lost";
 import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
+import InfoModal from "./containers/InfoModal/InfoModal";
 import { connect } from "react-redux";
 import {
   getZipDataWithAreaCode,
   getNotifications,
   getMyZipcodeData,
   emptyZipcodeData,
-} from "./config/actions/navActions"; 
+} from "./config/actions/navActions";
 import { getAllStateData } from "./config/actions/usStateActions";
 import moment from "moment-timezone";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import HeaderCookiePermission from "./components/Header/HeaderCookiePermission/HeaderCookiePermission.js";
-import { 
+import {
   UPDATE_VEHICLE_RENDER_DATA,
-  LOAD_TESLA_DATA_BOOL,
   MENU_OPTIONS,
-  VIEW_RENDERED_OPTIONS, 
+  VIEW_RENDERED_OPTIONS,
 } from "./config/actions/types";
 
 const App = ({
@@ -61,13 +61,13 @@ const App = ({
   const [currentTime, setCurrentTime] = useState("");
   const [timeZone, setTimeZone] = useState("");
   const [today, setToday] = useState([]);
-  const counties = zipcodeData.county && zipcodeData.county.split(","); 
+  const counties = zipcodeData.county && zipcodeData.county.split(",");
   const areaCodes =
-    zipcodeData.area_codes && zipcodeData.area_codes.split(" / "); 
+    zipcodeData.area_codes && zipcodeData.area_codes.split(" / ");
   const [sunroofLink, setSunroofLink] = useState("");
   const [weatherLink, setWeatherLink] = useState("");
   const [alertUser, setAlertUser] = useState([]);
-  // All alerts: user_entry, loggedIn_container, register_signup, register_login, 
+  // All alerts: user_entry, loggedIn_container, register_signup, register_login,
   // register_settings, forgot_password, solarMenu, solarConfig
   const [showCookieAsk, setShowCookieAsk] = useState("");
   const [toggleNotification, setToggleNotification] = useState("closed");
@@ -80,19 +80,18 @@ const App = ({
   const [usStateVehicleOrder, setUsStateVehicleOrder] = useState([]);
   const [usStateData, setUsStateData] = useState({});
 
-
   const acceptZipOrAreacode = (val) => {
     if (val.length === 3 && Number(val)) {
       // 2 lines of code below ensures our DynamicMenu nav bar handles zip and areacode appropriately
-      setAreaCodeInteraction('false');
-      setCountyInteraction('false');
+      setAreaCodeInteraction("false");
+      setCountyInteraction("false");
 
       getZipDataWithAreaCode(val);
     } else if (val.length < 6 && val.length > 3 && Number(val)) {
       // 1001 and 90210 are both valid zip codes, so we must allow for 4/5 digit zip codes
 
-      setAreaCodeInteraction('false');
-      setCountyInteraction('false');
+      setAreaCodeInteraction("false");
+      setCountyInteraction("false");
 
       getMyZipcodeData(val);
     } else {
@@ -108,19 +107,19 @@ const App = ({
   };
 
   const openNotification = () => {
-    if(toggleNotification === "closed"){ 
+    if (toggleNotification === "closed") {
       setToggleNotification("open");
-    } else if (toggleNotification === "open"){ 
+    } else if (toggleNotification === "open") {
       setToggleNotification("closed");
       let newCurrentUser = { ...currentUser };
       newCurrentUser["notifications_last_viewed_on"] = new Date();
       setCurrentUser(newCurrentUser);
       updateDB("notifications_last_viewed_on", newCurrentUser);
-      if(newCurrentUser["viewed_welcome_notification"] === "false"){
+      if (newCurrentUser["viewed_welcome_notification"] === "false") {
         newCurrentUser["viewed_welcome_notification"] = "true";
         updateDB("viewed_welcome_notification", newCurrentUser);
-      };
-    };
+      }
+    }
   };
 
   const cookieStart = () => {
@@ -344,7 +343,7 @@ const App = ({
           cookies.set("hideApplyAllWarning", val[1], { path: "/" });
         }
       }
-    } else if (currentUser) { 
+    } else if (currentUser) {
       setVehicleData([]);
 
       let newWarnings = { ...warnings };
@@ -387,7 +386,7 @@ const App = ({
 
     try {
       setCurrentUser(null);
-      setUsStateData({}); 
+      setUsStateData({});
       setMetaVehicles([]);
       setAlertUser([
         { "background-color": "skyblue" },
@@ -404,164 +403,169 @@ const App = ({
     }
   };
 
+  async function getNeededStateData(abbr) {
+    await axios
+      .get(`http://localhost:3002/statedata?abbr=${abbr}`)
+      .then((usStatesData) => {
+        const ussd = usStatesData.data[0];
+        setUsStateData(ussd);
+        const vo = JSON.parse(ussd["vehicle_order"]);
+        const po = JSON.parse(ussd["payment_object"]);
 
-async function getNeededStateData(abbr){ 
-  await axios.get(
-    `http://localhost:3002/statedata?abbr=${abbr}`
-  ).then((usStatesData) => {
-    const ussd = usStatesData.data[0]; 
-    setUsStateData(ussd);
-    const vo = JSON.parse(ussd["vehicle_order"]);
-    const po = JSON.parse(ussd["payment_object"]);
+        setUsStateVehicleOrder([ussd["state_abbr"], zipcodeData["id"], vo, po]);
 
-    setUsStateVehicleOrder([
-      ussd["state_abbr"],
-      zipcodeData["id"],
-      vo,
-      po,
-    ]);
-
-    changeRegion(
-      zipcodeData.state_name,
-      zipcodeData.county,
-      vo,
-      ussd
-    );
-  }) 
-};
-
-async function getEveryModel(){
-  await axios.get(
-    `http://localhost:3002/allModels`
-  ).then((mv) => {
-    setMetaVehicles(mv.data);
-  }) 
-};
-
-const getDateString = (ourDate) => {
-  // ourDate may look like Tue Oct 05 2021 13:37:51 GMT-0700 (Pacific Daylight Time)
-  // ourDate may also look like 2021-10-06T20:21:04.847Z
-  let usefulDate;
-  
-  if(typeof(ourDate) !== "string"){
-    ourDate = ourDate.toString();
-  };
-
-  if(ourDate.split('').includes('Z')){ 
-    usefulDate = ourDate;
-  } else { 
-    const monthsArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    let arr = [];
-    ourDate = ourDate.split(' ');
-    arr.push(ourDate[3]);
-    const monthNum = monthsArr.indexOf(ourDate[1]) + 1;
-    arr.push(monthNum);
-    arr.push(ourDate[2]);
-    usefulDate = arr.join('-'); // ex: 2021-10-06
-    usefulDate = usefulDate+'T'+ourDate[4]+'.000Z'; // ex: 2021-10-06T20:21:04.000Z
+        changeRegion(zipcodeData.state_name, zipcodeData.county, vo, ussd);
+      });
   }
-  return usefulDate;
-}
 
-const getSixDigitDate = (givenDate) => {
-  // givenDate input = 2021-10-06T20:21:04.847Z
-  // output = 10/06/21
-  let result = []
-  givenDate = givenDate.split('-');
-  result.push(givenDate[1]);
-  let day = givenDate[2].split('T')[0];
-  result.push(day);
-  let fourDigitYear = givenDate[0];
-  let twoDigitYear = fourDigitYear.substr(fourDigitYear.length - 2)
-  result.push(twoDigitYear);
-  result = result.join('/');
-  return result;
-}
-
-const getDaysSinceLastVisit = (lastVisit) => {
-  let today = new Date();
-  today = getDateString(today);
-  today = getSixDigitDate(today);
-  lastVisit = getSixDigitDate(lastVisit);
-
-  today = new Date(today);
-  lastVisit = new Date(lastVisit);
-
-  // One day in milliseconds
-  const oneDay = 1000 * 60 * 60 * 24;
-
-  // Calculating the time difference between two dates
-  const diffInTime = today.getTime() - lastVisit.getTime();
-
-  // Calculating the no. of days between two dates
-  const diffInDays = Math.round(diffInTime / oneDay);
-
-  return diffInDays;
-}
-
-const parseLocationData = (nd, user) => {
-  if (nd && user !== null) { 
-    const lastVisited = user.notifications_last_viewed_on; 
-    const dateJoined = getDateString(user.date_joined); 
-    let userVisit;
-    if(lastVisited === null || lastVisited === "null"){
-      userVisit = dateJoined; 
-    } else {
-      userVisit = getDateString(lastVisited); 
-    }; 
-    let notSeenNotifications = [];
-    let alreadySeenNotifications = []; 
-    nd.map((v) => { 
-      const ndDate = v["notification_date"]; 
-      if(ndDate > dateJoined){
-        if (ndDate > userVisit) {
-          v["daysSince"] = getDaysSinceLastVisit(userVisit);
-          notSeenNotifications.push(v);
-        } else if (ndDate <= userVisit) {
-          v["daysSince"] = getDaysSinceLastVisit(userVisit);
-          alreadySeenNotifications.push(v);
-        }
-      };
+  async function getEveryModel() {
+    await axios.get(`http://localhost:3002/allModels`).then((mv) => {
+      setMetaVehicles(mv.data);
     });
-
-    let num = notSeenNotifications.length;
-    if(currentUser["viewed_welcome_notification"] === "false"){
-      // every new user views 2 notifications upon visit
-      num += 2;
-    };
-
-    setNewNotificationsNum(num);
-    setViewedNotifications({notSeenNotifications, alreadySeenNotifications});
   }
-};
 
-const validateCookieSessionID = async () => {
-  if(!currentUser && cookies.get("userEmail") && cookies.get("userSessionId")){
-    
-    let email = cookies.get("userEmail");
-    email = email.replace("%40","@");
-    let sessionID = cookies.get("userSessionId"); 
-    const checkForSession = await axios.get(
-      `http://localhost:3002/isSessionValid?credentials=${email}sessionID=${sessionID}`
-    );
+  const getDateString = (ourDate) => {
+    // ourDate may look like Tue Oct 05 2021 13:37:51 GMT-0700 (Pacific Daylight Time)
+    // ourDate may also look like 2021-10-06T20:21:04.847Z
+    let usefulDate;
 
-    if (checkForSession) {
-      // get currentUser info and log user in!  
-     const ourUserObj = checkForSession.data.data[0];
-     setCurrentUser(ourUserObj);
-    };
-    
+    if (typeof ourDate !== "string") {
+      ourDate = ourDate.toString();
+    }
+
+    if (ourDate.split("").includes("Z")) {
+      usefulDate = ourDate;
+    } else {
+      const monthsArr = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      let arr = [];
+      ourDate = ourDate.split(" ");
+      arr.push(ourDate[3]);
+      const monthNum = monthsArr.indexOf(ourDate[1]) + 1;
+      arr.push(monthNum);
+      arr.push(ourDate[2]);
+      usefulDate = arr.join("-"); // ex: 2021-10-06
+      usefulDate = usefulDate + "T" + ourDate[4] + ".000Z"; // ex: 2021-10-06T20:21:04.000Z
+    }
+    return usefulDate;
   };
-};
 
-useEffect(() => {
-  cookieStart(); 
-},[]);
+  const getSixDigitDate = (givenDate) => {
+    // givenDate input = 2021-10-06T20:21:04.847Z
+    // output = 10/06/21
+    let result = [];
+    givenDate = givenDate.split("-");
+    result.push(givenDate[1]);
+    let day = givenDate[2].split("T")[0];
+    result.push(day);
+    let fourDigitYear = givenDate[0];
+    let twoDigitYear = fourDigitYear.substr(fourDigitYear.length - 2);
+    result.push(twoDigitYear);
+    result = result.join("/");
+    return result;
+  };
 
-useEffect(() => {
-  // validate currentUser is logged in via cookies
-  validateCookieSessionID();
-},[]);
+  const getDaysSinceLastVisit = (lastVisit) => {
+    let today = new Date();
+    today = getDateString(today);
+    today = getSixDigitDate(today);
+    lastVisit = getSixDigitDate(lastVisit);
+
+    today = new Date(today);
+    lastVisit = new Date(lastVisit);
+
+    // One day in milliseconds
+    const oneDay = 1000 * 60 * 60 * 24;
+
+    // Calculating the time difference between two dates
+    const diffInTime = today.getTime() - lastVisit.getTime();
+
+    // Calculating the no. of days between two dates
+    const diffInDays = Math.round(diffInTime / oneDay);
+
+    return diffInDays;
+  };
+
+  const parseLocationData = (nd, user) => {
+    if (nd && user !== null) {
+      const lastVisited = user.notifications_last_viewed_on;
+      const dateJoined = getDateString(user.date_joined);
+      let userVisit;
+      if (lastVisited === null || lastVisited === "null") {
+        userVisit = dateJoined;
+      } else {
+        userVisit = getDateString(lastVisited);
+      }
+      let notSeenNotifications = [];
+      let alreadySeenNotifications = [];
+      nd.map((v) => {
+        const ndDate = v["notification_date"];
+        if (ndDate > dateJoined) {
+          if (ndDate > userVisit) {
+            v["daysSince"] = getDaysSinceLastVisit(userVisit);
+            notSeenNotifications.push(v);
+          } else if (ndDate <= userVisit) {
+            v["daysSince"] = getDaysSinceLastVisit(userVisit);
+            alreadySeenNotifications.push(v);
+          }
+        }
+      });
+
+      let num = notSeenNotifications.length;
+      if (currentUser["viewed_welcome_notification"] === "false") {
+        // every new user views 2 notifications upon visit
+        num += 2;
+      }
+
+      setNewNotificationsNum(num);
+      setViewedNotifications({
+        notSeenNotifications,
+        alreadySeenNotifications,
+      });
+    }
+  };
+
+  const validateCookieSessionID = async () => {
+    if (
+      !currentUser &&
+      cookies.get("userEmail") &&
+      cookies.get("userSessionId")
+    ) {
+      let email = cookies.get("userEmail");
+      email = email.replace("%40", "@");
+      let sessionID = cookies.get("userSessionId");
+      const checkForSession = await axios.get(
+        `http://localhost:3002/isSessionValid?credentials=${email}sessionID=${sessionID}`
+      );
+
+      if (checkForSession) {
+        // get currentUser info and log user in!
+        const ourUserObj = checkForSession.data.data[0];
+        setCurrentUser(ourUserObj);
+      }
+    }
+  };
+
+  useEffect(() => {
+    cookieStart();
+  }, []);
+
+  useEffect(() => {
+    // validate currentUser is logged in via cookies
+    validateCookieSessionID();
+  }, []);
 
   useEffect(() => {
     if (currentUser) {
@@ -633,18 +637,16 @@ useEffect(() => {
   }, [zipcodeData.city]);
 
   useEffect(() => {
-    if(zipcodeData.state_abbr){
-      getNeededStateData(zipcodeData.state_abbr)
+    if (zipcodeData.state_abbr) {
+      getNeededStateData(zipcodeData.state_abbr);
       getEveryModel();
     }
-  }, [zipcodeData.state_abbr])
-
-
-  
+  }, [zipcodeData.state_abbr]);
 
   return (
     <div className="App">
       <BrowserRouter>
+        {/* <InfoModal /> */}
         <Nav
           menuVisibility={menuVisibility}
           closeMobileMenu={closeMobileMenu}
@@ -664,7 +666,7 @@ useEffect(() => {
           updateDB={updateDB}
           viewedNotifications={viewedNotifications}
           openNotification={openNotification}
-        /> 
+        />
         <MobileNav
           menuVisibility={menuVisibility}
           closeMobileMenu={closeMobileMenu}
@@ -685,7 +687,7 @@ useEffect(() => {
           sunroofLink={sunroofLink}
           weatherLink={weatherLink}
           setActiveAreacode={setActiveAreacode}
-          setActiveCounty={setActiveCounty} 
+          setActiveCounty={setActiveCounty}
           areaCodeInteraction={areaCodeInteraction}
           countyInteraction={countyInteraction}
           setAreaCodeInteraction={setAreaCodeInteraction}
@@ -745,28 +747,29 @@ useEffect(() => {
             exact
             path="/vehicles"
             component={() => (
-              <Vehicles 
+              <Vehicles
                 zipcode={zipcode}
                 currentUser={currentUser}
                 handleWarning={handleWarning}
                 alertUser={alertUser}
                 setAlertUser={setAlertUser}
-                statedata={usStateData} 
+                statedata={usStateData}
                 metaVehicleObj={metaVehicles}
-                usStateVehicleOrder={usStateVehicleOrder} 
+                usStateVehicleOrder={usStateVehicleOrder}
+                metaVehicles={metaVehicles}
               />
             )}
           />
-          <Route 
-            exact 
-            path="/solar" 
+          <Route
+            exact
+            path="/solar"
             component={() => (
-              <Solar 
-                alertUser={alertUser} 
-                setAlertUser={setAlertUser} 
-                currentUser={currentUser} 
+              <Solar
+                alertUser={alertUser}
+                setAlertUser={setAlertUser}
+                currentUser={currentUser}
               />
-            )} 
+            )}
           />
           <Route
             exact
@@ -811,7 +814,7 @@ function mapStateToProps(state) {
     zipcodeData: state.navReducer.zipcode_data,
     notificationData: state.navReducer.notifications,
     loadTeslaData: state.vehiclesReducer.loadTeslaDataBool,
-    metaVehicleObj: state.vehiclesReducer.everyVehicle, 
+    metaVehicleObj: state.vehiclesReducer.everyVehicle,
   };
 }
 
@@ -820,21 +823,20 @@ export default connect(mapStateToProps, {
   getZipDataWithAreaCode,
   emptyZipcodeData,
   getNotifications,
-  getAllStateData, 
+  getAllStateData,
   setTeslaModels: (teslaModels) => (dispatch) =>
-  dispatch({
-    type: UPDATE_VEHICLE_RENDER_DATA,
-    payload: teslaModels,
-  }),
+    dispatch({
+      type: UPDATE_VEHICLE_RENDER_DATA,
+      payload: teslaModels,
+    }),
   setMenuOptions: (menuOptions) => (dispatch) =>
-  dispatch({
-    type: MENU_OPTIONS,
-    payload: menuOptions,
-  }),
+    dispatch({
+      type: MENU_OPTIONS,
+      payload: menuOptions,
+    }),
   setVehicleData: (vehicleData) => (dispatch) =>
-  dispatch({
-    type: VIEW_RENDERED_OPTIONS,
-    payload: vehicleData,
-  }),
-  
+    dispatch({
+      type: VIEW_RENDERED_OPTIONS,
+      payload: vehicleData,
+    }),
 })(App);

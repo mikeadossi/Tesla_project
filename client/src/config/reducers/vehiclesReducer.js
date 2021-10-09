@@ -27,7 +27,6 @@ const initialState = {
   activeFormVals: formValsStarter,
 };
 
-console.log('everyVehicle-',initialState.everyVehicle)
 
 export default function state(state = initialState, action) {
   switch (action.type) {

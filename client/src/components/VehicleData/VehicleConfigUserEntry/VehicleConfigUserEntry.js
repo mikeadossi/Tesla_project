@@ -1,29 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./VehicleConfigUserEntry.css";
 import VehicleUserEntryFinancing from "../VehicleUserEntry/VehicleUserEntryFinancing/VehicleUserEntryFinancing";
 import VehicleUserEntryLeasing from "../VehicleUserEntry/VehicleUserEntryLeasing/VehicleUserEntryLeasing";
 import VehicleUserEntryCash from "../VehicleUserEntry/VehicleUserEntryCash/VehicleUserEntryCash";
-import GrayBackground from "../../GrayBackground/GrayBackground";
+import DisplayResetWarningx from "../../WarningModals/DisplayResetWarning/DisplayResetWarning.js";
+import DisplayApplyAllWarning from "../../WarningModals/DisplayApplyAllWarning/DisplayApplyAllWarning.js";
 import { connect, useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setUserPymtEntry } from "../../../containers/VehiclePanel//VehiclePanelMethods/moduleExports";
-import Cookies from 'universal-cookie';
-import { 
+import Cookies from "universal-cookie";
+import {
   ACTIVE_FORM,
   TOGGLE_RESET_WARNING,
   TOGGLE_APPLY_ALL_WARNING,
 } from "../../../config/actions/types";
 
-
 const VehicleConfigUserEntry = ({
   showComponent,
   visibility,
   setActivePayment,
-  activePayment, 
+  activePayment,
   name,
   vehicleContent,
   usStateVehicleOrder,
-  populatePaymentObject, 
+  populatePaymentObject,
   modelInfo,
   teslaModels,
   setTeslaModels,
@@ -40,6 +40,11 @@ const VehicleConfigUserEntry = ({
   setAlertUser,
   setActiveFormVals,
   activeFormVals,
+  displayResetWarning,
+  displayApplyAllWarning,
+  toggleResetWarning,
+  toggleApplyAllWarning,
+  vehicleData,
 }) => {
   const dispatch = useDispatch();
   const vehicleName = name; //ex: model3
@@ -48,6 +53,20 @@ const VehicleConfigUserEntry = ({
       "model"
     ]; //ex: Model 3
   const cookies = new Cookies();
+  const [bkgClr, setBkgClr] = useState({"background-color":"rgba(0, 0, 0, 0.3);"});
+
+  useEffect(() => {
+    let vdLength = vehicleData.length;
+    if(vdLength > 0){
+      var obj = {
+        1: {"background-color":"rgba(0, 0, 0, 0.6)"},
+        2: {"background-color":"rgba(0, 0, 0, 0.4)"},
+        3: {"background-color":"rgba(0, 0, 0, 0.3)"},
+        4: {"background-color":"rgba(0, 0, 0, 0.2)"},
+      }
+      setBkgClr(obj[vdLength]);
+    }
+  },[vehicleData]);
 
 
   useEffect(() => {
@@ -81,42 +100,47 @@ const VehicleConfigUserEntry = ({
     const formArr = Object.keys(activeFormVals);
     let bool = true;
     let msg = "";
-    let downPymtLimit = Number(vehiclePrice)/3;
+    let downPymtLimit = Number(vehiclePrice) / 3;
     downPymtLimit = Math.floor(downPymtLimit);
-    let downPymtLimitString = downPymtLimit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    let downPymtLimitString = downPymtLimit
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-    formArr.map((v) => { 
-      if(activeFormVals[v] !== "" && activeFormVals[v] !== null && activeFormVals[v] !== undefined){ 
-        if(isNaN(activeFormVals[v])){
-          bool = false; 
+    formArr.map((v) => {
+      if (
+        activeFormVals[v] !== "" &&
+        activeFormVals[v] !== null &&
+        activeFormVals[v] !== undefined
+      ) {
+        if (isNaN(activeFormVals[v])) {
+          bool = false;
           msg = "Values must be numbers";
-        };
-        if(Number(activeFormVals["adjustments"]) > 1000){ 
-          bool = false; 
+        }
+        if (Number(activeFormVals["adjustments"]) > 1000) {
+          bool = false;
           msg = "Adjustments must be under $1,000.";
-        };
-        if(Number(activeFormVals["cashDownPayment"]) > downPymtLimit){ 
-          bool = false; 
+        }
+        if (Number(activeFormVals["cashDownPayment"]) > downPymtLimit) {
+          bool = false;
           msg = `Down payment can't exceed $${downPymtLimitString}`;
-        };
+        }
       }
-    }); 
+    });
 
     return [bool, msg];
-  }
+  };
 
   const handlePaymentFormSubmit = async () => {
     // function below updates state with user entries
-    setAlertUser([]);
 
-    const configuredPrice =
-      teslaModels.vehicle_render[vehicleName].cash_price;
+    // setAlertUser([]);
+
+    const configuredPrice = teslaModels.vehicle_render[vehicleName].cash_price;
 
     const validated = validateInputs(configuredPrice);
 
-    if(validated[0] === false){
+    if (validated[0] === false) {
       setAlertUser([{}, validated[1], "user_entry"]);
-
     } else {
       teslaModels = setUserPymtEntry(
         activeFormVals,
@@ -124,12 +148,12 @@ const VehicleConfigUserEntry = ({
         teslaModels,
         setTeslaModels
       );
-  
+
       let vehicleContent = {
         ...teslaModels,
         vehicle_render: {
           ...teslaModels["vehicle_render"],
-  
+
           [vehicleName]: {
             ...teslaModels.vehicle_render[vehicleName],
             ["payment_object"]: {
@@ -138,60 +162,82 @@ const VehicleConfigUserEntry = ({
           },
         },
       };
-  
+
       const configuredPrice =
         vehicleContent.vehicle_render[vehicleName].cash_price;
       const paymentObj =
         vehicleContent.vehicle_render[vehicleName].payment_object;
       const submittedCashDown = activeFormVals["cashDownPayment"];
-  
+
       // function below runs all necessary lease, finance calculations
       vehicleContent.vehicle_render[
         vehicleName
       ].payment_object = populatePaymentObject(
         configuredPrice,
         paymentObj,
-        submittedCashDown, 
+        submittedCashDown
       );
-  
+
       setTeslaModels(vehicleContent);
-    };
+    }
   };
 
   const hideCookieWarning = (warning) => {
-    if(warning === 'reset'){
-      return cookies.get('hideResetWarning'); 
-    } else if(warning === 'applyAll') { 
-      return cookies.get('hideApplyAllWarning');
+    if (warning === "reset") {
+      return cookies.get("hideResetWarning");
+    } else if (warning === "applyAll") {
+      return cookies.get("hideApplyAllWarning");
     }
-  }
+  };
 
   const checkForCookies = () => {
-    const hideResetWarning = cookies.get('hideResetWarning');
-    const hideApplyAllWarning = cookies.get('hideApplyAllWarning');
-    const cookieOne = hideResetWarning === "true" || hideResetWarning === "false";
-    const cookieTwo = hideApplyAllWarning === "true" || hideApplyAllWarning === "false";
-    if(hideResetWarning && cookieOne && cookieTwo){
+    const hideResetWarning = cookies.get("hideResetWarning");
+    const hideApplyAllWarning = cookies.get("hideApplyAllWarning");
+    const cookieOne =
+      hideResetWarning === "true" || hideResetWarning === "false";
+    const cookieTwo =
+      hideApplyAllWarning === "true" || hideApplyAllWarning === "false";
+    if (hideResetWarning && cookieOne && cookieTwo) {
       return true;
-    };
+    }
     return false;
   };
 
   const cookiesExist = checkForCookies();
 
+  const closeResetWarning = () => toggleResetWarning();
+  const closeApplyAllWarning = () => toggleApplyAllWarning();
+
   return (
     <div className="veicleConfig_userEntry_container">
-      <GrayBackground
-        runReset={runReset}
-        runApplyAll={runApplyAll}
-        setTeslaModels={setTeslaModels}
-        activeFormVals={activeFormVals}
-        setActiveFormVals={setActiveFormVals}
-        handleWarning={handleWarning}
-        setActiveFSDSetting={setActiveFSDSetting}
-        setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
-        currentUser={currentUser}
-      />
+      {displayApplyAllWarning ? (
+        <DisplayApplyAllWarning
+          closeApplyAllWarning={closeApplyAllWarning}
+          runApplyAll={runApplyAll}
+          setTeslaModels={setTeslaModels}
+          activeFormVals={activeFormVals}
+          setActiveFormVals={setActiveFormVals}
+          handleWarning={handleWarning}
+          setActiveFSDSetting={setActiveFSDSetting}
+          setActiveOffMenuAutopilot={setActiveOffMenuAutopilot}
+          currentUser={currentUser}
+          bkgClr={bkgClr}
+        />
+      ) : (
+        ""
+      )}
+      {displayResetWarning ? (
+        <DisplayResetWarningx
+          closeResetWarning={closeResetWarning}
+          runReset={runReset}
+          currentUser={currentUser}
+          handleWarning={handleWarning}
+          bkgClr={bkgClr}
+        />
+      ) : (
+        ""
+      )}
+
       <div className="veicleConfig_userEntry_subcontainer">
         <div className="app_displayFlex app_Solar_selectPymt_div">
           <div
@@ -235,8 +281,8 @@ const VehicleConfigUserEntry = ({
               usStateVehicleOrder={usStateVehicleOrder}
               modelInfo={modelInfo}
               activeFormVals={activeFormVals}
-              handleFormChange={handleFormChange} 
-              handleClearField={handleClearField} 
+              handleFormChange={handleFormChange}
+              handleClearField={handleClearField}
               currentUser={currentUser}
             />
           ) : (
@@ -247,7 +293,7 @@ const VehicleConfigUserEntry = ({
               usStateVehicleOrder={usStateVehicleOrder}
               modelInfo={modelInfo}
               activeFormVals={activeFormVals}
-              handleFormChange={handleFormChange} 
+              handleFormChange={handleFormChange}
               handleClearField={handleClearField}
               currentUser={currentUser}
             />
@@ -259,7 +305,7 @@ const VehicleConfigUserEntry = ({
               usStateVehicleOrder={usStateVehicleOrder}
               modelInfo={modelInfo}
               activeFormVals={activeFormVals}
-              handleFormChange={handleFormChange} 
+              handleFormChange={handleFormChange}
               handleClearField={handleClearField}
               currentUser={currentUser}
             />
@@ -289,11 +335,11 @@ const VehicleConfigUserEntry = ({
                 setActiveFSDSetting,
                 setActiveOffMenuAutopilot
               );
-
             } else if (!currentUser && cookiesExist) { 
 
-              const hide = hideCookieWarning('applyAll');
-              if(hide === "true"){
+              const hide = hideCookieWarning("applyAll");
+              
+              if (hide === "true") {
                 handlePaymentFormSubmit();
                 runApplyAll(
                   spacedVehicleName,
@@ -311,7 +357,6 @@ const VehicleConfigUserEntry = ({
                 handlePaymentFormSubmit();
                 showApplyAllWarning(vehicleName, dispatch);
               }
-
             } else {
               handlePaymentFormSubmit();
               showApplyAllWarning(vehicleName, dispatch);
@@ -323,16 +368,15 @@ const VehicleConfigUserEntry = ({
         </button>
         <button
           onClick={() => {
-            if (currentUser && currentUser["reset_warning_on"] === "false") { 
+            if (currentUser && currentUser["reset_warning_on"] === "false") {
               runReset(vehicleName, vehicleContent);
-            } else if (!currentUser && cookiesExist) {  
-              const hide = hideCookieWarning('reset');
-              if(hide === "true"){ 
+            } else if (!currentUser && cookiesExist) {
+              const hide = hideCookieWarning("reset");
+              if (hide === "true") {
                 runReset(vehicleName, vehicleContent);
               } else {
                 showResetWarning(vehicleName, dispatch);
               }
-
             } else {
               showResetWarning(vehicleName, dispatch);
             }
@@ -349,7 +393,9 @@ const VehicleConfigUserEntry = ({
         </button>
         {alertUser[2] === "user_entry" ? (
           <div className="vehicleConfig_error">{alertUser[1]}</div>
-        ) : ""}
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
@@ -359,24 +405,30 @@ function mapStateToProps(state) {
   return {
     activeFSDSetting: state.vehiclesReducer.activeFSDSetting,
     activeFormVals: state.vehiclesReducer.activeFormVals,
+
+    displayResetWarning: state.navReducer.displayResetWarning,
+    displayApplyAllWarning: state.navReducer.displayApplyAllWarning,
   };
 }
 
-export default connect(
-  mapStateToProps, {
-    showApplyAllWarning: (modelName) => (dispatch) =>
-      dispatch({ 
-        type: TOGGLE_APPLY_ALL_WARNING,
-        payload: modelName,
-      }),
-    showResetWarning: (modelName) => (dispatch) =>
-      dispatch({
-        type: TOGGLE_RESET_WARNING,
-        payload: modelName,
-      }),
-    setActiveFormVals: (field) => (dispatch) =>
+export default connect(mapStateToProps, {
+  showApplyAllWarning: (modelName) => (dispatch) =>
+    dispatch({
+      type: TOGGLE_APPLY_ALL_WARNING,
+      payload: modelName,
+    }),
+  showResetWarning: (modelName) => (dispatch) =>
+    dispatch({
+      type: TOGGLE_RESET_WARNING,
+      payload: modelName,
+    }),
+  setActiveFormVals: (field) => (dispatch) =>
     dispatch({
       type: ACTIVE_FORM,
       payload: field,
     }),
+  toggleResetWarning: () => (dispatch) =>
+    dispatch({ type: TOGGLE_RESET_WARNING }),
+  toggleApplyAllWarning: () => (dispatch) =>
+    dispatch({ type: TOGGLE_APPLY_ALL_WARNING }),
 })(VehicleConfigUserEntry);

@@ -13,13 +13,22 @@
     cursor: pointer;
 }
 
+.infoModal_super{
+    height: 100vh;
+    z-index: 20;
+    position: fixed;
+    width: 100%;
+    color: black;
+    margin-top: 0px;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
 .infoModal_backing{
-    width: 53.4%;
-    padding: 20px;
-    border-radius: 5px 5px 5px 5px;
-    z-index: 1; 
     margin: auto;
     position: relative;
     text-align: center;
-    top: 3%;
+    top: 10%;
+    width: 600px; 
 }
