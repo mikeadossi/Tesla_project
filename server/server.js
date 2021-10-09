@@ -40,6 +40,44 @@ app.get("/isUserRegistered", async (req, res) => {
   }
 });
 
+
+app.get("/isSessionValid", async (req, res) => {
+  const { credentials } = req.query;
+
+  let email = credentials.split("sessionID=")[0];
+  email = email.replace("%40","@");
+  const sessionId = credentials.split("sessionID=")[1];
+
+  try {
+    const getUser = await queries.getUserQuery(email); 
+
+    if(!getUser){ 
+      return res.status(500);
+    } else {
+      if (sessionId === getUser[0]["user_sessionID"]) {
+        let ob = {
+          data: getUser,
+          success: true,
+          msg: "session is valid!"
+        }
+        return res.status(200).json(ob);
+      } else {
+        let ob = {
+          data: "",
+          success: false,
+          msg: "sessionID given =/= sessionID in DB!"
+        }
+        return res.status(500).json(ob);
+      };
+    };
+
+  } catch (e) {
+    return res.status(500);
+  }
+
+});
+
+
 app.get("/statedata", async (req, res) => {
   const {
     query: { abbr },
@@ -47,7 +85,8 @@ app.get("/statedata", async (req, res) => {
 
   try {
     const rows = await queries.getStateDataByStateAbbr(abbr);
-    return res.status(200).send(rows);
+    // return res.status(200).send(rows);
+    return res.status(200).send(JSON.stringify(rows));
   } catch (e) {
     return res.status(500);
   }
@@ -80,27 +119,8 @@ app.post("/insertNewUser", async (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.post("/logUserIntoApp", async (req, res) => {
   const { email, password } = req.body;
-
-  const active = await queries.isEmailRegistered(email); 
 
   try {
     const getUser = await queries.getUserQuery(email); 
@@ -123,7 +143,7 @@ app.post("/logUserIntoApp", async (req, res) => {
         data: getUser,
         success: true,
         msg: `${email} logged in successfully`
-      } 
+      }
       return res.status(200).json(ob);
     } else {
       let ob = {
@@ -131,28 +151,12 @@ app.post("/logUserIntoApp", async (req, res) => {
         success: false,
         msg: "passwords do not match"
       } 
-      return res.status(200).json(ob);
+      return res.status(500).json(ob);
     }
   } catch (e) {
       return res.status(500);
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.post("/updateUserData", async (req, res) => {
   const { body } = req;
@@ -192,6 +196,7 @@ app.get("/zipcode", async (req, res) => {
     return res.status(500);
   }
 });
+
 
 app.get("/areacode", async (req, res) => {
   const {

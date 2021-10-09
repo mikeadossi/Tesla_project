@@ -98,6 +98,7 @@ let queries = {
     apply_all_warning_on,
     reset_warning_on,
     viewed_welcome_notification,
+    user_sessionID,
   }) {
     pool.query(
       `INSERT INTO user_details (
@@ -110,7 +111,8 @@ let queries = {
         notifications_on,
         apply_all_warning_on,
         reset_warning_on,
-        viewed_welcome_notification
+        viewed_welcome_notification,
+        user_sessionID,
         ) VALUES (
           '${id}', 
           '${email}',
@@ -121,7 +123,8 @@ let queries = {
           '${notifications_on}',
           '${apply_all_warning_on}',
           '${reset_warning_on}',
-          '${viewed_welcome_notification}'
+          '${viewed_welcome_notification}',
+          '${user_sessionID}'
         )`,
       (err, rows) => {
         if(err) { 

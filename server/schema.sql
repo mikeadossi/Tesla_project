@@ -33,6 +33,7 @@ CREATE TABLE user_details (
   reset_warning_on VARCHAR(255) DEFAULT NULL, 
   date_joined VARCHAR(255) DEFAULT NULL,
   viewed_welcome_notification VARCHAR(255) DEFAULT NULL,
+  user_sessionID VARCHAR(255) DEFAULT NULL,
 )
 
 CREATE TABLE notifications (
