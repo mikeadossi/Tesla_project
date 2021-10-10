@@ -53,21 +53,22 @@ const VehicleConfigUserEntry = ({
       "model"
     ]; //ex: Model 3
   const cookies = new Cookies();
-  const [bkgClr, setBkgClr] = useState({"background-color":"rgba(0, 0, 0, 0.3);"});
+  const [bkgClr, setBkgClr] = useState({
+    "backgroundColor": "rgba(0, 0, 0, 0.3);",
+  });
 
   useEffect(() => {
     let vdLength = vehicleData.length;
-    if(vdLength > 0){
+    if (vdLength > 0) {
       var obj = {
-        1: {"background-color":"rgba(0, 0, 0, 0.6)"},
-        2: {"background-color":"rgba(0, 0, 0, 0.4)"},
-        3: {"background-color":"rgba(0, 0, 0, 0.3)"},
-        4: {"background-color":"rgba(0, 0, 0, 0.2)"},
-      }
+        1: { "backgroundColor": "rgba(0, 0, 0, 0.6)" },
+        2: { "backgroundColor": "rgba(0, 0, 0, 0.4)" },
+        3: { "backgroundColor": "rgba(0, 0, 0, 0.3)" },
+        4: { "backgroundColor": "rgba(0, 0, 0, 0.2)" },
+      };
       setBkgClr(obj[vdLength]);
     }
-  },[vehicleData]);
-
+  }, [vehicleData]);
 
   useEffect(() => {
     if (activeFormVals[vehicleName] !== "" || null) {
@@ -141,6 +142,7 @@ const VehicleConfigUserEntry = ({
 
     if (validated[0] === false) {
       setAlertUser([{}, validated[1], "user_entry"]);
+      return "error";
     } else {
       teslaModels = setUserPymtEntry(
         activeFormVals,
@@ -179,6 +181,7 @@ const VehicleConfigUserEntry = ({
       );
 
       setTeslaModels(vehicleContent);
+      return "success";
     }
   };
 
@@ -318,49 +321,50 @@ const VehicleConfigUserEntry = ({
       <div className="vehicleConfig_submit_btn_container">
         <button
           onClick={() => {
-            if (
-              currentUser &&
-              currentUser["apply_all_warning_on"] === "false"
-            ) {
-              handlePaymentFormSubmit();
-              runApplyAll(
-                spacedVehicleName,
-                teslaModels,
-                vehiclesRendered,
-                vehicleName,
-                setTeslaModels,
-                activeFormVals,
-                activeFSDSetting,
-                setActiveFormVals,
-                setActiveFSDSetting,
-                setActiveOffMenuAutopilot
-              );
-            } else if (!currentUser && cookiesExist) { 
+            
+            handlePaymentFormSubmit().then((handled) => {
+              if (handled === "success") {
 
-              const hide = hideCookieWarning("applyAll");
-              
-              if (hide === "true") {
-                handlePaymentFormSubmit();
-                runApplyAll(
-                  spacedVehicleName,
-                  teslaModels,
-                  vehiclesRendered,
-                  vehicleName,
-                  setTeslaModels,
-                  activeFormVals,
-                  activeFSDSetting,
-                  setActiveFormVals,
-                  setActiveFSDSetting,
-                  setActiveOffMenuAutopilot
-                );
-              } else {
-                handlePaymentFormSubmit();
-                showApplyAllWarning(vehicleName, dispatch);
+                if (
+                  currentUser &&
+                  currentUser["apply_all_warning_on"] === "false"
+                ) {
+                  runApplyAll(
+                    spacedVehicleName,
+                    teslaModels,
+                    vehiclesRendered,
+                    vehicleName,
+                    setTeslaModels,
+                    activeFormVals,
+                    activeFSDSetting,
+                    setActiveFormVals,
+                    setActiveFSDSetting,
+                    setActiveOffMenuAutopilot
+                  );
+                } else if (!currentUser && cookiesExist) {
+                  const hide = hideCookieWarning("applyAll");
+
+                  if (hide === "true") {
+                    runApplyAll(
+                      spacedVehicleName,
+                      teslaModels,
+                      vehiclesRendered,
+                      vehicleName,
+                      setTeslaModels,
+                      activeFormVals,
+                      activeFSDSetting,
+                      setActiveFormVals,
+                      setActiveFSDSetting,
+                      setActiveOffMenuAutopilot
+                    );
+                  } else {
+                    showApplyAllWarning(vehicleName, dispatch);
+                  }
+                } else {
+                  showApplyAllWarning(vehicleName, dispatch);
+                }
               }
-            } else {
-              handlePaymentFormSubmit();
-              showApplyAllWarning(vehicleName, dispatch);
-            }
+            });
           }}
           className="app_removeBlue app_noSelect vehicleConfig_control_btn vehicleConfig_setAll_btn app_cursorPointer"
         >

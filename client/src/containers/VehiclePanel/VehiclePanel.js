@@ -53,8 +53,7 @@ const VehiclePanel = ({
   setMenuOptions,
   alertUser,
   setAlertUser,
-  vFactsArr,
-  metaVehicles,
+  vFactsArr, 
 }) => {
   const dispatch = useDispatch();
 
@@ -181,7 +180,7 @@ const VehiclePanel = ({
               runReset
             );
           }}
-          vehicleContent={teslaModels}
+          // vehicleContent={teslaModels}
           selectedVehicle={ele}
           vehicleContainerRef={vehicleContainerRef}
           changeVehicleColor={(color, value) => {

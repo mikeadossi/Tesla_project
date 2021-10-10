@@ -19,10 +19,7 @@ const Nav = ({
   setAlertUser,
   submitZipOrAreacode,
   handleLogOut,
-  toggleNotification,
-  setToggleNotification,
-  setCurrentUser,
-  updateDB,
+  toggleNotification, 
   viewedNotifications, 
   openNotification,
 }) => {

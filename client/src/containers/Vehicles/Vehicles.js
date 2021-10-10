@@ -15,8 +15,7 @@ const Vehicles = ({
   alertUser,
   setAlertUser,
   metaVehicleObj,
-  usStateVehicleOrder,
-  metaVehicles,
+  usStateVehicleOrder, 
 }) => {
   const [allShowrooms, setAllShowrooms] = useState({});
   const [allServiceCenters, setAllServiceCenters] = useState({});
@@ -62,8 +61,7 @@ const Vehicles = ({
           alertUser={alertUser}
           setAlertUser={setAlertUser} 
           metaVehicleObj={metaVehicleObj}
-          usStateVehicleOrder={usStateVehicleOrder}
-          metaVehicles={metaVehicles}
+          usStateVehicleOrder={usStateVehicleOrder} 
         />
       </div>
     </div>

@@ -20,6 +20,7 @@ const runApplyAll = (
   setActiveFSDSetting,
   setActiveOffMenuAutopilot, 
 ) => {
+  console.log('runApplyAll called...')
   // function below applies vehicle attributes to all other vehicles (ramet) based on original (ortet)
   let vehicleList = [...vehiclesRendered];
   vehicleList.splice(vehicleList.indexOf(spacedVehicleName), 1);
@@ -95,7 +96,11 @@ const runApplyAll = (
     if(!runSync){
       setTeslaModels(vehicleContent)
     } else {
-      return vehicleContent;
+      console.log('creating a promise...')
+      const myPromise = new Promise((resolve, reject) => {
+        return vehicleContent;
+      });
+      return myPromise;
     };
   };
 
@@ -118,154 +123,165 @@ const runApplyAll = (
   let result5;
 
   vehicleList.map((v) => {
-    if(result5 !== undefined){
-      result = result5;
-    }
+    // if(result5 !== undefined){
+    //   result = result5;
+    // }
 
-    result = submitData(v, result, true);
+    // result = submitData(v, result, true);
+    console.log('getting our promise...?')
+    submitData(v, result, true).then((res) => {console.log('rslt-',res)})
 
-    result2 = changeVehicleColor(
-      preferredPaint,
-      v,
-      result, //teslaModels
-      setTeslaModels,
-      populatePaymentObject,
-      true
-    );
+    // result2 = changeVehicleColor(
+    //   preferredPaint,
+    //   v,
+    //   result, //teslaModels
+    //   setTeslaModels,
+    //   populatePaymentObject,
+    //   true
+    // );
 
-    // only the Model 3 has a standard/off menu trim option at this time
-    // also only the Model S has a plaid option at this time
-    if (
-      preferredBattery === "off_menu" ||
-      preferredBattery === "standard_battery"
-    ) {
-      result3 = changeVehicleBattery(
-        "long_range",
-        v,
-        result2,
-        setTeslaModels,
-        populatePaymentObject,
-        activeFSDSetting,
-        setActiveFSDSetting,
-        setActiveOffMenuAutopilot,
-        true
-      );
-    } else if (preferredBattery === "plaid") {
-      result3 = changeVehicleBattery(
-        "performance",
-        v,
-        result2,
-        setTeslaModels,
-        populatePaymentObject,
-        activeFSDSetting,
-        setActiveFSDSetting,
-        setActiveOffMenuAutopilot,
-        true
-      );
-    } else { 
-      result3 = changeVehicleBattery(
-        preferredBattery,
-        v,
-        result2,
-        setTeslaModels,
-        populatePaymentObject,
-        activeFSDSetting,
-        setActiveFSDSetting,
-        setActiveOffMenuAutopilot,
-        true
-      );
-    }
+    // // only the Model 3 has a standard/off menu trim option at this time
+    // // also only the Model S has a plaid option at this time
+    // if (
+    //   preferredBattery === "off_menu" ||
+    //   preferredBattery === "standard_battery"
+    // ) {
+    //   result3 = changeVehicleBattery(
+    //     "long_range",
+    //     v,
+    //     result2,
+    //     setTeslaModels,
+    //     populatePaymentObject,
+    //     activeFSDSetting,
+    //     setActiveFSDSetting,
+    //     setActiveOffMenuAutopilot,
+    //     true
+    //   );
+    // } else if (preferredBattery === "plaid") {
+    //   result3 = changeVehicleBattery(
+    //     "performance",
+    //     v,
+    //     result2,
+    //     setTeslaModels,
+    //     populatePaymentObject,
+    //     activeFSDSetting,
+    //     setActiveFSDSetting,
+    //     setActiveOffMenuAutopilot,
+    //     true
+    //   );
+    // } else { 
+    //   result3 = changeVehicleBattery(
+    //     preferredBattery,
+    //     v,
+    //     result2,
+    //     setTeslaModels,
+    //     populatePaymentObject,
+    //     activeFSDSetting,
+    //     setActiveFSDSetting,
+    //     setActiveOffMenuAutopilot,
+    //     true
+    //   );
+    // }
 
 
-    // the model3 and modelY do not have a Cream interior option
-    if (preferredInterior === "Cream" && ( v === "Model S" || v === "Model X") ) {
-      // this runs only on modelX or modelS
-      result4 = changeVehicleInterior(
-        preferredTrim,
-        preferredInterior,
-        v,
-        result3,
-        setTeslaModels,
-        populatePaymentObject,
-        true
-      );
-    } else if (preferredInterior !== "Cream" && universalTrims.includes(preferredTrim)) {
-      // this runs on all 4 vehicles, but ignores trims that are plaid, standard_range or off_menu since these are available on only one vehicle.
-      result4 = changeVehicleInterior(
-        preferredTrim,
-        preferredInterior,
-        v,
-        result3,
-        setTeslaModels,
-        populatePaymentObject,
-        true
-      );
-    }
+    // // the model3 and modelY do not have a Cream interior option
+    // if (preferredInterior === "Cream" && ( v === "Model S" || v === "Model X") ) {
+    //   // this runs only on modelX or modelS
+    //   result4 = changeVehicleInterior(
+    //     preferredTrim,
+    //     preferredInterior,
+    //     v,
+    //     result3,
+    //     setTeslaModels,
+    //     populatePaymentObject,
+    //     true
+    //   );
+    // } else if (preferredInterior !== "Cream" && universalTrims.includes(preferredTrim)) {
+    //   // this runs on all 4 vehicles, but ignores trims that are plaid, standard_range or off_menu since these are available on only one vehicle.
+    //   result4 = changeVehicleInterior(
+    //     preferredTrim,
+    //     preferredInterior,
+    //     v,
+    //     result3,
+    //     setTeslaModels,
+    //     populatePaymentObject,
+    //     true
+    //   );
+    // }
 
-    // the model3 off menu vehicle is a special case and if it's our 'ortet' car we'll need the code below
-    if (preferredTrim !== "off_menu" && preferredTrim !== "standard_battery" && preferredTrim !== "plaid") {
-      result5 = duplicateFSDSetting(
-        preferredTrim,
-        v,
-        preferredAutopilotOption,
-        activeFSDSetting,
-        result4, 
-        populatePaymentObject,
-        setActiveFSDSetting, 
-      )
-    } else if (preferredTrim === "plaid") {
-      result5 = duplicateFSDSetting(
-        "performance",
-        v,
-        preferredAutopilotOption,
-        activeFSDSetting,
-        result4, 
-        populatePaymentObject,
-        setActiveFSDSetting, 
-      )
-    } else if (
-      preferredTrim === "off_menu" &&
-      v === "Model 3" &&
-      preferredAutopilotOption === "fsd_and_autopilot"
-    ) {
-      result5 = duplicateFSDSetting(
-        "long_range",
-        v,
-        preferredAutopilotOption,
-        activeFSDSetting,
-        result4, 
-        populatePaymentObject,
-        setActiveFSDSetting, 
-      )
-    } else if (
-      preferredTrim === "off_menu" &&
-      v === "Model 3" &&
-      preferredAutopilotOption === "autopilot_charge"
-    ) {
-      result5 = duplicateFSDSetting(
-        "long_range",
-        v,
-        preferredAutopilotOption,
-        activeFSDSetting,
-        result4, 
-        populatePaymentObject,
-        setActiveFSDSetting, 
-      )
-    } else if (
-      preferredTrim === "off_menu" &&
-      v === "Model 3" &&
-      preferredAutopilotOption === "no_autopilot"
-    ) {
-      result5 = duplicateFSDSetting(
-        "long_range",
-        v,
-        preferredAutopilotOption,
-        activeFSDSetting,
-        result4, 
-        populatePaymentObject,
-        setActiveFSDSetting, 
-      )
-    }
+    // // the model3 off menu vehicle is a special case and if it's our 'ortet' car we'll need the code below
+    // if (preferredTrim !== "off_menu" && preferredTrim !== "standard_battery" && preferredTrim !== "plaid") {
+    //   result5 = duplicateFSDSetting(
+    //     preferredTrim,
+    //     v,
+    //     preferredAutopilotOption,
+    //     activeFSDSetting,
+    //     result4, 
+    //     populatePaymentObject,
+    //     setActiveFSDSetting, 
+    //   )
+    // } else if (preferredTrim === "plaid") {
+    //   result5 = duplicateFSDSetting(
+    //     "performance",
+    //     v,
+    //     preferredAutopilotOption,
+    //     activeFSDSetting,
+    //     result4, 
+    //     populatePaymentObject,
+    //     setActiveFSDSetting, 
+    //   )
+    // } else if (
+    //   preferredTrim === "off_menu" &&
+    //   v === "Model 3" &&
+    //   preferredAutopilotOption === "fsd_and_autopilot"
+    // ) {
+    //   result5 = duplicateFSDSetting(
+    //     "long_range",
+    //     v,
+    //     preferredAutopilotOption,
+    //     activeFSDSetting,
+    //     result4, 
+    //     populatePaymentObject,
+    //     setActiveFSDSetting, 
+    //   )
+    // } else if (
+    //   preferredTrim === "off_menu" &&
+    //   v === "Model 3" &&
+    //   preferredAutopilotOption === "autopilot_charge"
+    // ) {
+    //   result5 = duplicateFSDSetting(
+    //     "long_range",
+    //     v,
+    //     preferredAutopilotOption,
+    //     activeFSDSetting,
+    //     result4, 
+    //     populatePaymentObject,
+    //     setActiveFSDSetting, 
+    //   )
+    // } else if (
+    //   preferredTrim === "off_menu" &&
+    //   v === "Model 3" &&
+    //   preferredAutopilotOption === "no_autopilot"
+    // ) {
+    //   result5 = duplicateFSDSetting(
+    //     "long_range",
+    //     v,
+    //     preferredAutopilotOption,
+    //     activeFSDSetting,
+    //     result4, 
+    //     populatePaymentObject,
+    //     setActiveFSDSetting, 
+    //   )
+    // }
+
+
+
+
+
+
+
+
+
 
   });
 

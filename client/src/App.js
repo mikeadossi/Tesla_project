@@ -335,7 +335,7 @@ const App = ({
       const cookieTwo =
         hideApplyAllWarning === "true" || hideApplyAllWarning === "false";
 
-      if (hideResetWarning && cookieOne && cookieTwo) {
+      if (hideResetWarning && cookieOne && cookieTwo) { 
         if (val[0] === "reset") {
           cookies.set("hideResetWarning", val[1], { path: "/" });
         }
@@ -357,8 +357,11 @@ const App = ({
         newCurrentUser[val] = "true";
       }
       setWarnings(newWarnings);
-      setCurrentUser(newCurrentUser);
+      setCurrentUser(newCurrentUser); 
 
+      console.log('updated 1',{
+        val, newCurrentUser
+      })
       updateDB(val, newCurrentUser);
     }
   };
@@ -643,10 +646,11 @@ const App = ({
     }
   }, [zipcodeData.state_abbr]);
 
+
+
   return (
     <div className="App">
-      <BrowserRouter>
-        {/* <InfoModal /> */}
+      <BrowserRouter> 
         <Nav
           menuVisibility={menuVisibility}
           closeMobileMenu={closeMobileMenu}
@@ -660,10 +664,7 @@ const App = ({
           alertUser={alertUser}
           setAlertUser={setAlertUser}
           handleLogOut={handleLogOut}
-          toggleNotification={toggleNotification}
-          setToggleNotification={setToggleNotification}
-          setCurrentUser={setCurrentUser}
-          updateDB={updateDB}
+          toggleNotification={toggleNotification} 
           viewedNotifications={viewedNotifications}
           openNotification={openNotification}
         />
@@ -755,8 +756,7 @@ const App = ({
                 setAlertUser={setAlertUser}
                 statedata={usStateData}
                 metaVehicleObj={metaVehicles}
-                usStateVehicleOrder={usStateVehicleOrder}
-                metaVehicles={metaVehicles}
+                usStateVehicleOrder={usStateVehicleOrder} 
               />
             )}
           />

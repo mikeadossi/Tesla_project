@@ -53,6 +53,8 @@
 
 .headerLeft_usersName{
     padding-left: 5px;
+    color: grey;
+    font-weight: 400;
 }
 
 .notification_bell_container{

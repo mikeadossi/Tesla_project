@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import VehicleConfig from "../../VehicleData/VehicleConfig/VehicleConfig";
 import VehicleSpecs from "../../VehicleData/VehicleSpecs/VehicleSpecs";
 import VehicleConfigHeader from "../../VehicleData/VehicleConfigHeader/VehicleConfigHeader";
+import { connect } from "react-redux";
 
 const VehicleConfigContainer = ({
   selectedVehicle,
@@ -43,15 +44,19 @@ const VehicleConfigContainer = ({
     .join("");
 
 
-  const renderedTesla = vehicleContent.vehicle_render[name]; 
-  const vehicleBattery = renderedTesla["battery"][1]; // ex: "long_range"
-  const teslaDetails = vehicleContent.vehicle_details[name];
+  console.log('vehicleContent-',vehicleContent); 
+  
+
+
+  const renderedTesla = vehicleContent?.vehicle_render[name]; 
+  const vehicleBattery = renderedTesla?.["battery"][1]; // ex: "long_range"
+  const teslaDetails = vehicleContent?.vehicle_details[name];
 
   const modelInfo = {
     modelName: name,
     modelBattery: vehicleBattery,
-    configuredPrice: renderedTesla["cash_price"],
-    pymtContent: renderedTesla["payment_object"],
+    configuredPrice: renderedTesla?.["cash_price"],
+    pymtContent: renderedTesla?.["payment_object"],
   };
 
   const makeVisible = (value) => {
@@ -72,11 +77,11 @@ const VehicleConfigContainer = ({
   const [activeBattery, setActiveBattery] = useState("");
 
   const batteryObject = {
-    standard_battery: teslaDetails.standard_battery,
-    off_menu: teslaDetails.off_menu,
-    long_range: teslaDetails.long_range,
-    performance: teslaDetails.performance,
-    plaid: teslaDetails.plaid,
+    standard_battery: teslaDetails?.standard_battery,
+    off_menu: teslaDetails?.off_menu,
+    long_range: teslaDetails?.long_range,
+    performance: teslaDetails?.performance,
+    plaid: teslaDetails?.plaid,
   };
 
   const batteryObjectKeys = [
@@ -155,4 +160,12 @@ const VehicleConfigContainer = ({
   );
 };
 
-export default VehicleConfigContainer;
+// export default VehicleConfigContainer;
+
+function mapStateToProps(state) {
+  return {
+    vehicleContent: state.vehiclesReducer.vehicleRenderData,
+  };
+}
+
+export default connect(mapStateToProps)(VehicleConfigContainer);

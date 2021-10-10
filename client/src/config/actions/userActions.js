@@ -44,27 +44,27 @@ export const insertNewMember = (userObj) => async (dispatch) => {
   }
 };
 
-export const updateUserDetails = (userObj) => async (dispatch) => {
-  try { 
-    const res = await axios.post(
-      `http://localhost:3002/updateUserData`,
-      userObj,
-      { headers: { "Content-type": "application/json; charset=UFT-8" } }
-    );
-    dispatch({
-      type: types.UPDATE_USER_DATA,
-      payload: res.data,
-    });
-  } catch (err) {
-    console.log(err);
-    if (hasAValue(err.response) && hasAValue(err.response.data)) {
-      dispatch({
-        type: types.UPDATE_USER_DATA_ERROR,
-        payload: err.response.data,
-      });
-    }
-  }
-};
+// export const updateUserDetails = (userObj) => async (dispatch) => {
+//   try { 
+//     const res = await axios.post(
+//       `http://localhost:3002/updateUserData`,
+//       userObj,
+//       { headers: { "Content-type": "application/json; charset=UFT-8" } }
+//     );
+//     dispatch({
+//       type: types.UPDATE_USER_DATA,
+//       payload: res.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     if (hasAValue(err.response) && hasAValue(err.response.data)) {
+//       dispatch({
+//         type: types.UPDATE_USER_DATA_ERROR,
+//         payload: err.response.data,
+//       });
+//     }
+//   }
+// };
 
 export const isUserRegistered = (email) => async (dispatch) => { 
   try {

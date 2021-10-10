@@ -121,19 +121,8 @@ const DisplayApplyAllWarning = ({
                   setActiveFSDSetting,
                   setActiveOffMenuAutopilot
                 );
-                console.log("Zoro-", {
-                  spacedVehicleName,
-                  teslaModels,
-                  vehiclesRendered,
-                  vehicleName,
-                  setTeslaModels,
-                  activeFormVals,
-                  activeFSDSetting,
-                  setActiveFormVals,
-                  setActiveFSDSetting,
-                  setActiveOffMenuAutopilot,
-                });
                 closeApplyAllWarning();
+                console.log('hola?')
                 handleWarning(["applyAll", applyAllBool]);
               }}
               className="warningBtn continueToApplyAll"
