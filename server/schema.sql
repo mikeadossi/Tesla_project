@@ -93,6 +93,7 @@ CREATE TABLE state_data (
   financing_available VARCHAR(255) DEFAULT NULL,
   region VARCHAR(255) DEFAULT NULL, 
   default_zipcode INTEGER, 
+  payment_object VARCHAR(255) DEFAULT NULL,
 )
 
 CREATE TABLE vehicles (
