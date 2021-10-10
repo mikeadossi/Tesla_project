@@ -156,7 +156,7 @@ const VehiclePanel = ({
         <div className="vehiclePanel_super_container">
           <div className="vehiclePanel_facts_container app_displayFlex">
             <div className="vehiclePanel_facts_img">
-              <div className="vehiclePanel_img">VEHICLE IMAGE</div>
+              <img className="vehiclePanel_img" src="../../../../images/app_art/guy.jpg" />
             </div>
             <div className="vehiclePanel_facts_content">
               <div className="vpf_content_heading">FACT #{vFactsArr[0]}</div>

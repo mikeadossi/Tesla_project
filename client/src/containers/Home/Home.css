@@ -35,10 +35,10 @@
 
 .home_title{
     margin: 40px 0px 40px 0px;
+    display:none;
 }
 
 .home_hero_super{
-    background-color: skyblue;
     width: 100%; 
     display: flex;
     align-items: center;
@@ -48,43 +48,36 @@
 
 .home_hero_container{
     text-align: left; 
-    padding: 20px 0px 20px 0px;
     display: flex;
 }
 
 .home_hero_text_container{
-    background-color: orange;
     width: 52%;
 }
 
 .home_hero_img_container{
     float: left;
-    width: 48%;
 }
 
 .home_img{
     background-color: green;
-    color: green; 
-    height: 100%;
+    color: green;  
     font-weight: bold;
     font-size: 50px; 
     line-height: 45px;
+    height: 475px;
 }
 
 .home_hero_heading{
     font-weight: bold;
     font-size: 68px;
     line-height: 67px;
+    padding-top: 73px;
 }
 
 .home_hero_text{
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.home_feature_super{
-    background-color: indianred;
-    padding: 5px;
+    font-size: 24px; 
+    padding-top: 60px;
 }
 
 .home_underline{
@@ -113,4 +106,18 @@
 .home_subtext_container{
     padding-top: 50px;
     padding-bottom: 100px;
+}
+
+.home_feature_img{
+    background-color: green;
+    color: green;
+    height: 200px;
+}
+
+.home_hero_img_container2{
+    padding-left: 10%;
+}
+
+.home_hero_img_container3{
+    padding-left: 20%;
 }

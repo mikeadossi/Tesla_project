@@ -13,16 +13,14 @@
 }
 
 .spp_img{
-    background-color: green; 
-    height: 100%;
+    height: 170px;
 }
 
 .spp_facts_content{
-    background-color: orange;
+    width: 350px;
 }
 
 .spp_super_container{
-    background-color: skyblue;
     width: 100%;
     padding: 22px; 
     display: flex;

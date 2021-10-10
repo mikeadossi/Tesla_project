@@ -233,7 +233,7 @@ const SolarProductPanel = ({
         <div className="spp_super_container">
           <div className="spp_facts_container app_displayFlex">
             <div className="spp_facts_img">
-              <div className="spp_img">SOLR IMAGE</div>
+              <img className="spp_img" src="../../../../images/app_art/panel_installer.jpg" />
             </div>
             <div className="spp_facts_content">
               <div className="spp_content_heading">FACT #{sFactsArr[0]}</div>
