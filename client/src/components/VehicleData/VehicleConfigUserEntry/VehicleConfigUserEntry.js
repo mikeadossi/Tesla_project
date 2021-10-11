@@ -134,7 +134,7 @@ const VehicleConfigUserEntry = ({
   const handlePaymentFormSubmit = async () => {
     // function below updates state with user entries
 
-    setAlertUser([]);
+    await setAlertUser([]);
 
     const configuredPrice = teslaModels.vehicle_render[vehicleName].cash_price;
 

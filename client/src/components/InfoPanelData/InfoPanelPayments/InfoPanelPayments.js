@@ -2,10 +2,11 @@ import React from "react";
 import "./InfoPanelPayments.css";
 
 const InfoPanelPayments = (props) => {
-  const vehicleOrder = props.vehicleOrder;
+  const vehicleOrder = JSON.parse(props.vehicleOrder);
   const stateAbbr = props.stateAbbr;
+  console.log('vehicleOrder-',JSON.parse(props.vehicleOrder) );
 
-  // make sure to include whether this state allows for net trade0in tax credit - www.realcartips.com/selling/010-states-that-allow-trade-in-tax-credit.shtml
+  // make sure to include whether this state allows for net trade-in tax credit - www.realcartips.com/selling/010-states-that-allow-trade-in-tax-credit.shtml
 
   return (
     <div className="InfoPanel_charging_container">
