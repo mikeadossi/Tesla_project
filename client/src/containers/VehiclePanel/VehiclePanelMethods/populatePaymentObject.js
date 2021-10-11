@@ -1,4 +1,5 @@
 import getLoanMonthlyPymt from "./getLoanMonthlyPymt";
+const _ = require('lodash');
 
 const populatePaymentObject = (
   configuredPrice, 
@@ -7,16 +8,7 @@ const populatePaymentObject = (
   ) => { 
 
   // handle deep copy on all (relevant) nested objects w/ spread operator
-  let modelPaymentObj = {
-    ...paymentObj,
-    finance: {
-      ...paymentObj["finance"],
-    },
-    lease: {
-      ...paymentObj["lease"],
-    },
-    nonCashCreditsArr: [...paymentObj["nonCashCreditsArr"]],
-  };
+  let modelPaymentObj = _.cloneDeep(paymentObj);
 
   const docFee = modelPaymentObj["docFee"];
   const adjustments = modelPaymentObj["adjustments"];
