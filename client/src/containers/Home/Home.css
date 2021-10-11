@@ -59,8 +59,7 @@
     float: left;
 }
 
-.home_img{
-    background-color: green;
+.home_img{ 
     color: green;  
     font-weight: bold;
     font-size: 50px; 
@@ -108,8 +107,7 @@
     padding-bottom: 100px;
 }
 
-.home_feature_img{
-    background-color: green;
+.home_feature_img{ 
     color: green;
     height: 200px;
 }
