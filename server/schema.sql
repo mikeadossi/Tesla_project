@@ -1,8 +1,5 @@
 DROP TABLE IF EXISTS zip_codes;
 DROP TABLE IF EXISTS user_details;
-DROP TABLE IF EXISTS showrooms;
-DROP TABLE IF EXISTS service_centers;
-DROP TABLE IF EXISTS superchargers;
 DROP TABLE IF EXISTS state_data; 
 DROP TABLE IF EXISTS vehicles;
 DROP TABLE IF EXISTS area_codes; 
@@ -13,13 +10,12 @@ CREATE TABLE zip_codes (
   state_abbr VARCHAR(255) DEFAULT NULL,
   state_name VARCHAR(255) DEFAULT NULL,
   area_codes VARCHAR(255) DEFAULT NULL,
-  county VARCHAR(255) DEFAULT NULL,
-  time_zone VARCHAR(255) DEFAULT NULL,
-  observes_day_light_savings VARCHAR(255) DEFAULT NULL,
-  latitude VARCHAR(255) DEFAULT NULL,
-  longitude VARCHAR(255) DEFAULT NULL,
-  closest_showrooms VARCHAR(255) DEFAULT NULL,
-  state_id TINYINT UNSIGNED NOT NULL
+  county VARCHAR(45) DEFAULT NULL,
+  time_zone VARCHAR(45) DEFAULT NULL,
+  observes_day_light_savings VARCHAR(45) DEFAULT NULL,
+  latitude VARCHAR(45) DEFAULT NULL,
+  longitude VARCHAR(45) DEFAULT NULL,
+  closest_showrooms VARCHAR(45) DEFAULT NULL,
 )
 
 CREATE TABLE user_details (
@@ -43,57 +39,19 @@ CREATE TABLE notifications (
   link VARCHAR(255) DEFAULT NULL,
 )
 
-CREATE TABLE showrooms (
-  id SERIAL PRIMARY KEY,
-  store_name VARCHAR(255) DEFAULT NULL,
-  store_address VARCHAR(255) DEFAULT NULL,
-  store_url VARCHAR(255) DEFAULT NULL,
-  operational_bool VARCHAR(255) DEFAULT NULL 
-)
-
-CREATE TABLE service_centers (
-  id SERIAL PRIMARY KEY,
-  store_name VARCHAR(255) DEFAULT NULL,
-  store_address VARCHAR(255) DEFAULT NULL,
-  store_url VARCHAR(255) DEFAULT NULL,
-  operational_bool VARCHAR(255) DEFAULT NULL 
-)
-
-CREATE TABLE superchargers (
-  id SERIAL PRIMARY KEY,
-  store_name VARCHAR(255) DEFAULT NULL,
-  store_address VARCHAR(255) DEFAULT NULL,
-  store_url VARCHAR(255) DEFAULT NULL,
-  operational_bool VARCHAR(255) DEFAULT NULL
-)
-
 CREATE TABLE state_data (
   id SERIAL PRIMARY KEY,
-  state_name VARCHAR(255) DEFAULT NULL,
-  state_abbr VARCHAR(2) DEFAULT NULL,
-  vehicle_incentives VARCHAR(255) DEFAULT NULL,
-  solar_incentives VARCHAR(255) DEFAULT NULL, 
-  local_vehicle_incentives VARCHAR(255) DEFAULT NULL,
-  local_solar_incentives VARCHAR(255) DEFAULT NULL,
-  all_showrooms VARCHAR(255) DEFAULT NULL,
-  all_service_centers VARCHAR(255) DEFAULT NULL,
-  all_charging_locations VARCHAR(255) DEFAULT NULL,
-  tradein_value VARCHAR(255) DEFAULT NULL, 
-  tradein_payoff VARCHAR(255) DEFAULT NULL, 
-  tradein_equity VARCHAR(255) DEFAULT NULL, 
-  order_pymt INTEGER, 
-  destination_and_doc_fee VARCHAR(255) DEFAULT NULL, 
-  state_tax_rate INTEGER, 
-  state_taxes VARCHAR(255) DEFAULT NULL,
-  leasing VARCHAR(255) DEFAULT NULL,
-  financing VARCHAR(255) DEFAULT NULL,
-  registration VARCHAR(255) DEFAULT NULL,
-  solar_panel_subscription VARCHAR(255) DEFAULT NULL,
-  leasing_available VARCHAR(255) DEFAULT NULL,
-  financing_available VARCHAR(255) DEFAULT NULL,
-  region VARCHAR(255) DEFAULT NULL, 
-  default_zipcode INTEGER, 
-  payment_object VARCHAR(255) DEFAULT NULL,
+  state_name LONGTEXT DEFAULT NULL,
+  state_abbr LONGTEXT DEFAULT NULL,
+  vehicle_incentives LONGTEXT DEFAULT NULL,
+  solar_incentives LONGTEXT DEFAULT NULL, 
+  local_vehicle_incentives LONGTEXT DEFAULT NULL,
+  local_solar_incentives LONGTEXT DEFAULT NULL,
+  all_showrooms LONGTEXT DEFAULT NULL,
+  all_service_centers LONGTEXT DEFAULT NULL,
+  all_charging_locations LONGTEXT DEFAULT NULL,
+  vehicle_order LONGTEXT DEFAULT NULL,
+  payment_object LONGTEXT DEFAULT NULL,
 )
 
 CREATE TABLE vehicles (
@@ -105,10 +63,12 @@ CREATE TABLE vehicles (
   off_menu LONGTEXT DEFAULT NULL,
   long_range LONGTEXT DEFAULT NULL,
   performance LONGTEXT DEFAULT NULL,
-  plaid LONGTEXT DEFAULT NULL
+  plaid LONGTEXT DEFAULT NULL,
+  paint_options LONGTEXT DEFAULT NULL,
+  default_optioned_vehicle LONGTEXT DEFAULT NULL,
 )
 
 CREATE TABLE area_codes (
   id SERIAL PRIMARY KEY,
-  area_code_number INTEGER
+  state_abbr VARCHAR(45) DEFAULT NULL,
 )
