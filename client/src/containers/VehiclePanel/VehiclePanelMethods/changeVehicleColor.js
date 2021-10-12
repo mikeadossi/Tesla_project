@@ -1,12 +1,12 @@
 const _ = require('lodash');
 
-const changeVehicleColor = (
+const changeVehicleColor = async (
   color,
   value,
   teslaModels,
   setTeslaModels,
   populatePaymentObject,
-  runSync,
+  runSync, 
 ) => {
 
   const model = `${value}`
@@ -19,19 +19,15 @@ const changeVehicleColor = (
     })
     .join("");
 
-  // let renderedVehicle = { ...teslaModels.vehicle_render[model] };
+  let renderedVehicle = { ...teslaModels.vehicle_render[model] };
+  // let renderedVehicle = _.cloneDeep(teslaModels["vehicle_render"][model]);
 
-  let renderedVehicle = _.cloneDeep(teslaModels["vehicle_render"][model]);
-
-
-  // Notice (above): we omitted the spread operation on certain renderedVehicle nested objects, but those objects aren't used. See a proper deep copy with var newTeslaModels below.
   let detailsObj = { ...teslaModels.vehicle_details[model] };
   let colorObj = { ...detailsObj["paint_options"][color] }; // color could be "Pearl White" for exampl
   let img = colorObj.image_paint; // our new image to be stored in renderObj
   let newPrice = colorObj.price; // our new price to be stored in renderObj
-  let currentPaintPrice = renderedVehicle["paint"][1];
-    // console.log('renderedVehicle-',renderedVehicle);
-  let currentVehiclePrice = renderedVehicle["cash_price"];
+  let currentPaintPrice = renderedVehicle["paint"][1]; 
+  let currentVehiclePrice = renderedVehicle["cash_price"]; 
 
   if (currentPaintPrice !== "included") {
     currentVehiclePrice -= currentPaintPrice;
@@ -41,30 +37,35 @@ const changeVehicleColor = (
     currentVehiclePrice += newPrice;
   }
 
-  // handle deep copy on all (relevant) nested objects w/ spread operator
-  let newTeslaModels = _.cloneDeep(teslaModels);
+  // handle deep copy on all (relevant) nested objects w/ spread operator 
+  let render = await _.cloneDeep(teslaModels["vehicle_render"][model]);
+  // let newTeslaModels = { ...teslaModels }; 
+  render["cash_price"] = currentVehiclePrice;
+  render["paint"] = [color, newPrice]; 
+  render["image_paint"] = img; 
+  
 
-  newTeslaModels.vehicle_render[model]["cash_price"] = currentVehiclePrice;
-  newTeslaModels.vehicle_render[model]["paint"] = [color, newPrice];
-  newTeslaModels.vehicle_render[model]["image_paint"] = img;
-
-  const currentImage = newTeslaModels.vehicle_render[model]["vehicle_image"]; // ex: "model3_white_std_18"
+  const currentImage = render["vehicle_image"]; // ex: "model3_white_std_18"
   const currentPaint = currentImage.split("_")[1];
   const imgNoUnderscore = img.split("_")[1];
-  const newImage = currentImage.replace(currentPaint, imgNoUnderscore);
-  newTeslaModels.vehicle_render[model]["vehicle_image"] = newImage;
-
+  
+  let newImage = currentImage.replace(currentPaint, imgNoUnderscore); 
+  render.vehicle_image = newImage; 
   let paymentObj = renderedVehicle["payment_object"];
-  newTeslaModels.vehicle_render[model][
+  
+  render[
     "payment_object"
-  ] = populatePaymentObject(currentVehiclePrice, paymentObj);
+  ] = await populatePaymentObject(currentVehiclePrice, paymentObj);
 
+  teslaModels["vehicle_render"][model] = render;
 
-  if(!runSync){
-    setTeslaModels(newTeslaModels)
-  } else {
-    return newTeslaModels;
+  if(runSync){
+    console.log('runSync!!!')
+    return teslaModels;
   };
+  
+  setTeslaModels(teslaModels); 
+ 
 
 }; // handled deep cpy!
 

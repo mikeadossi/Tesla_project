@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./VehicleSpecs.css";
 
 const VehicleSpecs = ({
@@ -10,11 +10,10 @@ const VehicleSpecs = ({
   batteryObjectKeys,
   setActiveBattery,
   activeBattery,
+  detailed_specs,
+  touchscreen,
 }) => {
-  const detailed_specs =
-    vehicleContent.vehicle_render[modelInfo.modelName]["detailed_specs"];
-  let touchscreen = detailed_specs.general_specs.displays;
-  touchscreen = touchscreen.replace(" inch", '"');
+
 
   return (
     <div className="vehicleSpecs">

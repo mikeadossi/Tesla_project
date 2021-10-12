@@ -4,7 +4,7 @@ import { hasAValue } from "../../helpers/helper";
 
 export const getMyZipcodeData = (zip) => async (dispatch) => {
   try {
-    const res = await axios.get(`http://localhost:3002/zipcode?zipcode=${zip}`);
+    const res = await axios.get(`http://localhost:3002/zipcode?zipcode=${zip}`); 
     dispatch({
       type: types.GET_ALL_ZIPCODE_DATA,
       payload: res.data,
@@ -48,6 +48,7 @@ export const showLocations = (dispatch, locations) => () => {
 export const getZipDataWithAreaCode = (areacode) => async (dispatch) => {
   try {
     const res = await axios.get(`http://localhost:3002/areacode?areacode=${areacode}`);
+    console.log('navActions areacode res------------------------------------------------->',res.data)
     dispatch({
       type: types.GET_ALL_ZIPCODE_DATA,
       payload: res.data,

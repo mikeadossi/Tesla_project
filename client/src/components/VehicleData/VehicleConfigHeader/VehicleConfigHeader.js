@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const VehicleConfigHeader = ({
   selectedVehicle, 
@@ -15,8 +15,15 @@ const VehicleConfigHeader = ({
     modelY: "my"
   }
 
-  const abbreviatedModel = modelSelectObj[modelInfo.modelName];
-  const inventoryUrl = "https://www.tesla.com/inventory/new/" + abbreviatedModel + "?arrangeby=relevance&zip=" + usStateVehicleOrder[1] + "&range=200";
+  let abbreviatedModel;
+  let inventoryUrl;
+
+  useEffect(() => {
+    if(modelInfo){
+      abbreviatedModel = modelSelectObj[modelInfo.modelName];
+      inventoryUrl = "https://www.tesla.com/inventory/new/" + abbreviatedModel + "?arrangeby=relevance&zip=" + usStateVehicleOrder[1] + "&range=200";
+    }
+  }, [modelInfo]);
 
 
   return ( 

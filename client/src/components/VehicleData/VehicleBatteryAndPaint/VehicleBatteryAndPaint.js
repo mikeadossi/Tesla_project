@@ -1,4 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import {
+  populatePaymentObject, 
+} from "../../../containers/VehiclePanel/VehiclePanelMethods/moduleExports"; 
+import { 
+  UPDATE_VEHICLE_RENDER_DATA, 
+} from "../../../config/actions/types";
 
 const VehicleBatteryAndPaint = ({
   selectedVehicle,
@@ -12,6 +19,8 @@ const VehicleBatteryAndPaint = ({
   batteryObjectKeys,
   activeBattery,
   setActiveBattery,
+  teslaModels,
+  setTeslaModels,
 }) => {
   const [activeColor, setActiveColor] = useState("");
 
@@ -96,7 +105,13 @@ const VehicleBatteryAndPaint = ({
             <div
               key={index}
               onClick={(event) => {
-                changeVehicleColor(p, selectedVehicle);
+                changeVehicleColor(
+                  p, 
+                  selectedVehicle,
+                  // teslaModels,
+                  // setTeslaModels,
+                  // populatePaymentObject,
+                );
                 setActiveColor(p);
               }}
               className={`app_noSelect app_inlineFlex color_select_container ${
@@ -127,4 +142,20 @@ const VehicleBatteryAndPaint = ({
   );
 };
 
-export default VehicleBatteryAndPaint;
+// export default VehicleBatteryAndPaint;
+
+const mapStateToProps = (state) => {
+  return {
+    teslaModels: state.vehiclesReducer.vehicleRenderData,
+  };
+};
+
+export default connect(
+  mapStateToProps, {
+    setTeslaModels: (teslaModels) => (dispatch) =>
+      dispatch({
+        type: UPDATE_VEHICLE_RENDER_DATA,
+        payload: teslaModels,
+      }),
+  }
+)(VehicleBatteryAndPaint);

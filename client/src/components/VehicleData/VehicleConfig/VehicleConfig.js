@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./VehicleConfig.css"; 
 import VehicleConfigPricing from "../../VehicleData/VehicleConfigPricing/VehicleConfigPricing";
 import VehicleConfigUserEntry from "../../VehicleData/VehicleConfigUserEntry/VehicleConfigUserEntry";
@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import {
   UPDATE_VEHICLE_RENDER_DATA,
 } from "../../../config/actions/types";
+
 
 const VehicleConfig = ({
   selectedVehicle,
@@ -45,7 +46,10 @@ const VehicleConfig = ({
   handleWarning,
   alertUser,
   setAlertUser,
-  vehicleData,
+  vehicleData, 
+  renderedTesla,
+  teslaDetails,
+  vehicleBattery,
 }) => {
   
   const showComponent = (value) => {
@@ -69,11 +73,6 @@ const VehicleConfig = ({
     return iv;
   })
   .join("");
-
-  const renderedTesla = vehicleContent.vehicle_render[name];
-  const teslaDetails = vehicleContent.vehicle_details[name];
-
-  const vehicleBattery = renderedTesla["battery"][1]; // ex: "long_range"
 
 
   if (!renderedTesla) {
@@ -228,7 +227,7 @@ const VehicleConfig = ({
   );
 };
 
-// export default VehicleConfig;
+
 
 const mapStateToProps = (state) => {
   return {
@@ -236,18 +235,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setTeslaModels: (teslaModels) =>
+export default connect(
+  mapStateToProps, {
+    setTeslaModels: (teslaModels) => (dispatch) =>
       dispatch({
         type: UPDATE_VEHICLE_RENDER_DATA,
         payload: teslaModels,
-      })
+      }),
   }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
 )(VehicleConfig);
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import VehicleConfig from "../../VehicleData/VehicleConfig/VehicleConfig";
 import VehicleSpecs from "../../VehicleData/VehicleSpecs/VehicleSpecs";
 import VehicleConfigHeader from "../../VehicleData/VehicleConfigHeader/VehicleConfigHeader";
@@ -33,6 +33,15 @@ const VehicleConfigContainer = ({
   setAlertUser,
   vehicleData,
 }) => {
+
+  const [configVisibility, setConfigVisibility] = useState({
+    ConfigPage: true,
+    SpecsPage: false,
+  });
+
+
+  const [activeBattery, setActiveBattery] = useState("");
+
   const name = `${selectedVehicle}`
     .split(" ")
     .map((iv, i) => {
@@ -44,21 +53,6 @@ const VehicleConfigContainer = ({
     .join("");
 
 
-  console.log('vehicleContent-',vehicleContent); 
-  
-
-
-  const renderedTesla = vehicleContent?.vehicle_render[name]; 
-  const vehicleBattery = renderedTesla?.["battery"][1]; // ex: "long_range"
-  const teslaDetails = vehicleContent?.vehicle_details[name];
-
-  const modelInfo = {
-    modelName: name,
-    modelBattery: vehicleBattery,
-    configuredPrice: renderedTesla?.["cash_price"],
-    pymtContent: renderedTesla?.["payment_object"],
-  };
-
   const makeVisible = (value) => {
     if (value === "ConfigPage") {
       setConfigVisibility({ SpecsPage: false });
@@ -69,28 +63,49 @@ const VehicleConfigContainer = ({
     }
   };
 
-  const [configVisibility, setConfigVisibility] = useState({
-    ConfigPage: true,
-    SpecsPage: false,
-  });
 
-  const [activeBattery, setActiveBattery] = useState("");
+  let renderedTesla;
+  let vehicleBattery;
+  let teslaDetails;
+  let modelInfo = 'yolo';
+  let batteryObject;
+  let batteryObjectKeys;
+  let detailed_specs;
+  let touchscreen;
 
-  const batteryObject = {
-    standard_battery: teslaDetails?.standard_battery,
-    off_menu: teslaDetails?.off_menu,
-    long_range: teslaDetails?.long_range,
-    performance: teslaDetails?.performance,
-    plaid: teslaDetails?.plaid,
+
+  if(vehicleContent && vehicleContent["vehicle_render"]){
+
+    renderedTesla = vehicleContent.vehicle_render[name]; 
+    vehicleBattery = renderedTesla.["battery"][1]; // ex: "long_range"
+    teslaDetails = vehicleContent.vehicle_details[name];
+    detailed_specs = vehicleContent.vehicle_render[name]["detailed_specs"];
+    touchscreen = detailed_specs.general_specs.displays;
+    touchscreen = touchscreen.replace(" inch", '"');
+
+    modelInfo = {
+      modelName: name,
+      modelBattery: vehicleBattery,
+      configuredPrice: renderedTesla.["cash_price"],
+      pymtContent: renderedTesla.["payment_object"],
+    };
+
+    batteryObject = {
+      standard_battery: teslaDetails?.standard_battery,
+      off_menu: teslaDetails?.off_menu,
+      long_range: teslaDetails?.long_range,
+      performance: teslaDetails?.performance,
+      plaid: teslaDetails?.plaid,
+    };
+
+    batteryObjectKeys = [
+      "standard_battery",
+      "off_menu",
+      "long_range",
+      "performance",
+      "plaid",
+    ];
   };
-
-  const batteryObjectKeys = [
-    "standard_battery",
-    "off_menu",
-    "long_range",
-    "performance",
-    "plaid",
-  ];
 
   return (
     <div className="app_Config_container" ref={vehicleContainerRef}>
@@ -134,7 +149,10 @@ const VehicleConfigContainer = ({
           handleWarning={handleWarning}
           alertUser={alertUser}
           setAlertUser={setAlertUser}
-          vehicleData={vehicleData}
+          vehicleData={vehicleData} 
+          renderedTesla={renderedTesla}
+          teslaDetails={teslaDetails}
+          vehicleBattery={vehicleBattery}
         />
       ) : (
         ""
@@ -152,6 +170,8 @@ const VehicleConfigContainer = ({
           setActiveBattery={setActiveBattery}
           activeBattery={activeBattery}
           currentUser={currentUser}
+          detailed_specs={detailed_specs}
+          touchscreen={touchscreen}
         /> 
         : 
         ""

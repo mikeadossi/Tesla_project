@@ -3,8 +3,7 @@ import "./InfoPanelPayments.css";
 
 const InfoPanelPayments = (props) => {
   const vehicleOrder = JSON.parse(props.vehicleOrder);
-  const stateAbbr = props.stateAbbr;
-  console.log('vehicleOrder-',JSON.parse(props.vehicleOrder) );
+  const stateAbbr = props.stateAbbr; 
 
   // make sure to include whether this state allows for net trade-in tax credit - www.realcartips.com/selling/010-states-that-allow-trade-in-tax-credit.shtml
 

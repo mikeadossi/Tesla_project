@@ -14,6 +14,7 @@ import {
   TOGGLE_RESET_WARNING,
   TOGGLE_APPLY_ALL_WARNING,
 } from "../../../config/actions/types";
+const _ = require('lodash');
 
 const VehicleConfigUserEntry = ({
   showComponent,
@@ -134,7 +135,7 @@ const VehicleConfigUserEntry = ({
   const handlePaymentFormSubmit = async () => {
     // function below updates state with user entries
 
-    await setAlertUser([]);
+    // await setAlertUser([]); 
 
     const configuredPrice = teslaModels.vehicle_render[vehicleName].cash_price;
 
@@ -151,19 +152,7 @@ const VehicleConfigUserEntry = ({
         setTeslaModels
       );
 
-      let vehicleContent = {
-        ...teslaModels,
-        vehicle_render: {
-          ...teslaModels["vehicle_render"],
-
-          [vehicleName]: {
-            ...teslaModels.vehicle_render[vehicleName],
-            ["payment_object"]: {
-              ...teslaModels.vehicle_render[vehicleName]["payment_object"],
-            },
-          },
-        },
-      };
+      let vehicleContent = _.cloneDeep(teslaModels);
 
       const configuredPrice =
         vehicleContent.vehicle_render[vehicleName].cash_price;
@@ -320,9 +309,9 @@ const VehicleConfigUserEntry = ({
 
       <div className="vehicleConfig_submit_btn_container">
         <button
-          onClick={() => {
+          onClick={(e) => {
             
-            handlePaymentFormSubmit().then((handled) => {
+            handlePaymentFormSubmit(teslaModels).then((handled) => {
               if (handled === "success") {
 
                 if (
@@ -409,7 +398,6 @@ function mapStateToProps(state) {
   return {
     activeFSDSetting: state.vehiclesReducer.activeFSDSetting,
     activeFormVals: state.vehiclesReducer.activeFormVals,
-
     displayResetWarning: state.navReducer.displayResetWarning,
     displayApplyAllWarning: state.navReducer.displayApplyAllWarning,
   };

@@ -23,7 +23,9 @@ import {
   getMyZipcodeData,
   emptyZipcodeData,
 } from "./config/actions/navActions";
-import { getAllStateData } from "./config/actions/usStateActions";
+import {
+  getAllVehicles,
+} from "./config/actions/vehicleActions"; 
 import moment from "moment-timezone";
 import axios from "axios";
 import Cookies from "universal-cookie";
@@ -32,17 +34,19 @@ import {
   UPDATE_VEHICLE_RENDER_DATA,
   MENU_OPTIONS,
   VIEW_RENDERED_OPTIONS,
+  GET_ALL_VEHICLES,
 } from "./config/actions/types";
 
 const App = ({
   zipcodeData,
   getMyZipcodeData,
   getZipDataWithAreaCode,
+  getAllVehicles,
   emptyZipcodeData,
   getNotifications,
   notificationData,
-  setVehicleData,
-  setMenuOptions,
+  setVehicleData, 
+  metaVehicleObj,
 }) => {
   const history = useHistory();
   const cookies = new Cookies();
@@ -85,7 +89,7 @@ const App = ({
       // 2 lines of code below ensures our DynamicMenu nav bar handles zip and areacode appropriately
       setAreaCodeInteraction("false");
       setCountyInteraction("false");
-
+      
       getZipDataWithAreaCode(val);
     } else if (val.length < 6 && val.length > 3 && Number(val)) {
       // 1001 and 90210 are both valid zip codes, so we must allow for 4/5 digit zip codes
@@ -406,7 +410,7 @@ const App = ({
     }
   };
 
-  async function getNeededStateData(abbr) {
+  async function getNeededStateData(abbr) { 
     await axios
       .get(`http://localhost:3002/statedata?abbr=${abbr}`)
       .then((usStatesData) => {
@@ -422,9 +426,11 @@ const App = ({
   }
 
   async function getEveryModel() {
-    await axios.get(`http://localhost:3002/allModels`).then((mv) => {
-      setMetaVehicles(mv.data);
-    });
+    getAllVehicles();
+    // await axios.get(`http://localhost:3002/allModels`).then((mv) => {
+    //   console.log('App.js mv-',mv)
+    //   setMetaVehicles(mv.data);
+    // });
   }
 
   const getDateString = (ourDate) => {
@@ -646,6 +652,8 @@ const App = ({
     }
   }, [zipcodeData.state_abbr]);
 
+  
+
 
 
   return (
@@ -755,7 +763,8 @@ const App = ({
                 alertUser={alertUser}
                 setAlertUser={setAlertUser}
                 statedata={usStateData}
-                metaVehicleObj={metaVehicles}
+                // metaVehicleObj={metaVehicles}
+                metaVehicleObj={metaVehicleObj}
                 usStateVehicleOrder={usStateVehicleOrder} 
               />
             )}
@@ -808,7 +817,7 @@ const App = ({
   );
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state) { 
   return {
     error: state.navReducer.error,
     zipcodeData: state.navReducer.zipcode_data,
@@ -822,21 +831,11 @@ export default connect(mapStateToProps, {
   getMyZipcodeData,
   getZipDataWithAreaCode,
   emptyZipcodeData,
-  getNotifications,
-  getAllStateData,
-  setTeslaModels: (teslaModels) => (dispatch) =>
-    dispatch({
-      type: UPDATE_VEHICLE_RENDER_DATA,
-      payload: teslaModels,
-    }),
-  setMenuOptions: (menuOptions) => (dispatch) =>
-    dispatch({
-      type: MENU_OPTIONS,
-      payload: menuOptions,
-    }),
+  getNotifications, 
+  getAllVehicles, 
   setVehicleData: (vehicleData) => (dispatch) =>
     dispatch({
       type: VIEW_RENDERED_OPTIONS,
       payload: vehicleData,
-    }),
+    }), 
 })(App);
