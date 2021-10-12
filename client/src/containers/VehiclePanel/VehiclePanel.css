@@ -21,10 +21,12 @@
 
 .vehiclePanel_img{
     height: 170px;
+    padding-right: 20px;
 }
 
 .vehiclePanel_facts_content{
     width: 350px;
+    color: grey;
 }
 
 .vehiclePanel_super_container{
@@ -39,4 +41,8 @@
     padding-bottom: 10px;
     font-size: 15px;
     font-weight: bold;
+}
+
+.vpf_content_text{
+    font-size: 15px;
 }

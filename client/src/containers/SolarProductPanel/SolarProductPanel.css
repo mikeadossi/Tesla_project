@@ -14,10 +14,12 @@
 
 .spp_img{
     height: 170px;
+    padding-right: 20px;
 }
 
 .spp_facts_content{
     width: 350px;
+    color: grey;
 }
 
 .spp_super_container{
@@ -32,4 +34,8 @@
     padding-bottom: 10px;
     font-size: 15px;
     font-weight: bold;
+}
+
+.spp_content_text{
+    font-size: 15px;
 }

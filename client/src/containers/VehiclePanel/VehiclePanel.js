@@ -33,6 +33,7 @@ import {
   LOAD_TESLA_DATA_BOOL,
   MENU_OPTIONS,
 } from "../../config/actions/types";
+const _ = require('lodash');
 
 const VehiclePanel = ({ 
   metaVehicleObj,
@@ -59,82 +60,49 @@ const VehiclePanel = ({
 
   const vehicleContainerRef = useRef();
 
-  useEffect(() => {
-    const payload = usStateVehicleOrder && usStateVehicleOrder[3];
-    if (metaVehicleObj !== [] && payload) {
-      getTeslaData(payload, metaVehicleObj, setTeslaModels);
+  useEffect(() => { 
+    if (metaVehicleObj !== []) { 
       populateMenu(metaVehicleObj, setMenuOptions);
-    }
+    }; 
+
   }, [
     metaVehicleObj,
-    usStateVehicleOrder,
-    loadTeslaData,
-    setMenuOptions,
+    setMenuOptions, 
+    populateMenu,
+  ]);
+
+  useEffect(() => {
+    const payload = usStateVehicleOrder && usStateVehicleOrder[3]; 
+    const callMe = async () => {
+      if (metaVehicleObj !== [] && payload) {
+        // getTeslaData(payload, metaVehicleObj, setTeslaModels); 
+        const data = await getTeslaData(payload, metaVehicleObj, setTeslaModels); 
+        setTeslaModels(data); 
+      };
+    }
+    callMe();
+
+  }, [
+    metaVehicleObj,
+    usStateVehicleOrder, 
     setTeslaModels,
   ]);
 
   
-  const runReset = (vehicleName, detailsAndRender) => {
-    let selectedModelDetailsObj =
-      detailsAndRender["vehicle_details"][vehicleName];
+  const runReset = async (vehicleName, detailsAndRender) => {
 
-    let selectedModel = {
-      ...selectedModelDetailsObj,
-      default_optioned_vehicle: {
-        ...selectedModelDetailsObj["default_optioned_vehicle"],
-
-        ["autopilot"]: [
-          ...selectedModelDetailsObj["default_optioned_vehicle"]["autopilot"],
-        ],
-        ["battery"]: [
-          ...selectedModelDetailsObj["default_optioned_vehicle"]["battery"],
-        ],
-        ["interior"]: [
-          ...selectedModelDetailsObj["default_optioned_vehicle"]["interior"],
-        ],
-        ["layout"]: [
-          ...selectedModelDetailsObj["default_optioned_vehicle"]["layout"],
-        ],
-        ["paint"]: [
-          ...selectedModelDetailsObj["default_optioned_vehicle"]["paint"],
-        ],
-        ["payment_object"]: {
-          ...selectedModelDetailsObj["default_optioned_vehicle"][
-            "payment_object"
-          ],
-          ["finance"]: {
-            ...selectedModelDetailsObj["default_optioned_vehicle"][
-              "payment_object"
-            ]["finance"],
-          },
-          ["lease"]: {
-            ...selectedModelDetailsObj["default_optioned_vehicle"][
-              "payment_object"
-            ]["lease"],
-          },
-          ["nonCashCreditsArr"]: [
-            ...selectedModelDetailsObj["default_optioned_vehicle"][
-              "payment_object"
-            ]["nonCashCreditsArr"],
-          ],
-        },
-        ["wheel"]: [
-          ...selectedModelDetailsObj["default_optioned_vehicle"]["wheel"],
-        ],
-      },
-    };
-
-    let newDetailsAndRender = {
-      ...detailsAndRender,
-      vehicle_render: {
-        ...detailsAndRender.vehicle_render,
-        [vehicleName]: selectedModel["default_optioned_vehicle"],
-      },
-    };
-
-    setTeslaModels(newDetailsAndRender);
-    dispatch(updateRenderData(newDetailsAndRender));
+    let defaultOp = await _.cloneDeep(detailsAndRender["vehicle_details"][vehicleName]);
+    let dAndRCopy = await _.cloneDeep(detailsAndRender); 
+    dAndRCopy["vehicle_render"][vehicleName] = defaultOp["default_optioned_vehicle"];
+    await setTeslaModels(dAndRCopy);
+    dispatch(updateRenderData(dAndRCopy));
   };
+
+  useEffect(() => {
+    if(teslaModels){
+      setTeslaModels(teslaModels);
+    }
+  }, [teslaModels])
 
 
   return (
@@ -156,7 +124,7 @@ const VehiclePanel = ({
         <div className="vehiclePanel_super_container">
           <div className="vehiclePanel_facts_container app_displayFlex">
             <div className="vehiclePanel_facts_img">
-              <img className="vehiclePanel_img" src="../../../../images/app_art/guy.jpg" />
+              <img className="vehiclePanel_img" src="../../../../images/app_art/guy.png" />
             </div>
             <div className="vehiclePanel_facts_content">
               <div className="vpf_content_heading">FACT #{vFactsArr[0]}</div>
@@ -189,7 +157,7 @@ const VehiclePanel = ({
               value,
               teslaModels,
               setTeslaModels,
-              populatePaymentObject
+              populatePaymentObject,
             );
           }}
           changeVehicleWheel={(trim, wheelSelected, value) => {
@@ -328,5 +296,5 @@ export default connect(mapStateToProps, {
     dispatch({
       type: MENU_OPTIONS,
       payload: menuOptions,
-    }),  
+    }),
 })(VehiclePanel);

@@ -43,7 +43,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 70px;
+    margin-bottom: 120px;
 }
 
 .home_hero_container{
@@ -57,6 +57,7 @@
 
 .home_hero_img_container{
     float: left;
+    padding-right: 20px;
 }
 
 .home_img{ 
@@ -69,14 +70,14 @@
 
 .home_hero_heading{
     font-weight: bold;
-    font-size: 68px;
+    font-size: 65px;
     line-height: 67px;
     padding-top: 73px;
 }
 
 .home_hero_text{
     font-size: 24px; 
-    padding-top: 60px;
+    padding-top: 12px;
 }
 
 .home_underline{
@@ -103,7 +104,7 @@
 }
 
 .home_subtext_container{
-    padding-top: 50px;
+    padding-top: 100px;
     padding-bottom: 100px;
 }
 

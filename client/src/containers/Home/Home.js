@@ -23,7 +23,7 @@ const Home = () => {
       <div className="home_feature_super">
         <div className="home_hero_container app_displayFlex">
           <div className="home_hero_img_container">
-            <img className="home_feature_img" src="../../../../images/app_art/knife.jpg"/>
+            <img className="home_feature_img" src="../../../../images/app_art/swiss_army.png"/>
           </div>
           <div className="home_hero_text_container">
             <div className="home_hero_text">Streamlined user experience provides easy access to everything you need to know to make a buying decision</div>
@@ -35,7 +35,7 @@ const Home = () => {
       <div className="home_feature_super">
         <div className="home_hero_container app_displayFlex">
           <div className="home_hero_img_container home_hero_img_container2">
-            <img className="home_feature_img" src="../../../../images/app_art/sun_panel.jpg"/>
+            <img className="home_feature_img" src="../../../../images/app_art/sun_panel.png"/>
           </div>
           <div className="home_hero_text_container">
             <div className="home_hero_text">Finding the ideal Tesla solar panel size has never been easier, really!</div>
@@ -47,7 +47,7 @@ const Home = () => {
       <div className="home_feature_super">
         <div className="home_hero_container app_displayFlex">
           <div className="home_hero_img_container home_hero_img_container3">
-          <img className="home_feature_img" src="../../../../images/app_art/paper_glasses.jpg"/>
+          <img className="home_feature_img" src="../../../../images/app_art/news.png"/>
           </div>
           <div className="home_hero_text_container">
             <div className="home_hero_text">Keep up with major Tesla production and pricing news by becoming a member today</div>
