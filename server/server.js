@@ -108,6 +108,7 @@ app.get("/userData", async (req, res) => {
 
 app.post("/insertNewUser", async (req, res) => {
   let body = req.body;
+  console.log('server body =====================================> ',body)
   body["password"] = await passwordHelper.hash(body["password"]);
 
   try {
@@ -266,6 +267,7 @@ app.listen(PORT, "0.0.0.0", () => {
   // queries.seedVehiclesDatabase();
   // queries.seedStateDatabase();
   // queries.seedNotifications();
+  // queries.seedZipcodesDatabase();
 });
 // kill -9 $( lsof -t -i:3002)
 // cmmnd+K+0 - hide functions

@@ -98,7 +98,7 @@ let queries = {
     apply_all_warning_on,
     reset_warning_on,
     viewed_welcome_notification,
-    user_sessionID,
+    user_sessionID
   }) {
     pool.query(
       `INSERT INTO user_details (
@@ -112,7 +112,7 @@ let queries = {
         apply_all_warning_on,
         reset_warning_on,
         viewed_welcome_notification,
-        user_sessionID,
+        user_sessionID
         ) VALUES (
           '${id}', 
           '${email}',
@@ -209,8 +209,7 @@ let queries = {
   },
 
   getTailoredNotifications: function (dateUserJoined) {
-    return new Promise((resolve, reject) => {
-      // pool.query(`SELECT * FROM notifications WHERE notification_date >= ${dateUserJoined}`, (err, rows) => {
+    return new Promise((resolve, reject) => { 
       pool.query(`SELECT * FROM notifications`, (err, rows) => {
         if (err) return reject(err);
         return resolve(rows);
