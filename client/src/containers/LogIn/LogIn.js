@@ -13,6 +13,10 @@ const LogIn = ({
   setAlertUser,
 }) => {
   const cookies = new Cookies();
+  const current = new Date();
+  const nextYear = new Date();
+  nextYear.setFullYear(current.getFullYear() + 1);
+
   const emailLogInRef = useRef();
   const passwordLogInRef = useRef(); 
   const history = useHistory();
@@ -83,8 +87,8 @@ const LogIn = ({
             axiosConfig
           );
 
-          cookies.set("userSessionId", sessionId, { path: "/" });
-          cookies.set("userEmail", email, { path: "/" });
+          cookies.set("userSessionId", sessionId, { path: "/", expires: nextYear });
+          cookies.set("userEmail", email, { path: "/", expires: nextYear });
           
           history.push("/");
           setTimeout(function () {

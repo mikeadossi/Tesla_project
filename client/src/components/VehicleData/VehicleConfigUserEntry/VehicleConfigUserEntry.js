@@ -54,6 +54,7 @@ const VehicleConfigUserEntry = ({
       "model"
     ]; //ex: Model 3
   const cookies = new Cookies();
+
   const [bkgClr, setBkgClr] = useState({
     "backgroundColor": "rgba(0, 0, 0, 0.3);",
   });

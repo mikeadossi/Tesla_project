@@ -4,16 +4,19 @@ import Cookies from 'universal-cookie';
 
 const HeaderCookiePermission = ({ showCookieAsk, setShowCookieAsk }) => {
   const cookies = new Cookies();
+  const current = new Date();
+  const nextYear = new Date();
+  nextYear.setFullYear(current.getFullYear() + 1);
 
   const installCookie = (bool) => { 
     if(bool){
-      cookies.set('hideResetWarning', "false", { path: '/' });
-      cookies.set('hideApplyAllWarning', "false", { path: '/' });
-      cookies.set('doNotSetCookie', "false", { path: '/' });
+      cookies.set('hideResetWarning', "false", { path: '/', expires: nextYear });
+      cookies.set('hideApplyAllWarning', "false", { path: '/', expires: nextYear });
+      cookies.set('doNotSetCookie', "false", { path: '/', expires: nextYear });
       
       setShowCookieAsk("false");
     } else {
-      cookies.set('doNotSetCookie', "true", { path: '/' });
+      cookies.set('doNotSetCookie', "true", { path: '/', expires: nextYear });
       setShowCookieAsk("false");
     };
   };

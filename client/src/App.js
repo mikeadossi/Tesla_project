@@ -52,6 +52,9 @@ const App = ({
 }) => {
   const history = useHistory();
   const cookies = new Cookies();
+  const current = new Date();
+  const nextYear = new Date();
+  nextYear.setFullYear(current.getFullYear() + 1);
 
   const [menuVisibility, setMenuVisibility] = useState({
     mobileMenu: false,
@@ -343,10 +346,10 @@ const App = ({
 
       if (hideResetWarning && cookieOne && cookieTwo) { 
         if (val[0] === "reset") {
-          cookies.set("hideResetWarning", val[1], { path: "/" });
+          cookies.set("hideResetWarning", val[1], { path: "/", expires: nextYear });
         }
         if (val[0] === "applyAll") {
-          cookies.set("hideApplyAllWarning", val[1], { path: "/" });
+          cookies.set("hideApplyAllWarning", val[1], { path: "/", expires: nextYear });
         }
       }
     } else if (currentUser) {
