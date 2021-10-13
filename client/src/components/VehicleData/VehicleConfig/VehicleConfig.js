@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./VehicleConfig.css"; 
 import VehicleConfigPricing from "../../VehicleData/VehicleConfigPricing/VehicleConfigPricing";
 import VehicleConfigUserEntry from "../../VehicleData/VehicleConfigUserEntry/VehicleConfigUserEntry";
@@ -50,19 +50,9 @@ const VehicleConfig = ({
   renderedTesla,
   teslaDetails,
   vehicleBattery,
-}) => {
-  
-  const showComponent = (value) => {
-    setVisibility({ [value]: true });
-  };
-
-  const [visibility, setVisibility] = useState({
-    Cash: true,
-    Lease: false,
-    Loan: false,
-  });
-
-  const [activePayment, setActivePayment] = useState("Cash");
+  vehicleImg, 
+  setVehicleImg,
+}) => { 
 
   const name = `${selectedVehicle}`
   .split(" ")
@@ -75,9 +65,24 @@ const VehicleConfig = ({
   .join("");
 
 
-  if (!renderedTesla) {
+  const showComponent = (value) => {
+    setVisibility({ [value]: true });
+  };
+
+  const [visibility, setVisibility] = useState({
+    Cash: true,
+    Lease: false,
+    Loan: false,
+  });
+
+  const [activePayment, setActivePayment] = useState("Cash");
+
+
+  if (!renderedTesla) { 
     return null;
   }
+
+  
 
   
   return (
@@ -98,6 +103,7 @@ const VehicleConfig = ({
           <VehicleConfigImgSection 
               renderedTesla={renderedTesla}
               currentUser={currentUser}
+              vehicleImg={vehicleImg}
           />
 
           <VehicleConfigPricing 
@@ -124,6 +130,8 @@ const VehicleConfig = ({
               activeBattery={activeBattery}
               setActiveBattery={setActiveBattery}
               currentUser={currentUser}
+              setTeslaModels={setTeslaModels}
+              setVehicleImg={setVehicleImg}
           />
 
         </div>
@@ -237,11 +245,12 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps, {
-    setTeslaModels: (teslaModels) => (dispatch) =>
+    setTeslaModels: (tm) => (dispatch) => {
       dispatch({
         type: UPDATE_VEHICLE_RENDER_DATA,
-        payload: teslaModels,
-      }),
+        payload: tm,
+      })
+    },
   }
 )(VehicleConfig);
 

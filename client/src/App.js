@@ -25,7 +25,8 @@ import {
 } from "./config/actions/navActions";
 import {
   getAllVehicles,
-} from "./config/actions/vehicleActions"; 
+} from "./config/actions/vehicleActions";
+// import { getAllStateData } from "./config/actions/usStateActions";
 import moment from "moment-timezone";
 import axios from "axios";
 import Cookies from "universal-cookie";
@@ -45,7 +46,8 @@ const App = ({
   emptyZipcodeData,
   getNotifications,
   notificationData,
-  setVehicleData, 
+  setVehicleData,
+  // setMenuOptions, 
   metaVehicleObj,
 }) => {
   const history = useHistory();
@@ -362,10 +364,6 @@ const App = ({
       }
       setWarnings(newWarnings);
       setCurrentUser(newCurrentUser); 
-
-      console.log('updated 1',{
-        val, newCurrentUser
-      })
       updateDB(val, newCurrentUser);
     }
   };
@@ -426,11 +424,7 @@ const App = ({
   }
 
   async function getEveryModel() {
-    getAllVehicles();
-    // await axios.get(`http://localhost:3002/allModels`).then((mv) => {
-    //   console.log('App.js mv-',mv)
-    //   setMetaVehicles(mv.data);
-    // });
+    getAllVehicles(); 
   }
 
   const getDateString = (ourDate) => {
@@ -831,11 +825,26 @@ export default connect(mapStateToProps, {
   getMyZipcodeData,
   getZipDataWithAreaCode,
   emptyZipcodeData,
-  getNotifications, 
-  getAllVehicles, 
+  getNotifications,
+  // getAllStateData,
+  getAllVehicles,
+  // getAllVehicles: () => (dispatch) => 
+  //   dispatch({
+  //     type: GET_ALL_VEHICLES,
+  //   }),
   setVehicleData: (vehicleData) => (dispatch) =>
     dispatch({
       type: VIEW_RENDERED_OPTIONS,
       payload: vehicleData,
-    }), 
+    }),
+  // setTeslaModels: (teslaModels) => (dispatch) =>
+  //   dispatch({
+  //     type: UPDATE_VEHICLE_RENDER_DATA,
+  //     payload: teslaModels,
+  //   }),
+  // setMenuOptions: (menuOptions) => (dispatch) =>
+  //   dispatch({
+  //     type: MENU_OPTIONS,
+  //     payload: menuOptions,
+  //   }),
 })(App);

@@ -20,11 +20,11 @@ export const getAllVehicles = () => async (dispatch) => {
   }
 };
 
-export const updateRenderData = () => async (newData, dispatch) => {
+export const updateRenderData = (vehicleRenderData) => async (dispatch) => { 
   try {
     dispatch({
       type: types.UPDATE_VEHICLE_RENDER_DATA,
-      payload: newData,
+      payload: vehicleRenderData,
     });
   } catch (e) {
     console.log(e);

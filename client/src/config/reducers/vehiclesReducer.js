@@ -28,6 +28,8 @@ const initialState = {
 };
 
 
+
+
 export default function state(state = initialState, action) {
   switch (action.type) {
     case types.GET_ALL_VEHICLES:
@@ -88,12 +90,6 @@ export default function state(state = initialState, action) {
         return {
           ...state,
           vehicleOrderObject: action.payload,
-        };
-      case types.LOAD_TESLA_DATA_BOOL:
-        initialState.loadTeslaDataBool = false;
-        return {
-          ...state,
-          loadTeslaDataBool: action.payload,
         };
       case types.MENU_OPTIONS:
         initialState.menuOptions = "";

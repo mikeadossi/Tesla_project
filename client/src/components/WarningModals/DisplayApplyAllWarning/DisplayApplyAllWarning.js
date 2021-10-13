@@ -121,8 +121,7 @@ const DisplayApplyAllWarning = ({
                   setActiveFSDSetting,
                   setActiveOffMenuAutopilot
                 );
-                closeApplyAllWarning();
-                console.log('hola?')
+                closeApplyAllWarning(); 
                 handleWarning(["applyAll", applyAllBool]);
               }}
               className="warningBtn continueToApplyAll"

@@ -1,4 +1,5 @@
-const _ = require('lodash');
+import { updateRenderData } from "../../../config/actions/vehicleActions";
+const _ = require('lodash'); 
 
 const changeVehicleColor = async (
   color,
@@ -59,13 +60,12 @@ const changeVehicleColor = async (
 
   teslaModels["vehicle_render"][model] = render;
 
-  if(runSync){
-    console.log('runSync!!!')
+  
+  if(runSync){ 
     return teslaModels;
   };
   
-  setTeslaModels(teslaModels); 
- 
+  await setTeslaModels(teslaModels);
 
 }; // handled deep cpy!
 

@@ -32,12 +32,15 @@ const VehicleConfigContainer = ({
   alertUser,
   setAlertUser,
   vehicleData,
+  vehicleImg, 
+  setVehicleImg,
 }) => {
 
   const [configVisibility, setConfigVisibility] = useState({
     ConfigPage: true,
     SpecsPage: false,
   });
+
 
 
   const [activeBattery, setActiveBattery] = useState("");
@@ -67,11 +70,13 @@ const VehicleConfigContainer = ({
   let renderedTesla;
   let vehicleBattery;
   let teslaDetails;
-  let modelInfo = 'yolo';
+  let modelInfo;
   let batteryObject;
   let batteryObjectKeys;
   let detailed_specs;
   let touchscreen;
+
+
 
 
   if(vehicleContent && vehicleContent["vehicle_render"]){
@@ -105,6 +110,7 @@ const VehicleConfigContainer = ({
       "performance",
       "plaid",
     ];
+
   };
 
   return (
@@ -153,6 +159,9 @@ const VehicleConfigContainer = ({
           renderedTesla={renderedTesla}
           teslaDetails={teslaDetails}
           vehicleBattery={vehicleBattery}
+          vehicleContent={vehicleContent}
+          vehicleImg={vehicleImg}
+          setVehicleImg={setVehicleImg}
         />
       ) : (
         ""

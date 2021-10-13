@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
   populatePaymentObject, 
+  changeVehicleColor,
 } from "../../../containers/VehiclePanel/VehiclePanelMethods/moduleExports"; 
 import { 
   UPDATE_VEHICLE_RENDER_DATA, 
-} from "../../../config/actions/types";
+} from "../../../config/actions/types"; 
+
 
 const VehicleBatteryAndPaint = ({
   selectedVehicle,
   name,
-  vehicleContent,
-  changeVehicleColor,
+  vehicleContent, 
   renderedTesla,
   teslaDetails,
   changeVehicleBattery,
@@ -20,7 +21,8 @@ const VehicleBatteryAndPaint = ({
   activeBattery,
   setActiveBattery,
   teslaModels,
-  setTeslaModels,
+  setTeslaModels, 
+  setVehicleImg,
 }) => {
   const [activeColor, setActiveColor] = useState("");
 
@@ -34,6 +36,8 @@ const VehicleBatteryAndPaint = ({
     const battery = vehicleContent.vehicle_render[vehicleName]["battery"][1];
     setActiveBattery(battery);
   }, [vehicleContent, vehicleName, setActiveColor, setActiveBattery]);
+
+  
 
   return (
     <div className="vehicleConfig_selectCarAndColor_container">
@@ -104,14 +108,19 @@ const VehicleBatteryAndPaint = ({
           {paintObjectKeys.map((p, index) => (
             <div
               key={index}
-              onClick={(event) => {
-                changeVehicleColor(
+              onClick={async (event) => {
+                
+                let data = 
+                await changeVehicleColor(
                   p, 
                   selectedVehicle,
-                  // teslaModels,
-                  // setTeslaModels,
-                  // populatePaymentObject,
-                );
+                  teslaModels,
+                  setTeslaModels, 
+                  populatePaymentObject,
+                  true,
+                );  
+                setTeslaModels(data);
+                setVehicleImg(data["vehicle_render"][name]["vehicle_image"]);
                 setActiveColor(p);
               }}
               className={`app_noSelect app_inlineFlex color_select_container ${
@@ -142,7 +151,6 @@ const VehicleBatteryAndPaint = ({
   );
 };
 
-// export default VehicleBatteryAndPaint;
 
 const mapStateToProps = (state) => {
   return {
@@ -151,7 +159,7 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(
-  mapStateToProps, {
+  mapStateToProps, { 
     setTeslaModels: (teslaModels) => (dispatch) =>
       dispatch({
         type: UPDATE_VEHICLE_RENDER_DATA,

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./VehiclePanel.css";
 import VehicleMenu from "../../components/VehicleData/VehicleMenu/VehicleMenu";
 import VehicleConfigContainer from "../../components/VehicleData/VehicleConfigContainer/VehicleConfigContainer"; 
@@ -9,8 +9,7 @@ import {
   getTeslaData,
   populateMenu,
   runApplyAll,
-  setUserPymtEntry,
-  changeVehicleColor,
+  setUserPymtEntry, 
   changeVehicleWheel,
   changeVehicleInterior,
   changeVehicleBattery,
@@ -20,8 +19,7 @@ import {
   selectOffMenuAutopilot, 
 } from "./VehiclePanelMethods/moduleExports";
 import { connect, useDispatch } from "react-redux";
-import { getAllVehicles } from "../../config/actions/vehicleActions"; 
-import { updateRenderData } from "../../config/actions/vehicleActions";
+import { getAllVehicles } from "../../config/actions/vehicleActions";  
 import {
   TOGGLE_MOBILE_MENU,
   UPDATE_VEHICLE_RENDER_DATA,
@@ -29,8 +27,7 @@ import {
   TOGGLE_RESET_WARNING,
   TOGGLE_APPLY_ALL_WARNING,
   FSD_SETTING,
-  OFFMENU_AUTOPILOT, 
-  LOAD_TESLA_DATA_BOOL,
+  OFFMENU_AUTOPILOT,
   MENU_OPTIONS,
 } from "../../config/actions/types";
 const _ = require('lodash');
@@ -46,10 +43,8 @@ const VehiclePanel = ({
   activeFSDSetting,
   setActiveFSDSetting,
   activeOffMenuAutopilot,
-  setActiveOffMenuAutopilot,
-  updateRenderData,
-  usStateVehicleOrder,
-  loadTeslaData,
+  setActiveOffMenuAutopilot, 
+  usStateVehicleOrder, 
   menuOptions,
   setMenuOptions,
   alertUser,
@@ -76,7 +71,7 @@ const VehiclePanel = ({
     const callMe = async () => {
       if (metaVehicleObj !== [] && payload) {
         // getTeslaData(payload, metaVehicleObj, setTeslaModels); 
-        const data = await getTeslaData(payload, metaVehicleObj, setTeslaModels); 
+        const data = await getTeslaData(payload, metaVehicleObj, setTeslaModels);
         setTeslaModels(data); 
       };
     }
@@ -90,19 +85,15 @@ const VehiclePanel = ({
 
   
   const runReset = async (vehicleName, detailsAndRender) => {
-
     let defaultOp = await _.cloneDeep(detailsAndRender["vehicle_details"][vehicleName]);
     let dAndRCopy = await _.cloneDeep(detailsAndRender); 
     dAndRCopy["vehicle_render"][vehicleName] = defaultOp["default_optioned_vehicle"];
-    await setTeslaModels(dAndRCopy);
-    dispatch(updateRenderData(dAndRCopy));
+    await setTeslaModels(dAndRCopy); 
   };
 
-  useEffect(() => {
-    if(teslaModels){
-      setTeslaModels(teslaModels);
-    }
-  }, [teslaModels])
+
+
+  const [vehicleImg, setVehicleImg] = useState("");
 
 
   return (
@@ -148,18 +139,10 @@ const VehiclePanel = ({
               runReset
             );
           }}
-          // vehicleContent={teslaModels}
+          vehicleImg={vehicleImg}
+          setVehicleImg={setVehicleImg}
           selectedVehicle={ele}
-          vehicleContainerRef={vehicleContainerRef}
-          changeVehicleColor={(color, value) => {
-            changeVehicleColor(
-              color,
-              value,
-              teslaModels,
-              setTeslaModels,
-              populatePaymentObject,
-            );
-          }}
+          vehicleContainerRef={vehicleContainerRef} 
           changeVehicleWheel={(trim, wheelSelected, value) => {
             changeVehicleWheel(
               trim,
@@ -257,16 +240,13 @@ function mapStateToProps(state) {
     vehicleData: state.vehiclesReducer.vehiclesRendered,
     activeFSDSetting: state.vehiclesReducer.activeFSDSetting,
     activeOffMenuAutopilot: state.vehiclesReducer.activeOffMenuAutopilot,
-    loadTeslaData: state.vehiclesReducer.loadTeslaDataBool,
     menuOptions: state.vehiclesReducer.menuOptions,
     vFactsArr: state.navReducer.vFactsArr,
   };
 }
 
 export default connect(mapStateToProps, {
-  getAllVehicles, 
-  updateRenderData: () => (newData, dispatch) =>
-    updateRenderData(newData, dispatch),
+  getAllVehicles,
   toggl: () => (dispatch) => dispatch({ type: TOGGLE_MOBILE_MENU }),
   toggleResetWarning: (modelName) => (dispatch) =>
     dispatch({ type: TOGGLE_RESET_WARNING, payload: modelName }),

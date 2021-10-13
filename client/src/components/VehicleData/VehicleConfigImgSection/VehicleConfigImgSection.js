@@ -1,11 +1,14 @@
-import React from "react";  
+import React, { useEffect } from "react";  
+import { connect } from "react-redux";
 
 const VehicleConfigImgSection = ({ 
-  renderedTesla
+  renderedTesla,
+  vehicleImg,
 }) => {
 
     const renderedTeslaImgFolder = renderedTesla.image_vehicle;
-    const renderedTeslaImg = renderedTesla.vehicle_image;
+    const renderedTeslaImg = vehicleImg || renderedTesla.vehicle_image;
+    
 
   return (
     <div className="vehicleConfig_vehicleImg_container">
