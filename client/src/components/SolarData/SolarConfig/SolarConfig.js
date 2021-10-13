@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./SolarConfig.css";
 import SolarPanels from "../SolarPanels/SolarPanels";
-import SolarRoof from "../SolarRoof/SolarRoof";
 import SolarPowerWall from "../SolarPowerWall/SolarPowerWall";
 import SolarAddProduct from "../SolarAddProduct/SolarAddProduct";
 
@@ -158,7 +157,7 @@ const SolarConfig = ({
           loan_pymts={loan_pymts}
           alertUser={alertUser} 
           setAlertUser={setAlertUser}
-          currentUser={currentUser}
+          currentUser={currentUser} 
         />
         <div className="app_config_border"></div>
         <SolarPowerWall

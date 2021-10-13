@@ -4,6 +4,7 @@ const initialState = {
   showSolarConfig: false,
   recommendedProducts: "",
   recommendedSize: "",
+  userPymtEntry: "",
 };
 
 
@@ -25,6 +26,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         recommendedSize: action.payload,
+        error: "",
+      };
+    case types.SET_SOLAR_PYMT:
+      return {
+        ...state,
+        userPymtEntry: action.payload,
         error: "",
       };
     default:

@@ -2,12 +2,13 @@ import React from "react";
 import "./SolarProductPanel.css";
 import SolarMenu from "../../components/SolarData/SolarMenu/SolarMenu";
 import SolarConfig from "../../components/SolarData/SolarConfig/SolarConfig"; 
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import {
   SHOW_SOLAR_CONFIG,
   RECOMMENDED_PRODUCTS,
   RECOMMENDED_SIZE,
 } from "../../config/actions/types";
+import { setUserPymtEntry } from "../VehiclePanel/VehiclePanelMethods/moduleExports";
 
 const SolarProductPanel = ({ 
   zipcode_data, 
@@ -22,7 +23,6 @@ const SolarProductPanel = ({
   setRecommendedSize,
   setRecommendedProducts,
 }) => {
-  const dispatch = useDispatch();
 
   const solarRecommendations = {
     101: {

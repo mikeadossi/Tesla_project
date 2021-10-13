@@ -1,5 +1,9 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import "./SolarMenu.css";
+import {
+  SET_SOLAR_PYMT,
+} from "../../../config/actions/types";
 
 const SolarMenu = ({
   zip,
@@ -9,6 +13,7 @@ const SolarMenu = ({
   setRecommendedSize, 
   alertUser,
   setAlertUser,
+  setUserEntry,
 }) => {
   const [userEnergyCost, setUserEnergyCost] = useState(""); 
 
@@ -16,10 +21,11 @@ const SolarMenu = ({
     e.preventDefault(); 
     if( isNaN(value) ){
       setAlertUser([{"color": "red"},`${value} is not a number, please try again.`, "solarMenu"]); 
-    } else if( value >= 2000){
+    } else if( value > 2000){
       setAlertUser([{"color": "red"},`submission can't be more than $2,000, please try again.`, "solarMenu"]); 
     } else {
-      openSolarConfig(value); 
+      setUserEntry(value);
+      openSolarConfig(value);
     };
   }
   const openSolarConfig = (value) => {
@@ -71,15 +77,16 @@ const SolarMenu = ({
                   <span>$</span>
                   <input
                     className="solarMenu_form_bill_input app_main_submit_input app_removeBlue"
-                    onChange={(e) => setUserEnergyCost(e.target.value)}
+                    onChange={(e) => {
+                      setUserEnergyCost(e.target.value)
+                    }}
                   ></input>
                 </div>
                 <button
                   className="solarMenu_form_submit_btn app_submit_btn app_noSelect app_removeBlue"
                   onClick={(e) => {
                     validateMonthlyCost(e, userEnergyCost);
-                  }}
-                  // onClick={(e) => openSolarConfig(e, userEnergyCost)}
+                  }} 
                 >
                   Submit
                 </button>
@@ -95,4 +102,17 @@ const SolarMenu = ({
   );
 };
 
-export default SolarMenu;
+
+function mapStateToProps(state) {
+  return {
+    userPymtEntry: state.solarReducer.userPymtEntry,
+  };
+}
+
+export default connect(mapStateToProps, {
+  setUserEntry: (entry) => (dispatch) =>
+    dispatch({
+      type: SET_SOLAR_PYMT,
+      payload: entry,
+    }),
+})(SolarMenu);

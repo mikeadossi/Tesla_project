@@ -1,7 +1,7 @@
 import React from 'react';
 import './SolarCash.css';
 
-const SolarCash = ({products}) => {
+const SolarCash = ({ products }) => {
     return (
         <div className="solarCash_container"> 
           <div className="app_Solar_cost_div">

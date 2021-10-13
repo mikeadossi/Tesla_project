@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import "./SolarPowerWall.css";
 import PowerwallCash from "../../SolarData/PowerwallPymt/PowerwallCash/PowerwallCash.js";
 import PowerwallFinance from "../../SolarData/PowerwallPymt/PowerwallFinance/PowerwallFinance.js";
@@ -7,8 +8,8 @@ const SolarPowerWall = ({
   recommendedProducts,
   powerwallPricing,
   loan_pymts,
-  setAlertUser,
   currentUser,
+  userPymtEntry,
 }) => {
   const products = { ...recommendedProducts };
   const [userPreferredPW, setUserPreferredPW] = useState(
@@ -43,6 +44,12 @@ const SolarPowerWall = ({
         </div>
 
         <div className="app_Config_specs_container app_Solar_specs_container">
+            <div className="app_Config_spec vehicleConfig_range">
+              User Entry: $
+              <span>
+                {Number(userPymtEntry).toLocaleString("en-US")}
+              </span>
+            </div>
           {activePWBtn === products["recommended_powerwalls"] ? (
             <div className="app_Config_spec vehicleConfig_range">
               Recommended:{" "}
@@ -266,4 +273,11 @@ const SolarPowerWall = ({
   );
 };
 
-export default SolarPowerWall;
+
+function mapStateToProps(state) {
+  return {
+    userPymtEntry: state.solarReducer.userPymtEntry,
+  };
+}
+
+export default connect(mapStateToProps)(SolarPowerWall);

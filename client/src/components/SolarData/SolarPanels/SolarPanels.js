@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import "./SolarPanels.css";
 import SolarCash from "../../SolarData/SolarPymt/SolarCash/SolarCash.js";
 import SolarFinance from "../../SolarData/SolarPymt/SolarFinance/SolarFinance.js";
@@ -9,8 +10,8 @@ const SolarPanels = ({
   setRecommendedProducts,
   panelOptions,
   recommendedSize,
-  loan_pymts, 
-  setAlertUser,
+  loan_pymts,
+  userPymtEntry,
 }) => {
   const [activeSolarBtn, setActiveSolarBtn] = useState("");
   const products = { ...recommendedProducts };
@@ -58,6 +59,9 @@ const SolarPanels = ({
         </div>
 
         <div className="app_Config_specs_container app_Solar_specs_container">
+            <div className="app_Config_spec vehicleConfig_range">
+              User Entry: $ {Number(userPymtEntry).toLocaleString("en-US")}
+            </div>
           {recommendedSize === products["recommended_size"] ? (
             <div className="app_Config_spec vehicleConfig_range">
               Recommended: {recommendedSize} kW
@@ -189,4 +193,10 @@ const SolarPanels = ({
   );
 };
 
-export default SolarPanels;
+function mapStateToProps(state) {
+  return {
+    userPymtEntry: state.solarReducer.userPymtEntry,
+  };
+}
+
+export default connect(mapStateToProps)(SolarPanels);

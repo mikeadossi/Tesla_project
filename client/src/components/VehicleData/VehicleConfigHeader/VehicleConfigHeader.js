@@ -15,15 +15,8 @@ const VehicleConfigHeader = ({
     modelY: "my"
   }
 
-  let abbreviatedModel;
-  let inventoryUrl;
-
-  useEffect(() => {
-    if(modelInfo){
-      abbreviatedModel = modelSelectObj[modelInfo.modelName];
-      inventoryUrl = "https://www.tesla.com/inventory/new/" + abbreviatedModel + "?arrangeby=relevance&zip=" + usStateVehicleOrder[1] + "&range=200";
-    }
-  }, [modelInfo]);
+  let abbreviatedModel = modelSelectObj[modelInfo.modelName];
+  let inventoryUrl = "https://www.tesla.com/inventory/new/" + abbreviatedModel + "?arrangeby=relevance&zip=" + usStateVehicleOrder[1] + "&range=200";
 
 
   return ( 
