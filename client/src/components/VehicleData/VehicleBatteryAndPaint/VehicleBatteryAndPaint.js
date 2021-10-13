@@ -22,6 +22,7 @@ const VehicleBatteryAndPaint = ({
   setActiveBattery,
   teslaModels,
   setTeslaModels, 
+  vehicleImg,
   setVehicleImg,
 }) => {
   const [activeColor, setActiveColor] = useState("");
@@ -36,6 +37,12 @@ const VehicleBatteryAndPaint = ({
     const battery = vehicleContent.vehicle_render[vehicleName]["battery"][1];
     setActiveBattery(battery);
   }, [vehicleContent, vehicleName, setActiveColor, setActiveBattery]);
+
+  // const setImg = async (modelName, img) => {
+  //   console.log({modelName, img, vehicleImg})
+  //   vehicleImg[modelName] = img;
+  //   await setVehicleImg(vehicleImg);
+  // }
 
   
 
@@ -109,7 +116,6 @@ const VehicleBatteryAndPaint = ({
             <div
               key={index}
               onClick={async (event) => {
-                
                 let data = 
                 await changeVehicleColor(
                   p, 
@@ -120,7 +126,8 @@ const VehicleBatteryAndPaint = ({
                   true,
                 );  
                 setTeslaModels(data);
-                setVehicleImg(data["vehicle_render"][name]["vehicle_image"]);
+                let img = data["vehicle_render"][name]["vehicle_image"];
+                setVehicleImg(img);
                 setActiveColor(p);
               }}
               className={`app_noSelect app_inlineFlex color_select_container ${

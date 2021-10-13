@@ -77,12 +77,9 @@ const VehicleConfig = ({
 
   const [activePayment, setActivePayment] = useState("Cash");
 
-
   if (!renderedTesla) { 
     return null;
   }
-
-  
 
   
   return (
@@ -104,6 +101,7 @@ const VehicleConfig = ({
               renderedTesla={renderedTesla}
               currentUser={currentUser}
               vehicleImg={vehicleImg}
+              name={name}
           />
 
           <VehicleConfigPricing 
@@ -131,6 +129,7 @@ const VehicleConfig = ({
               setActiveBattery={setActiveBattery}
               currentUser={currentUser}
               setTeslaModels={setTeslaModels}
+              vehicleImg={vehicleImg}
               setVehicleImg={setVehicleImg}
           />
 

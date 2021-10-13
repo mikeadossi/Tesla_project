@@ -34,8 +34,7 @@
 }
 
 .home_title{
-    margin: 40px 0px 40px 0px;
-    display:none;
+    margin: 40px 0px 20px 0px;
 }
 
 .home_hero_super{
@@ -43,7 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 120px;
+    margin-bottom: 110px;
 }
 
 .home_hero_container{

@@ -51,6 +51,14 @@ const VehiclePanel = ({
   setAlertUser,
   vFactsArr, 
 }) => {
+  
+  const [vehicleImg, setVehicleImg] = useState({
+    "model3":"",
+    "modelS": "",
+    "modelX": "",
+    "modelY": "",
+  });
+
   const dispatch = useDispatch();
 
   const vehicleContainerRef = useRef();
@@ -93,7 +101,7 @@ const VehiclePanel = ({
 
 
 
-  const [vehicleImg, setVehicleImg] = useState("");
+
 
 
   return (

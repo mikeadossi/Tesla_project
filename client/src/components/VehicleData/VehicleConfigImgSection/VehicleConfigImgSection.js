@@ -4,12 +4,12 @@ import { connect } from "react-redux";
 const VehicleConfigImgSection = ({ 
   renderedTesla,
   vehicleImg,
+  name,
 }) => {
 
-    const renderedTeslaImgFolder = renderedTesla.image_vehicle;
-    const renderedTeslaImg = vehicleImg || renderedTesla.vehicle_image;
+  const renderedTeslaImgFolder = renderedTesla.image_vehicle;
+  const renderedTeslaImg = vehicleImg[name] || renderedTesla.vehicle_image;
     
-
   return (
     <div className="vehicleConfig_vehicleImg_container">
         <div>
