@@ -31,6 +31,6 @@
     "server:inspect": "nodemon --inspect server.js",
     "start": "nodemon scrape.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "db:schema": "mysql -h localhost -u root --password=abc123 tesla_project < /Users/mikeadossi/Documents/algorithm_dojo_code/Tesla_project/schema.sql"
+    "db:schema": "mysql -h localhost -u root -p tesla_project < ./schema.sql"
   }
 }
