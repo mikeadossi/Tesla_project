@@ -53,7 +53,6 @@ let queries = {
     });
   },
 
-
   getUserQuery: function(email, password) {
     return new Promise((resolve, reject) => {
       pool.query( 

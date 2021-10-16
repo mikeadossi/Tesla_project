@@ -1,7 +1,7 @@
 {
   "name": "sidekick_server",
   "version": "0.0.1",
-  "description": "My first scraper",
+  "description": "Tesla Sidekick Server",
   "main": "server.js",
   "author": "Mike A",
   "dependencies": {
@@ -13,6 +13,7 @@
     "crypto": "^1.0.1",
     "dotenv": "^8.6.0",
     "express": "^4.17.1",
+    "find-config": "^1.0.0",
     "firebase": "^9.0.1",
     "fs": "0.0.1-security",
     "geo-tz": "^6.0.1",
@@ -25,12 +26,19 @@
     "request": "^2.88.2",
     "simplecrypt": "^0.1.0"
   },
+  "engines": {
+    "node": "10.x"
+  },
   "scripts": {
     "client": "cd ../client && npm start",
     "server": "nodemon server.js",
-    "server:inspect": "nodemon --inspect server.js",
-    "start": "nodemon scrape.js",
+    "server:inspect": "nodemon --inspect server.js", 
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "db:schema": "mysql -h localhost -u root -p tesla_project < ./schema.sql"
+    "db:schema": "mysql -h localhost -u root -p tesla_project < ./schema.sql" ,
+    "seedDB": "mysql -h localhost -u root -p tesla_project < ./seedDB.js" ,
+    "postinstall": "node scripts/install.js"
+  },
+  "devDependencies": {
+    "mysql-import": "^5.0.21"
   }
 }
