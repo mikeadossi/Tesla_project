@@ -35,7 +35,6 @@
     "server:inspect": "nodemon --inspect server.js", 
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "db:schema": "mysql -h localhost -u root -p tesla_project < ./schema.sql" ,
-    "seedDB": "mysql -h localhost -u root -p tesla_project < ./seedDB.js" ,
     "postinstall": "node scripts/install.js"
   },
   "devDependencies": {

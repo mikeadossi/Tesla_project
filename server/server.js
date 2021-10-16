@@ -263,6 +263,10 @@ app.get("/userNotifications", async (req, res) => {
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
+  // queries.seedVehiclesDatabase();
+  // queries.seedStateDatabase();
+  // queries.seedNotifications();
+  // queries.seedZipcodesDatabase(); 
 });
 // kill -9 $( lsof -t -i:3002)
 // cmmnd+K+0 - hide functions
