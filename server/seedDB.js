@@ -11,9 +11,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.listen(PORT, "0.0.0.0", () => {
-    queries.seedVehiclesDatabase();
-    queries.seedStateDatabase();
-    queries.seedNotifications();
-    queries.seedZipcodesDatabase(); 
+    // queries.seedVehiclesDatabase();
+    // queries.seedStateDatabase();
+    // queries.seedNotifications();
+    // queries.seedZipcodesDatabase(); 
+    // queries.seedAreaCodeDatabase();
     console.log('DB has been populated!')
 });

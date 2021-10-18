@@ -554,10 +554,10 @@ const App = ({
       let sessionID = cookies.get("userSessionId");
       const checkForSession = await axios.get(
         `http://localhost:3002/isSessionValid?credentials=${email}sessionID=${sessionID}`
-      );
+      ); 
 
-      if (checkForSession) {
-        // get currentUser info and log user in!
+      if (checkForSession.success) {
+        // get currentUser info and log user in! 
         const ourUserObj = checkForSession.data.data[0];
         setCurrentUser(ourUserObj);
       }

@@ -1,4 +1,4 @@
-USE tesla_project;
+USE heroku_85b959e27eb22fb;
 DROP TABLE IF EXISTS zip_codes;
 DROP TABLE IF EXISTS user_details;
 DROP TABLE IF EXISTS state_data; 
@@ -12,7 +12,7 @@ CREATE TABLE zip_codes (
   state_abbr VARCHAR(255) NULL,
   state_name VARCHAR(255) NULL,
   area_codes VARCHAR(255) NULL,
-  county VARCHAR(45) NULL,
+  county VARCHAR(255) NULL,
   time_zone VARCHAR(45) NULL,
   observes_day_light_savings VARCHAR(45) NULL,
   latitude VARCHAR(45) NULL,

@@ -1,3 +1,4 @@
+const path = require('path');
 const queries = require("./queries");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -11,6 +12,8 @@ require("dotenv").config({ path: __dirname + "/.env" });
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'build')));
+
 
 app.get("/isUserRegistered", async (req, res) => {
   const {
@@ -47,16 +50,22 @@ app.get("/isSessionValid", async (req, res) => {
   let email = credentials.split("sessionID=")[0];
   email = email.replace("%40","@");
   const sessionId = credentials.split("sessionID=")[1];
+  console.log('sessionId-',sessionId)
 
   try {
-    const getUser = await queries.getUserQuery(email); 
+    const getUserArr = await queries.getUserQuery(email); 
+    console.log('getUserArr-',getUserArr)
 
-    if(!getUser){ 
-      return res.status(500);
+    if(getUserArr.length === 0){ 
+      console.log('res-',res)
+      return res.status(404).json({
+        success: false,
+        msg: "email not found"
+      });
     } else {
-      if (sessionId === getUser[0]["user_sessionID"]) {
+      if (sessionId === getUserArr[0]["user_sessionID"]) {
         let ob = {
-          data: getUser,
+          data: getUserArr,
           success: true,
           msg: "session is valid!"
         }
@@ -72,7 +81,8 @@ app.get("/isSessionValid", async (req, res) => {
     };
 
   } catch (e) {
-    return res.status(500);
+    console.log('e-',e)
+    return res.sendStatus(500);
   }
 
 });
@@ -114,7 +124,11 @@ app.post("/insertNewUser", async (req, res) => {
     const rows = await queries.insertNewUser(body);
     return res.status(200).send(JSON.stringify(rows));
   } catch (e) {
-    return res.status(500);
+    const ob = {
+      success: false,
+      msg: "no user inserted"
+    };
+    return res.status(500).json(ob);
   }
 });
 
@@ -261,12 +275,13 @@ app.get("/userNotifications", async (req, res) => {
   }
 });
 
+app.get('/*',(req, res) => {
+  console.log('inside app get')
+  res.sendFile(path.join(__dirname, 'build', 'index.html' ))
+});
+
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
-  // queries.seedVehiclesDatabase();
-  // queries.seedStateDatabase();
-  // queries.seedNotifications();
-  // queries.seedZipcodesDatabase(); 
 });
 // kill -9 $( lsof -t -i:3002)
 // cmmnd+K+0 - hide functions

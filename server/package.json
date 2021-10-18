@@ -2,7 +2,7 @@
   "name": "sidekick_server",
   "version": "0.0.1",
   "description": "Tesla Sidekick Server",
-  "main": "server.js",
+  "main": "index.js",
   "author": "Mike A",
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.1.16",
@@ -31,10 +31,9 @@
   },
   "scripts": {
     "client": "cd ../client && npm start",
-    "server": "nodemon server.js",
+    "server": "node server.js",
     "server:inspect": "nodemon --inspect server.js", 
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "db:schema": "mysql -h localhost -u root -p tesla_project < ./schema.sql" ,
     "postinstall": "node scripts/install.js"
   },
   "devDependencies": {

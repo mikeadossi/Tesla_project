@@ -1,5 +1,5 @@
 require("dotenv").config();
-const pool = require("./utility/database");
+const pool = require("./database");
 const zipCodes = require("./seed_folder/newestObject");
 const vehiclesObj = require("./seed_folder/vehicles_seedFile");
 const stateDataObj = require("./seed_folder/state_seedFile.js");
@@ -10,7 +10,7 @@ const notificationsArr = require("./seed_folder/notifications");
 let queries = {
   getAll: function () {
     return new Promise((resolve, reject) => {
-      pool.query("SELECT * from stateData", (err, rows) => {
+      pool.query("SELECT * from state_data", (err, rows) => {
         if (err) return reject(err);
         return resolve(rows);
       });
@@ -101,7 +101,7 @@ let queries = {
   }) {
     pool.query(
       `INSERT INTO user_details (
-        user_id, 
+        id, 
         user_email,
         user_password,
         date_joined, 
@@ -170,8 +170,8 @@ let queries = {
 
   getZipcodeData: function (zipcode) {
     return new Promise((resolve, reject) => {
-      pool.query(`SELECT * from zip_codes where id=${zipcode}`, (err, rows) => {
-        if (err) return reject(err);
+      pool.query(`SELECT * from zip_codes where id=${zipcode}`, (err, rows) => { 
+        if (err) return reject(err); 
         return resolve(rows[0]);
       });
     });
