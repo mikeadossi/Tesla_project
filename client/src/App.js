@@ -23,6 +23,7 @@ import {
   getMyZipcodeData,
   emptyZipcodeData,
 } from "./config/actions/navActions";
+import { atlasApi } from "./config/myApi";
 import {
   getAllVehicles,
 } from "./config/actions/vehicleActions";

@@ -6,6 +6,8 @@ const fs = require("fs");
 // const serviceCenterData = require('./seed_folder/serviceCenterData');
 // const newZipcodeObject = require('./seed_folder/newZipcodeObject');
 // const newestObject = require('./seed_folder/newestObject'); 
+// const zipCodes = require("./seed_folder/newestObject");
+const letUsSee = require("./seed_folder/letUsSee");
 
 require("dotenv").config({ path: __dirname + "/.env" });
 
@@ -25268,11 +25270,66 @@ let scrape = async () => {
   };
 
 
+  const seedZipcodesFile = async () => { 
+    const zipcodesToSeed = Object.keys(zipCodes).map((zipcode, x) => {
+      const {
+        state_abbr,
+        state_name,
+        county,
+        city,
+        area_codes,
+        time_zone,
+        observes_day_light_savings,
+        latitude,
+        longitude,
+      } = zipCodes[zipcode];
+
+      if(x % 1000 === 0){
+        console.log('x inserted so far - ',x)
+      }
+
+      return {
+        state_abbr,
+        state_name,
+        county,
+        city,
+        area_codes,
+        time_zone,
+        observes_day_light_savings,
+        latitude,
+        longitude,
+        id: zipcode,
+      };
+
+    });
+
+    await fs.appendFile(
+      "./allZipcodesToBeInserted.js",
+      JSON.stringify(zipcodesToSeed),
+      (err) => {
+        if (err) throw err;
+        console.log("all zipcodes have been added!");
+      }
+    );
+
+  };
+
+  const letsSee = () => {
+    console.log('len- ',letUsSee.length)
+  }
+
+
+
+
+
     // console.log('====> ',newestObject['10001'])
     // return await  stringifyAreacodeArrays(newestObject);
 
     // return await getLongLat(state_seedFile_copy); 
     // return await passPhoneNumsIn(state_seedFile,showroomPhoneNum,serviceCenterPhoneNum);
+
+    // return await seedZipcodesFile();
+    return letsSee();
 
     // return await getIncentiveTable(stateNames, allStates);
     // return [ await allBatteryResults(), await allExteriorResults(), await allInteriorResults(), await getSolarPanelData(), await getIncentiveTable(stateNames, allStates), await getQualificationData(), await getQualifyingUtility(), await getMobileCharging(), await getWallConnectorData() ];

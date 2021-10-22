@@ -49,15 +49,12 @@ app.get("/isSessionValid", async (req, res) => {
 
   let email = credentials.split("sessionID=")[0];
   email = email.replace("%40","@");
-  const sessionId = credentials.split("sessionID=")[1];
-  console.log('sessionId-',sessionId)
+  const sessionId = credentials.split("sessionID=")[1]; 
 
   try {
-    const getUserArr = await queries.getUserQuery(email); 
-    console.log('getUserArr-',getUserArr)
+    const getUserArr = await queries.getUserQuery(email);  
 
-    if(getUserArr.length === 0){ 
-      console.log('res-',res)
+    if(getUserArr.length === 0){
       return res.status(404).json({
         success: false,
         msg: "email not found"
@@ -204,6 +201,7 @@ app.get("/zipcode", async (req, res) => {
   } = req;
 
   try {
+    console.log("zipcode-", zipcode)
     const rows = await queries.getZipcodeData(zipcode);
     return res.status(200).send(JSON.stringify(rows));
   } catch (e) {

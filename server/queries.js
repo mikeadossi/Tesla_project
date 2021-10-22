@@ -4,7 +4,7 @@ const zipCodes = require("./seed_folder/newestObject");
 const vehiclesObj = require("./seed_folder/vehicles_seedFile");
 const stateDataObj = require("./seed_folder/state_seedFile.js");
 const areaCodesObj = require("./seed_folder/area_codes"); 
-const notificationsArr = require("./seed_folder/notifications");
+const notificationsArr = require("./seed_folder/notifications"); 
 
 
 let queries = {
@@ -56,7 +56,7 @@ let queries = {
   getUserQuery: function(email, password) {
     return new Promise((resolve, reject) => {
       pool.query( 
-        `SELECT * from user_details where user_email="${email}"`,
+        `SELECT * from user_details where user_email='${email}'`,
         (err, response) => { 
           if (err) return reject(err);
           return resolve(response);
