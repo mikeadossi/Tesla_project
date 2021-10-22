@@ -1,10 +1,10 @@
-import * as types from "./types";
-import axios from "axios";
+import * as types from "./types"; 
 import { hasAValue } from "../../helpers/helper";
+import { atlasApi } from "../myApi";
 
 export const getAllVehicles = () => async (dispatch) => {
   try {
-    const res = await axios.get(`http://localhost:3002/allModels`);
+    const res = await atlasApi.get(`allModels`);
     dispatch({
       type: types.GET_ALL_VEHICLES,
       payload: res.data,

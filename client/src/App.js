@@ -326,8 +326,8 @@ const App = ({
       ourValue: user[x],
     };
 
-    await axios.post(
-      `http://localhost:3002/updateUserData`,
+    await atlasApi.post(
+      `updateUserData`,
       parcel,
       axiosConfig
     );
@@ -413,8 +413,8 @@ const App = ({
   };
 
   async function getNeededStateData(abbr) { 
-    await axios
-      .get(`http://localhost:3002/statedata?abbr=${abbr}`)
+    await atlasApi
+      .get(`statedata?abbr=${abbr}`)
       .then((usStatesData) => {
         const ussd = usStatesData.data[0];
         setUsStateData(ussd);
@@ -553,8 +553,8 @@ const App = ({
       let email = cookies.get("userEmail");
       email = email.replace("%40", "@");
       let sessionID = cookies.get("userSessionId");
-      const checkForSession = await axios.get(
-        `http://localhost:3002/isSessionValid?credentials=${email}sessionID=${sessionID}`
+      const checkForSession = await atlasApi.get(
+        `isSessionValid?credentials=${email}sessionID=${sessionID}`
       ); 
 
       if (checkForSession.success) {

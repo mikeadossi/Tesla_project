@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import "./LogIn.css";
-import { Link, useHistory } from "react-router-dom";  
-import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
 import Cookies from "universal-cookie";
+import { atlasApi } from "../../config/myApi";
 
 
 const LogIn = ({ 
@@ -47,14 +47,14 @@ const LogIn = ({
         password
       } 
      
-      const checkEmail = await axios.get(`http://localhost:3002/isUserRegistered?email=${email}`);
+      const checkEmail = await atlasApi.get(`isUserRegistered?email=${email}`);
 
       if (!checkEmail.data.success) {
         setAlertUser([{"color": "red"},`${email} not found`, "register_login"]);
         setLoading(false);
         return;
       } else if (checkEmail.data.success) {
-        const loggedInUser = await axios.post(`http://localhost:3002/logUserIntoApp`, body, axiosConfig);  
+        const loggedInUser = await atlasApi.post(`logUserIntoApp`, body, axiosConfig);  
         const id = loggedInUser.data.data[0].id;
 
   
@@ -81,8 +81,8 @@ const LogIn = ({
             ourKey: "user_sessionID",
             ourValue: sessionId,
           };
-          await axios.post(
-            `http://localhost:3002/updateUserData`,
+          await atlasApi.post(
+            `updateUserData`,
             parcel,
             axiosConfig
           );

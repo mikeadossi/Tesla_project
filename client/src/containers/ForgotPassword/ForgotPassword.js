@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import "./ForgotPassword.css";
 import axios from "axios";
+import { atlasApi } from "../../config/myApi";
 
 const ForgotPassword = ({
   alertUser,
@@ -26,8 +27,8 @@ const ForgotPassword = ({
     setLoading(true);
     const email = emailRef.current.value;
 
-    const checkEmail = await axios.get(
-      `http://localhost:3002/isUserRegistered?email=${email}`
+    const checkEmail = await atlasApi.get(
+      `isUserRegistered?email=${email}`
     ); 
 
     if (checkEmail.data.success) {
@@ -40,8 +41,8 @@ const ForgotPassword = ({
           "Content-Type": "application/json",
         },
       };
-      await axios.post(
-        `http://localhost:3002/sendNewPassword`,
+      await atlasApi.post(
+        `sendNewPassword`,
         body,
         axiosConfig
       );
@@ -51,8 +52,8 @@ const ForgotPassword = ({
         ourKey: "user_password",
         ourValue: passw,
       };
-      await axios.post(
-        `http://localhost:3002/updateUserData`,
+      await atlasApi.post(
+        `updateUserData`,
         parcel,
         axiosConfig
       );

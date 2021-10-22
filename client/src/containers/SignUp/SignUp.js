@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import "./SignUp.css";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios"; 
+import { atlasApi } from "../../config/myApi";
 
 const SignUp = ({ 
   loading,
@@ -28,7 +29,7 @@ const SignUp = ({
     const password = passwordConfirmSignupRef.current.value;
     try {
       setLoading(true); 
-      const checkEmail = await axios.get(`http://localhost:3002/isUserRegistered?email=${email}`);
+      const checkEmail = await atlasApi.get(`isUserRegistered?email=${email}`);
 
       if (checkEmail.data.success) { 
         setAlertUser([{"color": "red"},`${email} is already in use. Try again.`, "register_signup"])
@@ -52,7 +53,7 @@ const SignUp = ({
           viewed_welcome_notification : 'false',
         } 
         
-        await axios.post(`http://localhost:3002/insertNewUser`, body, axiosConfig); 
+        await atlasApi.post(`insertNewUser`, body, axiosConfig);
         setAlertUser([{"color": "green"}, "Your Account has been created! Wait a moment...", "register_signup"])
         setTimeout(function(){
           setAlertUser([]);
