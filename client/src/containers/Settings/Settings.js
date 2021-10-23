@@ -45,7 +45,7 @@ const Settings = ({
         }
         
         if(window.confirm("Are you sure you want to delete your account?")){
-            await atlasApi.post(`deleteUserData`, parcel, axiosConfig); 
+            await atlasApi.post(`/deleteUserData`, parcel, axiosConfig); 
             emptyZipcodeData(); 
             setAlertUser([{"background-color": "grey"},"Account closed succesfully.", "loggedIn_container"])
             history.push("/");
@@ -75,7 +75,7 @@ const Settings = ({
                 password: currentPasswRef.current.value,
             } 
 
-            const user = await atlasApi.post(`logUserIntoApp`, body, axiosConfig);
+            const user = await atlasApi.post(`/logUserIntoApp`, body, axiosConfig);
             
             if(user){ 
                 // submitted "current password" matches, now update password
@@ -85,7 +85,7 @@ const Settings = ({
                     ourValue: newPasswRef.current.value,
                 } 
                   
-                const success = await atlasApi.post(`updateUserData`, parcel, axiosConfig); 
+                const success = await atlasApi.post(`/updateUserData`, parcel, axiosConfig); 
 
                 if(success){   
                     newPasswConfirmRef.current.value = '';

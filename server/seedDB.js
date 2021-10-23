@@ -15,6 +15,6 @@ app.listen(PORT, "0.0.0.0", () => {
     // queries.seedStateDatabase();
     // queries.seedNotifications();
     // queries.seedAreaCodeDatabase();
-    queries.seedZipcodesDatabase(); 
+    // queries.seedZipcodesDatabase(); 
     console.log('DB has been populated!')
 });

@@ -77,8 +77,6 @@ const VehicleConfigContainer = ({
   let touchscreen;
 
 
-
-
   if(vehicleContent && vehicleContent["vehicle_render"]){
 
     renderedTesla = vehicleContent.vehicle_render[name]; 
@@ -189,7 +187,6 @@ const VehicleConfigContainer = ({
   );
 };
 
-// export default VehicleConfigContainer;
 
 function mapStateToProps(state) {
   return {

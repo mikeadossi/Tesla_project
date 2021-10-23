@@ -85,13 +85,13 @@ app.get("/isSessionValid", async (req, res) => {
 });
 
 
-app.get("/statedata", async (req, res) => {
+app.get("/statedata", async (req, res) => { 
   const {
     query: { abbr },
   } = req;
 
   try {
-    const rows = await queries.getStateDataByStateAbbr(abbr);
+    const rows = await queries.getStateDataByStateAbbr(abbr); 
     // return res.status(200).send(rows);
     return res.status(200).send(JSON.stringify(rows));
   } catch (e) {
@@ -128,7 +128,6 @@ app.post("/insertNewUser", async (req, res) => {
     return res.status(500).json(ob);
   }
 });
-
 
 app.post("/logUserIntoApp", async (req, res) => {
   const { email, password } = req.body;
@@ -200,15 +199,13 @@ app.get("/zipcode", async (req, res) => {
     query: { zipcode },
   } = req;
 
-  try {
-    console.log("zipcode-", zipcode)
+  try { 
     const rows = await queries.getZipcodeData(zipcode);
     return res.status(200).send(JSON.stringify(rows));
   } catch (e) {
     return res.status(500);
   }
 });
-
 
 app.get("/areacode", async (req, res) => {
   const {
@@ -273,8 +270,7 @@ app.get("/userNotifications", async (req, res) => {
   }
 });
 
-app.get('/*',(req, res) => {
-  console.log('inside app get')
+app.get('/*',(req, res) => { 
   res.sendFile(path.join(__dirname, 'build', 'index.html' ))
 });
 

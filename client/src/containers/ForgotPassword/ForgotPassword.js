@@ -28,7 +28,7 @@ const ForgotPassword = ({
     const email = emailRef.current.value;
 
     const checkEmail = await atlasApi.get(
-      `isUserRegistered?email=${email}`
+      `/isUserRegistered?email=${email}`
     ); 
 
     if (checkEmail.data.success) {
@@ -42,7 +42,7 @@ const ForgotPassword = ({
         },
       };
       await atlasApi.post(
-        `sendNewPassword`,
+        `/sendNewPassword`,
         body,
         axiosConfig
       );
@@ -53,7 +53,7 @@ const ForgotPassword = ({
         ourValue: passw,
       };
       await atlasApi.post(
-        `updateUserData`,
+        `/updateUserData`,
         parcel,
         axiosConfig
       );

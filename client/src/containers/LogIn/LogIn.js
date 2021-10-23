@@ -47,14 +47,14 @@ const LogIn = ({
         password
       } 
      
-      const checkEmail = await atlasApi.get(`isUserRegistered?email=${email}`);
+      const checkEmail = await atlasApi.get(`/isUserRegistered?email=${email}`);
 
       if (!checkEmail.data.success) {
         setAlertUser([{"color": "red"},`${email} not found`, "register_login"]);
         setLoading(false);
         return;
       } else if (checkEmail.data.success) {
-        const loggedInUser = await atlasApi.post(`logUserIntoApp`, body, axiosConfig);  
+        const loggedInUser = await atlasApi.post(`/logUserIntoApp`, body, axiosConfig);  
         const id = loggedInUser.data.data[0].id;
 
   
@@ -82,7 +82,7 @@ const LogIn = ({
             ourValue: sessionId,
           };
           await atlasApi.post(
-            `updateUserData`,
+            `/updateUserData`,
             parcel,
             axiosConfig
           );

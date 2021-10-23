@@ -29,7 +29,7 @@ const SignUp = ({
     const password = passwordConfirmSignupRef.current.value;
     try {
       setLoading(true); 
-      const checkEmail = await atlasApi.get(`isUserRegistered?email=${email}`);
+      const checkEmail = await atlasApi.get(`/isUserRegistered?email=${email}`);
 
       if (checkEmail.data.success) { 
         setAlertUser([{"color": "red"},`${email} is already in use. Try again.`, "register_signup"])
@@ -53,7 +53,7 @@ const SignUp = ({
           viewed_welcome_notification : 'false',
         } 
         
-        await atlasApi.post(`insertNewUser`, body, axiosConfig);
+        await atlasApi.post(`/insertNewUser`, body, axiosConfig);
         setAlertUser([{"color": "green"}, "Your Account has been created! Wait a moment...", "register_signup"])
         setTimeout(function(){
           setAlertUser([]);

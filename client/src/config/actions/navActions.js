@@ -1,12 +1,11 @@
-import * as types from "./types";
-import axios from "axios";
+import * as types from "./types"; 
 import { hasAValue } from "../../helpers/helper";
 import { atlasApi } from "../myApi";
 
 
 export const getMyZipcodeData = (zip) => async (dispatch) => {
   try {
-    const res = await atlasApi.get(`zipcode?zipcode=${zip}`); 
+    const res = await atlasApi.get(`/zipcode?zipcode=${zip}`); 
     dispatch({
       type: types.GET_ALL_ZIPCODE_DATA,
       payload: res.data,
@@ -49,7 +48,7 @@ export const showLocations = (dispatch, locations) => () => {
 
 export const getZipDataWithAreaCode = (areacode) => async (dispatch) => {
   try {
-    const res = await atlasApi.get(`areacode?areacode=${areacode}`);
+    const res = await atlasApi.get(`/areacode?areacode=${areacode}`);
     dispatch({
       type: types.GET_ALL_ZIPCODE_DATA,
       payload: res.data,
@@ -67,7 +66,7 @@ export const getZipDataWithAreaCode = (areacode) => async (dispatch) => {
 
 export const getNotifications = (dateJoined) => async (dispatch) => {
   try {
-    const res = await atlasApi.get(`userNotifications?dateJoined=${dateJoined}`);
+    const res = await atlasApi.get(`/userNotifications?dateJoined=${dateJoined}`);
     dispatch({
       type: types.GET_TAILORED_NOTIFICATIONS,
       payload: res.data,

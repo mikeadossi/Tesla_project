@@ -17,10 +17,10 @@ let queries = {
     });
   },
 
-  getStateDataByStateAbbr: function (abbr) {
+  getStateDataByStateAbbr: function (abbr) { 
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT * from state_data where state_abbr="${abbr}"`,
+        `SELECT * from state_data where state_abbr='${abbr}'`,
         (err, rows) => {
           if (err) return reject(err);
           return resolve(rows);
@@ -44,7 +44,7 @@ let queries = {
   isEmailRegistered: function (email) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT id from user_details where user_email="${email}"`, 
+        `SELECT id from user_details where user_email='${email}'`, 
         (err, rows) => {
           if (err) return reject(err);
           return resolve(rows);

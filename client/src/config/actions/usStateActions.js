@@ -4,7 +4,7 @@ import { atlasApi } from "../myApi";
 
 export const getAllStateData = (abbr) => async (dispatch) => { 
     try {
-      const res = await atlasApi.get(`statedata?abbr=${abbr}`); 
+      const res = await atlasApi.get(`/statedata?abbr=${abbr}`); 
       dispatch({
         type: types.GET_ALL_US_STATES_DATA,
         payload: res.data,

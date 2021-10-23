@@ -15,7 +15,6 @@ import DynamicMenu from "./containers/DynamicMenu/DynamicMenu";
 import Settings from "./containers/Settings/Settings";
 import Lost from "./containers/Lost/Lost";
 import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
-import InfoModal from "./containers/InfoModal/InfoModal";
 import { connect } from "react-redux";
 import {
   getZipDataWithAreaCode,
@@ -27,16 +26,11 @@ import { atlasApi } from "./config/myApi";
 import {
   getAllVehicles,
 } from "./config/actions/vehicleActions";
-// import { getAllStateData } from "./config/actions/usStateActions";
 import moment from "moment-timezone";
-import axios from "axios";
 import Cookies from "universal-cookie";
 import HeaderCookiePermission from "./components/Header/HeaderCookiePermission/HeaderCookiePermission.js";
 import {
-  UPDATE_VEHICLE_RENDER_DATA,
-  MENU_OPTIONS,
   VIEW_RENDERED_OPTIONS,
-  GET_ALL_VEHICLES,
 } from "./config/actions/types";
 
 const App = ({
@@ -48,7 +42,6 @@ const App = ({
   getNotifications,
   notificationData,
   setVehicleData,
-  // setMenuOptions, 
   metaVehicleObj,
 }) => {
   const history = useHistory();
@@ -205,7 +198,7 @@ const App = ({
     return norCal.includes(county);
   };
 
-  const changeRegion = (state, county, vo, obj) => {
+  const changeRegion = (state, county, vo, obj) => { 
     if (obj && obj["state_name"] === state) {
       if (state !== "California") {
         setOurRegion(vo.region);
@@ -327,7 +320,7 @@ const App = ({
     };
 
     await atlasApi.post(
-      `updateUserData`,
+      `/updateUserData`,
       parcel,
       axiosConfig
     );
@@ -412,22 +405,22 @@ const App = ({
     }
   };
 
-  async function getNeededStateData(abbr) { 
+  async function getNeededStateData(abbr) {
     await atlasApi
-      .get(`statedata?abbr=${abbr}`)
+      .get(`/statedata?abbr=${abbr}`)
       .then((usStatesData) => {
-        const ussd = usStatesData.data[0];
-        setUsStateData(ussd);
+        const ussd = usStatesData.data[0]; 
+        setUsStateData(ussd); 
         const vo = JSON.parse(ussd["vehicle_order"]);
         const po = JSON.parse(ussd["payment_object"]);
 
         setUsStateVehicleOrder([ussd["state_abbr"], zipcodeData["id"], vo, po]);
 
-        changeRegion(zipcodeData.state_name, zipcodeData.county, vo, ussd);
+        changeRegion(zipcodeData.state_name, zipcodeData.county, vo, ussd); 
       });
   }
 
-  async function getEveryModel() {
+  const getEveryModel = async () => {
     getAllVehicles(); 
   }
 
@@ -554,7 +547,7 @@ const App = ({
       email = email.replace("%40", "@");
       let sessionID = cookies.get("userSessionId");
       const checkForSession = await atlasApi.get(
-        `isSessionValid?credentials=${email}sessionID=${sessionID}`
+        `/isSessionValid?credentials=${email}sessionID=${sessionID}`
       ); 
 
       if (checkForSession.success) {
@@ -820,7 +813,6 @@ function mapStateToProps(state) {
     error: state.navReducer.error,
     zipcodeData: state.navReducer.zipcode_data,
     notificationData: state.navReducer.notifications,
-    loadTeslaData: state.vehiclesReducer.loadTeslaDataBool,
     metaVehicleObj: state.vehiclesReducer.everyVehicle,
   };
 }
@@ -830,25 +822,10 @@ export default connect(mapStateToProps, {
   getZipDataWithAreaCode,
   emptyZipcodeData,
   getNotifications,
-  // getAllStateData,
   getAllVehicles,
-  // getAllVehicles: () => (dispatch) => 
-  //   dispatch({
-  //     type: GET_ALL_VEHICLES,
-  //   }),
   setVehicleData: (vehicleData) => (dispatch) =>
     dispatch({
       type: VIEW_RENDERED_OPTIONS,
       payload: vehicleData,
     }),
-  // setTeslaModels: (teslaModels) => (dispatch) =>
-  //   dispatch({
-  //     type: UPDATE_VEHICLE_RENDER_DATA,
-  //     payload: teslaModels,
-  //   }),
-  // setMenuOptions: (menuOptions) => (dispatch) =>
-  //   dispatch({
-  //     type: MENU_OPTIONS,
-  //     payload: menuOptions,
-  //   }),
 })(App);

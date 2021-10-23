@@ -4,7 +4,7 @@ import { atlasApi } from "../myApi";
 
 export const getAllVehicles = () => async (dispatch) => {
   try {
-    const res = await atlasApi.get(`allModels`);
+    const res = await atlasApi.get(`/allModels`);
     dispatch({
       type: types.GET_ALL_VEHICLES,
       payload: res.data,
@@ -29,7 +29,7 @@ export const updateRenderData = (vehicleRenderData) => async (dispatch) => {
   } catch (e) {
     console.log(e);
   }
-}
+};
 
 export const addCurrentPrice = (newPrice) => async (dispatch) => {
   try {
