@@ -300,6 +300,7 @@ const App = ({
     timeStr = timeArr.join(":");
     return timeStr; // 13:45:10
   };
+  
 
   const calc = (offset) => {
     let str = convertOffsetToDate(offset); // 9/17/2021, 1:45:10 AM
@@ -307,6 +308,21 @@ const App = ({
     let time = getTimeStr(str);
     calculateTime(date, time);
   };
+
+  const calculateOffset = () => {
+    let roughOffset = zipcodeData.time_zone; // "Pacific (GMT -08:00)"
+    let offset = roughOffset.split("(GMT ");
+    offset = offset[1].split(")");
+    offset = offset[0]; // -08.00
+    offset = offset.split("-0").join("-");
+    offset = offset.split(":00")[0];
+    calc(offset);
+  }
+
+  const isDateFormatCorrect = () => {
+    const str = new Date().toLocaleString();
+    return /^\d+\/\d+\/\d+, \d+:\d+:\d+ [AP]M$/.test(str)
+  }
 
   const updateDB = async (x, user) => {
     let axiosConfig = {
@@ -600,6 +616,12 @@ const App = ({
       } else {
         setCurrentTime(moment().tz(getTime[timeZ]).format("LT"));
         setTimeZone(timeZ);
+        const timeIsCorrectFormat = isDateFormatCorrect();
+        if (timeIsCorrectFormat){ 
+          calculateOffset();
+        } else {
+          setToday(['-', '-']);
+        }
       }
     }
   }, [zipcodeData.city]);
@@ -623,18 +645,6 @@ const App = ({
           "/" +
           zipcodeData.id
       );
-    }
-  }, [zipcodeData.city]);
-
-  useEffect(() => {
-    if (zipcodeData.city) {
-      let roughOffset = zipcodeData.time_zone; // "Pacific (GMT -08:00)"
-      let offset = roughOffset.split("(GMT ");
-      offset = offset[1].split(")");
-      offset = offset[0]; // -08.00
-      offset = offset.split("-0").join("-");
-      offset = offset.split(":00")[0];
-      calc(offset);
     }
   }, [zipcodeData.city]);
 
