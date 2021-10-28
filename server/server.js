@@ -3,7 +3,7 @@ const queries = require("./queries");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3002; 
 const passwordHelper = require("./utility/passwordHelper");
 const sendMail = require("./nodemailer");
 

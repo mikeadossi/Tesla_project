@@ -83,6 +83,11 @@ const App = ({
   const [usStateVehicleOrder, setUsStateVehicleOrder] = useState([]);
   const [usStateData, setUsStateData] = useState({});
 
+
+
+
+
+  
   const acceptZipOrAreacode = (val) => {
     if (val.length === 3 && Number(val)) {
       // 2 lines of code below ensures our DynamicMenu nav bar handles zip and areacode appropriately
@@ -108,6 +113,14 @@ const App = ({
       }, 4000);
     }
   };
+
+
+
+
+
+
+
+
 
   const openNotification = () => {
     if (toggleNotification === "closed") {
@@ -365,6 +378,15 @@ const App = ({
     }
   };
 
+
+
+
+
+
+
+
+
+
   const submitZipOrAreacode = (zipcode) => {
     setzipcode("");
 
@@ -381,6 +403,17 @@ const App = ({
       }, 4000);
     }
   };
+
+
+
+
+
+
+
+
+
+
+
 
   const handleLogOut = () => {
     cookies.remove("userEmail", { path: "/" });

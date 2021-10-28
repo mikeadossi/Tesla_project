@@ -80,7 +80,7 @@ const VehicleConfigContainer = ({
   if(vehicleContent && vehicleContent["vehicle_render"]){
 
     renderedTesla = vehicleContent.vehicle_render[name]; 
-    vehicleBattery = renderedTesla.["battery"][1]; // ex: "long_range"
+    vehicleBattery = renderedTesla["battery"][1]; // ex: "long_range"
     teslaDetails = vehicleContent.vehicle_details[name];
     detailed_specs = vehicleContent.vehicle_render[name]["detailed_specs"];
     touchscreen = detailed_specs.general_specs.displays;
@@ -89,8 +89,8 @@ const VehicleConfigContainer = ({
     modelInfo = {
       modelName: name,
       modelBattery: vehicleBattery,
-      configuredPrice: renderedTesla.["cash_price"],
-      pymtContent: renderedTesla.["payment_object"],
+      configuredPrice: renderedTesla["cash_price"],
+      pymtContent: renderedTesla["payment_object"],
     };
 
     batteryObject = {
