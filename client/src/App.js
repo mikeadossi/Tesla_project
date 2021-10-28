@@ -83,10 +83,6 @@ const App = ({
   const [usStateVehicleOrder, setUsStateVehicleOrder] = useState([]);
   const [usStateData, setUsStateData] = useState({});
 
-
-
-
-
   
   const acceptZipOrAreacode = (val) => {
     if (val.length === 3 && Number(val)) {
@@ -113,13 +109,6 @@ const App = ({
       }, 4000);
     }
   };
-
-
-
-
-
-
-
 
 
   const openNotification = () => {
@@ -378,15 +367,6 @@ const App = ({
     }
   };
 
-
-
-
-
-
-
-
-
-
   const submitZipOrAreacode = (zipcode) => {
     setzipcode("");
 
@@ -403,17 +383,6 @@ const App = ({
       }, 4000);
     }
   };
-
-
-
-
-
-
-
-
-
-
-
 
   const handleLogOut = () => {
     cookies.remove("userEmail", { path: "/" });
