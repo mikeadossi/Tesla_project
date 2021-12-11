@@ -86,8 +86,7 @@ let queries = {
     });
   },
 
-  insertNewUser: function ({
-    id,
+  insertNewUser: function ({ 
     email,
     password,
     date_joined, 
@@ -100,8 +99,7 @@ let queries = {
     user_sessionID
   }) {
     pool.query(
-      `INSERT INTO user_details (
-        id, 
+      `INSERT INTO user_details ( 
         user_email,
         user_password,
         date_joined, 
@@ -112,8 +110,7 @@ let queries = {
         reset_warning_on,
         viewed_welcome_notification,
         user_sessionID
-        ) VALUES (
-          '${id}', 
+        ) VALUES ( 
           '${email}',
           '${password}', 
           '${date_joined}',
